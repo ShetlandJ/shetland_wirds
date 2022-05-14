@@ -1,5 +1,6 @@
 <script setup>
 import { Head, Link } from "@inertiajs/inertia-vue3";
+import SearchBar from '../components/SearchBar.vue';
 
 defineProps({
     canLogin: Boolean,
@@ -115,9 +116,8 @@ defineProps({
         <!-- </div> -->
         <!-- component -->
 
-        <!-- This is an example component -->
         <div class="max-w-2xl mx-auto">
-            <form>
+            <!-- <form>
                 <label
                     for="default-search"
                     class="
@@ -205,7 +205,8 @@ defineProps({
                     </button>
                     </div>
                 </div>
-            </form>
+            </form> -->
+            <SearchBar />
         </div>
     </div>
 </template>

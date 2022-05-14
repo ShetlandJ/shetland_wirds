@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Word;
 use Illuminate\Support\Str;
 use App\Models\UserWordLike;
+use App\Models\WordToWord;
 use Illuminate\Support\Facades\Auth;
 
 class WordService
@@ -31,10 +32,28 @@ class WordService
                 'example_sentence' => $word->example_sentence,
                 'is_liked' => $word->isLikedByUser,
                 'likes' => $word->likes->count(),
+                'see_also' => $word->relatedWords->filter(function ($relatedWord) {
+                    return $relatedWord->word;
+                })
+                ->map(function (WordToWord $w2w) {
+                    return $this->formatWord($w2w->word);
+                }),
             ];
         }
 
         return $output;
+    }
+
+    public function formatWord(Word $word): array
+    {
+        return [
+            'id' => $word->uuid,
+            'word' => $word->word,
+            'translation' => $word->translation,
+            'example_sentence' => $word->example_sentence,
+            'is_liked' => $word->isLikedByUser,
+            'likes' => $word->likes->count(),
+        ];
     }
 
     public function handleLike(string $word): void

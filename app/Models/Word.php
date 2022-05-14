@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\UserWordLike;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Word extends Model
 {
@@ -13,6 +14,11 @@ class Word extends Model
     public function likes()
     {
         return $this->hasMany(UserWordLike::class);
+    }
+
+    public function relatedWords(): HasMany
+    {
+        return $this->hasMany(WordToWord::class, 'word_id');
     }
 
     public function getIsLikedByUserAttribute()

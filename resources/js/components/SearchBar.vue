@@ -1,11 +1,13 @@
 <script setup>
 import { useForm, InertiaApp } from '@inertiajs/inertia-vue3';
+const emit = defineEmits(['setSearch'])
 
 const form = useForm({
     searchString: '',
 })
 
 const search = () => {
+    emit('set-search', form.searchString);
     form.transform(data => ({
         ...data,
     })).post(route('search', {searchTerm: form.searchString}), {

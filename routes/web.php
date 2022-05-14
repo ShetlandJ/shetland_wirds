@@ -1,7 +1,9 @@
 <?php
 
 use App\Models\Word;
+use App\Services\WordService;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 
@@ -27,7 +29,6 @@ Route::get('/', function () {
 
 Route::get('/search', function () {
     $searchTerm = request('searchTerm');
-
     $words = [];
 
     if ($searchTerm && $searchTerm !== '') {
@@ -43,11 +44,14 @@ Route::get('/search', function () {
 
 Route::post('/search', function () {
     $searchTerm = request('searchTerm');
+    if (request('wordToLike')) {
+        app(WordService::class)->handleLike(request('wordToLike'));
+    }
 
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
-        'words' => Word::where('word', 'like', "%{$searchTerm}%")->get(),
+        'words' => app(WordService::class)->findAllWords($searchTerm),
     ]);
 })->name('search');
 

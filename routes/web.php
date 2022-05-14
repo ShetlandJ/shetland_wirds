@@ -25,15 +25,23 @@ Route::get('/', function () {
     ]);
 });
 
-Route::post('/search', function () {
-    $searchString = request()['searchString'];
+Route::get('/search', function () {
+    $searchTerm = request('searchTerm');
 
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-        'words' => Word::where('word', 'like', "%{$searchString}%")->get(),
+        'words' => Word::where('word', 'like', "%{$searchTerm}%")->get(),
+    ]);
+})->name('search');
+
+Route::post('/search', function () {
+    $searchTerm = request('searchTerm');
+
+    return Inertia::render('Welcome', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'words' => Word::where('word', 'like', "%{$searchTerm}%")->get(),
     ]);
 })->name('search');
 

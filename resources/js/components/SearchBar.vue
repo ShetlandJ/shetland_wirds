@@ -1,5 +1,5 @@
 <script setup>
-import { useForm } from '@inertiajs/inertia-vue3';
+import { useForm, InertiaApp } from '@inertiajs/inertia-vue3';
 
 const form = useForm({
     searchString: '',
@@ -8,8 +8,8 @@ const form = useForm({
 const search = () => {
     form.transform(data => ({
         ...data,
-    })).post(route('search'), {
-        onFinish: () => form.reset('password'),
+    })).post(route('search', {searchTerm: form.searchString}), {
+           searchString: form.searchString,
     });
 };
 </script>

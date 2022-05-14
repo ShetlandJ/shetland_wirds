@@ -28,10 +28,16 @@ Route::get('/', function () {
 Route::get('/search', function () {
     $searchTerm = request('searchTerm');
 
+    $words = [];
+
+    if ($searchTerm && $searchTerm !== '') {
+        $words = Word::where('word', 'like', "%{$searchTerm}%")->get();
+    }
+
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
-        'words' => Word::where('word', 'like', "%{$searchTerm}%")->get(),
+        'words' => $words,
     ]);
 })->name('search');
 

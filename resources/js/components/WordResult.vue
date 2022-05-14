@@ -38,26 +38,29 @@ defineProps({
                         </div>
                     )} -->
 
-                    <!-- <div className="mt-4 flex items-center">
-                        <div className="flex mr-2 text-gray-700 text-sm mr-3 cursor-pointer">
+                    <!-- <div className="items-center"> -->
+                        <div className="flex mr-2 heart text-gray-700 text-sm mr-3 cursor-pointer">
                             <svg
                                 fill="none"
                                 viewBox="0 0 24 24"
                                 className="w-4 h-4 mr-1"
                                 stroke="red"
-                                onClick={() => handleWordLike(word.uuid)}
                             >
-                                {isLiked && (
-                                    <path fill="red" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                                )}
-                                {!isLiked && (
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                                )}
+                                <!-- onClick={() => handleWordLike(word.uuid)} -->
+                                    <path v-if="word.liked" fill="red" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                                    <path v-else strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                             </svg>
-                            <span>{word.likes ? word.likes : 0}</span>
+                            <!-- <span>{word.likes ? word.likes : 0}</span> -->
                         </div>
-                    </div> -->
+                    <!-- </div> -->
                 </div>
             </div>
         </div>
 </template>
+
+<style scoped>
+.heart {
+    max-height: 20px;
+    max-width: 20px;
+}
+</style>

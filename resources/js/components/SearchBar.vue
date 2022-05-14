@@ -1,8 +1,21 @@
 <script setup>
+import { useForm } from '@inertiajs/inertia-vue3';
+
+const form = useForm({
+    searchString: '',
+})
+
+const search = () => {
+    form.transform(data => ({
+        ...data,
+    })).post(route('search'), {
+        onFinish: () => form.reset('password'),
+    });
+};
 </script>
 
 <template>
-    <form>
+    <form @submit.prevent="search">
         <label
             for="default-search"
             class="
@@ -44,6 +57,7 @@
                     </svg>
                 </div>
                 <input
+                    v-model="form.searchString"
                     type="search"
                     id="default-search"
                     class="

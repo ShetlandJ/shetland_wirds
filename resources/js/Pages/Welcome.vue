@@ -1,6 +1,7 @@
 <script setup>
 import { Head, Link } from "@inertiajs/inertia-vue3";
 import SearchBar from '../components/SearchBar.vue';
+import WordResult from '../components/WordResult.vue';
 
 defineProps({
     canLogin: Boolean,
@@ -56,6 +57,10 @@ defineProps({
 
         <div class="max-w-2xl mx-auto">
             <SearchBar />
+        </div>
+
+        <div>
+            <WordResult v-for="word in words" :key="word.uuid" :word="word" />
         </div>
     </div>
 </template>

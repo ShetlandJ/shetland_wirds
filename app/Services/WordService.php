@@ -120,7 +120,8 @@ class WordService
             'example_sentence' => isset($payload['example_sentence']) ? $payload['example_sentence'] : null,
             'external_id' => null,
             'creator_id' => Auth::id(),
-            'pending' => true
+            'pending' => true,
+            'type' => isset($payload['type']) ? $payload['type'] : null,
         ]);
     }
 }

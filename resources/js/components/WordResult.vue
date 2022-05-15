@@ -1,26 +1,24 @@
 <script setup>
-import {useForm} from '@inertiajs/inertia-vue3';
+import { useForm } from "@inertiajs/inertia-vue3";
 
 defineProps({
     word: Object,
     searchString: String,
 });
 
-
 const form = useForm({
     wordToLike: null,
-    searchString: '',
-})
+    searchString: "",
+});
 
 const likeWord = (word, searchString) => {
     form.wordToLike = word;
     form.searchString = searchString;
 
-    form.post(route('search', {searchTerm: searchString}), {
-           searchString: searchString,
-           wordToLike: form.wordToLike
+    form.post(route("search", { searchTerm: searchString }), {
+        searchString: searchString,
+        wordToLike: form.wordToLike,
     });
-
 };
 </script>
 
@@ -45,24 +43,17 @@ const likeWord = (word, searchString) => {
                         }}
                     </p>
                 </div>
-                <!-- {showSeeAlso && (
-                        <div className="flex align-items-end">
-                            <span className="text-gray-900 mr-2">
-                                See also:
-                            </span>
-                            {word.see_also.map((seeAlso: string) => (
-                                <span
-                                    className="cursor-pointer underline hover:text-blue-800 visited:text-purple-600 mr-2"
-                                    key={seeAlso}
-                                    onClick={() => goToSeeAlso(seeAlso)}
-                                >
-                                    {seeAlso}
-                                </span>
-                            ))}
-                        </div>
-                    )} -->
+                <div className="flex align-items-end mb-1" v-if="word.see_also">
+                    <span className="text-gray-900 mr-2"> See also: </span>
+                    <span
+                        v-for="seeAlso in word.see_also"
+                        className="cursor-pointer underline hover:text-blue-800 visited:text-purple-600 mr-2"
+                        :key="seeAlso"
+                    >
+                        {{ seeAlso.word }}
+                    </span>
+                </div>
 
-                <!-- <div className="items-center"> -->
                 <div
                     className="flex mr-2 text-gray-700 text-sm mr-3 cursor-pointer"
                 >

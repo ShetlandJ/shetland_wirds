@@ -19,6 +19,17 @@ class WordService
         return $query->get();
     }
 
+    public function findByWord(string $word): ?array
+    {
+        $foundWord = Word::where('word', $word)->first();
+
+        if (!$foundWord) {
+            return null;
+        }
+
+        return $this->formatWord($foundWord);
+    }
+
     public function findAllWords(string $searchString): array
     {
         $words = $this->findBy($searchString);

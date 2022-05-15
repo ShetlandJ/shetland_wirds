@@ -38,7 +38,7 @@ Route::get('/search', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
-        'words' => $words,
+        'words' => app(WordService::class)->findAllWords($searchTerm),
     ]);
 })->name('search');
 
@@ -54,6 +54,14 @@ Route::post('/search', function () {
         'words' => app(WordService::class)->findAllWords($searchTerm),
     ]);
 })->name('search');
+
+Route::get('/word/{word}', function (string $word) {
+    return Inertia::render('Word', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'word' => app(WordService::class)->findByWord($word),
+    ]);
+})->where('word', '.*')->name('word');
 
 Route::middleware([
     'auth:sanctum',

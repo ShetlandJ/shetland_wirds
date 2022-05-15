@@ -12,3 +12,11 @@ defineProps({
         <slot />
     </Popper>
 </template>
+
+<style>
+.popper {
+    background-color: #cff3ff !important;
+    padding: 6px !important;
+    border-radius: 4px !important;
+}
+</style>

@@ -121,7 +121,7 @@ class WordService
             'external_id' => null,
             'creator_id' => Auth::id(),
             'pending' => true,
-            'type' => isset($payload['type']) ? $payload['type'] : null,
+            'type' => isset($payload['word_type']) ? $payload['word_type'] : null,
         ]);
     }
 }

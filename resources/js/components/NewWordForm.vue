@@ -98,7 +98,6 @@ const defaultWordTypes = [
                     "
                     id="wordInput"
                     aria-describedby="wordHelp"
-                    placeholder="New word here"
                 />
                 <small id="wordHelp" class="block mt-1 text-xs text-gray-600">
                     Enter the new word you wish to add to the dictionary

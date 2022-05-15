@@ -195,7 +195,7 @@ const defaultWordTypes = [
                 > -->
             </div>
             <button
-                :disabled="!form.newWord && !form.translation"
+                :disabled="!form.newWord || !form.translation"
                 type="submit"
                 class="
                     px-6

@@ -1,5 +1,6 @@
 <script setup>
 import { useForm } from "@inertiajs/inertia-vue3";
+import Selectable from "../components/Selectable.vue";
 
 const form = useForm({
     newWord: "",
@@ -7,6 +8,37 @@ const form = useForm({
     example_sentence: "",
     word_type: null,
 });
+
+const defaultWordTypes = [
+    {
+        name: "I'm not sure!",
+        value: null,
+    },
+    {
+        name: "Verb",
+        value: "v",
+    },
+    {
+        name: "Noun",
+        value: "n",
+    },
+    {
+        name: "Adjective",
+        value: "adj",
+    },
+    {
+        name: "Adverb",
+        value: "adv",
+    },
+    {
+        name: "Preposition",
+        value: "prep",
+    },
+    {
+        name: "Conjunction",
+        value: "conj",
+    },
+];
 </script>
 
 <template>
@@ -129,35 +161,21 @@ const form = useForm({
                 />
             </div>
             <div class="form-group form-check mb-6">
-                <select
-                    v-model="form.word_type"
-                    placeholder="What type of word is this?"
-                    class="
-                        form-check-input
-                        appearance-none
-                        h-4
-                        w-4
-                        border border-gray-300
-                        rounded-sm
-                        bg-white
-                        checked:bg-blue-600 checked:border-blue-600
-                        focus:outline-none
-                        transition
-                        duration-200
-                        mt-1
-                        align-top
-                        bg-no-repeat bg-center bg-contain
-                        float-left
-                        mr-2
-                        cursor-pointer
-                    "
-                    id="exampleCheck1"
+                <p>What type of word is it?</p>
+                <div
+                    class="flex flex-wrap"
                 >
-                    <option :value="null">
-                        -- What type of word is this? (optional) --
-                    </option>
-                    <option value="v">Verb</option>
-                </select>
+                <selectable
+                    class="mr-2"
+                    v-for="(wordType, index) in defaultWordTypes"
+                    :key="index"
+                    :input-name="wordType.name"
+                    :input-value="wordType.value"
+                    :selected="form.word_type === wordType.value"
+                    v-model="form.word_type"
+                    @select="form.word_type = $event"
+                />
+                </div>
                 <!-- <label
                     class="form-check-label inline-block text-gray-800"
                     for="exampleCheck1"

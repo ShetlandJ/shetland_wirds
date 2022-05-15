@@ -15,6 +15,15 @@ class Word extends Model
         'pending' => 'boolean'
     ];
 
+    protected $fillable = [
+        'uuid',
+        'word',
+        'translation',
+        'example_sentence',
+        'external_id',
+        'pending'
+    ];
+
     public function likes()
     {
         return $this->hasMany(UserWordLike::class);

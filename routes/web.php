@@ -1,8 +1,9 @@
 <?php
 
 use App\Models\Word;
-use App\Services\WordService;
 use Inertia\Inertia;
+use Illuminate\Http\Request;
+use App\Services\WordService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
@@ -67,6 +68,19 @@ Route::get('/word/{word}', function (string $word) {
         'word' => app(WordService::class)->findByWord($word),
     ]);
 })->where('word', '.*')->name('word');
+
+Route::post('/word', function (Request $request) {
+    // get the post payload
+    $payload = $request->all();
+
+    $valid = app(WordService::class)->validateNewWordSubmission($payload);
+
+    if ($valid) {
+        app(WordService::class)->createWord($payload);
+    }
+
+    return redirect()->back();
+})->name('word.new');
 
 Route::middleware([
     'auth:sanctum',

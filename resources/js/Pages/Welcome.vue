@@ -91,7 +91,9 @@ const toggleSuggestWordForm = (value) => {
             />
         </div>
         <div v-else>
-        <NewWordForm />
+        <NewWordForm
+            @hide-form="toggleSuggestWordForm(false)"
+        />
         </div>
     </div>
 </template>

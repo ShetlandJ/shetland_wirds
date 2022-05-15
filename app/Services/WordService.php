@@ -6,6 +6,7 @@ use App\Models\Word;
 use Illuminate\Support\Str;
 use App\Models\UserWordLike;
 use App\Models\WordToWord;
+use Exception;
 use Illuminate\Support\Facades\Auth;
 
 class WordService
@@ -86,5 +87,40 @@ class WordService
                 'word_id' => $word->id,
             ]);
         }
+    }
+
+    public function validateNewWordSubmission(array $payload): bool
+    {
+        if (isset($payload['newWord'])) {
+            $wordExists = Word::where('word', $payload['newWord'])->exists();
+            if ($wordExists) {
+                return false;
+            }
+        }
+
+        if (!isset($payload['translation'])) {
+            return false;
+        }
+
+        if (isset($payload['translation'])) {
+            if (strlen($payload['translation']) < 3) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public function createWord(array $payload): Word
+    {
+        return Word::create([
+            'uuid' => (string) Str::uuid(),
+            'word' => $payload['newWord'],
+            'translation' => $payload['translation'],
+            'example_sentence' => isset($payload['example_sentence']) ? $payload['example_sentence'] : null,
+            'external_id' => null,
+            'creator_id' => Auth::id(),
+            'pending' => true
+        ]);
     }
 }

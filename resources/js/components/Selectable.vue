@@ -25,10 +25,7 @@ const updateActivePlan = (value) => {
             hover:bg-green-lightest
             focus:outline-none focus:shadow-outline-green
         "
-        :class="{
-            'bg-green-lightest shadow-outline-green':
-                this.selected,
-        }"
+        :class="[this.selected ? 'bg-green-lightest shadow-outline-green' : '']"
         tabindex="0"
         @click="updateActivePlan(this.inputValue)"
         @keydown.space="updateActivePlan(this.inputValue)"
@@ -72,3 +69,54 @@ const updateActivePlan = (value) => {
         </div>
     </div>
 </template>
+
+<style scoped>
+.bg-green {
+	background-color: #38c172
+}
+
+.bg-green-light {
+	background-color: #51d88a
+}
+
+.bg-green-lighter {
+	background-color: #a2f5bf
+}
+
+.bg-green-lightest {
+	background-color: #e3fcec
+}
+
+.hover\:bg-green-darkest:hover {
+	background-color: #0f2f21
+}
+
+.hover\:bg-green-darker:hover {
+	background-color: #1a4731
+}
+
+.hover\:bg-green-dark:hover {
+	background-color: #1f9d55
+}
+
+.hover\:bg-green:hover {
+	background-color: #38c172
+}
+
+.hover\:bg-green-light:hover {
+	background-color: #51d88a
+}
+
+.hover\:bg-green-lighter:hover {
+	background-color: #a2f5bf
+}
+
+.hover\:bg-green-lightest:hover {
+	background-color: #e3fcec
+}
+
+.shadow-outline-green {
+	-webkit-box-shadow: 0 0 0 3px rgba(5, 202, 160, .8);
+	box-shadow: 0 0 0 3px rgba(5, 202, 160, .8)
+}
+</style>

@@ -1,6 +1,7 @@
 <script setup>
 import { useForm } from "@inertiajs/inertia-vue3";
 import Selectable from "../components/Selectable.vue";
+const emit = defineEmits(['hide-form'])
 
 const form = useForm({
     newWord: "",
@@ -8,6 +9,15 @@ const form = useForm({
     example_sentence: "",
     word_type: null,
 });
+
+const createWord = () => {
+    form.post(route("word.new"), {
+        onFinish: () => {
+            form.reset();
+            emit('hide-form');
+        },
+    });
+};
 
 const defaultWordTypes = [
     {
@@ -56,7 +66,7 @@ const defaultWordTypes = [
             max-w-sm
         "
     >
-        <form>
+        <form @submit.prevent="createWord">
             <div class="form-group mb-6">
                 <label
                     for="wordInput"
@@ -64,6 +74,7 @@ const defaultWordTypes = [
                     >Suggested word</label
                 >
                 <input
+                v-model="form.newWord"
                     type="text"
                     class="
                         form-control
@@ -101,6 +112,7 @@ const defaultWordTypes = [
                     What does it mean in English?
                 </label>
                 <input
+                    v-model="form.translation"
                     type="text"
                     class="
                         form-control
@@ -135,6 +147,7 @@ const defaultWordTypes = [
                     (Optional)
                 </label>
                 <input
+                    v-model="form.example_sentence"
                     type="text"
                     class="
                         form-control

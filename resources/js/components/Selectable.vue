@@ -30,13 +30,13 @@ const updateActivePlan = (value) => {
         @click="updateActivePlan(this.inputValue)"
         @keydown.space="updateActivePlan(this.inputValue)"
     >
-        <div class="flex justify-between items-center">
+        <div class="flex justify-center items-center">
             <h1 class="uppercase text-base tracking-wide text-blue-darker my-2">
                 {{ this.inputName }}
             </h1>
             <div v-if="this.selected">
                 <svg
-                    class="w-6 h-6"
+                    class="ml-2 w-6 h-6"
                     width="200px"
                     height="200px"
                     viewBox="0 0 200 200"

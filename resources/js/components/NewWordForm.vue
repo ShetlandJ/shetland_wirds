@@ -1,7 +1,7 @@
 <script setup>
 import { useForm } from "@inertiajs/inertia-vue3";
 import Selectable from "../components/Selectable.vue";
-const emit = defineEmits(['hide-form'])
+const emit = defineEmits(["hide-form"]);
 
 const form = useForm({
     newWord: "",
@@ -14,7 +14,7 @@ const createWord = () => {
     form.post(route("word.new"), {
         onFinish: () => {
             form.reset();
-            emit('hide-form');
+            emit("hide-form");
         },
     });
 };
@@ -71,10 +71,11 @@ const defaultWordTypes = [
                 <label
                     for="wordInput"
                     class="form-label inline-block mb-2 text-gray-700"
-                    >Suggested word</label
                 >
+                    Suggested word <span class="text-danger">(required)</span>
+                </label>
                 <input
-                v-model="form.newWord"
+                    v-model="form.newWord"
                     type="text"
                     class="
                         form-control
@@ -109,6 +110,7 @@ const defaultWordTypes = [
                     class="form-label inline-block mb-2 text-gray-700"
                 >
                     What does it mean in English?
+                    <span class="text-danger">(required)</span>
                 </label>
                 <input
                     v-model="form.translation"
@@ -174,19 +176,17 @@ const defaultWordTypes = [
             </div>
             <div class="form-group form-check mb-6">
                 <p>What type of word is it?</p>
-                <div
-                    class="flex flex-wrap"
-                >
-                <selectable
-                    class="mr-2"
-                    v-for="(wordType, index) in defaultWordTypes"
-                    :key="index"
-                    :input-name="wordType.name"
-                    :input-value="wordType.value"
-                    :selected="form.word_type === wordType.value"
-                    v-model="form.word_type"
-                    @select="form.word_type = $event"
-                />
+                <div class="flex flex-wrap">
+                    <selectable
+                        class="mr-2"
+                        v-for="(wordType, index) in defaultWordTypes"
+                        :key="index"
+                        :input-name="wordType.name"
+                        :input-value="wordType.value"
+                        :selected="form.word_type === wordType.value"
+                        v-model="form.word_type"
+                        @select="form.word_type = $event"
+                    />
                 </div>
                 <!-- <label
                     class="form-check-label inline-block text-gray-800"
@@ -195,6 +195,7 @@ const defaultWordTypes = [
                 > -->
             </div>
             <button
+                :disabled="!form.newWord && !form.translation"
                 type="submit"
                 class="
                     px-6
@@ -216,6 +217,7 @@ const defaultWordTypes = [
                     transition
                     duration-150
                     ease-in-out
+                    disabled:opacity-50
                 "
             >
                 Submit
@@ -223,3 +225,9 @@ const defaultWordTypes = [
         </form>
     </div>
 </template>
+
+<style scoped>
+.text-danger {
+  color: #f44336;
+}
+</style>

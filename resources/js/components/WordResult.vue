@@ -1,5 +1,5 @@
 <script setup>
-import { useForm } from "@inertiajs/inertia-vue3";
+import { Link, useForm } from "@inertiajs/inertia-vue3";
 
 defineProps({
     word: Object,
@@ -29,9 +29,16 @@ const likeWord = (word, searchString) => {
         <div className="flex items-start px-4 py-6">
             <div>
                 <div className="flex items-center justify-between mb-2">
-                    <h2 className="text-lg font-semibold text-gray-900 -mt-1">
-                        {{ word.word }}
-                    </h2>
+                    <Link
+                        :href="route('word', { word: word.word })"
+                        class="text-sm text-gray-700 underline"
+                    >
+                        <h2
+                            className="text-lg font-semibold text-gray-900 -mt-1"
+                        >
+                            {{ word.word }}
+                        </h2>
+                    </Link>
                 </div>
                 <p className="text-gray-700 mb-2">{{ word.translation }}</p>
                 <div v-if="word.example_sentence">
@@ -54,13 +61,11 @@ const likeWord = (word, searchString) => {
                     </span>
                 </div>
 
-                <div
-                    className="flex mr-2 text-gray-700 text-sm mr-3 cursor-pointer"
-                >
+                <div className="flex mr-2 text-gray-700 text-sm mr-3">
                     <svg
                         fill="none"
                         viewBox="0 0 24 24"
-                        class="w-4 h-4 mr-1 heart"
+                        class="w-4 h-4 mr-1 heart cursor-pointer"
                         stroke="red"
                         @click="likeWord(word.word, searchString)"
                     >

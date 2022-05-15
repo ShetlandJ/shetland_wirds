@@ -2,6 +2,7 @@
 import { Head, Link } from "@inertiajs/inertia-vue3";
 import SearchBar from "../components/SearchBar.vue";
 import WordResult from "../components/WordResult.vue";
+import NavBar from "../components/NavBar.vue";
 
 let searchString = "";
 
@@ -27,7 +28,8 @@ defineProps({
             sm:items-center sm:pt-0
         "
     >
-        <div
+        <NavBar :can-login="canLogin" :can-register="canRegister" />
+        <!-- <div
             v-if="canLogin"
             class="hidden fixed top-0 right-0 px-6 py-4 sm:block"
         >
@@ -55,7 +57,7 @@ defineProps({
                     Register
                 </Link>
             </template>
-        </div>
+        </div> -->
 
         <div class="max-w-2xl mx-auto">
             <SearchBar @set-search="searchString = $event" />

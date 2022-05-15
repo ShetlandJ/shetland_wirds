@@ -1,5 +1,7 @@
 <script setup>
 import { Link, useForm } from "@inertiajs/inertia-vue3";
+import BookIcon from "./icons/BookIcon.vue";
+import Tooltip from "./Tooltip.vue";
 
 defineProps({
     word: Object,
@@ -43,6 +45,15 @@ const likeWord = (word, searchString) => {
                             {{ word.word }}
                         </h2>
                     </Link>
+
+                    <Tooltip
+                        v-if="word.external_id"
+                        content="Official definition from John Graham's Shetland Dictionary"
+                    >
+                        <div style="height: 30px; width: 30px">
+                            <BookIcon />
+                        </div>
+                    </Tooltip>
                 </div>
                 <p className="text-gray-700 mb-2">{{ word.translation }}</p>
                 <div v-if="word.example_sentence">
@@ -98,7 +109,7 @@ const likeWord = (word, searchString) => {
                                 strokeWidth="2"
                                 d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
                             />
-                       </template>
+                        </template>
                     </svg>
                 </div>
             </div>

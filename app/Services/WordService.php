@@ -45,6 +45,7 @@ class WordService
                 'example_sentence' => $word->example_sentence,
                 'is_liked' => $word->isLikedByUser,
                 'likes' => $word->likes->count(),
+                'external_id' => $word->external_id,
                 'see_also' => $word->relatedWords->filter(function ($relatedWord) {
                     return $relatedWord->word;
                 })

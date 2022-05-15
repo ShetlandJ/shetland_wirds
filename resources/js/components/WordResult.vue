@@ -2,6 +2,7 @@
 import { Link, useForm } from "@inertiajs/inertia-vue3";
 import BookIcon from "./icons/BookIcon.vue";
 import Tooltip from "./Tooltip.vue";
+import ShetlandFlag from "./icons/ShetlandFlag.vue";
 
 defineProps({
     word: Object,
@@ -54,6 +55,11 @@ const likeWord = (word, searchString) => {
                             <BookIcon />
                         </div>
                     </Tooltip>
+                    <Tooltip content="This word was created by a user" v-else>
+                        <div style="height: 30px; width: 15px">
+                            <ShetlandFlag />
+                        </div>
+                    </Tooltip>
                 </div>
                 <p className="text-gray-700 mb-2">{{ word.translation }}</p>
                 <div v-if="word.example_sentence">
@@ -65,7 +71,10 @@ const likeWord = (word, searchString) => {
                         }}
                     </p>
                 </div>
-                <div className="flex align-items-end mb-1" v-if="word.see_also">
+                <div
+                    className="flex align-items-end mb-1"
+                    v-if="word.see_also.length > 0"
+                >
                     <span className="text-gray-900 mr-2"> See also: </span>
                     <span
                         v-for="seeAlso in word.see_also"

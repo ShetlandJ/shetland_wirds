@@ -4,6 +4,7 @@ import { Link, useForm } from "@inertiajs/inertia-vue3";
 defineProps({
     word: Object,
     searchString: String,
+    isLoggedIn: Boolean,
 });
 
 const form = useForm({
@@ -12,6 +13,9 @@ const form = useForm({
 });
 
 const likeWord = (word, searchString) => {
+    if (!this.isLoggedIn) {
+        return false;
+    }
     form.wordToLike = word;
     form.searchString = searchString;
 
@@ -69,23 +73,33 @@ const likeWord = (word, searchString) => {
                         stroke="red"
                         @click="likeWord(word.word, searchString)"
                     >
-                        <path
-                            v-if="word.is_liked"
-                            fill="red"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                        />
-                        <path
-                            v-else
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                        />
+                        <template v-if="isLoggedIn">
+                            <path
+                                v-if="word.is_liked"
+                                fill="red"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                            />
+                            <path
+                                v-else
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                            />
+                        </template>
+                        <template v-else>
+                            <path
+                                fill="red"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                            />
+                       </template>
                     </svg>
-                    <span>{{ word.likes ? word.likes : 0 }}</span>
                 </div>
             </div>
         </div>

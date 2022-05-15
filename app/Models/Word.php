@@ -21,8 +21,12 @@ class Word extends Model
         return $this->hasMany(WordToWord::class, 'word_id');
     }
 
-    public function getIsLikedByUserAttribute()
+    public function getIsLikedByUserAttribute(): bool
     {
+        if (!Auth::check()) {
+            return false;
+        }
+
         return $this->likes()->where('user_id', Auth::user()->id)->exists();
     }
 }

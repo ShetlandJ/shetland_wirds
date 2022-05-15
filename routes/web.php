@@ -38,6 +38,7 @@ Route::get('/search', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
+        'isLoggedIn' => Auth::check(),
         'words' => app(WordService::class)->findAllWords($searchTerm),
     ]);
 })->name('search');
@@ -51,6 +52,7 @@ Route::post('/search', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
+        'isLoggedIn' => Auth::check(),
         'words' => app(WordService::class)->findAllWords($searchTerm),
     ]);
 })->name('search');

@@ -9,6 +9,7 @@ let searchString = "";
 defineProps({
     canLogin: Boolean,
     canRegister: Boolean,
+    isLoggedIn: Boolean,
     laravelVersion: String,
     phpVersion: String,
     words: Array,
@@ -28,7 +29,11 @@ defineProps({
             sm:items-center sm:pt-0
         "
     >
-        <NavBar :can-login="canLogin" :can-register="canRegister" />
+        <NavBar
+            :can-login="canLogin"
+            :can-register="canRegister"
+            @set-search="searchString = $event"
+        />
         <!-- <div
             v-if="canLogin"
             class="hidden fixed top-0 right-0 px-6 py-4 sm:block"
@@ -59,12 +64,18 @@ defineProps({
             </template>
         </div> -->
 
-        <div class="max-w-2xl mx-auto">
+        <!-- <div class="max-w-2xl mx-auto">
             <SearchBar @set-search="searchString = $event" />
-        </div>
+        </div> -->
 
         <div>
-            <WordResult :search-string="searchString" v-for="word in words" :key="word.uuid" :word="word" />
+            <WordResult
+                :is-logged-in="isLoggedIn"
+                :search-string="searchString"
+                v-for="word in words"
+                :key="word.uuid"
+                :word="word"
+            />
         </div>
     </div>
 </template>

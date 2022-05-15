@@ -33,7 +33,7 @@ const likeWord = (word, searchString) => {
     <div
         className="bg-white shadow-lg rounded-lg mx-4 md:mx-auto my-8 max-w-md md:max-w-2xl"
     >
-        <div className="flex items-start px-4 py-6">
+        <div className="items-start px-4 py-6">
             <div>
                 <div className="flex items-center justify-between mb-2">
                     <Link
@@ -55,12 +55,15 @@ const likeWord = (word, searchString) => {
                             <BookIcon />
                         </div>
                     </Tooltip>
-                    <Tooltip content="This word was created by a user" v-else>
-                        <div style="height: 30px; width: 15px">
-                            <ShetlandFlag />
-                        </div>
-                    </Tooltip>
+                    <div class="mr-4" v-else>
+                        <Tooltip content="This word was created by a user">
+                            <div style="height: 30px; width: 15px">
+                                <ShetlandFlag />
+                            </div>
+                        </Tooltip>
+                    </div>
                 </div>
+
                 <p className="text-gray-700 mb-2">{{ word.translation }}</p>
                 <div v-if="word.example_sentence">
                     <p className="mt-3 text-gray-700 mb-2">

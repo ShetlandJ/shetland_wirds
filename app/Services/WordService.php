@@ -14,7 +14,9 @@ class WordService
     {
         $query = Word::query();
 
-        $query = $query->where('words.word', 'like', "%{$searchString}%");
+        $lowercasedSearchString = Str::lower($searchString);
+
+        $query->where('word', 'like', "%{$lowercasedSearchString}%");
 
         return $query->get();
     }

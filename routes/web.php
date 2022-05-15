@@ -28,11 +28,10 @@ Route::get('/', function () {
 });
 
 Route::get('/search', function () {
-    $searchTerm = request('searchTerm');
-    $words = [];
+    $searchTerm = '';
 
-    if ($searchTerm && $searchTerm !== '') {
-        $words = Word::where('word', 'like', "%{$searchTerm}%")->get();
+    if (request('searchTerm')) {
+        $searchTerm = request('searchTerm');
     }
 
     return Inertia::render('Welcome', [
@@ -44,7 +43,11 @@ Route::get('/search', function () {
 })->name('search');
 
 Route::post('/search', function () {
-    $searchTerm = request('searchTerm');
+    $searchTerm = '';
+
+    if (request('searchTerm')) {
+        $searchTerm = request('searchTerm');
+    }
     if (request('wordToLike')) {
         app(WordService::class)->handleLike(request('wordToLike'));
     }

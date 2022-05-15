@@ -10,8 +10,6 @@ defineProps({
     canLogin: Boolean,
     canRegister: Boolean,
     isLoggedIn: Boolean,
-    laravelVersion: String,
-    phpVersion: String,
     words: Array,
 });
 </script>
@@ -32,6 +30,7 @@ defineProps({
         <NavBar
             :can-login="canLogin"
             :can-register="canRegister"
+            :is-logged-in="isLoggedIn"
             @set-search="searchString = $event"
         />
         <!-- <div

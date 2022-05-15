@@ -1,5 +1,12 @@
 <script setup>
 import { useForm } from "@inertiajs/inertia-vue3";
+
+const form = useForm({
+    newWord: "",
+    translation: "",
+    example_sentence: "",
+    word_type: null,
+});
 </script>
 
 <template>
@@ -87,9 +94,44 @@ import { useForm } from "@inertiajs/inertia-vue3";
                     placeholder="English language translation"
                 />
             </div>
-            <div class="form-group form-check mb-6">
+            <div class="form-group mb-6">
+                <label
+                    for="exampleSentenceInput"
+                    class="form-label inline-block mb-2 text-gray-700"
+                >
+                    Can you provide an example Shetland language sentence?
+                    (Optional)
+                </label>
                 <input
-                    type="checkbox"
+                    type="text"
+                    class="
+                        form-control
+                        block
+                        w-full
+                        px-3
+                        py-1.5
+                        text-base
+                        font-normal
+                        text-gray-700
+                        bg-white bg-clip-padding
+                        border border-solid border-gray-300
+                        rounded
+                        transition
+                        ease-in-out
+                        m-0
+                        focus:text-gray-700
+                        focus:bg-white
+                        focus:border-blue-600
+                        focus:outline-none
+                    "
+                    id="exampleSentenceInput"
+                    placeholder="e.g. 'He's a lok bigger as his faider.'"
+                />
+            </div>
+            <div class="form-group form-check mb-6">
+                <select
+                    v-model="form.word_type"
+                    placeholder="What type of word is this?"
                     class="
                         form-check-input
                         appearance-none
@@ -110,12 +152,17 @@ import { useForm } from "@inertiajs/inertia-vue3";
                         cursor-pointer
                     "
                     id="exampleCheck1"
-                />
-                <label
+                >
+                    <option :value="null">
+                        -- What type of word is this? (optional) --
+                    </option>
+                    <option value="v">Verb</option>
+                </select>
+                <!-- <label
                     class="form-check-label inline-block text-gray-800"
                     for="exampleCheck1"
                     >Check me out</label
-                >
+                > -->
             </div>
             <button
                 type="submit"

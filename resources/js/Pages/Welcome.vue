@@ -1,10 +1,19 @@
 <script setup>
-import { Head, Link } from "@inertiajs/inertia-vue3";
+import { ref } from 'vue';
+import { Head, useForm, Link } from "@inertiajs/inertia-vue3";
 import SearchBar from "../components/SearchBar.vue";
 import WordResult from "../components/WordResult.vue";
 import NavBar from "../components/NavBar.vue";
+import NewWordForm from '../components/NewWordForm.vue';
 
 let searchString = "";
+let showAddForm = ref(false);
+
+const newWord = useForm({
+    word: "",
+    translation: "",
+    example_sentence: "",
+});
 
 defineProps({
     canLogin: Boolean,
@@ -12,6 +21,10 @@ defineProps({
     isLoggedIn: Boolean,
     words: Array,
 });
+
+const toggleSuggestWordForm = (value) => {
+    showAddForm.value = value;
+};
 </script>
 
 <template>
@@ -32,6 +45,7 @@ defineProps({
             :can-register="canRegister"
             :is-logged-in="isLoggedIn"
             @set-search="searchString = $event"
+            @suggest-word="toggleSuggestWordForm(true)"
         />
         <!-- <div
             v-if="canLogin"
@@ -67,7 +81,7 @@ defineProps({
             <SearchBar @set-search="searchString = $event" />
         </div> -->
 
-        <div>
+        <div v-if="!showAddForm">
             <WordResult
                 :is-logged-in="isLoggedIn"
                 :search-string="searchString"
@@ -75,6 +89,9 @@ defineProps({
                 :key="word.uuid"
                 :word="word"
             />
+        </div>
+        <div v-else>
+        <NewWordForm />
         </div>
     </div>
 </template>

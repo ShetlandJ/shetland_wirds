@@ -11,6 +11,10 @@ class Word extends Model
 {
     protected $table = 'words';
 
+    protected $casts = [
+        'pending' => 'boolean'
+    ];
+
     public function likes()
     {
         return $this->hasMany(UserWordLike::class);

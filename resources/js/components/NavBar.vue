@@ -1,11 +1,15 @@
 <script setup>
 import { Link, useForm, InertiaApp } from "@inertiajs/inertia-vue3";
 
-const emit = defineEmits(["setSearch"]);
+const emit = defineEmits(["setSearch", 'suggest-word']);
 
 const form = useForm({
     searchString: "",
 });
+
+const suggestWord = () => {
+    emit('suggest-word');
+}
 
 const search = () => {
     emit("set-search", form.searchString);
@@ -198,7 +202,7 @@ defineProps({
                     </li>
                 </template>
                 <li class="md:ml-4">
-                    <Link
+                    <button
                         class="
                             border-t
                             block
@@ -209,10 +213,10 @@ defineProps({
                             hover:text-black
                             md:border-none md:p-0
                         "
-                        href="#"
+                        @click="suggestWord"
                     >
                         Suggest word
-                    </Link>
+                    </button>
                 </li>
             </ul>
         </nav>

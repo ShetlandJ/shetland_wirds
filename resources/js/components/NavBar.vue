@@ -38,7 +38,6 @@ defineProps({
             md:pb-4
         "
     >
-        <!-- Logo text or image -->
         <div class="flex items-center justify-between mb-4 md:mb-0">
             <h1 class="leading-none text-2xl text-grey-darkest">
                 <a
@@ -53,29 +52,8 @@ defineProps({
                 <i class="fa fa-2x fa-bars"></i>
             </a>
         </div>
-        <!-- END Logo text or image -->
 
-        <!-- Search field -->
         <form class="mb-4 w-full md:mb-0 md:w-1/4" @submit.prevent="search">
-            <!-- <label class="hidden" for="search-form">Search</label>
-            <input
-                size="50"
-                v-model="form.searchString"
-                class="
-                    bg-grey-lightest
-                    border-2
-                    focus:border-orange
-                    p-2
-                    rounded-lg
-                    shadow-inner
-                    w-full
-                "
-                placeholder="Search Shetland or English word"
-                type="text"
-                style="width: 400px"
-            />
-            <button class="">Submit</button> -->
-
             <div class="flex justify-center">
                 <div class="xl:w-96">
                     <div class="input-group relative flex items-stretch w-full">
@@ -215,12 +193,11 @@ defineProps({
                         "
                         @click="suggestWord"
                     >
-                        Suggest word
+                        Suggest word/phrase
                     </button>
                 </li>
             </ul>
         </nav>
-        <!-- END Global navigation -->
     </header>
 </template>
 

@@ -119,7 +119,7 @@ class WordService
             'translation' => $payload['translation'],
             'example_sentence' => isset($payload['example_sentence']) ? $payload['example_sentence'] : null,
             'external_id' => null,
-            'creator_id' => Auth::id(),
+            'creator_id' => Auth::id() ?? null,
             'pending' => true,
             'type' => isset($payload['word_type']) ? $payload['word_type'] : null,
         ]);

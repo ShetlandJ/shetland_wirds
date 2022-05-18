@@ -42,7 +42,7 @@ defineProps({
             <h1 class="leading-none text-2xl text-grey-darkest">
                 <Link
                     class="no-underline text-grey-darkest hover:text-black"
-                    :href="route('search')"
+                    :href="route('home')"
                 >
                     <span class="font-bold">Wir</span>ds
                 </Link>

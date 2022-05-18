@@ -29,7 +29,7 @@ Route::get('/', function () {
         'isLoggedIn' => Auth::check(),
         'phpVersion' => PHP_VERSION,
     ]);
-});
+})->name('home');
 
 Route::get('/search', function () {
     $searchTerm = '';

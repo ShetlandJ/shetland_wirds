@@ -40,12 +40,12 @@ defineProps({
     >
         <div class="flex items-center justify-between mb-4 md:mb-0">
             <h1 class="leading-none text-2xl text-grey-darkest">
-                <a
+                <Link
                     class="no-underline text-grey-darkest hover:text-black"
-                    href="#"
+                    :href="route('search')"
                 >
                     <span class="font-bold">Wir</span>ds
-                </a>
+                </Link>
             </h1>
 
             <a class="text-black hover:text-orange md:hidden" href="#">

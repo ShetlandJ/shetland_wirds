@@ -93,7 +93,6 @@ Route::middleware([
     Route::get('/dashboard', function () {
         if (Auth::id() && Auth::user()->roles->where('name', Role::ROLE_ADMIN)->first()) {
             return Inertia::render('AdminDashboard', [
-                'pendingWords' => app(WordService::class)->findAllPendingWords(),
                 'isLoggedIn' => Auth::check(),
             ]);
         }
@@ -102,6 +101,13 @@ Route::middleware([
     })->name('dashboard');
 });
 
+Route::get('/dashboard/approve', function () {
+    return Inertia::render('AdminDashboard', [
+        'words' => app(WordService::class)->findAllPendingWords(),
+        'isLoggedIn' => Auth::check(),
+    ]);
+})->name('approval');
+
 Route::post('/dashboard/approve', function () {
     if (request('wordToApprove')) {
         app(WordService::class)->approveWord(request('wordToApprove'));
@@ -109,3 +115,18 @@ Route::post('/dashboard/approve', function () {
 
     return redirect()->back();
 })->name('approve');
+
+Route::get('/dashboard/rejected', function () {
+    return Inertia::render('AdminDashboard', [
+        'words' => app(WordService::class)->findAllRejectedWords(),
+        'isLoggedIn' => Auth::check(),
+    ]);
+})->name('rejected');
+
+Route::post('/dashboard/reject', function () {
+    if (request('wordToReject')) {
+        app(WordService::class)->rejectWord(request('wordToReject'), request('rejectReason'));
+    }
+
+    return redirect()->back();
+})->name('reject');

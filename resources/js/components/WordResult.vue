@@ -3,6 +3,7 @@ import { Link, useForm } from "@inertiajs/inertia-vue3";
 import BookIcon from "./icons/BookIcon.vue";
 import Tooltip from "./Tooltip.vue";
 import ShetlandFlag from "./icons/ShetlandFlag.vue";
+import { ref } from "vue";
 
 defineProps({
     word: Object,
@@ -39,6 +40,22 @@ const approveWord = (wordId) => {
         wordToApprove: approveForm.wordToApprove,
     });
 };
+
+let showRejectForm = ref(false);
+
+const rejectForm = useForm({
+    wordToReject: null,
+    rejectReason: null,
+});
+
+const rejectWord = (wordId) => {
+    rejectForm.wordToReject = wordId;
+    rejectForm.post(route("reject"), {
+        wordToApprove: rejectForm.wordToApprove,
+        rejectReason: rejectForm.rejectReason,
+        onFinish: () => form.reset('rejectForm'),
+    });
+};
 </script>
 
 <template>
@@ -48,6 +65,7 @@ const approveWord = (wordId) => {
         <div className="items-start px-4 py-6">
             <div>
                 <div className="flex items-center justify-between mb-2">
+                    <div class="flex">
                     <Link
                         :href="route('word', { word: word.word })"
                         class="text-sm text-gray-700 underline"
@@ -58,6 +76,10 @@ const approveWord = (wordId) => {
                             {{ word.word }}
                         </h2>
                     </Link>
+                    <span v-if="word.rejected" class="text-red-500 ml-3">
+                        (Rejected)
+                    </span>
+                    </div>
 
                     <Tooltip
                         v-if="word.external_id"
@@ -155,6 +177,7 @@ const approveWord = (wordId) => {
                     Approve
                 </button>
                 <button
+                    v-if="!word.rejected"
                     class="
                         px-4
                         py-2
@@ -164,9 +187,61 @@ const approveWord = (wordId) => {
                         font-medium
                         rounded-md
                     "
+                    @click="showRejectForm = !showRejectForm"
                 >
-                    Reject
+                    {{ showRejectForm ? "Cancel" : "Reject" }}
                 </button>
+            </div>
+
+            <div v-if="showRejectForm">
+                <label
+                    for="exampleFormControlTextarea1"
+                    class="form-label inline-block mb-2 text-gray-700"
+                    >Reject reason</label
+                >
+                <textarea
+                    v-model="rejectForm.rejectReason"
+                    class="
+                        form-control
+                        block
+                        w-full
+                        px-3
+                        py-1.5
+                        text-base
+                        font-normal
+                        text-gray-700
+                        bg-white bg-clip-padding
+                        border border-solid border-gray-300
+                        rounded
+                        transition
+                        ease-in-out
+                        m-0
+                        focus:text-gray-700
+                        focus:bg-white
+                        focus:border-blue-600
+                        focus:outline-none
+                    "
+                    id="exampleFormControlTextarea1"
+                    rows="3"
+                    placeholder="Your message"
+                />
+                <div class="flex justify-end">
+                    <button
+                        class="
+                            mt-2
+                            px-4
+                            py-2
+                            bg-red-500
+                            hover:bg-red-600
+                            text-white text-sm
+                            font-medium
+                            rounded-md
+                        "
+                        @click="rejectWord(word.id)"
+                    >
+                        Reject
+                    </button>
+                </div>
             </div>
         </div>
     </div>

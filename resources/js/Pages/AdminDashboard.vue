@@ -1,13 +1,21 @@
 <script setup>
-import AppLayout from '@/Layouts/AppLayout.vue';
-import Welcome from '@/Jetstream/Welcome.vue';
-import WordResult from '../components/WordResult.vue';
+import AppLayout from "@/Layouts/AppLayout.vue";
+import Welcome from "@/Jetstream/Welcome.vue";
+import WordResult from "../components/WordResult.vue";
+import StatCard from "../components/StatCard.vue";
+import { computed } from "vue";
 
 defineProps({
-    pendingWords: {
+    words: {
         type: Array,
         default: () => [],
-    }
+    },
+});
+
+const heading = computed(() => {
+    if (route().current("dashboard")) return "Admin dashboard";
+    if (route().current("approval")) return "Words requiring approval";
+    return "Rejected words";
 });
 </script>
 
@@ -15,24 +23,28 @@ defineProps({
     <AppLayout title="Dashboard">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Admin Dashboard
+                {{ heading }}
             </h2>
         </template>
 
-        <div>
+        <div v-if="words">
             <WordResult
                 is-logged-in
-                v-for="word in pendingWords"
+                v-for="word in words"
                 :key="word.uuid"
                 :word="word"
                 admin-view
             />
         </div>
 
-        <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                    <Welcome />
+        <div v-if="route().current('dashboard')">
+            <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
+                <div class="p-4 flex items-center">
+                    <StatCard
+                        class="m-4"
+                        v-for="stat in [1, 2, 3]"
+                        :key="stat"
+                    />
                 </div>
             </div>
         </div>

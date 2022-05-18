@@ -68,8 +68,10 @@ class WordService
             'word' => $word->word,
             'translation' => $word->translation,
             'example_sentence' => $word->example_sentence,
-            'is_liked' => $word->isLikedByUser,
+            'is_liked' => (bool) $word->isLikedByUser,
             'likes' => $word->likes->count(),
+            'rejected' => (bool) $word->rejected,
+            'reason' => $word->reason,
         ];
     }
 
@@ -129,7 +131,18 @@ class WordService
 
     public function findAllPendingWords(): Collection
     {
-        return Word::where('pending', true)->get()
+        return Word::where('pending', true)
+        ->where('rejected', false)
+        ->get()
+            ->map(function (Word $word) {
+                return $this->formatWord($word);
+            });
+    }
+
+    public function findAllRejectedWords(): Collection
+    {
+        return Word::where('rejected', true)
+        ->get()
             ->map(function (Word $word) {
                 return $this->formatWord($word);
             });
@@ -144,6 +157,22 @@ class WordService
         }
 
         $word->pending = false;
+        $word->save();
+
+        return $word;
+    }
+
+    public function rejectWord(string $wordUuid, ?string $rejectReason): ?Word
+    {
+        $word = Word::where('uuid', $wordUuid)->first();
+
+        if (!$word) {
+            return null;
+        }
+
+        $word->pending = true;
+        $word->rejected = true;
+        $word->reason = $rejectReason;
         $word->save();
 
         return $word;

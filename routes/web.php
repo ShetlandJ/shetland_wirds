@@ -1,9 +1,11 @@
 <?php
 
+use App\Models\Role;
 use App\Models\Word;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use App\Services\WordService;
+use App\Http\Middleware\UserIsAdmin;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
@@ -24,6 +26,7 @@ Route::get('/', function () {
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
+        'isLoggedIn' => Auth::check(),
         'phpVersion' => PHP_VERSION,
     ]);
 });
@@ -88,6 +91,21 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/dashboard', function () {
+        if (Auth::id() && Auth::user()->roles->where('name', Role::ROLE_ADMIN)->first()) {
+            return Inertia::render('AdminDashboard', [
+                'pendingWords' => app(WordService::class)->findAllPendingWords(),
+                'isLoggedIn' => Auth::check(),
+            ]);
+        }
+
         return Inertia::render('Dashboard');
     })->name('dashboard');
 });
+
+Route::post('/dashboard/approve', function () {
+    if (request('wordToApprove')) {
+        app(WordService::class)->approveWord(request('wordToApprove'));
+    }
+
+    return redirect()->back();
+})->name('approve');

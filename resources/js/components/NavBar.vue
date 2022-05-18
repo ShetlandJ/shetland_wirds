@@ -1,15 +1,15 @@
 <script setup>
 import { Link, useForm, InertiaApp } from "@inertiajs/inertia-vue3";
 
-const emit = defineEmits(["setSearch", 'suggest-word']);
+const emit = defineEmits(["setSearch", "suggest-word"]);
 
 const form = useForm({
     searchString: "",
 });
 
 const suggestWord = () => {
-    emit('suggest-word');
-}
+    emit("suggest-word");
+};
 
 const search = () => {
     emit("set-search", form.searchString);
@@ -90,7 +90,7 @@ defineProps({
                                 aria-describedby="button-addon2"
                             />
                             <button
-                            :disabled="form.searchString.length === 0"
+                                :disabled="form.searchString.length === 0"
                                 class="
                                     btn
                                     inline-block
@@ -179,6 +179,23 @@ defineProps({
                         </Link>
                     </li>
                 </template>
+                <li class="md:ml-4" v-if="isLoggedIn">
+                    <Link
+                        class="
+                            border-t
+                            block
+                            no-underline
+                            hover:underline
+                            py-2
+                            text-grey-darkest
+                            hover:text-black
+                            md:border-none md:p-0
+                        "
+                        :href="route('dashboard')"
+                    >
+                        Dashboard
+                    </Link>
+                </li>
                 <li class="md:ml-4">
                     <button
                         class="

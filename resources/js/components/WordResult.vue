@@ -8,6 +8,7 @@ defineProps({
     word: Object,
     searchString: String,
     isLoggedIn: Boolean,
+    adminView: Boolean,
 });
 
 const form = useForm({
@@ -25,6 +26,17 @@ const likeWord = (word, searchString) => {
     form.post(route("search", { searchTerm: searchString }), {
         searchString: searchString,
         wordToLike: form.wordToLike,
+    });
+};
+
+const approveForm = useForm({
+    wordToApprove: null,
+});
+
+const approveWord = (wordId) => {
+    approveForm.wordToApprove = wordId;
+    approveForm.post(route("approve"), {
+        wordToApprove: approveForm.wordToApprove,
     });
 };
 </script>
@@ -76,7 +88,7 @@ const likeWord = (word, searchString) => {
                 </div>
                 <div
                     className="flex align-items-end mb-1"
-                    v-if="word.see_also.length > 0"
+                    v-if="word.see_also && word.see_also.length > 0"
                 >
                     <span className="text-gray-900 mr-2"> See also: </span>
                     <span
@@ -124,6 +136,37 @@ const likeWord = (word, searchString) => {
                         </template>
                     </svg>
                 </div>
+            </div>
+
+            <div class="mt-4 flex justify-end">
+                <button
+                    class="
+                        px-4
+                        py-2
+                        bg-green-500
+                        hover:bg-green-600
+                        text-white text-sm
+                        font-medium
+                        rounded-md
+                        mr-2
+                    "
+                    @click="approveWord(word.id)"
+                >
+                    Approve
+                </button>
+                <button
+                    class="
+                        px-4
+                        py-2
+                        bg-yellow-500
+                        hover:bg-yellow-600
+                        text-white text-sm
+                        font-medium
+                        rounded-md
+                    "
+                >
+                    Reject
+                </button>
             </div>
         </div>
     </div>

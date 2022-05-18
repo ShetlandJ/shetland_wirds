@@ -2,12 +2,14 @@
 
 namespace App\Services;
 
+use Exception;
 use App\Models\Word;
+use App\Models\WordToWord;
 use Illuminate\Support\Str;
 use App\Models\UserWordLike;
-use App\Models\WordToWord;
-use Exception;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\Routing\Loader\Configurator\CollectionConfigurator;
 
 class WordService
 {
@@ -123,5 +125,27 @@ class WordService
             'pending' => true,
             'type' => isset($payload['word_type']) ? $payload['word_type'] : null,
         ]);
+    }
+
+    public function findAllPendingWords(): Collection
+    {
+        return Word::where('pending', true)->get()
+            ->map(function (Word $word) {
+                return $this->formatWord($word);
+            });
+    }
+
+    public function approveWord(string $wordUuid): ?Word
+    {
+        $word = Word::where('uuid', $wordUuid)->first();
+
+        if (!$word) {
+            return null;
+        }
+
+        $word->pending = false;
+        $word->save();
+
+        return $word;
     }
 }

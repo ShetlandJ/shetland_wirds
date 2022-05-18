@@ -53,7 +53,7 @@ const rejectWord = (wordId) => {
     rejectForm.post(route("reject"), {
         wordToApprove: rejectForm.wordToApprove,
         rejectReason: rejectForm.rejectReason,
-        onFinish: () => form.reset('rejectForm'),
+        onFinish: () => form.reset("rejectForm"),
     });
 };
 </script>
@@ -66,19 +66,19 @@ const rejectWord = (wordId) => {
             <div>
                 <div className="flex items-center justify-between mb-2">
                     <div class="flex">
-                    <Link
-                        :href="route('word', { word: word.word })"
-                        class="text-sm text-gray-700 underline"
-                    >
-                        <h2
-                            className="text-lg font-semibold text-gray-900 -mt-1"
+                        <Link
+                            :href="route('word', { word: word.word })"
+                            class="text-sm text-gray-700 underline"
                         >
-                            {{ word.word }}
-                        </h2>
-                    </Link>
-                    <span v-if="word.rejected" class="text-red-500 ml-3">
-                        (Rejected)
-                    </span>
+                            <h2
+                                className="text-lg font-semibold text-gray-900 -mt-1"
+                            >
+                                {{ word.word }}
+                            </h2>
+                        </Link>
+                        <span v-if="word.rejected" class="text-red-500 ml-3">
+                            (Rejected)
+                        </span>
                     </div>
 
                     <Tooltip
@@ -160,37 +160,43 @@ const rejectWord = (wordId) => {
                 </div>
             </div>
 
-            <div class="mt-4 flex justify-end" v-if="word.pending">
-                <button
-                    class="
-                        px-4
-                        py-2
-                        bg-green-500
-                        hover:bg-green-600
-                        text-white text-sm
-                        font-medium
-                        rounded-md
-                        mr-2
-                    "
-                    @click="approveWord(word.id)"
-                >
-                    Approve
-                </button>
-                <button
-                    v-if="!word.rejected"
-                    class="
-                        px-4
-                        py-2
-                        bg-yellow-500
-                        hover:bg-yellow-600
-                        text-white text-sm
-                        font-medium
-                        rounded-md
-                    "
-                    @click="showRejectForm = !showRejectForm"
-                >
-                    {{ showRejectForm ? "Cancel" : "Reject" }}
-                </button>
+            <div class="mt-4 flex justify-between" v-if="word.pending">
+                <div class="mt-2">
+                    <span class="font-bold">Creator</span>:
+                    {{ word.creator_name }}
+                </div>
+                <div>
+                    <button
+                        class="
+                            px-4
+                            py-2
+                            bg-green-500
+                            hover:bg-green-600
+                            text-white text-sm
+                            font-medium
+                            rounded-md
+                            mr-2
+                        "
+                        @click="approveWord(word.id)"
+                    >
+                        Approve
+                    </button>
+                    <button
+                        v-if="!word.rejected"
+                        class="
+                            px-4
+                            py-2
+                            bg-yellow-500
+                            hover:bg-yellow-600
+                            text-white text-sm
+                            font-medium
+                            rounded-md
+                        "
+                        @click="showRejectForm = !showRejectForm"
+                    >
+                        {{ showRejectForm ? "Cancel" : "Reject" }}
+                    </button>
+                </div>
             </div>
 
             <div v-if="showRejectForm">

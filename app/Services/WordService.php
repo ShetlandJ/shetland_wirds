@@ -78,6 +78,7 @@ class WordService
             'rejected' => (bool) $word->rejected,
             'reason' => $word->reason,
             'external_id' => $word->external_id,
+            'creator_name' => $word->creator ? $word->creator->name : 'Unregistered',
         ];
     }
 
@@ -189,7 +190,7 @@ class WordService
         $allWords = Word::all();
 
         $headlineMetrics = [
-            ['name' => 'Total pending words', 'value' => $allWords->where('pending', true)->count(), 'type' => 'pending'],
+            ['name' => 'Total pending words', 'value' => $allWords->where('pending', true)->where('rejected', false)->count(), 'type' => 'pending'],
             ['name' => 'Total rejected words', 'value' => $allWords->where('rejected', true)->count(), 'type' => 'rejected'],
         ];
 

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Role;
+use App\Models\Word;
 use App\Models\UserToRole;
 use Laravel\Sanctum\HasApiTokens;
 use Laravel\Jetstream\HasProfilePhoto;
@@ -63,6 +64,11 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function words(): HasMany
+    {
+        return $this->hasMany(Word::class);
+    }
 
     public function roles(): HasManyThrough
     {

@@ -25,6 +25,15 @@ class WordService
         return $query->get();
     }
 
+    public function findAllUserWords(): Collection
+    {
+        $query = Word::query();
+
+        $query->where('creator_id', Auth::user()->id);
+
+        return $query->get();
+    }
+
     public function findByWord(string $word): ?array
     {
         $foundWord = Word::where('word', $word)->first();

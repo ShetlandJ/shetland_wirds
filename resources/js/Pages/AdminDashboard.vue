@@ -20,7 +20,9 @@ defineProps({
 const heading = computed(() => {
     if (route().current("dashboard")) return "Admin dashboard";
     if (route().current("approval")) return "Words requiring approval";
-    return "Rejected words";
+    if (route().current("my-words")) return "My words";
+    if (route().current('rejected')) return "Rejected words";
+    return "Admin dashboard";
 });
 </script>
 

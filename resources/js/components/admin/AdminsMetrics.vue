@@ -12,7 +12,7 @@ defineProps({
 <template>
     <div>
         <div>
-            <h1 class="px-4 pt-4 mb-0 text-4xl">Highlight metrics</h1>
+            <h1 class="px-4 pt-4 m-4 mb-0 text-4xl">Highlight metrics</h1>
             <div class="grid gap-6 mb-2">
                 <div class="p-4 flex items-center">
                     <StatCard
@@ -28,7 +28,7 @@ defineProps({
         </div>
 
         <div class="mb-2">
-            <h1 class="px-4 pt-4 mb-0 text-4xl">Recent</h1>
+            <h1 class="px-4 pt-4 m-4 mb-0 text-4xl">Recent</h1>
             <div class="grid gap-6 mb-2">
                 <div class="p-4 flex items-center">
                     <StatCard
@@ -44,7 +44,7 @@ defineProps({
         </div>
 
         <div class="mb-2">
-            <h1 class="px-4 pt-4 mb-0 text-4xl">All time</h1>
+            <h1 class="px-4 pt-4 m-4 mb-0 text-4xl">All time</h1>
             <div class="grid gap-6 mb-2">
                 <div class="p-4 flex items-center">
                     <StatCard

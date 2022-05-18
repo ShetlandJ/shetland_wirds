@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import { Head, useForm, Link } from "@inertiajs/inertia-vue3";
 import SearchBar from "../components/SearchBar.vue";
 import WordResult from "../components/WordResult.vue";
@@ -31,7 +31,7 @@ const toggleSuggestWordForm = (value) => {
 
 const form = useForm({
     page: 1,
-    searchString: ''
+    searchString: "",
 });
 
 const handlePageChange = (pageNumber) => {
@@ -42,6 +42,21 @@ const handlePageChange = (pageNumber) => {
         page: pageNumber,
     });
 };
+
+const currentPageStartsAt = computed(() => {
+    return (
+        props.pagination.page * props.pagination.perPage -
+        props.pagination.perPage +
+        1
+    );
+});
+
+const currentPageEndsAt = computed(() => {
+    return Math.min(
+        props.pagination.page * props.pagination.perPage,
+        props.pagination.total
+    );
+});
 </script>
 
 <template>
@@ -66,6 +81,14 @@ const handlePageChange = (pageNumber) => {
         />
 
         <div v-if="!showAddForm" class="mb-8">
+            <div class="flex justify-center mt-4" v-if="pagination.pages > 1">
+                <span v-if="pagination.pages > 1">
+                    Showing <b>{{ currentPageStartsAt }}</b> to
+                    <b>{{ currentPageEndsAt }}</b> out of
+                    <b>{{ pagination.total }}</b> words.
+                </span>
+            </div>
+
             <WordResult
                 :is-logged-in="isLoggedIn"
                 :search-string="searchString"
@@ -76,6 +99,7 @@ const handlePageChange = (pageNumber) => {
 
             <div class="flex justify-center">
                 <Pagination
+                    v-if="pagination && pagination.pages > 1"
                     :pagination="pagination"
                     @page-change="handlePageChange"
                 />

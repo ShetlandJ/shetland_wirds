@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\UserWordLike;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -41,5 +42,10 @@ class Word extends Model
         }
 
         return $this->likes()->where('user_id', Auth::user()->id)->exists();
+    }
+
+    public function scopeUserAdded(Builder $query): Builder
+    {
+        return $query->where('creator_id', '!=', 0);
     }
 }

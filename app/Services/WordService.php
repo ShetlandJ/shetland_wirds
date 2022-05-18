@@ -190,7 +190,11 @@ class WordService
 
         $recentMetrics = [
             ['name' => 'Likes in the last 30 days', 'value' => UserWordLike::where('created_at', '>=', now()->subDays(30))->count(), 'type' => 'likes'],
-            ['name' => 'Words added in the last 30 days', 'value' => Word::where('created_at', '>=', now()->subDays(30))->count(), 'type' => 'words'],
+            [
+                'name' => 'Words added by users in the last 30 days',
+                'value' => Word::where('created_at', '>=', now()->subDays(30))->userAdded()->count(),
+                'type' => 'words'
+            ],
         ];
 
         $allTimeMetrics = [

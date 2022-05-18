@@ -93,6 +93,7 @@ Route::get('/word/{word}', function (string $word) {
     return Inertia::render('Word', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
+        'isLoggedIn' => Auth::check(),
         'word' => app(WordService::class)->findByWord($word),
     ]);
 })->where('word', '.*')->name('word');

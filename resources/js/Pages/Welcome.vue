@@ -92,7 +92,7 @@ const currentPageEndsAt = computed(() => {
                 </span>
             </div>
 
-            <template v-if="words.length">
+            <template v-if="words && words.length && props.searchString">
                 <WordResult
                     :is-logged-in="isLoggedIn"
                     :search-string="searchString"
@@ -102,7 +102,7 @@ const currentPageEndsAt = computed(() => {
                 />
             </template>
             <div
-                v-else
+                v-else-if="searchString && !words.length"
                 class="
                     text-center
                     px-4

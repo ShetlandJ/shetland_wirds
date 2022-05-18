@@ -39,7 +39,8 @@ class WordService
 
         $query->where('creator_id', Auth::user()->id);
 
-        return $query->get();
+        return $query->get()
+            ->map(fn (Word $word) => $this->formatWord($word));
     }
 
     public function findByWord(string $word): ?array
@@ -63,9 +64,7 @@ class WordService
             $formattedWord['see_also'] = $word->relatedWords->filter(function ($relatedWord) {
                 return $relatedWord->word;
             })
-            ->map(function (WordToWord $w2w) {
-                return $this->formatWord($w2w->word);
-            });
+            ->map(fn (WordToWord $w2w) => $this->formatWord($w2w->word));
 
             $output[] = $formattedWord;
         }
@@ -78,6 +77,7 @@ class WordService
         return [
             'id' => $word->uuid,
             'word' => $word->word,
+            'slug' => $word->clean_slug,
             'translation' => $word->translation,
             'example_sentence' => $word->example_sentence,
             'is_liked' => (bool) $word->isLikedByUser,
@@ -147,20 +147,16 @@ class WordService
     public function findAllPendingWords(): Collection
     {
         return Word::where('pending', true)
-        ->where('rejected', false)
-        ->get()
-            ->map(function (Word $word) {
-                return $this->formatWord($word);
-            });
+            ->where('rejected', false)
+            ->get()
+            ->map(fn (Word $word) => $this->formatWord($word));
     }
 
     public function findAllRejectedWords(): Collection
     {
         return Word::where('rejected', true)
-        ->get()
-            ->map(function (Word $word) {
-                return $this->formatWord($word);
-            });
+            ->get()
+            ->map(fn (Word $word) => $this->formatWord($word));
     }
 
     public function approveWord(string $wordUuid): ?Word
@@ -171,6 +167,8 @@ class WordService
             return null;
         }
 
+        $word->rejected = false;
+        $word->reason = null;
         $word->pending = false;
         $word->save();
 

@@ -67,7 +67,7 @@ const rejectWord = (wordId) => {
                 <div className="flex items-center justify-between mb-2">
                     <div class="flex">
                         <Link
-                            :href="route('word', { word: word.word })"
+                            :href="route('word', { word: word.slug })"
                             class="text-sm text-gray-700 underline"
                         >
                             <h2

@@ -1,10 +1,11 @@
 <script setup>
-import { ref } from 'vue';
+import { ref } from "vue";
 import { Head, useForm, Link } from "@inertiajs/inertia-vue3";
 import SearchBar from "../components/SearchBar.vue";
 import WordResult from "../components/WordResult.vue";
 import NavBar from "../components/NavBar.vue";
-import NewWordForm from '../components/NewWordForm.vue';
+import NewWordForm from "../components/NewWordForm.vue";
+import Pagination from "../components/Pagination.vue";
 
 let searchString = "";
 let showAddForm = ref(false);
@@ -15,15 +16,31 @@ const newWord = useForm({
     example_sentence: "",
 });
 
-defineProps({
+const props = defineProps({
     canLogin: Boolean,
     canRegister: Boolean,
     isLoggedIn: Boolean,
     words: Array,
+    pagination: Object,
+    searchString: String,
 });
 
 const toggleSuggestWordForm = (value) => {
     showAddForm.value = value;
+};
+
+const form = useForm({
+    page: 1,
+    searchString: ''
+});
+
+const handlePageChange = (pageNumber) => {
+    form.page = pageNumber;
+    form.searchString = props.searchString;
+    form.post(route("search", { searchTerm: form.searchString }), {
+        searchString: form.searchString,
+        page: pageNumber,
+    });
 };
 </script>
 
@@ -47,41 +64,8 @@ const toggleSuggestWordForm = (value) => {
             @set-search="searchString = $event"
             @suggest-word="toggleSuggestWordForm(true)"
         />
-        <!-- <div
-            v-if="canLogin"
-            class="hidden fixed top-0 right-0 px-6 py-4 sm:block"
-        >
-            <Link
-                v-if="$page.props.user"
-                :href="route('dashboard')"
-                class="text-sm text-gray-700 underline"
-            >
-                Dashboard
-            </Link>
 
-            <template v-else>
-                <Link
-                    :href="route('login')"
-                    class="text-sm text-gray-700 underline"
-                >
-                    Log in
-                </Link>
-
-                <Link
-                    v-if="canRegister"
-                    :href="route('register')"
-                    class="ml-4 text-sm text-gray-700 underline"
-                >
-                    Register
-                </Link>
-            </template>
-        </div> -->
-
-        <!-- <div class="max-w-2xl mx-auto">
-            <SearchBar @set-search="searchString = $event" />
-        </div> -->
-
-        <div v-if="!showAddForm">
+        <div v-if="!showAddForm" class="mb-8">
             <WordResult
                 :is-logged-in="isLoggedIn"
                 :search-string="searchString"
@@ -89,11 +73,16 @@ const toggleSuggestWordForm = (value) => {
                 :key="word.uuid"
                 :word="word"
             />
+
+            <div class="flex justify-center">
+                <Pagination
+                    :pagination="pagination"
+                    @page-change="handlePageChange"
+                />
+            </div>
         </div>
         <div v-else>
-        <NewWordForm
-            @hide-form="toggleSuggestWordForm(false)"
-        />
+            <NewWordForm @hide-form="toggleSuggestWordForm(false)" />
         </div>
     </div>
 </template>
@@ -102,16 +91,6 @@ const toggleSuggestWordForm = (value) => {
 .bg-gray-100 {
     background-color: #f7fafc;
     background-color: rgba(247, 250, 252, var(--tw-bg-opacity));
-}
-
-.border-gray-200 {
-    border-color: #edf2f7;
-    border-color: rgba(237, 242, 247, var(--tw-border-opacity));
-}
-
-.text-gray-400 {
-    color: #cbd5e0;
-    color: rgba(203, 213, 224, var(--tw-text-opacity));
 }
 
 .text-gray-500 {
@@ -153,11 +132,6 @@ const toggleSuggestWordForm = (value) => {
     .dark\:text-white {
         color: #fff;
         color: rgba(255, 255, 255, var(--tw-text-opacity));
-    }
-
-    .dark\:text-gray-400 {
-        color: #cbd5e0;
-        color: rgba(203, 213, 224, var(--tw-text-opacity));
     }
 }
 </style>

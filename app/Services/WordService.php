@@ -14,13 +14,20 @@ use Symfony\Component\Routing\Loader\Configurator\CollectionConfigurator;
 
 class WordService
 {
-    public function findBy(string $searchString): Collection
+    public function findBy(string $searchString, array $pagination = []): Collection
     {
         $query = Word::query();
 
         $lowercasedSearchString = Str::lower($searchString);
 
         $query->where('word', 'like', "%{$lowercasedSearchString}%");
+
+        if (isset($pagination['page'])) {
+            $pageSize = 10;
+            $query
+                ->take($pageSize)
+                ->skip(($pagination['page'] - 1) * $pageSize);
+        }
 
         return $query->get();
     }
@@ -45,9 +52,9 @@ class WordService
         return $this->formatWord($foundWord);
     }
 
-    public function findAllWords(string $searchString): array
+    public function findAllWordsWithPagination(string $searchString, array $pagination = []): array
     {
-        $words = $this->findBy($searchString);
+        $words = $this->findBy($searchString, $pagination);
 
         $output = [];
         foreach ($words as $word) {

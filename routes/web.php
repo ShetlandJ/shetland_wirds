@@ -38,11 +38,23 @@ Route::get('/search', function () {
         $searchTerm = request('searchTerm');
     }
 
+    $total = app(WordService::class)->findBy($searchTerm)->count();
+    $pageTotal = request('perPage') ?? 10;
+
+    $pagination = [
+        'page' => request('page') ?? 1,
+        'perPage' => request('perPage') ?? 10,
+        'total' => $total,
+        'pages' => ceil($total / $pageTotal),
+    ];
+
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'isLoggedIn' => Auth::check(),
-        'words' => app(WordService::class)->findAllWords($searchTerm),
+        'words' => app(WordService::class)->findAllWordsWithPagination($searchTerm, $pagination),
+        'pagination' => $pagination,
+        'searchString' => $searchTerm,
     ]);
 })->name('search');
 
@@ -56,11 +68,24 @@ Route::post('/search', function () {
         app(WordService::class)->handleLike(request('wordToLike'));
     }
 
+    $total = app(WordService::class)->findBy($searchTerm)->count();
+    $pageTotal = request('perPage') ?? 10;
+    $pagination = [
+        'page' => request('page') ?? 1,
+        'perPage' => request('perPage') ?? 10,
+        'total' => $total,
+        'pages' => ceil($total / $pageTotal),
+    ];
+
+    $words = app(WordService::class)->findAllWordsWithPagination($searchTerm, $pagination);
+
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'isLoggedIn' => Auth::check(),
-        'words' => app(WordService::class)->findAllWords($searchTerm),
+        'words' => $words,
+        'pagination' => $pagination,
+        'searchString' => $searchTerm,
     ]);
 })->name('search');
 

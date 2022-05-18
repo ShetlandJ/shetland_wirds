@@ -210,7 +210,7 @@ defineProps({
                         "
                         @click="suggestWord"
                     >
-                        Suggest word/phrase
+                        Add word/phrase
                     </button>
                 </li>
             </ul>

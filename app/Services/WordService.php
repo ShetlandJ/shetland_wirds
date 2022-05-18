@@ -7,13 +7,14 @@ use App\Models\Word;
 use App\Models\WordToWord;
 use Illuminate\Support\Str;
 use App\Models\UserWordLike;
+use DateTime;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\Routing\Loader\Configurator\CollectionConfigurator;
 
 class WordService
 {
-    public function findBy(string $searchString)
+    public function findBy(string $searchString): Collection
     {
         $query = Word::query();
 
@@ -41,21 +42,15 @@ class WordService
 
         $output = [];
         foreach ($words as $word) {
-            $output[] = [
-                'id' => $word->uuid,
-                'word' => $word->word,
-                'translation' => $word->translation,
-                'example_sentence' => $word->example_sentence,
-                'is_liked' => $word->isLikedByUser,
-                'likes' => $word->likes->count(),
-                'external_id' => $word->external_id,
-                'see_also' => $word->relatedWords->filter(function ($relatedWord) {
-                    return $relatedWord->word;
-                })
-                ->map(function (WordToWord $w2w) {
-                    return $this->formatWord($w2w->word);
-                }),
-            ];
+            $formattedWord = $this->formatWord($word);
+            $formattedWord['see_also'] = $word->relatedWords->filter(function ($relatedWord) {
+                return $relatedWord->word;
+            })
+            ->map(function (WordToWord $w2w) {
+                return $this->formatWord($w2w->word);
+            });
+
+            $output[] = $formattedWord;
         }
 
         return $output;
@@ -70,8 +65,10 @@ class WordService
             'example_sentence' => $word->example_sentence,
             'is_liked' => (bool) $word->isLikedByUser,
             'likes' => $word->likes->count(),
+            'pending' => $word->pending,
             'rejected' => (bool) $word->rejected,
             'reason' => $word->reason,
+            'external_id' => $word->external_id,
         ];
     }
 
@@ -183,21 +180,21 @@ class WordService
         $allWords = Word::all();
 
         $headlineMetrics = [
-            ['name' => 'Total words', 'value' => $allWords->count(), 'type' => 'total'],
             ['name' => 'Total pending words', 'value' => $allWords->where('pending', true)->count(), 'type' => 'pending'],
             ['name' => 'Total rejected words', 'value' => $allWords->where('rejected', true)->count(), 'type' => 'rejected'],
         ];
 
         $recentMetrics = [
-            ['name' => 'Likes in the last 30 days', 'value' => UserWordLike::where('created_at', '>=', now()->subDays(30))->count(), 'type' => 'likes'],
             [
                 'name' => 'Words added by users in the last 30 days',
-                'value' => Word::where('created_at', '>=', now()->subDays(30))->userAdded()->count(),
+                'value' => Word::where('created_at', '>=', now()->subDays(30))->userAdded()->approved()->count(),
                 'type' => 'words'
             ],
+            ['name' => 'Likes in the last 30 days', 'value' => UserWordLike::where('created_at', '>=', now()->subDays(30))->count(), 'type' => 'likes'],
         ];
 
         $allTimeMetrics = [
+            ['name' => 'Total words', 'value' => $allWords->count(), 'type' => 'total'],
             ['name' => 'Most liked word', 'value' => $allWords->sortByDesc('likes_count')->first()->word, 'type' => 'likes'],
         ];
 

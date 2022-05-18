@@ -46,6 +46,14 @@ class Word extends Model
 
     public function scopeUserAdded(Builder $query): Builder
     {
-        return $query->where('creator_id', '!=', 0);
+        return $query->where(function (Builder $query) {
+            $query->whereNull('creator_id');
+            $query->orWhere('creator_id', '!=', 0);
+        });
+    }
+
+    public function scopeApproved(Builder $query): Builder
+    {
+        return $query->where('pending', false)->where('rejected', false);
     }
 }

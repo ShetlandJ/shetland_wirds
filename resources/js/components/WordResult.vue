@@ -160,7 +160,7 @@ const rejectWord = (wordId) => {
                 </div>
             </div>
 
-            <div class="mt-4 flex justify-end">
+            <div class="mt-4 flex justify-end" v-if="word.pending">
                 <button
                     class="
                         px-4

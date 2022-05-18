@@ -29,6 +29,6 @@ const props = defineProps({
             @suggest-word="toggleSuggestWordForm(true)"
         />
 
-        <WordResult :word="word" />
+        <WordResult :is-logged-in="isLoggedIn" :word="word" />
     </div>
 </template>

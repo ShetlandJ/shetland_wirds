@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\WordToWord;
 use Illuminate\Support\Str;
 use App\Models\UserWordLike;
 use Illuminate\Support\Facades\Auth;
@@ -42,6 +43,11 @@ class Word extends Model
     public function creator(): BelongsTo
     {
         return $this->belongsTo(User::class, 'creator_id');
+    }
+
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class);
     }
 
     public function getIsLikedByUserAttribute(): bool

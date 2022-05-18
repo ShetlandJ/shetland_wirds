@@ -2,12 +2,13 @@
 
 namespace App\Services;
 
+use DateTime;
 use Exception;
 use App\Models\Word;
+use App\Models\Comment;
 use App\Models\WordToWord;
 use Illuminate\Support\Str;
 use App\Models\UserWordLike;
-use DateTime;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\Routing\Loader\Configurator\CollectionConfigurator;
@@ -89,7 +90,27 @@ class WordService
             'reason' => $word->reason,
             'external_id' => $word->external_id,
             'creator_name' => $word->creator ? $word->creator->name : 'Unregistered',
+            'comments'=> $this->getComments($word)
         ];
+    }
+
+    public function formatComment(Comment $comment)
+    {
+        return [
+            'id' => $comment->uuid,
+            'parent_comment_id' => $comment->parent ? $comment->parent->uuid : null,
+            'word_id' => $comment->word->uuid,
+            'author' => $comment->author->name,
+        ];
+    }
+
+    public function getComments($word): Collection
+    {
+        if (!$word->comments) {
+            return collect();
+        }
+
+        return $word->comments->map(fn (Comment $comment) => $this->formatComment($comment));
     }
 
     public function handleLike(string $word): void

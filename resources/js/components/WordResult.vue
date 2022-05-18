@@ -10,6 +10,7 @@ const props = defineProps({
     searchString: String,
     isLoggedIn: Boolean,
     adminView: Boolean,
+    fullView: Boolean,
 });
 
 const form = useForm({
@@ -157,7 +158,24 @@ const rejectWord = (wordId) => {
                             />
                         </template>
                     </svg>
+
+                    <Link
+                        v-if="!fullView"
+                        :href="route('word', { word: word.slug })"
+                        class="text-sm text-gray-700 underline"
+                    >
+                        {{ word.comments.length }} comment{{
+                            word.comments.length === 1 ? "" : "s"
+                        }}
+                    </Link>
+
+                    <p v-else>
+                        {{ word.comments.length }} comment{{
+                            word.comments.length === 1 ? "" : "s"
+                        }}
+                    </p>
                 </div>
+                <div v-if="fullView">Some comment left by James</div>
             </div>
 
             <div class="mt-4 flex justify-between" v-if="word.pending">

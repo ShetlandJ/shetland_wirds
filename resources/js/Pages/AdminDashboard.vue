@@ -3,12 +3,17 @@ import AppLayout from "@/Layouts/AppLayout.vue";
 import Welcome from "@/Jetstream/Welcome.vue";
 import WordResult from "../components/WordResult.vue";
 import StatCard from "../components/StatCard.vue";
+import AdminMetrics from "../components/admin/AdminsMetrics.vue";
 import { computed } from "vue";
 
 defineProps({
     words: {
         type: Array,
         default: () => [],
+    },
+    metrics: {
+        type: Object,
+        default: () => ({}),
     },
 });
 
@@ -38,15 +43,7 @@ const heading = computed(() => {
         </div>
 
         <div v-if="route().current('dashboard')">
-            <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
-                <div class="p-4 flex items-center">
-                    <StatCard
-                        class="m-4"
-                        v-for="stat in [1, 2, 3]"
-                        :key="stat"
-                    />
-                </div>
-            </div>
+            <AdminMetrics :metrics="metrics" />
         </div>
     </AppLayout>
 </template>

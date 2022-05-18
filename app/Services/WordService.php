@@ -177,4 +177,25 @@ class WordService
 
         return $word;
     }
+
+    public function getAdminDashboardMetrics(): array
+    {
+        $allWords = Word::all();
+
+        $headlineMetrics = [
+            ['name' => 'Total words', 'value' => $allWords->count(), 'type' => 'total'],
+            ['name' => 'Total pending words', 'value' => $allWords->where('pending', true)->count(), 'type' => 'pending'],
+            ['name' => 'Total rejected words', 'value' => $allWords->where('rejected', true)->count(), 'type' => 'rejected'],
+        ];
+
+        $recentMetrics = [
+            ['name' => 'Likes in the last 7 days', 'value' => UserWordLike::where('created_at', '>=', now()->subDays(7))->count(), 'type' => 'likes'],
+            ['name' => 'Words added in the last 7 days', 'value' => Word::where('created_at', '>=', now()->subDays(7))->count(), 'type' => 'words'],
+        ];
+
+        return [
+            "headline" => $headlineMetrics,
+            "recent" => $recentMetrics,
+        ];
+    }
 }

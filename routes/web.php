@@ -94,6 +94,7 @@ Route::middleware([
         if (Auth::id() && Auth::user()->roles->where('name', Role::ROLE_ADMIN)->first()) {
             return Inertia::render('AdminDashboard', [
                 'isLoggedIn' => Auth::check(),
+                'metrics' => app(WordService::class)->getAdminDashboardMetrics(),
             ]);
         }
 

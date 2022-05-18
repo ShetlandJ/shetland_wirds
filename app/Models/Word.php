@@ -23,7 +23,9 @@ class Word extends Model
         'translation',
         'example_sentence',
         'external_id',
-        'pending'
+        'pending',
+        'creator_id',
+        'type'
     ];
 
     public function likes()

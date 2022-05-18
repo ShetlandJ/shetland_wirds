@@ -81,7 +81,7 @@ const currentPageEndsAt = computed(() => {
         />
 
         <div v-if="!showAddForm" class="mb-8">
-            <div class="flex justify-center mt-4" v-if="pagination.pages > 1">
+            <div class="flex justify-center mt-4" v-if="pagination && pagination.pages > 1">
                 <span v-if="pagination.pages > 1">
                     Showing <b>{{ currentPageStartsAt }}</b> to
                     <b>{{ currentPageEndsAt }}</b> out of

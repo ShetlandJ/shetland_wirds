@@ -29,6 +29,9 @@ class WordService
                 ->skip(($pagination['page'] - 1) * $pageSize);
         }
 
+        $query->where('pending', false);
+        $query->where('rejected', false);
+
         return $query->get();
     }
 

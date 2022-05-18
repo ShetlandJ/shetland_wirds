@@ -5,7 +5,7 @@ import Tooltip from "./Tooltip.vue";
 import ShetlandFlag from "./icons/ShetlandFlag.vue";
 import { ref } from "vue";
 
-defineProps({
+const props = defineProps({
     word: Object,
     searchString: String,
     isLoggedIn: Boolean,
@@ -18,7 +18,7 @@ const form = useForm({
 });
 
 const likeWord = (word, searchString) => {
-    if (!this.isLoggedIn) {
+    if (!props.isLoggedIn) {
         return false;
     }
     form.wordToLike = word;

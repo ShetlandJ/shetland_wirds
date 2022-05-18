@@ -189,13 +189,18 @@ class WordService
         ];
 
         $recentMetrics = [
-            ['name' => 'Likes in the last 7 days', 'value' => UserWordLike::where('created_at', '>=', now()->subDays(7))->count(), 'type' => 'likes'],
-            ['name' => 'Words added in the last 7 days', 'value' => Word::where('created_at', '>=', now()->subDays(7))->count(), 'type' => 'words'],
+            ['name' => 'Likes in the last 30 days', 'value' => UserWordLike::where('created_at', '>=', now()->subDays(30))->count(), 'type' => 'likes'],
+            ['name' => 'Words added in the last 30 days', 'value' => Word::where('created_at', '>=', now()->subDays(30))->count(), 'type' => 'words'],
+        ];
+
+        $allTimeMetrics = [
+            ['name' => 'Most liked word', 'value' => $allWords->sortByDesc('likes_count')->first()->word, 'type' => 'likes'],
         ];
 
         return [
             "headline" => $headlineMetrics,
             "recent" => $recentMetrics,
+            "allTime" => $allTimeMetrics,
         ];
     }
 }

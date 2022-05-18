@@ -81,7 +81,10 @@ const currentPageEndsAt = computed(() => {
         />
 
         <div v-if="!showAddForm" class="mb-8">
-            <div class="flex justify-center mt-4" v-if="pagination && pagination.pages > 1">
+            <div
+                class="flex justify-center mt-4"
+                v-if="pagination && pagination.pages > 1"
+            >
                 <span v-if="pagination.pages > 1">
                     Showing <b>{{ currentPageStartsAt }}</b> to
                     <b>{{ currentPageEndsAt }}</b> out of
@@ -89,13 +92,33 @@ const currentPageEndsAt = computed(() => {
                 </span>
             </div>
 
-            <WordResult
-                :is-logged-in="isLoggedIn"
-                :search-string="searchString"
-                v-for="word in words"
-                :key="word.uuid"
-                :word="word"
-            />
+            <template v-if="words.length">
+                <WordResult
+                    :is-logged-in="isLoggedIn"
+                    :search-string="searchString"
+                    v-for="word in words"
+                    :key="word.uuid"
+                    :word="word"
+                />
+            </template>
+            <div
+                v-else
+                class="
+                    text-center
+                    px-4
+                    py-3
+                    leading-normal
+                    text-blue-700
+                    bg-blue-100
+                    rounded-lg
+                "
+                role="alert"
+            >
+                <p>
+                    Sorry, we couldn't find any words that match your search
+                    term
+                </p>
+            </div>
 
             <div class="flex justify-center">
                 <Pagination

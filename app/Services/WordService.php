@@ -18,9 +18,7 @@ class WordService
     {
         $query = Word::query();
 
-        $lowercasedSearchString = Str::lower($searchString);
-
-        $query->where('word', 'like', "%{$lowercasedSearchString}%");
+        $query->whereLike($searchString);
 
         if (isset($pagination['page'])) {
             $pageSize = 10;

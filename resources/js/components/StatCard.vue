@@ -4,6 +4,7 @@ import RejectedIcon from '../components/icons/RejectedIcon.vue';
 import CheckIcon from '../components/icons/CheckIcon.vue';
 
 import HeartIcon from '../components/icons/HeartIcon.vue';
+import CommentIcon from '../components/icons/CommentIcon.vue';
 
 import {ref} from 'vue';
 
@@ -24,6 +25,9 @@ switch (props.type) {
         break;
     case 'likes':
         icon = HeartIcon;
+        break;
+    case 'comments':
+        icon = CommentIcon;
         break;
     default:
         icon = CheckIcon;

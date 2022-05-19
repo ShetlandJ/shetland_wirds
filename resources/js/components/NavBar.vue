@@ -44,7 +44,7 @@ defineProps({
                     class="no-underline text-grey-darkest hover:text-black"
                     :href="route('home')"
                 >
-                    <span class="font-bold">Wir</span>ds
+                    Spaektionary
                 </Link>
             </h1>
 

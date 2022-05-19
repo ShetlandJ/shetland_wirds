@@ -194,6 +194,7 @@ const commentOptions = ref({
                     />
                     <div class="mb-4">
                         <CommentInput
+                            v-if="isLoggedIn"
                             :word="word"
                             :options="commentOptions"
                         />

@@ -71,7 +71,7 @@ const newComment = () => {
                     "
                     type="submit"
                 >
-                    Post
+                    Add comment
                 </button>
             </div>
         </form>

@@ -3,6 +3,7 @@ import { formatDateTime } from "../utils/formatters";
 import { ref } from "vue";
 import SanitisedHtml from "./SanitisedHtml.vue";
 import CommentInput from "./CommentInput.vue";
+const isLoggedIn = ref(() => usePage().props.value.isLoggedIn)
 
 const showChildReplies = ref(false);
 
@@ -107,6 +108,9 @@ const commentOptions = ref({
 
             <div v-if="showChildReplies" class="space-y-4">
                 <h4
+                    v-if="
+                        comment.child_comments && comment.child_comments.length
+                    "
                     class="
                         my-5
                         uppercase
@@ -166,7 +170,12 @@ const commentOptions = ref({
                         </div>
                     </div>
                 </div>
+
                 <CommentInput
+                    v-if="isLoggedIn"
+                    :class="{
+                        'mt-4': comment.child_comments.length === 0,
+                    }"
                     :word="word"
                     :options="commentOptions"
                     :parent-comment="comment"
@@ -177,8 +186,7 @@ const commentOptions = ref({
 </template>
 
 <style scoped>
-<style>
-.ql-snow {
+<style > .ql-snow {
     border-spacing: 0;
 }
 .ql-toolbar,

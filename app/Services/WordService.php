@@ -242,6 +242,7 @@ class WordService
                 'type' => 'words'
             ],
             ['name' => 'Likes in the last 30 days', 'value' => UserWordLike::where('created_at', '>=', now()->subDays(30))->count(), 'type' => 'likes'],
+            ['name' => 'Comments in the last 30 days', 'value' => Comment::where('created_at', '>=', now()->subDays(30))->count(), 'type' => 'comments'],
         ];
 
         $allTimeMetrics = [

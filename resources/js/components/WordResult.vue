@@ -4,8 +4,8 @@ import BookIcon from "./icons/BookIcon.vue";
 import Tooltip from "./Tooltip.vue";
 import ShetlandFlag from "./icons/ShetlandFlag.vue";
 import Comment from './Comment.vue'
+import CommentInput from './CommentInput.vue';
 import { ref } from "vue";
-
 
 const props = defineProps({
     word: Object,
@@ -182,6 +182,8 @@ const rejectWord = (wordId) => {
                     </p>
                 </div>
                 <div v-if="fullView" class="mt-4">
+                    <CommentInput />
+
                     <Comment
                         v-for="comment in word.comments" :key="comment.id"
                         :comment="comment"

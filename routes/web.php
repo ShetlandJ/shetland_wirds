@@ -22,12 +22,22 @@ use Illuminate\Foundation\Application;
 */
 
 Route::get('/', function () {
+    $total = app(WordService::class)->findBy()->count();
+    $pageTotal = request('perPage') ?? 10;
+    $pagination = [
+        'page' => request('page') ?? 1,
+        'perPage' => request('perPage') ?? 10,
+        'total' => $total,
+        'pages' => ceil($total / $pageTotal),
+    ];
+
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
         'isLoggedIn' => Auth::check(),
         'phpVersion' => PHP_VERSION,
+        'words' => app(WordService::class)->findAllWordsWithPagination('', $pagination),
     ]);
 })->name('home');
 

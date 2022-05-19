@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Loader\Configurator\CollectionConfigurator;
 
 class WordService
 {
-    public function findBy(string $searchString, array $pagination = []): Collection
+    public function findBy(?string $searchString = '', array $pagination = []): Collection
     {
         $query = Word::query();
 

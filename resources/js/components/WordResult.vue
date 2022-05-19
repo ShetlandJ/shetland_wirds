@@ -59,6 +59,11 @@ const rejectWord = (wordId) => {
         onFinish: () => form.reset("rejectForm"),
     });
 };
+
+const commentOptions = ref({
+  placeholder: `Any thoughts on ${props.word.word}?`,
+  theme: 'snow'
+});
 </script>
 
 <template>
@@ -182,12 +187,16 @@ const rejectWord = (wordId) => {
                     </p>
                 </div>
                 <div v-if="fullView" class="mt-4">
-                    <CommentInput />
 
                     <Comment
                         v-for="comment in word.comments" :key="comment.id"
                         :comment="comment"
                     />
+                    <div class="mb-4">
+                        <CommentInput
+                            :options="commentOptions"
+                        />
+                    </div>
                 </div>
             </div>
 

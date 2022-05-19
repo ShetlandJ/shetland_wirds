@@ -1,6 +1,7 @@
 <script setup>
 import { formatDateTime } from "../utils/formatters";
 import { ref } from "vue";
+import SanitisedHtml from "./SanitisedHtml.vue";
 
 const showChildReplies = ref(false);
 
@@ -47,7 +48,8 @@ defineProps({
                 {{ formatDateTime(comment.created_at) }}
             </span>
             <p class="text-sm">
-                {{ comment.message }}
+                <SanitisedHtml :html-string="comment.message" />
+                <!-- {{ comment.message }} -->
             </p>
             <div class="mt-4 flex items-center">
                 <div class="flex -space-x-2 mr-2">

@@ -1,53 +1,46 @@
 <script setup>
-import { quillEditor, Quill } from "vue3-quill";
+import "@vueup/vue-quill/dist/vue-quill.snow.css";
 
-import { reactive } from "vue";
-
-const state = reactive({
-    content: "<p>2333</p>",
-    _content: "",
-    editorOption: {
-        placeholder: "core",
-        modules: {
-            // toolbars: [
-            // custom toolbars options
-            // will override the default configuration
-            // ],
-            // other moudle options here
-            // otherMoudle: {}
-        },
-        // more options
-    },
-    disabled: false,
+defineProps({
+    options: Object,
 });
-
-const onEditorBlur = (quill) => {
-    console.log("editor blur!", quill);
-};
-const onEditorFocus = (quill) => {
-    console.log("editor focus!", quill);
-};
-const onEditorReady = (quill) => {
-    console.log("editor ready!", quill);
-};
-const onEditorChange = ({ quill, html, text }) => {
-    console.log("editor change!", quill, html, text);
-    state._content = html;
-};
-
-setTimeout(() => {
-    state.disabled = true;
-}, 2000);
 </script>
 
 <template>
-    <quill-editor
-        v-model:value="state.content"
-        :options="state.editorOption"
-        :disabled="state.disabled"
-        @blur="onEditorBlur($event)"
-        @focus="onEditorFocus($event)"
-        @ready="onEditorReady($event)"
-        @change="onEditorChange($event)"
-    />
+    <div>
+        <QuillEditor :options="options" theme="snow" />
+        <div class="flex justify-end mt-2">
+        <button
+            class="
+                btn
+                inline-block
+                px-6
+                py-2.5
+                bg-blue-600
+                text-white
+                font-medium
+                text-xs
+                leading-tight
+                uppercase
+                rounded
+                shadow-md
+                hover:bg-blue-700 hover:shadow-lg
+                focus:bg-blue-700
+                focus:shadow-lg
+                focus:outline-none
+                focus:ring-0
+                active:bg-blue-800 active:shadow-lg
+                transition
+                duration-150
+                ease-in-out
+                flex
+                items-center
+                disabled:opacity-50
+            "
+            type="button"
+        >
+            Post
+        </button>
+        </div>
+    </div>
 </template>

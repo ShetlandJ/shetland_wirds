@@ -1,4 +1,5 @@
 import format from 'date-fns/format';
+import DOMPurify from 'dompurify';
 
 const DATE_FORMAT = 'd MMM YY';
 const TIME_FORMAT = 'HH:mm';
@@ -36,4 +37,10 @@ export function capitalize(value) {
     const valueStr = value.toString();
 
     return valueStr.charAt(0).toUpperCase() + valueStr.slice(1);
+}
+
+export function sanitiseString(string) {
+    if (!string) return '';
+
+    return DOMPurify.sanitize(string, { ADD_ATTR: ['target'] });
 }

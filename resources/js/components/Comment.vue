@@ -2,11 +2,17 @@
 import { formatDateTime } from "../utils/formatters";
 import { ref } from "vue";
 import SanitisedHtml from "./SanitisedHtml.vue";
+import CommentInput from "./CommentInput.vue";
 
 const showChildReplies = ref(false);
 
 defineProps({
+    word: Object,
     comment: Object,
+});
+
+const commentOptions = ref({
+    placeholder: `Continue the conversation...`,
 });
 </script>
 
@@ -51,14 +57,17 @@ defineProps({
                 <SanitisedHtml :html-string="comment.message" />
             </p>
             <div class="mt-4 flex items-center">
-                <div class="flex -space-x-2 mr-2">
+                <!-- <div class="flex -space-x-2 mr-2">
                     <img
                         class="rounded-full w-6 h-6 border border-white"
                         src="https://images.unsplash.com/photo-1554151228-14d9def656e4?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=100&h=100&q=80"
                         alt=""
                     />
-                </div>
+                </div> -->
                 <div
+                    v-if="
+                        comment.child_comments && comment.child_comments.length
+                    "
                     class="
                         text-sm text-gray-500
                         font-semibold
@@ -79,6 +88,20 @@ defineProps({
                                 : "replies"
                         }}
                     </span>
+                </div>
+
+                <div v-else>
+                    <p
+                        @click="showChildReplies = !showChildReplies"
+                        class="
+                            text-sm text-gray-500
+                            font-semibold
+                            hover:underline
+                            cursor-pointer
+                        "
+                    >
+                        reply
+                    </p>
                 </div>
             </div>
 
@@ -143,10 +166,70 @@ defineProps({
                         </div>
                     </div>
                 </div>
+                <CommentInput
+                    :word="word"
+                    :options="commentOptions"
+                    :parent-comment="comment"
+                />
             </div>
         </div>
     </div>
 </template>
 
 <style scoped>
+<style>
+.ql-snow {
+    border-spacing: 0;
+}
+.ql-toolbar,
+.ql-container {
+    border: 1px solid #dcdcdc;
+    border-radius: 0.5rem;
+    transition: all 0.1s ease-in-out;
+}
+.ql-toolbar {
+    border-bottom: 0px !important;
+    background: #f5f5f5;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.ql-container {
+    border-top: 0px !important;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+.ql-snow .ql-picker-label::before,
+.ql-snow .ql-stroke,
+.ql-snow .ql-stroke:hover,
+.ql-snow .ql-fill {
+    stroke: #dcdcdc;
+    color: #dcdcdc;
+    transition: all 0.1s ease-in-out;
+}
+.has-focus .ql-toolbar {
+    border: 1px solid #686868;
+    color: #686868;
+    stroke: #686868;
+}
+.has-focus .ql-container {
+    border: 1px solid #686868;
+}
+.has-focus .ql-snow .ql-picker-label::before,
+.has-focus .ql-snow .ql-stroke,
+.has-focus .ql-snow .ql-stroke:hover {
+    color: #686868;
+    stroke: #686868;
+}
+.has-focus .ql-snow .ql-fill {
+    fill: black;
+}
+
+.ql-editor.ql-blank::before {
+    left: 22px !important;
+}
+.read-only .ql-container {
+    border-top: 1px solid #ccc !important;
+    border-top-left-radius: 0.5rem !important;
+    border-top-right-radius: 0.5rem !important;
+}
 </style>

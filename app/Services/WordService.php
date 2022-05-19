@@ -91,7 +91,7 @@ class WordService
             'reason' => $word->reason,
             'external_id' => $word->external_id,
             'creator_name' => $word->creator ? $word->creator->name : 'Unregistered',
-            'comments'=> $this->getComments($word)
+            'comments'=> $this->getComments($word)->values()->all(),
         ];
     }
 
@@ -254,6 +254,19 @@ class WordService
             "recent" => $recentMetrics,
             "allTime" => $allTimeMetrics,
         ];
+    }
+
+    public function createComment(string $commentText, Word $word, ?Comment $comment = null): Comment
+    {
+        $comment = Comment::create([
+            'uuid' => (string) Str::uuid(),
+            'word_id' => $word->id,
+            'user_id' => Auth::id(),
+            'comment' => $commentText,
+            'comment_id' => $comment ? $comment->id : null,
+        ]);
+
+        return $comment;
     }
 
     protected function formatDate(string $date): string

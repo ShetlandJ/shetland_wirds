@@ -62,7 +62,6 @@ const rejectWord = (wordId) => {
 
 const commentOptions = ref({
   placeholder: `Any thoughts on ${props.word.word}?`,
-  theme: 'snow'
 });
 </script>
 
@@ -191,9 +190,11 @@ const commentOptions = ref({
                     <Comment
                         v-for="comment in word.comments" :key="comment.id"
                         :comment="comment"
+                        :word="word"
                     />
                     <div class="mb-4">
                         <CommentInput
+                            :word="word"
                             :options="commentOptions"
                         />
                     </div>

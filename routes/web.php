@@ -6,6 +6,7 @@ use Inertia\Inertia;
 use Illuminate\Http\Request;
 use App\Services\WordService;
 use App\Http\Middleware\UserIsAdmin;
+use App\Models\Comment;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
@@ -99,7 +100,7 @@ Route::post('/search', function () {
     ]);
 })->name('search');
 
-Route::get('/word/{word}', function (string $word) {
+Route::get('/word/{word}/', function (string $word) {
     return Inertia::render('Word', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
@@ -107,6 +108,26 @@ Route::get('/word/{word}', function (string $word) {
         'word' => app(WordService::class)->findByWord($word),
     ]);
 })->where('word', '.*')->name('word');
+
+Route::post('/word/{word}', function (string $word) {
+    if (request('text')) {
+        $foundWord = Word::where('word', $word)->first();
+
+        $comment = null;
+
+        if (request('comment_id')) {
+            $comment = Comment::where('uuid', request('comment_id'))->first();
+        }
+
+        app(WordService::class)->createComment(request('text'), $foundWord, $comment);
+    }
+    return Inertia::render('Word', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'isLoggedIn' => Auth::check(),
+        'word' => app(WordService::class)->findByWord($word),
+    ]);
+})->where('word', '.*')->name('newComment');
 
 Route::post('/word', function (Request $request) {
     // get the post payload

@@ -4,6 +4,7 @@ namespace App\Services;
 
 use DateTime;
 use Exception;
+use Carbon\Carbon;
 use App\Models\Word;
 use App\Models\Comment;
 use App\Models\WordToWord;
@@ -96,12 +97,21 @@ class WordService
 
     public function formatComment(Comment $comment)
     {
-        return [
+        $formattedComment = [
             'id' => $comment->uuid,
             'parent_comment_id' => $comment->parent ? $comment->parent->uuid : null,
             'word_id' => $comment->word->uuid,
             'author' => $comment->author->name,
+            'author_initials' => $comment->author->initials,
+            'created_at' => $this->formatDate($comment->created_at),
+            'message' => $comment->comment,
         ];
+
+        if ($comment->childComments) {
+            $formattedComment['child_comments'] = $comment->childComments->map(fn (Comment $comment) => $this->formatComment($comment));
+        }
+
+        return $formattedComment;
     }
 
     public function getComments($word): Collection
@@ -110,7 +120,9 @@ class WordService
             return collect();
         }
 
-        return $word->comments->map(fn (Comment $comment) => $this->formatComment($comment));
+        return $word->comments
+            ->filter(fn (Comment $comment) => !$comment->parent)
+            ->map(fn (Comment $comment) => $this->formatComment($comment));
     }
 
     public function handleLike(string $word): void
@@ -242,5 +254,18 @@ class WordService
             "recent" => $recentMetrics,
             "allTime" => $allTimeMetrics,
         ];
+    }
+
+    protected function formatDate(string $date): string
+    {
+        if (empty($date)) {
+            return null;
+        }
+
+        if (! $date instanceof Carbon) {
+            $date = new Carbon($date);
+        }
+
+        return $date->toIso8601String();
     }
 }

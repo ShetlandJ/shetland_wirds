@@ -25,11 +25,16 @@ class Comment extends Model
 
     public function parent(): BelongsTo
     {
-        return $this->belongsTo(Comment::class, 'comment_id');
+        return $this->belongsTo(self::class, 'comment_id');
     }
 
     public function author(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function childComments()
+    {
+        return $this->hasMany(self::class, 'comment_id');
     }
 }

@@ -3,7 +3,9 @@ import { Link, useForm } from "@inertiajs/inertia-vue3";
 import BookIcon from "./icons/BookIcon.vue";
 import Tooltip from "./Tooltip.vue";
 import ShetlandFlag from "./icons/ShetlandFlag.vue";
+import Comment from './Comment.vue'
 import { ref } from "vue";
+
 
 const props = defineProps({
     word: Object,
@@ -159,6 +161,10 @@ const rejectWord = (wordId) => {
                         </template>
                     </svg>
 
+                    <span v-if="word.likes">{{ word.likes }}</span>
+
+                    <span class="mx-2">&#8226;</span>
+
                     <Link
                         v-if="!fullView"
                         :href="route('word', { word: word.slug })"
@@ -175,7 +181,12 @@ const rejectWord = (wordId) => {
                         }}
                     </p>
                 </div>
-                <div v-if="fullView">Some comment left by James</div>
+                <div v-if="fullView" class="mt-4">
+                    <Comment
+                        v-for="comment in word.comments" :key="comment.id"
+                        :comment="comment"
+                    />
+                </div>
             </div>
 
             <div class="mt-4 flex justify-between" v-if="word.pending">

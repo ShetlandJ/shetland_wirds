@@ -177,7 +177,7 @@ const activeTab = ref("comments");
                     <Link
                         v-if="!fullView"
                         :href="route('word', { word: word.slug })"
-                        class="text-sm text-gray-700 underline"
+                        class="text-sm text-gray-700 hover:underline"
                     >
                         {{ word.comments.length }} comment{{
                             word.comments.length === 1 ? "" : "s"
@@ -196,8 +196,19 @@ const activeTab = ref("comments");
 
                     <span class="mx-2">&#8226;</span>
 
+                    <Link
+                        v-if="!fullView"
+                        class="text-sm text-gray-700 hover:underline"
+                        :href="route('word', { word: word.slug })"
+                    >
+                        {{ word.recordings.length }} recording{{
+                            word.recordings.length === 1 ? "" : "s"
+                        }}
+                    </Link>
+
                     <button
                         @click="activeTab = 'recordings'"
+                        v-else
                         class="text-sm text-gray-700 hover:underline"
                     >
                         {{ word.recordings.length }} recording{{
@@ -262,7 +273,7 @@ const activeTab = ref("comments");
                             before submitting.
                         </p>
 
-                        <RecordingInput />
+                        <RecordingInput :key="word.recordings.length" />
                     </div>
                 </div>
             </div>

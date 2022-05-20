@@ -283,6 +283,21 @@ class WordService
         return $comment;
     }
 
+    public function saveRecording(Word $word, string $fileName): WordRecording
+    {
+        $recording = new WordRecording();
+
+        $recording->word_id = $word->id;
+        $recording->user_id = Auth::user()->id;
+        $recording->uuid = (string) Str::uuid();
+        $recording->type = 'word';
+        $recording->filename = $fileName;
+
+        $recording->save();
+
+        return $recording;
+    }
+
     protected function formatDate(string $date): string
     {
         if (empty($date)) {

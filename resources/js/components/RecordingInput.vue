@@ -1,18 +1,23 @@
 <script setup>
 import { ref } from "vue";
+import { useForm, usePage } from "@inertiajs/inertia-vue3";
+
 import { convertToBlogUri } from "@/utils/helpers";
 import MicIcon from "@/components/icons/MicIcon.vue";
+
+const word = usePage().props.value.word;
 
 let device = null;
 let recorder = null;
 let chunks = [];
-let recording = ref(false);
+let recordingAudio = ref(false);
 let blob = null;
-let justRecorded = ref(null);
+let userRecording = ref(null);
+let blobToUpload = ref(null);
 
 const recordAudio = () => {
-    recording.value = true;
-    justRecorded.value = null;
+    recordingAudio.value = true;
+    userRecording.value = null;
     device = navigator.mediaDevices.getUserMedia({ audio: true });
 
     device.then((stream) => {
@@ -21,8 +26,9 @@ const recordAudio = () => {
             chunks.push(e.data);
             if (recorder.state === "inactive") {
                 blob = new Blob(chunks, { type: "audio/wav" });
+                blobToUpload.value = blob;
                 const file = await convertToBlogUri(blob);
-                justRecorded.value = file;
+                userRecording.value = file;
                 chunks.value = [];
             }
         };
@@ -32,9 +38,20 @@ const recordAudio = () => {
 };
 
 const stop = () => {
-    recording.value = false;
+    recordingAudio.value = false;
     recorder.stop();
     device = null;
+};
+
+const form = useForm({
+    userRecording: "",
+});
+
+const submitRecording = () => {
+    form.userRecording = blobToUpload;
+    form.post(route("uploadFile", { word: word.word }), {
+        userRecording: form.blobToUpload,
+    });
 };
 </script>
 
@@ -42,7 +59,7 @@ const stop = () => {
     <div>
         <div class="flex">
             <button
-                @click="recording ? stop() : recordAudio()"
+                @click="recordingAudio ? stop() : recordAudio()"
                 class="
                     btn
                     inline-block
@@ -70,25 +87,28 @@ const stop = () => {
                     disabled:opacity-50
                 "
             >
-                <div class="recording" :id="[recording ? 'rec' : 'not-rec']">
-                </div>
-                <span v-if="!justRecorded">{{
-                    recording ? "Stop recording" : "Record"
+                <div
+                    class="recording"
+                    :id="[recordingAudio ? 'rec' : 'not-rec']"
+                ></div>
+                <span v-if="!userRecording">{{
+                    recordingAudio ? "Stop recording" : "Record"
                 }}</span>
                 <span v-else>{{
-                    recording ? "Stop recording" : "Try again?"
+                    recordingAudio ? "Stop recording" : "Try again?"
                 }}</span>
             </button>
         </div>
-        <hr class="my-4" v-if="justRecorded">
-        <div class="flex items-center justify-between" v-if="justRecorded">
+        <hr class="my-4" v-if="userRecording" />
+        <div class="flex items-center justify-between" v-if="userRecording">
             <p>Your recording:</p>
             <audio controls>
-                <source :src="justRecorded" type="audio/wav" />
+                <source :src="userRecording" type="audio/wav" />
             </audio>
 
-            <div v-if="justRecorded" style="height: fit-content">
+            <div v-if="userRecording" style="height: fit-content">
                 <button
+                    @click="submitRecording"
                     class="
                         btn
                         inline-block

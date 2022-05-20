@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Services\WordService;
 use App\Http\Middleware\UserIsAdmin;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Storage;
@@ -101,6 +102,26 @@ Route::post('/search', function () {
     ]);
 })->name('search');
 
+Route::post('/word/{word}/newRecording', function (string $word) {
+    $path = "/public/$word";
+
+    if (!Storage::exists($path)) {
+        Storage::disk('local')->makeDirectory($path);
+    }
+
+    $file = Storage::disk('local')->put(
+        $path,
+        request('userRecording'),
+    );
+
+    $foundWord = Word::where('word', $word)->first();
+
+    $filePath = sprintf('storage/%s/%s', $word, basename($file));
+
+    app(WordService::class)->saveRecording($foundWord, $filePath);
+    return redirect()->back();
+})->where('word', '.*')->name('uploadFile');
+
 Route::get('/word/{word}/', function (string $word) {
     return Inertia::render('Word', [
         'canLogin' => Route::has('login'),
@@ -130,6 +151,7 @@ Route::post('/word/{word}', function (string $word) {
         'word' => app(WordService::class)->findByWord($word),
     ]);
 })->where('word', '.*')->name('newComment');
+
 
 Route::post('/word', function (Request $request) {
     // get the post payload

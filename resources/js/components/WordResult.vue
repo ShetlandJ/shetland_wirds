@@ -6,6 +6,8 @@ import ShetlandFlag from "./icons/ShetlandFlag.vue";
 import Comment from "./Comment.vue";
 import CommentInput from "./CommentInput.vue";
 import Recording from "./Recording.vue";
+import RecordingInput from './RecordingInput.vue';
+
 import { ref } from "vue";
 
 const props = defineProps({
@@ -240,6 +242,8 @@ const activeTab = ref("comments");
                             :key="recording.id"
                             :index="index"
                         />
+
+                        <RecordingInput />
                     </div>
                 </div>
             </div>

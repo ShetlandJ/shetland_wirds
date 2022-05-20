@@ -71,9 +71,6 @@ const stop = () => {
                 "
             >
                 <div class="recording" :id="[recording ? 'rec' : 'not-rec']">
-                    <!-- <div class="icon flex justify-center mt-1"> -->
-                    <!-- <MicIcon style="width: 25px; height: 25px" /> -->
-                    <!-- </div> -->
                 </div>
                 <span v-if="!justRecorded">{{
                     recording ? "Stop recording" : "Record"
@@ -89,6 +86,7 @@ const stop = () => {
             <audio controls>
                 <source :src="justRecorded" type="audio/wav" />
             </audio>
+
             <div v-if="justRecorded" style="height: fit-content">
                 <button
                     class="

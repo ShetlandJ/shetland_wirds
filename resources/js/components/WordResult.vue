@@ -232,6 +232,25 @@ const activeTab = ref("comments");
                         }}
                     </h4>
                     <div v-if="activeTab === 'comments'">
+                        <div
+                            v-if="!word.comments.length"
+                            class="
+                                text-center
+                                px-4
+                                py-3
+                                leading-normal
+                                text-blue-700
+                                bg-blue-100
+                                rounded-lg
+                                mb-4
+                            "
+                            role="alert"
+                        >
+                            <p>
+                                There are no comments available for this word yet, be the first to add one!
+                            </p>
+                        </div>
+
                         <Comment
                             v-for="comment in word.comments"
                             :key="comment.id"
@@ -247,6 +266,24 @@ const activeTab = ref("comments");
                         </div>
                     </div>
                     <div v-else-if="activeTab === 'recordings'">
+                        <div
+                            v-if="!word.recordings.length"
+                            class="
+                                text-center
+                                px-4
+                                py-3
+                                leading-normal
+                                text-blue-700
+                                bg-blue-100
+                                rounded-lg
+                            "
+                            role="alert"
+                        >
+                            <p>
+                                There are no recordings available for this word yet, be the first to add one!
+                            </p>
+                        </div>
+
                         <Recording
                             v-for="(recording, index) in word.recordings"
                             :recording="recording"

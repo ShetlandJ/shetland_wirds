@@ -44,25 +44,36 @@ const stop = () => {
             <button
                 @click="recording ? stop() : recordAudio()"
                 class="
-                    flex
-                    border border-teal-500
-                    text-teal-500
-                    block
-                    rounded-sm
-                    font-bold
+                    btn
+                    inline-block
                     px-6
-                    mr-2
+                    py-2.5
+                    bg-blue-600
+                    text-white
+                    font-medium
+                    text-xs
+                    leading-tight
+                    uppercase
+                    rounded
+                    shadow-md
+                    hover:bg-blue-700 hover:shadow-lg
+                    focus:bg-blue-700
+                    focus:shadow-lg
+                    focus:outline-none
+                    focus:ring-0
+                    active:bg-blue-800 active:shadow-lg
+                    transition
+                    duration-150
+                    ease-in-out
                     flex
                     items-center
-                    hover:bg-teal-500 hover:text-white
                     disabled:opacity-50
-                    cursor-pointer
                 "
             >
                 <div class="recording" :id="[recording ? 'rec' : 'not-rec']">
-                    <div class="icon flex justify-center mt-1">
-                        <MicIcon style="width: 25px; height: 25px" />
-                    </div>
+                    <!-- <div class="icon flex justify-center mt-1"> -->
+                    <!-- <MicIcon style="width: 25px; height: 25px" /> -->
+                    <!-- </div> -->
                 </div>
                 <span v-if="!justRecorded">{{
                     recording ? "Stop recording" : "Record"
@@ -71,11 +82,45 @@ const stop = () => {
                     recording ? "Stop recording" : "Try again?"
                 }}</span>
             </button>
-            <div class="ml-4" v-if="justRecorded">
-                Your recording:
-                <audio controls>
-                    <source :src="justRecorded" type="audio/wav" />
-                </audio>
+        </div>
+        <hr class="my-4" v-if="justRecorded">
+        <div class="flex items-center justify-between" v-if="justRecorded">
+            <p>Your recording:</p>
+            <audio controls>
+                <source :src="justRecorded" type="audio/wav" />
+            </audio>
+            <div v-if="justRecorded" style="height: fit-content">
+                <button
+                    class="
+                        btn
+                        inline-block
+                        px-6
+                        py-2.5
+                        bg-blue-600
+                        text-white
+                        font-medium
+                        text-xs
+                        leading-tight
+                        uppercase
+                        rounded
+                        shadow-md
+                        hover:bg-blue-700 hover:shadow-lg
+                        focus:bg-blue-700
+                        focus:shadow-lg
+                        focus:outline-none
+                        focus:ring-0
+                        active:bg-blue-800 active:shadow-lg
+                        transition
+                        duration-150
+                        ease-in-out
+                        flex
+                        items-center
+                        disabled:opacity-50
+                    "
+                    type="submit"
+                >
+                    Save
+                </button>
             </div>
         </div>
     </div>
@@ -83,13 +128,14 @@ const stop = () => {
 
 <style scoped>
 .recording {
-    width: 35px;
-    height: 35px;
+    width: 10px;
+    height: 10px;
     font-size: 0;
-    /* background-color: red; */
+    background-color: red;
     border: 0;
+    margin-right: 5px;
+    margin-bottom: 2px;
     border-radius: 35px;
-    margin: 18px;
     outline: none;
 }
 

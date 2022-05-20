@@ -3,8 +3,9 @@ import { Link, useForm } from "@inertiajs/inertia-vue3";
 import BookIcon from "./icons/BookIcon.vue";
 import Tooltip from "./Tooltip.vue";
 import ShetlandFlag from "./icons/ShetlandFlag.vue";
-import Comment from './Comment.vue'
-import CommentInput from './CommentInput.vue';
+import Comment from "./Comment.vue";
+import CommentInput from "./CommentInput.vue";
+import Recording from "./Recording.vue";
 import { ref } from "vue";
 
 const props = defineProps({
@@ -61,8 +62,10 @@ const rejectWord = (wordId) => {
 };
 
 const commentOptions = ref({
-  placeholder: `Any thoughts on ${props.word.word}?`,
+    placeholder: `Any thoughts on ${props.word.word}?`,
 });
+
+const activeTab = ref("comments");
 </script>
 
 <template>
@@ -179,24 +182,62 @@ const commentOptions = ref({
                         }}
                     </Link>
 
-                    <p v-else>
+                    <button
+                        @click="activeTab = 'comments'"
+                        v-else
+                        class="text-sm text-gray-700 hover:underline"
+                    >
                         {{ word.comments.length }} comment{{
                             word.comments.length === 1 ? "" : "s"
                         }}
-                    </p>
+                    </button>
+
+                    <span class="mx-2">&#8226;</span>
+
+                    <button
+                        @click="activeTab = 'recordings'"
+                        class="text-sm text-gray-700 hover:underline"
+                    >
+                        {{ word.recordings.length }} recording{{
+                            word.recordings.length === 1 ? "" : "s"
+                        }}
+                    </button>
                 </div>
                 <div v-if="fullView" class="mt-4">
-
-                    <Comment
-                        v-for="comment in word.comments" :key="comment.id"
-                        :comment="comment"
-                        :word="word"
-                    />
-                    <div class="mb-4">
-                        <CommentInput
-                            v-if="isLoggedIn"
+                    <h4
+                        class="
+                            my-5
+                            uppercase
+                            tracking-wide
+                            text-gray-400
+                            font-bold
+                            text-xs
+                        "
+                    >
+                        {{
+                            activeTab === "comments" ? "Comments" : "Recordings"
+                        }}
+                    </h4>
+                    <div v-if="activeTab === 'comments'">
+                        <Comment
+                            v-for="comment in word.comments"
+                            :key="comment.id"
+                            :comment="comment"
                             :word="word"
-                            :options="commentOptions"
+                        />
+                        <div class="mb-4">
+                            <CommentInput
+                                v-if="isLoggedIn"
+                                :word="word"
+                                :options="commentOptions"
+                            />
+                        </div>
+                    </div>
+                    <div v-else-if="activeTab === 'recordings'">
+                        <Recording
+                            v-for="recording in word.recordings"
+                            :recording="recording"
+                            :key="recording.id"
                         />
                     </div>
                 </div>

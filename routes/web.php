@@ -102,13 +102,6 @@ Route::post('/search', function () {
 })->name('search');
 
 Route::get('/word/{word}/', function (string $word) {
-    // dd(
-    //     storage_path('public/' . 'booshim.mp3'),
-    // );
-    // dd(
-    //     Storage::disk('local')->exists('public/booshim.mp3'),
-    //     Storage::disk('local')->exists('storage/public/booshim.mp3')
-    // );
     return Inertia::render('Word', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),

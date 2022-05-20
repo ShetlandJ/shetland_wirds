@@ -93,13 +93,17 @@ class WordService
             'external_id' => $word->external_id,
             'creator_name' => $word->creator ? $word->creator->name : 'Unregistered',
             'comments'=> $this->getComments($word)->values()->all(),
-            'recordings' => $word->recordings->map(fn (WordRecording $recording) => [
-                'id' => $recording->uuid,
-                'link' => $recording->link,
-                'speaker' => $recording->speaker->name,
-                'created_at' => $this->formatDate($recording->created_at)
-            ]),
+            'recordings' => $this->getRecordings($word)
         ];
+    }
+
+    public function getRecordings(Word $word): Collection
+    {
+        return $word->recordings->map(fn (WordRecording $recording) => [
+            'id' => $recording->uuid,
+            'url' => asset($recording->filename),
+            'speaker_name' => $recording->speaker ? $recording->speaker->name : 'Unregistered'
+        ]);
     }
 
     public function formatComment(Comment $comment)

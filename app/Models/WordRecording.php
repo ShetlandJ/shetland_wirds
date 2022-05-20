@@ -20,11 +20,12 @@ class WordRecording extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function getLinkAttribute(): string
+    public function getFilePathsAttribute(): array
     {
-        $files = scandir(sprintf('storage/%s', $this->word->word));
-        dd($files);
+        $dir = sprintf('storage/%s', $this->word->word);
+        $files = array_diff(scandir($dir), array('..', '.'));
+        // dd($files);
 
-        return asset('storage/booshim.mp3');
+        return array_values($files);
     }
 }

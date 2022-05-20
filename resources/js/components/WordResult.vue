@@ -6,7 +6,7 @@ import ShetlandFlag from "./icons/ShetlandFlag.vue";
 import Comment from "./Comment.vue";
 import CommentInput from "./CommentInput.vue";
 import Recording from "./Recording.vue";
-import RecordingInput from './RecordingInput.vue';
+import RecordingInput from "./RecordingInput.vue";
 
 import { ref } from "vue";
 
@@ -242,6 +242,25 @@ const activeTab = ref("comments");
                             :key="recording.id"
                             :index="index"
                         />
+
+                        <h4
+                            class="
+                                my-5
+                                uppercase
+                                tracking-wide
+                                text-gray-400
+                                font-bold
+                                text-xs
+                            "
+                        >
+                            Add a recording of your own
+                        </h4>
+                        <p class="mb-2">
+                            To add your own recording, just press the Record
+                            button to start, and the same button again to stop.
+                            You'll be able to listen back to your recording
+                            before submitting.
+                        </p>
 
                         <RecordingInput />
                     </div>

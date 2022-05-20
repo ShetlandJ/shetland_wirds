@@ -40,10 +40,9 @@ const stop = () => {
 
 <template>
     <div>
-        <div class="flex justify-between" style="width: 50%">
+        <div class="flex">
             <button
-                :disabled="recording"
-                @click="recordAudio"
+                @click="recording ? stop() : recordAudio()"
                 class="
                     flex
                     border border-teal-500
@@ -65,37 +64,19 @@ const stop = () => {
                         <MicIcon style="width: 25px; height: 25px" />
                     </div>
                 </div>
-                <span>Record{{ recording ? "ing" : "" }}</span>
+                <span v-if="!justRecorded">{{
+                    recording ? "Stop recording" : "Record"
+                }}</span>
+                <span v-else>{{
+                    recording ? "Stop recording" : "Try again?"
+                }}</span>
             </button>
-            <button
-            :disabled="!recording"
-                class="
-                    flex
-                    border border-teal-500
-                    text-teal-500
-                    block
-                    rounded-sm
-                    font-bold
-                    px-6
-                    mr-2
-                    flex
-                    items-center
-                    hover:bg-teal-500 hover:text-white
-                    disabled:opacity-50
-                    cursor-pointer
-                "
-                id="stop"
-                @click="stop"
-            >
-                Stop
-            </button>
-        </div>
-
-        <div v-if="justRecorded">
-            Your recording:
-            <audio controls>
-                <source :src="justRecorded" type="audio/wav" />
-            </audio>
+            <div class="ml-4" v-if="justRecorded">
+                Your recording:
+                <audio controls>
+                    <source :src="justRecorded" type="audio/wav" />
+                </audio>
+            </div>
         </div>
     </div>
 </template>

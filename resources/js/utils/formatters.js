@@ -1,13 +1,12 @@
 import format from 'date-fns/format';
 import DOMPurify from 'dompurify';
 
-const DATE_FORMAT = 'd MMM YY';
+const DATE_FORMAT = 'd MMM yy';
 const TIME_FORMAT = 'HH:mm';
 const DATE_TIME_FORMAT = 'd MMM yy - HH:mm';
 
 export const formatDate = date => {
-    console.log(date);
-    return format(date, DATE_FORMAT);
+    return format(new Date(date), DATE_FORMAT);
 }
 
 export const formatTime = date => format(date, TIME_FORMAT);

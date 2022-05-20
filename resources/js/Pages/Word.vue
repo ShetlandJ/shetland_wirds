@@ -7,7 +7,6 @@ const props = defineProps({
     canLogin: Boolean,
     canRegister: Boolean,
     isLoggedIn: Boolean,
-    recording: String
 });
 </script>
 
@@ -29,10 +28,6 @@ const props = defineProps({
             @set-search="searchString = $event"
             @suggest-word="toggleSuggestWordForm(true)"
         />
-
-        <audio controls>
-            <source :src="'http://localhost:8000/storage/booshim/581a8675-3515-41fd-bcc2-59eb4d3a11c9.mp3'" type="audio/mpeg">
-        </audio>
 
         <WordResult :is-logged-in="isLoggedIn" :word="word" full-view />
     </div>

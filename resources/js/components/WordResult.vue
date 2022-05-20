@@ -235,9 +235,10 @@ const activeTab = ref("comments");
                     </div>
                     <div v-else-if="activeTab === 'recordings'">
                         <Recording
-                            v-for="recording in word.recordings"
+                            v-for="(recording, index) in word.recordings"
                             :recording="recording"
                             :key="recording.id"
+                            :index="index"
                         />
                     </div>
                 </div>

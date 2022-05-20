@@ -102,7 +102,9 @@ class WordService
         return $word->recordings->map(fn (WordRecording $recording) => [
             'id' => $recording->uuid,
             'url' => asset($recording->filename),
-            'speaker_name' => $recording->speaker ? $recording->speaker->name : 'Unregistered'
+            'speaker_name' => $recording->speaker ? $recording->speaker->name : 'Unregistered',
+            'created_at' => $this->formatDate($recording->created_at),
+            'type' => $recording->type,
         ]);
     }
 

@@ -10,6 +10,7 @@ use App\Models\Comment;
 use App\Models\WordToWord;
 use Illuminate\Support\Str;
 use App\Models\UserWordLike;
+use App\Models\WordRecording;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\Routing\Loader\Configurator\CollectionConfigurator;
@@ -92,6 +93,12 @@ class WordService
             'external_id' => $word->external_id,
             'creator_name' => $word->creator ? $word->creator->name : 'Unregistered',
             'comments'=> $this->getComments($word)->values()->all(),
+            'recordings' => $word->recordings->map(fn (WordRecording $recording) => [
+                'id' => $recording->uuid,
+                'link' => $recording->link,
+                'speaker' => $recording->speaker->name,
+                'created_at' => $this->formatDate($recording->created_at)
+            ]),
         ];
     }
 

@@ -3,13 +3,14 @@
 use App\Models\Role;
 use App\Models\Word;
 use Inertia\Inertia;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use App\Services\WordService;
 use App\Http\Middleware\UserIsAdmin;
-use App\Models\Comment;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Storage;
 
 /*
 |--------------------------------------------------------------------------
@@ -101,11 +102,19 @@ Route::post('/search', function () {
 })->name('search');
 
 Route::get('/word/{word}/', function (string $word) {
+    // dd(
+    //     storage_path('public/' . 'booshim.mp3'),
+    // );
+    // dd(
+    //     Storage::disk('local')->exists('public/booshim.mp3'),
+    //     Storage::disk('local')->exists('storage/public/booshim.mp3')
+    // );
     return Inertia::render('Word', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'isLoggedIn' => Auth::check(),
         'word' => app(WordService::class)->findByWord($word),
+        'recording' => asset('storage/booshim.mp3')
     ]);
 })->where('word', '.*')->name('word');
 

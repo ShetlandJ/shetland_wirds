@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\WordToWord;
 use Illuminate\Support\Str;
 use App\Models\UserWordLike;
+use App\Models\WordRecording;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
@@ -48,6 +49,11 @@ class Word extends Model
     public function comments(): HasMany
     {
         return $this->hasMany(Comment::class);
+    }
+
+    public function recordings()
+    {
+        return $this->hasMany(WordRecording::class);
     }
 
     public function getIsLikedByUserAttribute(): bool

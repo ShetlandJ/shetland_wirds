@@ -78,6 +78,25 @@ onMounted(() => {
 </script>
 
 <template>
+
+<!-- <ul class="flex flex-wrap border-b border-gray-200 dark:border-gray-700">
+    <li class="mr-2">
+        <a href="#" aria-current="page" class="inline-block bg-gray-100 text-blue-600 rounded-t-lg py-4 px-4 text-sm font-medium text-center active dark:bg-gray-800 dark:text-blue-500">Profile</a>
+    </li>
+    <li class="mr-2">
+        <a href="#" class="inline-block text-gray-500 hover:text-gray-600 hover:bg-gray-50 rounded-t-lg py-4 px-4 text-sm font-medium text-center dark:text-gray-400  dark:hover:bg-gray-800 dark:hover:text-gray-300">Dashboard</a>
+    </li>
+    <li class="mr-2">
+        <a href="#" class="inline-block text-gray-500 hover:text-gray-600 hover:bg-gray-50 rounded-t-lg py-4 px-4 text-sm font-medium text-center dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-300">Settings</a>
+    </li>
+    <li class="mr-2">
+        <a href="#" class="inline-block text-gray-500 hover:text-gray-600 hover:bg-gray-50 rounded-t-lg py-4 px-4 text-sm font-medium text-center dark:text-gray-400  dark:hover:bg-gray-800 dark:hover:text-gray-300">Contacts</a>
+    </li>
+    <li>
+        <a class="inline-block text-gray-400 rounded-t-lg py-4 px-4 text-sm font-medium text-center dark:text-gray-500 cursor-not-allowed">Disabled</a>
+    </li>
+</ul> -->
+
     <div
         className="bg-white shadow-lg rounded-lg mx-4 md:mx-auto my-8 max-w-md md:max-w-2xl"
     >
@@ -150,7 +169,7 @@ onMounted(() => {
                     </span>
                 </div>
 
-                <div className="flex mr-2 text-gray-700 text-sm mr-3">
+                <div className="flex items-center mr-2 text-gray-700 text-sm mr-3">
                     <svg
                         fill="none"
                         viewBox="0 0 24 24"
@@ -187,9 +206,7 @@ onMounted(() => {
                     </svg>
 
                     <span v-if="word.likes">{{ word.likes }}</span>
-
-                    <span class="mx-2">&#8226;</span>
-
+                    <div class="border-b border-gray-200">
                     <Link
                         v-if="!fullView"
                         :href="route('word', { word: word.slug })"
@@ -203,14 +220,15 @@ onMounted(() => {
                     <button
                         @click="activeTab = 'comments'"
                         v-else
-                        class="text-sm text-gray-700 hover:underline"
+                        class="
+                            inline-block text-blue-600 rounded-t-lg py-4 px-4 text-sm font-medium text-center dark:bg-gray-800 dark:text-blue-500
+                        "
+                        :class="[activeTab === 'comments' ? 'bg-gray-100' : '']"
                     >
                         {{ word.comments.length }} comment{{
                             word.comments.length === 1 ? "" : "s"
                         }}
                     </button>
-
-                    <span class="mx-2">&#8226;</span>
 
                     <Link
                         v-if="!fullView"
@@ -225,12 +243,16 @@ onMounted(() => {
                     <button
                         @click="activeTab = 'recordings'"
                         v-else
-                        class="text-sm text-gray-700 hover:underline"
-                    >
+                        class="
+                            inline-block text-blue-600 rounded-t-lg py-4 px-4 text-sm font-medium text-center dark:bg-gray-800 dark:text-blue-500
+                        "
+                        :class="[activeTab === 'recordings' ? 'bg-gray-100' : '']"
+                        >
                         {{ word.recordings.length }} recording{{
                             word.recordings.length === 1 ? "" : "s"
                         }}
                     </button>
+                    </div>
                 </div>
                 <div v-if="fullView" class="mt-4">
                     <h4

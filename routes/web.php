@@ -229,3 +229,25 @@ Route::post('/dashboard/reject', function () {
 
     return redirect()->back();
 })->name('reject');
+
+Route::get('/help-us', function () {
+    $wordsWithoutDefinitions = app(WordService::class)->findWithoutDefinitions();
+    $definitionsWithoutExampleSentences = app(WordService::class)->findWithoutExampleSentences();
+
+    return Inertia::render('HelpUs', [
+        'isLoggedIn' => Auth::check(),
+        'missingDefinitions' => $wordsWithoutDefinitions,
+        'missingExampleSentences' => $definitionsWithoutExampleSentences,
+    ]);
+})->name('help-us');
+
+Route::get('/help-us', function () {
+    $wordsWithoutDefinitions = app(WordService::class)->findWithoutDefinitions();
+    $definitionsWithoutExampleSentences = app(WordService::class)->findWithoutExampleSentences();
+
+    return Inertia::render('HelpUs', [
+        'isLoggedIn' => Auth::check(),
+        'missingDefinitions' => $wordsWithoutDefinitions,
+        'missingExampleSentences' => $definitionsWithoutExampleSentences,
+    ]);
+})->name('help-us');

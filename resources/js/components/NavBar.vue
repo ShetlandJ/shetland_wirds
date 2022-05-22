@@ -179,6 +179,23 @@ defineProps({
                         </Link>
                     </li>
                 </template>
+                <li class="md:ml-4">
+                    <Link
+                        class="
+                            border-t
+                            block
+                            no-underline
+                            hover:underline
+                            py-2
+                            text-grey-darkest
+                            hover:text-black
+                            md:border-none md:p-0
+                        "
+                        :href="route('help-us')"
+                    >
+                        How to help
+                    </Link>
+                </li>
                 <li class="md:ml-4" v-if="isLoggedIn">
                     <Link
                         class="

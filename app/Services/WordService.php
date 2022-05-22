@@ -311,4 +311,33 @@ class WordService
 
         return $date->toIso8601String();
     }
+
+    public function findWithoutDefinitions(): array
+    {
+        return Word::query()
+            ->select('words.*')
+            ->leftJoin('word_definitions', 'words.id', '=', 'word_definitions.word_id')
+            ->inRandomOrder()
+            ->limit(6)
+            ->whereNull('word_definitions.id')
+            ->get()
+            ->map(fn (Word $word) => $this->formatWord($word))
+            ->values()
+            ->all();
+    }
+
+
+    public function findWithoutExampleSentences(): array
+    {
+        return Word::query()
+            ->select('words.*')
+            ->join('word_definitions', 'words.id', '=', 'word_definitions.word_id')
+            ->inRandomOrder()
+            ->limit(6)
+            ->whereNull('word_definitions.example_sentence')
+            ->get()
+            ->map(fn (Word $word) => $this->formatWord($word))
+            ->values()
+            ->all();
+    }
 }

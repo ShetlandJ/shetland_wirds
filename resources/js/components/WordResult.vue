@@ -100,7 +100,9 @@ onMounted(() => {
                         </span>
                     </div>
                     <div class="flex">
-                        <span class="mr-1 text-sm" v-if="word.likes">{{ word.likes }}</span>
+                        <span class="mr-1 text-sm" v-if="word.likes">{{
+                            word.likes
+                        }}</span>
                         <svg
                             fill="none"
                             viewBox="0 0 24 24"
@@ -157,19 +159,22 @@ onMounted(() => {
                     v-for="(definition, index) in word.definitions"
                     :key="definition.id"
                 >
-                    <p className="text-gray-700 mb-2">
-                        <span class="mr-2" v-if="word.definitions.length > 1">
-                            {{ index + 1 }}. </span
-                        >{{ definition.definition }}
-                    </p>
-                    <div v-if="definition.example_sentence">
-                        <p className="mt-3 text-gray-700 mb-2">
-                            {{
-                                definition.example_sentence
-                                    ? `Usage: ${definition.example_sentence}`
-                                    : "No example sentence exists"
-                            }}
+                    <div class="flex">
+                        <div class="mr-2" v-if="word.definitions.length > 1">
+                            {{ index + 1 }}.
+                        </div>
+                        <p className="text-gray-700 mb-2">
+                            {{ definition.definition }}
                         </p>
+                        <div v-if="definition.example_sentence">
+                            <p className="mt-3 text-gray-700 mb-2">
+                                {{
+                                    definition.example_sentence
+                                        ? `Usage: ${definition.example_sentence}`
+                                        : "No example sentence exists"
+                                }}
+                            </p>
+                        </div>
                     </div>
                 </div>
                 <div

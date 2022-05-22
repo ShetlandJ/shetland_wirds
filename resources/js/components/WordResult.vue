@@ -99,21 +99,58 @@ onMounted(() => {
                             (Rejected)
                         </span>
                     </div>
+                    <div class="flex">
+                        <span class="mr-1 text-sm" v-if="word.likes">{{ word.likes }}</span>
+                        <svg
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            class="w-4 h-4 mr-3 heart cursor-pointer"
+                            stroke="red"
+                            @click="likeWord(word.word, searchString)"
+                        >
+                            <template v-if="isLoggedIn">
+                                <path
+                                    v-if="word.is_liked"
+                                    fill="red"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth="2"
+                                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                                />
+                                <path
+                                    v-else
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth="2"
+                                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                                />
+                            </template>
+                            <template v-else>
+                                <path
+                                    fill="red"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth="2"
+                                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                                />
+                            </template>
+                        </svg>
 
-                    <Tooltip
-                        v-if="word.external_id"
-                        content="Official definition from John Graham's Shetland Dictionary"
-                    >
-                        <div style="height: 30px; width: 30px">
-                            <BookIcon />
-                        </div>
-                    </Tooltip>
-                    <div class="mr-4" v-else>
-                        <Tooltip content="This word was created by a user">
-                            <div style="height: 30px; width: 15px">
-                                <ShetlandFlag />
+                        <Tooltip
+                            v-if="word.external_id"
+                            content="Official definition from John Graham's Shetland Dictionary"
+                        >
+                            <div style="height: 30px; width: 30px">
+                                <BookIcon />
                             </div>
                         </Tooltip>
+                        <div class="mr-4" v-else>
+                            <Tooltip content="This word was created by a user">
+                                <div style="height: 30px; width: 15px">
+                                    <ShetlandFlag />
+                                </div>
+                            </Tooltip>
+                        </div>
                     </div>
                 </div>
                 <div
@@ -122,8 +159,7 @@ onMounted(() => {
                 >
                     <p className="text-gray-700 mb-2">
                         <span class="mr-2" v-if="word.definitions.length > 1">
-                            {{ index + 1 }}.
-                        </span
+                            {{ index + 1 }}. </span
                         >{{ definition.definition }}
                     </p>
                     <div v-if="definition.example_sentence">
@@ -150,89 +186,80 @@ onMounted(() => {
                     </span>
                 </div>
 
-                <div className="flex items-center mr-2 text-gray-700 text-sm mr-3">
-                    <svg
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        class="w-4 h-4 mr-1 heart cursor-pointer"
-                        stroke="red"
-                        @click="likeWord(word.word, searchString)"
-                    >
-                        <template v-if="isLoggedIn">
-                            <path
-                                v-if="word.is_liked"
-                                fill="red"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="2"
-                                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                            />
-                            <path
-                                v-else
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="2"
-                                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                            />
-                        </template>
-                        <template v-else>
-                            <path
-                                fill="red"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="2"
-                                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                            />
-                        </template>
-                    </svg>
-
-                    <span v-if="word.likes">{{ word.likes }}</span>
-                    <div class="border-b border-gray-200">
-                    <Link
-                        v-if="!fullView"
-                        :href="route('word', { word: word.slug })"
-                        class="text-sm text-gray-700 hover:underline"
-                    >
-                        {{ word.comments.length }} comment{{
-                            word.comments.length === 1 ? "" : "s"
-                        }}
-                    </Link>
-
-                    <button
-                        @click="activeTab = 'comments'"
-                        v-else
-                        class="
-                            inline-block text-blue-600 rounded-t-lg py-4 px-4 text-sm font-medium text-center dark:bg-gray-800 dark:text-blue-500
-                        "
-                        :class="[activeTab === 'comments' ? 'bg-gray-100' : '']"
-                    >
-                        {{ word.comments.length }} comment{{
-                            word.comments.length === 1 ? "" : "s"
-                        }}
-                    </button>
-
-                    <Link
-                        v-if="!fullView"
-                        class="text-sm text-gray-700 hover:underline"
-                        :href="route('word', { word: word.slug, tab: 'recordings' })"
-                    >
-                        {{ word.recordings.length }} recording{{
-                            word.recordings.length === 1 ? "" : "s"
-                        }}
-                    </Link>
-
-                    <button
-                        @click="activeTab = 'recordings'"
-                        v-else
-                        class="
-                            inline-block text-blue-600 rounded-t-lg py-4 px-4 text-sm font-medium text-center dark:bg-gray-800 dark:text-blue-500
-                        "
-                        :class="[activeTab === 'recordings' ? 'bg-gray-100' : '']"
+                <div
+                    className="flex items-center mr-2 text-gray-700 text-sm mr-3"
+                >
+                    <div :class="[fullView ? 'border-b border-gray-200' : '']">
+                        <Link
+                            v-if="!fullView"
+                            :href="route('word', { word: word.slug })"
+                            class="text-sm text-gray-700 hover:underline mr-2"
                         >
-                        {{ word.recordings.length }} recording{{
-                            word.recordings.length === 1 ? "" : "s"
-                        }}
-                    </button>
+                            {{ word.comments.length }} comment{{
+                                word.comments.length === 1 ? "" : "s"
+                            }}
+                        </Link>
+
+                        <button
+                            @click="activeTab = 'comments'"
+                            v-else
+                            class="
+                                inline-block
+                                text-blue-600
+                                rounded-t-lg
+                                py-4
+                                px-4
+                                text-sm
+                                font-medium
+                                text-center
+                                dark:bg-gray-800 dark:text-blue-500
+                            "
+                            :class="[
+                                activeTab === 'comments' ? 'bg-gray-100' : '',
+                            ]"
+                        >
+                            {{ word.comments.length }} comment{{
+                                word.comments.length === 1 ? "" : "s"
+                            }}
+                        </button>
+
+                        <Link
+                            v-if="!fullView"
+                            class="text-sm text-gray-700 hover:underline"
+                            :href="
+                                route('word', {
+                                    word: word.slug,
+                                    tab: 'recordings',
+                                })
+                            "
+                        >
+                            {{ word.recordings.length }} recording{{
+                                word.recordings.length === 1 ? "" : "s"
+                            }}
+                        </Link>
+
+                        <button
+                            @click="activeTab = 'recordings'"
+                            v-else
+                            class="
+                                inline-block
+                                text-blue-600
+                                rounded-t-lg
+                                py-4
+                                px-4
+                                text-sm
+                                font-medium
+                                text-center
+                                dark:bg-gray-800 dark:text-blue-500
+                            "
+                            :class="[
+                                activeTab === 'recordings' ? 'bg-gray-100' : '',
+                            ]"
+                        >
+                            {{ word.recordings.length }} recording{{
+                                word.recordings.length === 1 ? "" : "s"
+                            }}
+                        </button>
                     </div>
                 </div>
                 <div v-if="fullView" class="mt-4">

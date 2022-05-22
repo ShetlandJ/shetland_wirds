@@ -21,6 +21,10 @@ class WordService
     {
         $query = Word::query();
 
+        $query->select('words.*');
+
+        $query->leftJoin('word_definitions', 'words.id', '=', 'word_definitions.word_id');
+
         if ($searchString) {
             $query->whereLike($searchString);
         }
@@ -32,8 +36,8 @@ class WordService
                 ->skip(($pagination['page'] - 1) * $pageSize);
         }
 
-        $query->where('pending', false);
-        $query->where('rejected', false);
+        $query->where('words.pending', false);
+        $query->where('words.rejected', false);
 
         return $query->get();
     }

@@ -109,16 +109,25 @@ const activeTab = ref("comments");
                         </Tooltip>
                     </div>
                 </div>
-
-                <p className="text-gray-700 mb-2">{{ word.translation }}</p>
-                <div v-if="word.example_sentence">
-                    <p className="mt-3 text-gray-700 mb-2">
-                        {{
-                            word.example_sentence
-                                ? `Usage: ${word.example_sentence}`
-                                : "No example sentence exists"
-                        }}
+                <div
+                    v-for="(definition, index) in word.definitions"
+                    :key="definition.id"
+                >
+                    <p className="text-gray-700 mb-2">
+                        <span class="mr-2" v-if="word.definitions.length > 1">
+                            {{ index + 1 }}.
+                        </span
+                        >{{ definition.definition }}
                     </p>
+                    <div v-if="definition.example_sentence">
+                        <p className="mt-3 text-gray-700 mb-2">
+                            {{
+                                definition.example_sentence
+                                    ? `Usage: ${definition.example_sentence}`
+                                    : "No example sentence exists"
+                            }}
+                        </p>
+                    </div>
                 </div>
                 <div
                     className="flex align-items-end mb-1"
@@ -247,7 +256,8 @@ const activeTab = ref("comments");
                             role="alert"
                         >
                             <p>
-                                There are no comments available for this word yet, be the first to add one!
+                                There are no comments available for this word
+                                yet, be the first to add one!
                             </p>
                         </div>
 
@@ -280,7 +290,8 @@ const activeTab = ref("comments");
                             role="alert"
                         >
                             <p>
-                                There are no recordings available for this word yet, be the first to add one!
+                                There are no recordings available for this word
+                                yet, be the first to add one!
                             </p>
                         </div>
 

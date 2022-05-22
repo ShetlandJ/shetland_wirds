@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Word;
+use App\Models\WordDefinition;
 use Illuminate\Support\Str;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
@@ -38,12 +39,6 @@ class SyncWordList extends Command
                     'type' => $type,
                 ];
                 ++$counter;
-                logger([
-                    'word' => $word,
-                    'version' => $version,
-                    'definitions' => $definitions,
-                    'type' => $type,
-                ]);
             }
 
             fclose($open);
@@ -69,6 +64,7 @@ class SyncWordList extends Command
     public function createWord(array $payload)
     {
         $foundWord = Word::where('word', $payload['word'])->first();
+
         if (!$foundWord) {
             $word = new Word();
 
@@ -77,22 +73,24 @@ class SyncWordList extends Command
             $word->creator_id = 0;
             $word->save();
 
-            $definitions = explode(',', $payload['definitions']);
-            foreach ($definitions as $definition) {
+            if (isset($payload['definitions']) && $payload['definitions'] !== '') {
                 $word->definitions()->create([
                     'uuid' => (string) Str::uuid(),
-                    'definition' => ltrim($definition),
+                    'definition' => ltrim($payload['definitions']),
                     'example_sentence' => null,
-                    'type' => $payload['type'],
+                    'type' => $payload['type'] ?? null,
                 ]);
             }
         } else {
-            $foundDefinition = $foundWord->definitions()->where('definition', $payload['definitions'])->first();
+            $foundDefinition = $foundWord->definitions()
+                ->where('word_id', $foundWord->id)
+                ->where('definition', $payload['definitions'])
+                ->first();
 
-            if (!$foundDefinition) {
+            if (!$foundDefinition && isset($payload['definitions']) && $payload['definitions'] !== '') {
                 $foundWord->definitions()->create([
                     'uuid' => (string) Str::uuid(),
-                    'definition' =>ltrim($payload['definitions']),
+                    'definition' => ltrim($payload['definitions']),
                     'example_sentence' => null,
                     'type' => $payload['type'] ?? null,
                 ]);

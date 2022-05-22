@@ -60,7 +60,7 @@ class Word extends Model
 
     public function definitions(): HasMany
     {
-        return $this->hasMany(WordDefinition::class);
+        return $this->hasMany(WordDefinition::class, 'word_id', 'id');
     }
 
     public function getFormattedDefinitionsAttribute(): object
@@ -110,10 +110,8 @@ class Word extends Model
     {
         $lowercasedSearchString = Str::lower($searchString);
 
-        return $query->where(function (Builder $query) use ($lowercasedSearchString) {
-            $query->where('word', 'like', "%{$lowercasedSearchString}%");
-            $query->orWhere('translation', 'like', "%{$lowercasedSearchString}%");
-            $query->orWhere('example_sentence', 'like', "%{$lowercasedSearchString}%");
-        });
+        return $query->where('word_definitions.definition', 'like', "%{$lowercasedSearchString}%")
+            ->where('word_definitions.example_sentence', 'like', "%{$lowercasedSearchString}%")
+            ->orWhere('words.word', 'like', "%{$lowercasedSearchString}%");
     }
 }

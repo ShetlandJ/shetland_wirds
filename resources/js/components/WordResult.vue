@@ -78,25 +78,6 @@ onMounted(() => {
 </script>
 
 <template>
-
-<!-- <ul class="flex flex-wrap border-b border-gray-200 dark:border-gray-700">
-    <li class="mr-2">
-        <a href="#" aria-current="page" class="inline-block bg-gray-100 text-blue-600 rounded-t-lg py-4 px-4 text-sm font-medium text-center active dark:bg-gray-800 dark:text-blue-500">Profile</a>
-    </li>
-    <li class="mr-2">
-        <a href="#" class="inline-block text-gray-500 hover:text-gray-600 hover:bg-gray-50 rounded-t-lg py-4 px-4 text-sm font-medium text-center dark:text-gray-400  dark:hover:bg-gray-800 dark:hover:text-gray-300">Dashboard</a>
-    </li>
-    <li class="mr-2">
-        <a href="#" class="inline-block text-gray-500 hover:text-gray-600 hover:bg-gray-50 rounded-t-lg py-4 px-4 text-sm font-medium text-center dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-300">Settings</a>
-    </li>
-    <li class="mr-2">
-        <a href="#" class="inline-block text-gray-500 hover:text-gray-600 hover:bg-gray-50 rounded-t-lg py-4 px-4 text-sm font-medium text-center dark:text-gray-400  dark:hover:bg-gray-800 dark:hover:text-gray-300">Contacts</a>
-    </li>
-    <li>
-        <a class="inline-block text-gray-400 rounded-t-lg py-4 px-4 text-sm font-medium text-center dark:text-gray-500 cursor-not-allowed">Disabled</a>
-    </li>
-</ul> -->
-
     <div
         className="bg-white shadow-lg rounded-lg mx-4 md:mx-auto my-8 max-w-md md:max-w-2xl"
     >

@@ -39,6 +39,8 @@ class WordService
         $query->where('words.pending', false);
         $query->where('words.rejected', false);
 
+        $query->groupBy('words.id');
+
         return $query->get();
     }
 

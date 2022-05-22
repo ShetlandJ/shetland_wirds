@@ -137,22 +137,6 @@ onMounted(() => {
                                 />
                             </template>
                         </svg>
-
-                        <Tooltip
-                            v-if="word.external_id"
-                            content="Official definition from John Graham's Shetland Dictionary"
-                        >
-                            <div style="height: 30px; width: 30px">
-                                <BookIcon />
-                            </div>
-                        </Tooltip>
-                        <div class="mr-4" v-else>
-                            <Tooltip content="This word was created by a user">
-                                <div style="height: 30px; width: 15px">
-                                    <ShetlandFlag />
-                                </div>
-                            </Tooltip>
-                        </div>
                     </div>
                 </div>
                 <div

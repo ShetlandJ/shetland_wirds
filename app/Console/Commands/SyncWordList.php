@@ -68,8 +68,12 @@ class SyncWordList extends Command
         if (!$foundWord) {
             $word = new Word();
 
+            $slugExistsCount = Word::where('slug', Str::slug($payload['word']))->count();
             $word->word = $payload['word'];
             $word->uuid = (string) Str::uuid();
+            $word->slug = $slugExistsCount
+                ? sprintf('%s-%s', Str::slug($payload['word']), ($slugExistsCount + 1))
+                : Str::slug($payload['word']);
             $word->creator_id = 0;
             $word->save();
 

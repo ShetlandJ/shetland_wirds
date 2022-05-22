@@ -54,7 +54,8 @@ class WordService
 
     public function findByWord(string $word): ?array
     {
-        $foundWord = Word::where('word', $word)->first();
+        // dd($word);
+        $foundWord = Word::where('slug', $word)->first();
 
         if (!$foundWord) {
             return null;
@@ -86,7 +87,7 @@ class WordService
         return [
             'id' => $word->uuid,
             'word' => $word->word,
-            'slug' => $word->clean_slug,
+            'slug' => $word->slug,
             'definitions' => $word->formattedDefinitions,
             'is_liked' => (bool) $word->isLikedByUser,
             'likes' => $word->likes->count(),

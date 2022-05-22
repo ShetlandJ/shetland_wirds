@@ -88,11 +88,6 @@ class Word extends Model
         return $this->likes()->where('user_id', Auth::user()->id)->exists();
     }
 
-    public function getCleanSlugAttribute()
-    {
-        return Str::slug($this->word);
-    }
-
     public function scopeUserAdded(Builder $query): Builder
     {
         return $query->where(function (Builder $query) {

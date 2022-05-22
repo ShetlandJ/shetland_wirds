@@ -1,5 +1,5 @@
 <script setup>
-import { Link, useForm } from "@inertiajs/inertia-vue3";
+import { Link, useForm, usePage } from "@inertiajs/inertia-vue3";
 import BookIcon from "./icons/BookIcon.vue";
 import Tooltip from "./Tooltip.vue";
 import ShetlandFlag from "./icons/ShetlandFlag.vue";
@@ -8,7 +8,7 @@ import CommentInput from "./CommentInput.vue";
 import Recording from "./Recording.vue";
 import RecordingInput from "./RecordingInput.vue";
 
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 
 const props = defineProps({
     word: Object,
@@ -67,7 +67,14 @@ const commentOptions = ref({
     placeholder: `Any thoughts on ${props.word.word}?`,
 });
 
+const tab = usePage().props.value.tab;
 const activeTab = ref("comments");
+
+onMounted(() => {
+    if (tab) {
+        activeTab.value = tab;
+    }
+});
 </script>
 
 <template>
@@ -208,7 +215,7 @@ const activeTab = ref("comments");
                     <Link
                         v-if="!fullView"
                         class="text-sm text-gray-700 hover:underline"
-                        :href="route('word', { word: word.slug })"
+                        :href="route('word', { word: word.slug, tab: 'recordings' })"
                     >
                         {{ word.recordings.length }} recording{{
                             word.recordings.length === 1 ? "" : "s"

@@ -129,7 +129,8 @@ Route::get('/word/{word}/', function (string $word) {
         'canRegister' => Route::has('register'),
         'isLoggedIn' => Auth::check(),
         'word' => app(WordService::class)->findByWord($word),
-        'recording' => asset('storage/booshim.mp3')
+        'recording' => asset('storage/booshim.mp3'),
+        'tab' => request('tab'),
     ]);
 })->where('word', '.*')->name('word');
 

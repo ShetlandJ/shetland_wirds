@@ -1,6 +1,9 @@
 <script setup>
 import WordResult from "../components/WordResult.vue";
 import NavBar from "../components/NavBar.vue";
+import { usePage } from '@inertiajs/inertia-vue3'
+
+let urlPrev = usePage().props.value.urlPrev
 
 const props = defineProps({
     word: Object,
@@ -8,6 +11,8 @@ const props = defineProps({
     canRegister: Boolean,
     isLoggedIn: Boolean,
 });
+
+const goBack = () => window.history.back();
 </script>
 
 <template>

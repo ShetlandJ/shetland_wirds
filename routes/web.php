@@ -133,6 +133,14 @@ Route::get('/word/{word}/', function (string $word) {
     ]);
 })->where('word', '.*')->name('word');
 
+Route::post('/word/{word}/like', function (string $word) {
+    if (request('wordToLike')) {
+        app(WordService::class)->handleLike(request('wordToLike'));
+    }
+
+    return redirect()->back();
+})->where('word', '.*')->name('wordLike');
+
 Route::post('/word/{word}', function (string $word) {
     if (request('text')) {
         $foundWord = Word::where('word', $word)->first();

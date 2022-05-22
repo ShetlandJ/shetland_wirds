@@ -30,7 +30,7 @@ const likeWord = (word, searchString) => {
     form.wordToLike = word;
     form.searchString = searchString;
 
-    form.post(route("search", { searchTerm: searchString }), {
+    form.post(route("wordLike", { word: props.word.word }), {
         searchString: searchString,
         wordToLike: form.wordToLike,
     });

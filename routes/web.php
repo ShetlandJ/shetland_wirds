@@ -41,6 +41,7 @@ Route::get('/', function () {
         'isLoggedIn' => Auth::check(),
         'phpVersion' => PHP_VERSION,
         'words' => app(WordService::class)->findAllWordsWithPagination('', $pagination),
+        'pagination' => $pagination,
     ]);
 })->name('home');
 

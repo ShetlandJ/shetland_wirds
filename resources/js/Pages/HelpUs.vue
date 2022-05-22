@@ -16,8 +16,7 @@ const form = useForm({});
 
 const refreshWords = () => {
     form.get(route("help-us"));
-}
-
+};
 </script>
 
 <template>
@@ -62,13 +61,18 @@ const refreshWords = () => {
             <b>Words missing definitions</b>
         </p>
         <div class="flex justify-center">
-            <p>
-                Click on any word that you know the definition of to help us plug
-                the gaps!
-            <span @click="refreshWords" class="text-sm text-blue-700 cursor-pointer">
+            <div>
+                Click on any word that you know the definition of to help us
+                plug the gaps!
+            </div>
+        </div>
+        <div class="flex justify-center">
+            <span
+                @click="refreshWords"
+                class="text-sm text-blue-700 cursor-pointer"
+            >
                 (Refresh words)
             </span>
-            </p>
         </div>
 
         <div class="grid gap-6 mb-2 flex items-center">

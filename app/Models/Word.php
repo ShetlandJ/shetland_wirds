@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use App\Models\User;
 use App\Models\WordToWord;
 use Illuminate\Support\Str;
 use App\Models\UserWordLike;
 use App\Models\WordRecording;
+use App\Models\WordDefinition;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
@@ -28,7 +30,7 @@ class Word extends Model
         'external_id',
         'pending',
         'creator_id',
-        'type'
+        'type',
     ];
 
     public function likes()
@@ -54,6 +56,27 @@ class Word extends Model
     public function recordings()
     {
         return $this->hasMany(WordRecording::class);
+    }
+
+    public function definitions(): HasMany
+    {
+        return $this->hasMany(WordDefinition::class);
+    }
+
+    public function getFormattedDefinitionsAttribute(): object
+    {
+        return $this->definitions->map(function (WordDefinition $definition) {
+            return [
+                'id' => $definition->uuid,
+                'definition' => $definition->definition,
+                'example_sentence' => $definition->example_sentence,
+                'type' => $definition->type,
+                'creator' => $definition->user ? $definition->user->name : null,
+                'word_id' => $definition->word->uuid,
+                'created_at' => $definition->created_at,
+                'updated_at' => $definition->updated_at,
+            ];
+        });
     }
 
     public function getIsLikedByUserAttribute(): bool

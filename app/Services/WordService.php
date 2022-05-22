@@ -83,14 +83,12 @@ class WordService
             'id' => $word->uuid,
             'word' => $word->word,
             'slug' => $word->clean_slug,
-            'translation' => $word->translation,
-            'example_sentence' => $word->example_sentence,
+            'definitions' => $word->formattedDefinitions,
             'is_liked' => (bool) $word->isLikedByUser,
             'likes' => $word->likes->count(),
             'pending' => $word->pending,
             'rejected' => (bool) $word->rejected,
             'reason' => $word->reason,
-            'external_id' => $word->external_id,
             'creator_name' => $word->creator ? $word->creator->name : 'Unregistered',
             'comments'=> $this->getComments($word)->values()->all(),
             'recordings' => $this->getRecordings($word)
@@ -183,12 +181,8 @@ class WordService
         return Word::create([
             'uuid' => (string) Str::uuid(),
             'word' => $payload['newWord'],
-            'translation' => $payload['translation'],
-            'example_sentence' => isset($payload['example_sentence']) ? $payload['example_sentence'] : null,
-            'external_id' => null,
             'creator_id' => Auth::id() ?? null,
             'pending' => true,
-            'type' => isset($payload['word_type']) ? $payload['word_type'] : null,
         ]);
     }
 

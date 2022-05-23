@@ -17,7 +17,7 @@ const props = defineProps({
     >
         <div class="p-4 flex items-center">
             <div>
-                <p
+                <!-- <p
                     class="
                         mb-2
                         text-md
@@ -27,17 +27,17 @@ const props = defineProps({
                     "
                 >
                     {{word.word}}
-                </p>
-                <!-- <h4
+                </p> -->
+                <h4
                     class="
-                        text-3xl
+                        text-2xl
                         font-semibold
                         text-gray-700
                         dark:text-gray-200
                     "
                 >
-                    {{stat}}
-                </h4> -->
+                    {{word.word}}
+                </h4>
             </div>
         </div>
     </div>

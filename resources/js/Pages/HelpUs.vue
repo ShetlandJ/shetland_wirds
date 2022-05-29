@@ -32,13 +32,30 @@ const newDefinitionForm = useForm({
 });
 
 const submitDefinition = () => {
-    newDefinitionForm.word = this.selectedWord.id;
+    newDefinitionForm.word = selectedWord.word;
     newDefinitionForm.post(route("help-us-new"), {
         onFinish: () => {
             newDefinitionForm.reset();
             showDefinitionForm.value = false;
         },
     });
+};
+
+const ignoreWordForm = useForm({
+    wordId: "",
+});
+
+const ignoreWord = (wordId) => {
+    ignoreWordForm.wordId = wordId;
+    ignoreWordForm.post(
+        route("help-us-ignore"),
+        {
+            onFinish: () => {
+                ignoreWordForm.reset();
+                selectedWord.value = null;
+            },
+        },
+    );
 };
 </script>
 
@@ -63,7 +80,6 @@ const submitDefinition = () => {
             @suggest-word="toggleSuggestWordForm(true)"
         />
 
-        <!-- <div class=""> -->
         <div class="md:mx-auto my-8 max-w-md md:max-w-2xl">
             We need contributers to help plug gaps in our dictionary of Shetland
             words. You can help us by adding any definitions or examples of
@@ -112,6 +128,7 @@ const submitDefinition = () => {
             </div>
         </div>
         <div
+            v-if="selectedWord"
             class="
                 flex
                 justify-center
@@ -126,9 +143,7 @@ const submitDefinition = () => {
             <div class="flex text-2xl items-center justify-center mr-4">
                 <b class="mr-1">{{ selectedWord.word }}</b> means:
             </div>
-            <div
-                v-if="showDefinitionForm"
-            >
+            <div v-if="showDefinitionForm">
                 <form @submit.prevent="createWord">
                     <div class="form-group mb-6">
                         <textarea
@@ -160,7 +175,40 @@ const submitDefinition = () => {
                             aria-describedby="wordHelp"
                         />
                     </div>
+
+                    <button
+                        class="
+                            px-4
+                            py-2
+                            bg-green-500
+                            hover:bg-green-600
+                            text-white text-sm
+                            font-medium
+                            rounded-md
+                            mr-2
+                        "
+                        type="submit"
+                    >
+                        Submit
+                    </button>
+
                 </form>
+
+                <button
+                    class="
+                        mt-2
+                        px-4
+                        py-2
+                        bg-red-500
+                        hover:bg-red-600
+                        text-white text-sm
+                        font-medium
+                        rounded-md
+                    "
+                    @click="ignoreWord(selectedWord.id)"
+                >
+                    Ignore
+                </button>
             </div>
         </div>
     </div>

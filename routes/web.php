@@ -251,3 +251,13 @@ Route::get('/help-us', function () {
         'missingExampleSentences' => $definitionsWithoutExampleSentences,
     ]);
 })->name('help-us');
+
+Route::post('/help-us-ignore', function () {
+    $wordId = request('wordId');
+
+    if ($wordId) {
+        app(WordService::class)->ignoreWord($wordId);
+    }
+
+    return redirect()->back();
+})->name('help-us-ignore');

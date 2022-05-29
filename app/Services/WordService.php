@@ -320,6 +320,7 @@ class WordService
             ->inRandomOrder()
             ->limit(6)
             ->whereNull('word_definitions.id')
+            ->where('words.ignore_definition', false)
             ->get()
             ->map(fn (Word $word) => $this->formatWord($word))
             ->values()
@@ -335,9 +336,24 @@ class WordService
             ->inRandomOrder()
             ->limit(6)
             ->whereNull('word_definitions.example_sentence')
+            ->where('words.ignore_definition', false)
             ->get()
             ->map(fn (Word $word) => $this->formatWord($word))
             ->values()
             ->all();
+    }
+
+    public function ignoreWord(string $wordUuid): Word
+    {
+        $word = Word::where('uuid', $wordUuid)->first();
+
+        if (!$word) {
+            return null;
+        }
+
+        $word->ignore_definition = true;
+        $word->save();
+
+        return $word;
     }
 }

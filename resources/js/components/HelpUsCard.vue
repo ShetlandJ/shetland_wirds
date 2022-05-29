@@ -17,17 +17,6 @@ const props = defineProps({
     >
         <div class="p-4 flex items-center">
             <div>
-                <!-- <p
-                    class="
-                        mb-2
-                        text-md
-                        font-medium
-                        text-gray-600
-                        dark:text-gray-400
-                    "
-                >
-                    {{word.word}}
-                </p> -->
                 <h4
                     class="
                         text-2xl

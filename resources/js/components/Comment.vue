@@ -1,9 +1,10 @@
 <script setup>
+import { usePage } from '@inertiajs/inertia-vue3';
 import { formatDateTime } from "../utils/formatters";
 import { ref } from "vue";
 import SanitisedHtml from "./SanitisedHtml.vue";
 import CommentInput from "./CommentInput.vue";
-const isLoggedIn = ref(() => usePage().props.value.isLoggedIn)
+const isLoggedIn = usePage().props.value.isLoggedIn;
 
 const showChildReplies = ref(false);
 
@@ -82,7 +83,7 @@ const commentOptions = ref({
                             ? comment.child_comments.length
                             : 0
                     }}
-                    <span v-if="comment.child_comments">
+                    <span>
                         {{
                             comment.child_comments.length === 1
                                 ? "reply"
@@ -91,7 +92,7 @@ const commentOptions = ref({
                     </span>
                 </div>
 
-                <div v-else>
+                <div v-else-if="isLoggedIn">
                     <p
                         @click="showChildReplies = !showChildReplies"
                         class="

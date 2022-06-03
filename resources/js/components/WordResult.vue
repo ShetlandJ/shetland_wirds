@@ -100,42 +100,30 @@ onMounted(() => {
                         </span>
                     </div>
                     <div class="flex">
-                        <span class="mr-1 text-sm" v-if="word.likes">{{
-                            word.likes
-                        }}</span>
+                        <span class="mr-1 text-sm">{{ word.likes }}</span>
                         <svg
                             fill="none"
                             viewBox="0 0 24 24"
-                            class="w-4 h-4 mr-3 heart cursor-pointer"
+                            class="w-4 h-4 mr-3 heart"
+                            :class="[isLoggedIn ? 'cursor-pointer' : '']"
                             stroke="red"
                             @click="likeWord(word.word, searchString)"
                         >
-                            <template v-if="isLoggedIn">
-                                <path
-                                    v-if="word.is_liked"
-                                    fill="red"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth="2"
-                                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                                />
-                                <path
-                                    v-else
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth="2"
-                                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                                />
-                            </template>
-                            <template v-else>
-                                <path
-                                    fill="red"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth="2"
-                                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                                />
-                            </template>
+                            <path
+                                v-if="word.is_liked"
+                                fill="red"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                            />
+                            <path
+                                v-else
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                            />
                         </svg>
                     </div>
                 </div>

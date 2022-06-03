@@ -135,6 +135,10 @@ Route::get('/word/{word}/', function (string $word) {
 })->where('word', '.*')->name('word');
 
 Route::post('/word/{word}/like', function (string $word) {
+    if (!Auth::check()) {
+        return redirect()->back();
+    }
+
     if (request('wordToLike')) {
         app(WordService::class)->handleLike(request('wordToLike'));
     }
@@ -143,6 +147,10 @@ Route::post('/word/{word}/like', function (string $word) {
 })->where('word', '.*')->name('wordLike');
 
 Route::post('/word/{word}', function (string $word) {
+    if (!Auth::check()) {
+        return redirect()->back();
+    }
+
     if (request('text')) {
         $foundWord = Word::where('word', $word)->first();
 

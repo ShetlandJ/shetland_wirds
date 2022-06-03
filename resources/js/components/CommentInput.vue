@@ -1,8 +1,9 @@
 <script setup>
 import "@vueup/vue-quill/dist/vue-quill.snow.css";
-import { useForm } from "@inertiajs/inertia-vue3";
+import { useForm, usePage } from "@inertiajs/inertia-vue3";
 import { onMounted, onUpdated } from "vue";
-import { ref, getCurrentInstance } from 'vue';
+import { ref, getCurrentInstance } from "vue";
+const isLoggedIn = usePage().props.value.isLoggedIn;
 
 const props = defineProps({
     options: Object,
@@ -16,7 +17,7 @@ const form = useForm({
 });
 
 const newComment = () => {
-    form.comment_id = props.parentComment ? props.parentComment.id : null
+    form.comment_id = props.parentComment ? props.parentComment.id : null;
     form.post(route("newComment", { word: props.word.word }), {
         text: form.text,
         comment_id: form.comment_id,
@@ -24,10 +25,9 @@ const newComment = () => {
             // message.value = '';
             var element = document.getElementsByClassName("ql-editor");
             element[0].innerHTML = "";
-        }
+        },
     });
 };
-
 </script>
 
 <template>
@@ -38,11 +38,15 @@ const newComment = () => {
                 contentType="html"
                 :options="options"
                 theme="snow"
-
             />
 
             <div class="flex justify-end mt-2">
+                <span class="mt-1 mr-2">
+                    <small> You must be logged in to comment. </small>
+                </span>
+
                 <button
+                    :disabled="!isLoggedIn"
                     class="
                         btn
                         inline-block

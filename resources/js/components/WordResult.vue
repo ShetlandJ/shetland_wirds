@@ -334,6 +334,9 @@ onMounted(() => {
                             You'll be able to listen back to your recording
                             before submitting.
                         </p>
+                        <p class="mb-2">
+                            Your recording will need to be approved before it will be visible on the site.
+                        </p>
 
                         <RecordingInput :key="word.recordings.length" />
                     </div>

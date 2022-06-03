@@ -18,6 +18,7 @@ class WordDefinition extends Model
         'type',
         'user_id',
         'word_id',
+        'pending'
     ];
 
     public function word(): BelongsTo

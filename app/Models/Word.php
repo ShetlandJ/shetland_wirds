@@ -11,6 +11,7 @@ use App\Models\WordDefinition;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -56,6 +57,11 @@ class Word extends Model
     public function recordings()
     {
         return $this->hasMany(WordRecording::class);
+    }
+
+    public function getActiveRecordingsAttribute(): Collection
+    {
+        return $this->recordings()->where('pending', false)->get();
     }
 
     public function definitions(): HasMany

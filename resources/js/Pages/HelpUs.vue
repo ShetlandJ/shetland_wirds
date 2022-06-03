@@ -27,12 +27,13 @@ const toggleDefinitionForm = (word) => {
 };
 
 const newDefinitionForm = useForm({
-    word: "",
+    wordId: "",
     definition: "",
+    example_sentence: ""
 });
 
-const submitDefinition = () => {
-    newDefinitionForm.word = selectedWord.word;
+const submitDefinition = (wordId) => {
+    newDefinitionForm.wordId = wordId;
     newDefinitionForm.post(route("help-us-new"), {
         onFinish: () => {
             newDefinitionForm.reset();
@@ -53,6 +54,7 @@ const ignoreWord = (wordId) => {
             onFinish: () => {
                 ignoreWordForm.reset();
                 selectedWord.value = null;
+                showDefinitionForm.value = false;
             },
         },
     );
@@ -128,7 +130,7 @@ const ignoreWord = (wordId) => {
             </div>
         </div>
         <div
-            v-if="selectedWord"
+            v-if="showDefinitionForm"
             class="
                 flex
                 justify-center
@@ -143,14 +145,44 @@ const ignoreWord = (wordId) => {
             <div class="flex text-2xl items-center justify-center mr-4">
                 <b class="mr-1">{{ selectedWord.word }}</b> means:
             </div>
-            <div v-if="showDefinitionForm">
-                <form @submit.prevent="createWord">
+            <div>
+                <form @submit.prevent="submitDefinition(selectedWord.id)">
                     <div class="form-group mb-6">
                         <textarea
                             v-model="newDefinitionForm.definition"
                             type="text"
                             cols="40"
                             rows="4"
+                            class="
+                                form-control
+                                block
+                                w-full
+                                px-3
+                                py-1.5
+                                text-base
+                                font-normal
+                                text-gray-700
+                                bg-white bg-clip-padding
+                                border border-solid border-gray-300
+                                rounded
+                                transition
+                                ease-in-out
+                                m-0
+                                focus:text-gray-700
+                                focus:bg-white
+                                focus:border-blue-600
+                                focus:outline-none
+                            "
+                            id="wordInput"
+                            aria-describedby="wordHelp"
+                        />
+
+                        <textarea
+                            v-model="newDefinitionForm.example_sentence"
+                            type="text"
+                            cols="40"
+                            rows="4"
+                            placeholder="Example sentence"
                             class="
                                 form-control
                                 block

@@ -11,6 +11,7 @@ use App\Models\WordToWord;
 use Illuminate\Support\Str;
 use App\Models\UserWordLike;
 use App\Models\WordRecording;
+use App\Models\WordDefinition;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\Routing\Loader\Configurator\CollectionConfigurator;
@@ -98,13 +99,13 @@ class WordService
             'reason' => $word->reason,
             'creator_name' => $word->creator ? $word->creator->name : 'Unregistered',
             'comments'=> $this->getComments($word)->values()->all(),
-            'recordings' => $this->getRecordings($word)
+            'recordings' => $this->getRecordings($word),
         ];
     }
 
     public function getRecordings(Word $word): Collection
     {
-        return $word->recordings->map(fn (WordRecording $recording) => [
+        return $word->activeRecordings->map(fn (WordRecording $recording) => [
             'id' => $recording->uuid,
             'url' => asset($recording->filename),
             'speaker_name' => $recording->speaker ? $recording->speaker->name : 'Unregistered',
@@ -289,10 +290,11 @@ class WordService
         $recording = new WordRecording();
 
         $recording->word_id = $word->id;
-        $recording->user_id = Auth::user()->id;
+        $recording->user_id = Auth::id();
         $recording->uuid = (string) Str::uuid();
         $recording->type = 'word';
         $recording->filename = $fileName;
+        $recording->pending = true;
 
         $recording->save();
 
@@ -353,6 +355,33 @@ class WordService
 
         $word->ignore_definition = true;
         $word->save();
+
+        return $word;
+    }
+
+    public function addDefinition(
+        string $wordUuid,
+        string $definition,
+        ?string $exampleSentence
+    ): Word {
+        $word = Word::where('uuid', $wordUuid)->first();
+
+        if (!$word) {
+            return null;
+        }
+
+        $word->ignore_definition = false;
+        $word->save();
+
+        $definition = WordDefinition::create([
+            'uuid' => (string) Str::uuid(),
+            'word_id' => $word->id,
+            'definition' => $definition,
+            'pending' => true,
+            'example_sentence' => $exampleSentence,
+            'user_id' => Auth::id() ?? null,
+            'pending' => true,
+        ]);
 
         return $word;
     }

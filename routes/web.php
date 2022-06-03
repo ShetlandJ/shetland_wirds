@@ -252,6 +252,18 @@ Route::get('/help-us', function () {
     ]);
 })->name('help-us');
 
+Route::post('/help-us', function () {
+    $wordUuid = request('wordId');
+    $newDefinition = request('definition');
+    $exampleSentence = request('example_sentence');
+
+    if ($wordUuid && $newDefinition) {
+        app(WordService::class)->addDefinition($wordUuid, $newDefinition, $exampleSentence);
+    }
+
+    return redirect()->back();
+})->name('help-us-new');
+
 Route::post('/help-us-ignore', function () {
     $wordId = request('wordId');
 

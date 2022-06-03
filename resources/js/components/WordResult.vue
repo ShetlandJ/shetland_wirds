@@ -150,15 +150,15 @@ onMounted(() => {
                         <p className="text-gray-700 mb-2">
                             {{ definition.definition }}
                         </p>
-                        <div v-if="definition.example_sentence">
-                            <p className="mt-3 text-gray-700 mb-2">
-                                {{
-                                    definition.example_sentence
-                                        ? `Usage: ${definition.example_sentence}`
-                                        : "No example sentence exists"
-                                }}
-                            </p>
-                        </div>
+                    </div>
+                    <div v-if="definition.example_sentence">
+                        <p className="mt-3 text-gray-700 mb-2">
+                            {{
+                                definition.example_sentence
+                                    ? `Usage: ${definition.example_sentence}`
+                                    : "No example sentence exists"
+                            }}
+                        </p>
                     </div>
                 </div>
                 <div

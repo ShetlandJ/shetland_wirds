@@ -238,6 +238,14 @@ Route::post('/dashboard/reject', function () {
     return redirect()->back();
 })->name('reject');
 
+Route::get('/dashboard/recordings', function () {
+    return Inertia::render('AdminDashboard', [
+        'recordings' => app(WordService::class)->getPendingRecordings(),
+        'isLoggedIn' => Auth::check(),
+    ]);
+})->name('recordings');
+
+
 Route::get('/help-us', function () {
     $wordsWithoutDefinitions = app(WordService::class)->findWithoutDefinitions();
     $definitionsWithoutExampleSentences = app(WordService::class)->findWithoutExampleSentences();

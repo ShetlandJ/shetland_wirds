@@ -4,10 +4,15 @@ import Welcome from "@/Jetstream/Welcome.vue";
 import WordResult from "../components/WordResult.vue";
 import StatCard from "../components/StatCard.vue";
 import AdminMetrics from "../components/admin/AdminsMetrics.vue";
+import Recording from "../components/Recording.vue";
 import { computed } from "vue";
 
 defineProps({
     words: {
+        type: Array,
+        default: () => [],
+    },
+    recordings: {
         type: Array,
         default: () => [],
     },
@@ -21,7 +26,8 @@ const heading = computed(() => {
     if (route().current("dashboard")) return "Admin dashboard";
     if (route().current("approval")) return "Words requiring approval";
     if (route().current("my-words")) return "My words";
-    if (route().current('rejected')) return "Rejected words";
+    if (route().current("rejected")) return "Rejected words";
+    if (route().current("recordings")) return "Pending recordings";
     return "Admin dashboard";
 });
 </script>
@@ -40,6 +46,16 @@ const heading = computed(() => {
                 v-for="word in words"
                 :key="word.uuid"
                 :word="word"
+                admin-view
+            />
+        </div>
+
+        <div v-if="recordings">
+            <Recording
+                v-for="(recording, index) in recordings"
+                :key="recording.uuid"
+                :index="index"
+                :recording="recording"
                 admin-view
             />
         </div>

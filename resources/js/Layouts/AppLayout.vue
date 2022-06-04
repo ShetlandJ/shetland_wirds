@@ -85,6 +85,12 @@ const logout = () => {
                                 >
                                     Rejected
                                 </JetNavLink>
+                                <JetNavLink
+                                    :href="route('recordings')"
+                                    :active="route().current('recordings')"
+                                >
+                                    Recordings
+                                </JetNavLink>
                             </div>
                         </div>
 

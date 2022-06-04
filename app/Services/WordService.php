@@ -385,4 +385,38 @@ class WordService
 
         return $word;
     }
+
+    public function getPendingRecordings(): array
+    {
+        $recordings = WordRecording::where('pending', true)->get();
+
+        return $recordings->map(fn (WordRecording $recording) => $this->formatRecording($recording))->values()->all();
+    }
+
+    public function formatRecording(WordRecording $recording)
+    {
+        return [
+            'uuid' => $recording->uuid,
+            'url' => asset($recording->filename),
+            'type' => $recording->type,
+            'created_at' => $recording->created_at->toIso8601String(),
+            'user' => $recording->user ? $recording->user->name : 'Unregistered',
+            'word' => $recording->word ? $this->formatWord($recording->word) : null,
+            'definition' => $recording->definition ? $recording->definition : null,
+        ];
+    }
+
+    public function approveRecording(string $recordingUuid): ?WordRecording
+    {
+        $recording = WordRecording::where('uuid', $recordingUuid)->first();
+
+        if (!$recording) {
+            return null;
+        }
+
+        $recording->pending = false;
+        $recording->save();
+
+        return $recording;
+    }
 }

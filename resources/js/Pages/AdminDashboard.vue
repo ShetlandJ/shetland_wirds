@@ -4,7 +4,7 @@ import Welcome from "@/Jetstream/Welcome.vue";
 import WordResult from "../components/WordResult.vue";
 import StatCard from "../components/StatCard.vue";
 import AdminMetrics from "../components/admin/AdminsMetrics.vue";
-import Recording from "../components/Recording.vue";
+import PendingRecording from "../components/PendingRecording.vue";
 import { computed } from "vue";
 
 defineProps({
@@ -51,7 +51,7 @@ const heading = computed(() => {
         </div>
 
         <div v-if="recordings">
-            <Recording
+            <PendingRecording
                 v-for="(recording, index) in recordings"
                 :key="recording.uuid"
                 :index="index"

@@ -13,7 +13,10 @@ use App\Models\UserWordLike;
 use App\Models\WordRecording;
 use App\Models\WordDefinition;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use Symfony\Component\Routing\Loader\Configurator\CollectionConfigurator;
 
 class WordService
@@ -388,7 +391,8 @@ class WordService
 
     public function getPendingRecordings(): array
     {
-        $recordings = WordRecording::where('pending', true)->get();
+        $recordings = WordRecording::where('pending', true)
+            ->get();
 
         return $recordings->map(fn (WordRecording $recording) => $this->formatRecording($recording))->values()->all();
     }
@@ -396,13 +400,14 @@ class WordService
     public function formatRecording(WordRecording $recording)
     {
         return [
-            'uuid' => $recording->uuid,
+            'id' => $recording->uuid,
             'url' => asset($recording->filename),
             'type' => $recording->type,
             'created_at' => $recording->created_at->toIso8601String(),
             'user' => $recording->user ? $recording->user->name : 'Unregistered',
+            'speaker_name' => $recording->speaker ? $recording->speaker->name : 'Unregistered',
+            'created_at' => $this->formatDate($recording->created_at),
             'word' => $recording->word ? $this->formatWord($recording->word) : null,
-            'definition' => $recording->definition ? $recording->definition : null,
         ];
     }
 
@@ -418,5 +423,17 @@ class WordService
         $recording->save();
 
         return $recording;
+    }
+
+    public function deleteRecording(string $recordingUuid): bool
+    {
+        $recording = WordRecording::where('uuid', $recordingUuid)->first();
+        if (!$recording) {
+            return null;
+        }
+
+        File::delete($recording->filename);
+
+        return $recording->delete();
     }
 }

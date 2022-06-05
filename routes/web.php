@@ -245,6 +245,22 @@ Route::get('/dashboard/recordings', function () {
     ]);
 })->name('recordings');
 
+Route::post('/dashboard/recordings/{recordingUuid}', function (string $recordingUuid) {
+    if (request('recordingUuid')) {
+        app(WordService::class)->approveRecording(request('recordingUuid'));
+    }
+
+    return redirect()->back();
+})->name('recording.approve');
+
+Route::delete('/dashboard/recordings/{recordingUuid}', function (string $recordingUuid) {
+    if (request('recordingUuid')) {
+        app(WordService::class)->deleteRecording(request('recordingUuid'));
+    }
+
+    return redirect()->back();
+})->name('recording.delete');
+
 
 Route::get('/help-us', function () {
     $wordsWithoutDefinitions = app(WordService::class)->findWithoutDefinitions();

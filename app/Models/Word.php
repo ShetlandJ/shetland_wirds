@@ -112,7 +112,7 @@ class Word extends Model
         $lowercasedSearchString = Str::lower($searchString);
 
         return $query->where('word_definitions.definition', 'like', "%{$lowercasedSearchString}%")
-            ->where('word_definitions.example_sentence', 'like', "%{$lowercasedSearchString}%")
+            ->orWhere('word_definitions.example_sentence', 'like', "%{$lowercasedSearchString}%")
             ->orWhere('words.word', 'like', "%{$lowercasedSearchString}%");
     }
 }

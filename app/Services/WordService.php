@@ -60,7 +60,6 @@ class WordService
 
     public function findByWord(string $word): ?array
     {
-        // dd($word);
         $foundWord = Word::where('slug', $word)->first();
 
         if (!$foundWord) {
@@ -189,12 +188,23 @@ class WordService
 
     public function createWord(array $payload): Word
     {
-        return Word::create([
+        $newWord = Word::create([
             'uuid' => (string) Str::uuid(),
             'word' => $payload['newWord'],
             'creator_id' => Auth::id() ?? null,
             'pending' => true,
+            'slug' => Str::slug($payload['newWord'])
         ]);
+
+        $newWord->definitions()->create([
+            'uuid' => (string) Str::uuid(),
+            'word_id' => $newWord->id,
+            'definition' => $payload['translation'],
+            'example_sentence' => $payload['example_sentence'],
+            'pending' => true,
+        ]);
+
+        return $newWord;
     }
 
     public function findAllPendingWords(): Collection

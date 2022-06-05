@@ -32,6 +32,7 @@ class Word extends Model
         'pending',
         'creator_id',
         'type',
+        'slug',
     ];
 
     public function likes()

@@ -1,7 +1,7 @@
 <script setup>
 const emit = defineEmits(['select'])
 
-defineProps({
+const props = defineProps({
     inputName: String,
     inputValue: String,
     selected: Boolean,
@@ -25,16 +25,16 @@ const select = (value) => {
             hover:bg-green-lightest
             focus:outline-none focus:shadow-outline-green
         "
-        :class="[this.selected ? 'bg-green-lightest shadow-outline-green' : '']"
+        :class="[selected ? 'bg-green-lightest shadow-outline-green' : '']"
         tabindex="0"
-        @click="select(this.inputValue)"
-        @keydown.space="select(this.inputValue)"
+        @click="select(inputValue)"
+        @keydown.space="select(inputValue)"
     >
         <div class="flex justify-center items-center">
             <h1 class="uppercase text-base tracking-wide text-blue-darker my-2">
-                {{ this.inputName }}
+                {{ inputName }}
             </h1>
-            <div v-if="this.selected">
+            <div v-if="selected">
                 <svg
                     class="ml-2 w-6 h-6"
                     width="200px"

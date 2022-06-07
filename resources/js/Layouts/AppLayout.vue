@@ -77,7 +77,13 @@ const logout = () => {
                                     :href="route('approval')"
                                     :active="route().current('approval')"
                                 >
-                                    Pending
+                                    Pending new words
+                                </JetNavLink>
+                                <JetNavLink
+                                    :href="route('new-definitions')"
+                                    :active="route().current('new-definitions')"
+                                >
+                                    Pending new definitions
                                 </JetNavLink>
                                 <JetNavLink
                                     :href="route('rejected')"

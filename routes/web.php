@@ -104,6 +104,10 @@ Route::post('/search', function () {
 })->name('search');
 
 Route::post('/word/{word}/newRecording', function (string $word) {
+    if (!Auth::check()) {
+        return redirect()->back();
+    }
+
     $path = "/public/$word";
 
     if (!Storage::exists($path)) {
@@ -222,6 +226,15 @@ Route::post('/dashboard/approve', function () {
 
     return redirect()->back();
 })->name('approve');
+
+
+Route::get('/dashboard/new-definitions', function () {
+    return Inertia::render('AdminDashboard', [
+        'words' => app(WordService::class)->findAllPendingDefinitions(),
+        'isLoggedIn' => Auth::check(),
+    ]);
+})->name('new-definitions');
+
 
 Route::get('/dashboard/rejected', function () {
     return Inertia::render('AdminDashboard', [

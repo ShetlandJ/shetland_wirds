@@ -328,6 +328,7 @@ onMounted(() => {
                         >
                             Add a recording of your own
                         </h4>
+                        <template v-if="isLoggedIn">
                         <p class="mb-2">
                             To add your own recording, just press the Record
                             button to start, and the same button again to stop.
@@ -339,6 +340,25 @@ onMounted(() => {
                         </p>
 
                         <RecordingInput :key="word.recordings.length" />
+                        </template>
+
+                        <div
+                            v-else
+                            class="
+                                text-center
+                                px-4
+                                py-3
+                                leading-normal
+                                text-blue-700
+                                bg-blue-100
+                                rounded-lg
+                            "
+                            role="alert"
+                        >
+                            <p>
+                                Sign up to add a recording!
+                            </p>
+                            </div>
                     </div>
                 </div>
             </div>

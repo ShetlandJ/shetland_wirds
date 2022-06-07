@@ -3,6 +3,7 @@ import { ref } from "vue";
 import { Head, useForm, Link } from "@inertiajs/inertia-vue3";
 import NavBar from "../components/NavBar.vue";
 import HelpUsCard from "../components/HelpUsCard.vue";
+import HelpUsForm from "../components/HelpUsForm.vue";
 import ReloadIcon from "../components/icons/ReloadIcon.vue";
 
 defineProps({
@@ -11,6 +12,8 @@ defineProps({
     missingDefinitions: Array,
     missingExampleSentences: Array,
 });
+
+const showThanksMessage = ref(false);
 
 const form = useForm({});
 
@@ -23,13 +26,16 @@ const selectedWord = ref(false);
 
 const toggleDefinitionForm = (word) => {
     selectedWord.value = word;
-    showDefinitionForm.value = !showDefinitionForm.value;
+    if (!showDefinitionForm.value) {
+        showDefinitionForm.value = !showDefinitionForm.value;
+    }
+    showThanksMessage.value = false;
 };
 
 const newDefinitionForm = useForm({
     wordId: "",
     definition: "",
-    example_sentence: ""
+    example_sentence: "",
 });
 
 const submitDefinition = (wordId) => {
@@ -38,6 +44,7 @@ const submitDefinition = (wordId) => {
         onFinish: () => {
             newDefinitionForm.reset();
             showDefinitionForm.value = false;
+            showThanksMessage.value = true;
         },
     });
 };
@@ -48,16 +55,13 @@ const ignoreWordForm = useForm({
 
 const ignoreWord = (wordId) => {
     ignoreWordForm.wordId = wordId;
-    ignoreWordForm.post(
-        route("help-us-ignore"),
-        {
-            onFinish: () => {
-                ignoreWordForm.reset();
-                selectedWord.value = null;
-                showDefinitionForm.value = false;
-            },
+    ignoreWordForm.post(route("help-us-ignore"), {
+        onFinish: () => {
+            ignoreWordForm.reset();
+            selectedWord.value = null;
+            showDefinitionForm = false;
         },
-    );
+    });
 };
 </script>
 
@@ -130,7 +134,7 @@ const ignoreWord = (wordId) => {
             </div>
         </div>
         <div
-            v-if="showDefinitionForm"
+            v-if="showDefinitionForm && !showThanksMessage"
             class="
                 flex
                 justify-center
@@ -142,106 +146,25 @@ const ignoreWord = (wordId) => {
                 dark:bg-gray-800
             "
         >
-            <div class="flex text-2xl items-center justify-center mr-4">
-                <b class="mr-1">{{ selectedWord.word }}</b> means:
-            </div>
-            <div>
-                <form @submit.prevent="submitDefinition(selectedWord.id)">
-                    <div class="form-group mb-6">
-                        <textarea
-                            v-model="newDefinitionForm.definition"
-                            type="text"
-                            cols="40"
-                            rows="4"
-                            class="
-                                form-control
-                                block
-                                w-full
-                                px-3
-                                py-1.5
-                                text-base
-                                font-normal
-                                text-gray-700
-                                bg-white bg-clip-padding
-                                border border-solid border-gray-300
-                                rounded
-                                transition
-                                ease-in-out
-                                m-0
-                                focus:text-gray-700
-                                focus:bg-white
-                                focus:border-blue-600
-                                focus:outline-none
-                            "
-                            id="wordInput"
-                            aria-describedby="wordHelp"
-                        />
-
-                        <textarea
-                            v-model="newDefinitionForm.example_sentence"
-                            type="text"
-                            cols="40"
-                            rows="4"
-                            placeholder="Example sentence"
-                            class="
-                                form-control
-                                block
-                                w-full
-                                px-3
-                                py-1.5
-                                text-base
-                                font-normal
-                                text-gray-700
-                                bg-white bg-clip-padding
-                                border border-solid border-gray-300
-                                rounded
-                                transition
-                                ease-in-out
-                                m-0
-                                focus:text-gray-700
-                                focus:bg-white
-                                focus:border-blue-600
-                                focus:outline-none
-                            "
-                            id="wordInput"
-                            aria-describedby="wordHelp"
-                        />
-                    </div>
-
-                    <button
-                        class="
-                            px-4
-                            py-2
-                            bg-green-500
-                            hover:bg-green-600
-                            text-white text-sm
-                            font-medium
-                            rounded-md
-                            mr-2
-                        "
-                        type="submit"
-                    >
-                        Submit
-                    </button>
-
-                </form>
-
-                <button
-                    class="
-                        mt-2
-                        px-4
-                        py-2
-                        bg-red-500
-                        hover:bg-red-600
-                        text-white text-sm
-                        font-medium
-                        rounded-md
-                    "
-                    @click="ignoreWord(selectedWord.id)"
-                >
-                    Ignore
-                </button>
-            </div>
+            <HelpUsForm :word="selectedWord" />
         </div>
+
+            <div
+                v-else-if="showThanksMessage"
+                class="
+                    text-center
+                    px-4
+                    py-3
+                    leading-normal
+                    text-blue-700
+                    bg-blue-100
+                    rounded-lg
+                "
+                role="alert"
+            >
+                <p>
+                    Thanks! Click on another word to submit another.
+                </p>
+            </div>
     </div>
 </template>

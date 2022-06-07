@@ -19,6 +19,7 @@ const newDefinitionForm = useForm({
     wordId: "",
     definition: "",
     example_sentence: "",
+    word_type: "",
 });
 
 const submitDefinition = (wordId) => {

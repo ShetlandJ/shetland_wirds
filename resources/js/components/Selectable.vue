@@ -7,7 +7,7 @@ defineProps({
     selected: Boolean,
 });
 
-const updateActivePlan = (value) => {
+const select = (value) => {
     emit('select', value);
 };
 </script>
@@ -27,8 +27,8 @@ const updateActivePlan = (value) => {
         "
         :class="[this.selected ? 'bg-green-lightest shadow-outline-green' : '']"
         tabindex="0"
-        @click="updateActivePlan(this.inputValue)"
-        @keydown.space="updateActivePlan(this.inputValue)"
+        @click="select(this.inputValue)"
+        @keydown.space="select(this.inputValue)"
     >
         <div class="flex justify-center items-center">
             <h1 class="uppercase text-base tracking-wide text-blue-darker my-2">

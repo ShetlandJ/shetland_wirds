@@ -68,6 +68,12 @@ const logout = () => {
                                     Dashboard
                                 </JetNavLink>
                                 <JetNavLink
+                                    :href="route('home')"
+                                    :active="route().current('home')"
+                                >
+                                    Dictionary
+                                </JetNavLink>
+                                <JetNavLink
                                     :href="route('my-words')"
                                     :active="route().current('my-words')"
                                 >

@@ -41,9 +41,9 @@ const newComment = () => {
             />
 
             <div class="flex justify-end mt-2">
-                <span class="mt-1 mr-2">
-                    <small> You must be logged in to comment. </small>
-                </span>
+                <div class="mt-1 mr-2">
+                    <small v-if="!isLoggedIn"> You must be logged in to comment. </small>
+                </div>
 
                 <button
                     :disabled="!isLoggedIn"

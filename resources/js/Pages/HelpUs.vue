@@ -86,7 +86,7 @@ const ignoreWord = (wordId) => {
             @suggest-word="toggleSuggestWordForm(true)"
         />
 
-        <div class="md:mx-auto my-8 max-w-md md:max-w-2xl">
+        <div class="md:mx-auto my-8 mx-4 max-w-md md:max-w-2xl">
             We need contributers to help plug gaps in our dictionary of Shetland
             words. You can help us by adding any definitions or examples of
             usage from the below options.
@@ -106,7 +106,7 @@ const ignoreWord = (wordId) => {
             <b>Words missing definitions</b>
         </p>
         <div class="flex justify-center">
-            <div>
+            <div class="mx-4">
                 Click on any word that you know the definition of to help us
                 plug the gaps!
             </div>
@@ -120,9 +120,9 @@ const ignoreWord = (wordId) => {
             </span>
         </div>
 
-        <div class="grid gap-6 mb-2 flex items-center">
-            <div class="grid gap-6 mb-2">
-                <div class="p-4 flex justify-center">
+        <div class="mb-2 flex justify-center">
+            <div class="mb-2">
+                <div class="p-4 flex flex-wrap justify-center">
                     <HelpUsCard
                         @click="toggleDefinitionForm(word)"
                         class="m-4 hover:shadow-lg cursor-pointer"

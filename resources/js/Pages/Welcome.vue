@@ -60,7 +60,7 @@ const currentPageEndsAt = computed(() => {
 </script>
 
 <template>
-    <Head title="Welcome" />
+    <Head title="Shetland dictionary - Spaektionary" />
 
     <div
         class="

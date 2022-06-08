@@ -1,7 +1,7 @@
 <script setup>
 import WordResult from "../components/WordResult.vue";
 import NavBar from "../components/NavBar.vue";
-import { usePage } from '@inertiajs/inertia-vue3'
+import { Head, usePage } from '@inertiajs/inertia-vue3'
 
 let urlPrev = usePage().props.value.urlPrev
 
@@ -16,6 +16,8 @@ const goBack = () => window.history.back();
 </script>
 
 <template>
+    <Head :title="`${word.word} - Spaektionary`" />
+
     <div
         class="
             items-top

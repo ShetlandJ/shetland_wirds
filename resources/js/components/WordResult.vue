@@ -149,19 +149,6 @@ onMounted(() => {
                         </p>
                     </div>
                 </div>
-                <div
-                    className="flex align-items-end mb-1"
-                    v-if="word.see_also && word.see_also.length > 0"
-                >
-                    <span className="text-gray-900 mr-2"> See also: </span>
-                    <span
-                        v-for="seeAlso in word.see_also"
-                        className="cursor-pointer underline hover:text-blue-800 visited:text-purple-600 mr-2"
-                        :key="seeAlso"
-                    >
-                        {{ seeAlso.word }}
-                    </span>
-                </div>
 
                 <div
                     className="flex items-center mr-2 text-gray-700 text-sm mr-3"

@@ -19,11 +19,15 @@ class Sluggify extends Migration
             if (!$word->slug) {
                 $slugExistsCount = Word::where('slug', Str::slug($word->word))->count();
 
-                $word->slug = $slugExistsCount
+                try {
+                    $word->slug = $slugExistsCount
                     ? sprintf('%s-%s', Str::slug($word->word), ($slugExistsCount + 1))
                     : Str::slug($word->word);
 
-                $word->save();
+                    $word->save();
+                } catch (\Exception $e) {
+                    logger($e->getMessage());
+                }
             }
         });
     }

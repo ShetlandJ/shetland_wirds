@@ -197,6 +197,13 @@ Route::post('/word/{word}', function (string $word) {
     ]);
 })->where('word', '.*')->name('newComment');
 
+Route::get('/create', function () {
+    return Inertia::render('NewWord', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'isLoggedIn' => Auth::check(),
+    ]);
+})->name('create');
 
 Route::post('/word', function (Request $request) {
     // get the post payload

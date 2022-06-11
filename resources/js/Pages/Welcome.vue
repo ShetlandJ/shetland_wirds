@@ -135,7 +135,7 @@ const currentPageEndsAt = computed(() => {
                 </p>
             </div>
 
-            <div class="flex justify-center">
+            <div class="flex justify-center mb-4">
                 <Pagination
                     v-if="pagination && pagination.pages > 1"
                     :pagination="pagination"

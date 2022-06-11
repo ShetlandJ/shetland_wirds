@@ -324,7 +324,7 @@ const alphabetArray = [
                     </Link>
                 </li>
                 <li class="md:ml-4">
-                    <button
+                    <a
                         class="
                             border-t
                             block
@@ -335,10 +335,10 @@ const alphabetArray = [
                             hover:text-black
                             md:border-none md:p-0
                         "
-                        @click="suggestWord"
+                        :href="route('create')"
                     >
-                        Add word/phrase
-                    </button>
+                        + Add
+                    </a>
                 </li>
             </ul>
         </nav>

@@ -133,10 +133,29 @@ Route::get('/word/{word}/', function (string $word) {
         'canRegister' => Route::has('register'),
         'isLoggedIn' => Auth::check(),
         'word' => app(WordService::class)->findByWord($word),
-        'recording' => asset('storage/booshim.mp3'),
         'tab' => request('tab'),
     ]);
 })->where('word', '.*')->name('word');
+
+Route::get('/words/{letter}/', function (string $letter) {
+    $total = app(WordService::class)->findBy('', [], $letter)->count();
+    $pageTotal = request('perPage') ?? 10;
+    $pagination = [
+        'page' => request('page') ?? 1,
+        'perPage' => request('perPage') ?? 10,
+        'total' => $total,
+        'pages' => ceil($total / $pageTotal),
+    ];
+    $words = app(WordService::class)->findAllWordsWithPagination($letter, $pagination, $letter);
+
+    return Inertia::render('Welcome', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'isLoggedIn' => Auth::check(),
+        'words' => $words,
+        'pagination' => $pagination,
+    ]);
+})->where('letter', '.*')->name('letter');
 
 Route::post('/word/{word}/like', function (string $word) {
     if (!Auth::check()) {

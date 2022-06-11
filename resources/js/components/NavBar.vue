@@ -1,5 +1,7 @@
 <script setup>
 import { Link, useForm, InertiaApp } from "@inertiajs/inertia-vue3";
+import JetDropdown from "@/Jetstream/Dropdown.vue";
+import JetDropdownLink from "@/Jetstream/DropdownLink.vue";
 
 const emit = defineEmits(["setSearch", "suggest-word"]);
 
@@ -25,6 +27,35 @@ defineProps({
     canRegister: Boolean,
     isLoggedIn: Boolean,
 });
+
+const alphabetArray = [
+    "a",
+    "b",
+    "c",
+    "d",
+    "e",
+    "f",
+    "g",
+    "h",
+    "i",
+    "j",
+    "k",
+    "l",
+    "m",
+    "n",
+    "o",
+    "p",
+    "q",
+    "r",
+    "s",
+    "t",
+    "u",
+    "v",
+    "w",
+    "x",
+    "y",
+    "z",
+];
 </script>
 
 <template>
@@ -144,6 +175,85 @@ defineProps({
 
         <nav>
             <ul class="list-reset md:flex md:items-center">
+                <JetDropdown
+                    style="cursor-pointer"
+                    align="left"
+                    width="48"
+                >
+                    <template #trigger>
+                        <button
+                            class="
+                                flex
+                                text-sm
+                                border-2 border-transparent
+                                rounded-full
+                                focus:outline-none focus:border-gray-300
+                                transition
+                            "
+                        ></button>
+
+                        <span class="inline-flex rounded-md">
+                            <button
+                                type="button"
+                                class="
+                                    items-center
+                                    inline-flex
+                                    border-t
+                                    block
+                                    no-underline
+                                    hover:underline
+                                    py-2
+                                    text-grey-darkest
+                                    hover:text-black
+                                    md:border-none md:p-0
+                                "
+                            >
+                                Browse
+
+                                <svg
+                                    class="ml-2 -mr-0.5 h-4 w-4"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 20 20"
+                                    fill="currentColor"
+                                >
+                                    <path
+                                        fill-rule="evenodd"
+                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                        clip-rule="evenodd"
+                                    />
+                                </svg>
+                            </button>
+                        </span>
+                    </template>
+
+                    <template #content style="width: max-content">
+                        <div class="p-2" style="width: max-content">
+                            <ul
+                                class="
+                                    p-0
+                                    list-none
+                                    m-0
+                                    font-bold
+                                    text-sm
+                                    md:grid md:grid-cols-4 md:gap-1 md:gap-y-2
+                                "
+                            >
+                                <li
+                                    v-for="letter in alphabetArray"
+                                    :key="letter"
+                                >
+                                    <a
+                                        class="nav-link uppercase"
+                                        :href="route('letter', letter)"
+                                    >
+                                        {{ letter }}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </template>
+                </JetDropdown>
+
                 <template v-if="!isLoggedIn">
                     <li class="md:ml-4" v-if="!isLoggedIn">
                         <Link
@@ -238,5 +348,28 @@ defineProps({
 <style scoped>
 input {
     width: 100%;
+}
+
+.nav-link:hover {
+    background-color: rgb(19 79 230);
+    color: white;
+}
+
+.nav-link {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    align-items: center;
+    border-bottom-width: 1px;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    color: black;
+    background-color: rgb(241 241 241);
 }
 </style>

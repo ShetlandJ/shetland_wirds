@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Word;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class WordDefinition extends Model
 {
@@ -29,5 +30,10 @@ class WordDefinition extends Model
     public function creator(): BelongsTo
     {
         return $this->belongsTo(User::class, 'creator_id');
+    }
+
+    public function user(): HasOne
+    {
+        return $this->hasOne(User::class, 'id', 'user_id');
     }
 }

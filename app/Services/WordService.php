@@ -219,6 +219,25 @@ class WordService
             ->map(fn (Word $word) => $this->formatWord($word));
     }
 
+    public function findAllPendingDefinitions(): Collection
+    {
+        return WordDefinition::where('pending', true)
+            ->get()
+            ->map(function (WordDefinition $definition) {
+                $word = $definition->word;
+                return [
+                    'id' => $definition->uuid,
+                    'word_id' => $word->uuid,
+                    'word' => $word->word,
+                    'definition' => $definition->definition,
+                    'example_sentence' => $definition->example_sentence,
+                    'user' => $definition->user->name ?? 'Unregistered',
+                    'pending' => true,
+                    'created_at' => $this->formatDate($definition->created_at)
+                ];
+            });
+    }
+
     public function findAllRejectedWords(): Collection
     {
         return Word::where('rejected', true)

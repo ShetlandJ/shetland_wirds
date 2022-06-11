@@ -5,6 +5,7 @@ import WordResult from "../components/WordResult.vue";
 import StatCard from "../components/StatCard.vue";
 import AdminMetrics from "../components/admin/AdminsMetrics.vue";
 import PendingRecording from "../components/PendingRecording.vue";
+import PendingDefinition from "../components/PendingDefinition.vue";
 import { computed } from "vue";
 
 defineProps({
@@ -13,6 +14,10 @@ defineProps({
         default: () => [],
     },
     recordings: {
+        type: Array,
+        default: () => [],
+    },
+    definitions: {
         type: Array,
         default: () => [],
     },
@@ -57,6 +62,15 @@ const heading = computed(() => {
                 :index="index"
                 :recording="recording"
                 admin-view
+            />
+        </div>
+
+        <div v-if="definitions">
+            <PendingDefinition
+                v-for="(definition, index) in definitions"
+                :key="definition.id"
+                :index="index"
+                :definition="definition"
             />
         </div>
 

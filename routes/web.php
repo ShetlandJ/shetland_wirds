@@ -260,7 +260,7 @@ Route::post('/dashboard/approve', function () {
 
 Route::get('/dashboard/new-definitions', function () {
     return Inertia::render('AdminDashboard', [
-        'words' => app(WordService::class)->findAllPendingDefinitions(),
+        'definitions' => app(WordService::class)->findAllPendingDefinitions(),
         'isLoggedIn' => Auth::check(),
     ]);
 })->name('new-definitions');

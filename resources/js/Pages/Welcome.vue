@@ -4,11 +4,9 @@ import { Head, useForm, Link } from "@inertiajs/inertia-vue3";
 import SearchBar from "../components/SearchBar.vue";
 import WordResult from "../components/WordResult.vue";
 import NavBar from "../components/NavBar.vue";
-import NewWordForm from "../components/NewWordForm.vue";
 import Pagination from "../components/Pagination.vue";
 
 let searchString = "";
-let showAddForm = ref(false);
 
 const newWord = useForm({
     word: "",
@@ -25,10 +23,6 @@ const props = defineProps({
     searchString: String,
     letter: String
 });
-
-const toggleSuggestWordForm = (value) => {
-    showAddForm.value = value;
-};
 
 const form = useForm({
     page: 1,
@@ -95,7 +89,7 @@ const currentPageEndsAt = computed(() => {
             @suggest-word="toggleSuggestWordForm(true)"
         />
 
-        <div v-if="!showAddForm" class="mb-8">
+        <div class="mb-8">
             <div
                 class="flex justify-center mt-4"
                 v-if="pagination && pagination.pages > 1"
@@ -142,9 +136,6 @@ const currentPageEndsAt = computed(() => {
                     @page-change="handlePageChange"
                 />
             </div>
-        </div>
-        <div v-else>
-            <NewWordForm @hide-form="toggleSuggestWordForm(false)" />
         </div>
     </div>
 </template>

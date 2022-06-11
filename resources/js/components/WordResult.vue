@@ -135,12 +135,12 @@ onMounted(() => {
                         <div class="mr-2" v-if="word.definitions.length > 1">
                             {{ index + 1 }}.
                         </div>
-                        <p className="text-gray-700 mb-2">
+                        <p className="text-gray-700">
                             {{ definition.definition }}
                         </p>
                     </div>
                     <div v-if="definition.example_sentence">
-                        <p className="mt-3 text-gray-700 mb-2">
+                        <p className="mt-1 text-gray-700 mb-3">
                             {{
                                 definition.example_sentence
                                     ? `Usage: ${definition.example_sentence}`

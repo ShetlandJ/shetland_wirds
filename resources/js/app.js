@@ -5,7 +5,7 @@ import { createInertiaApp } from '@inertiajs/inertia-vue3';
 import { InertiaProgress } from '@inertiajs/progress';
 import { QuillEditor } from '@vueup/vue-quill'
 
-const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
+const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Spaektionary';
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,

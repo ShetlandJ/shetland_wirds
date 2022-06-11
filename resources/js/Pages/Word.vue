@@ -16,7 +16,7 @@ const goBack = () => window.history.back();
 </script>
 
 <template>
-    <Head :title="`${word.word} - Spaektionary`" />
+    <Head :title="word.word" />
 
     <div
         class="

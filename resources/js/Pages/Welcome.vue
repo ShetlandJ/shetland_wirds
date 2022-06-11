@@ -75,7 +75,7 @@ const currentPageEndsAt = computed(() => {
 </script>
 
 <template>
-    <Head title="Shetland dictionary - Spaektionary" />
+    <Head title="Shetland dictionary" />
 
     <div
         class="

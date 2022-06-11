@@ -205,7 +205,7 @@ Route::get('/create', function () {
     ]);
 })->name('create');
 
-Route::post('/word', function (Request $request) {
+Route::post('/create', function (Request $request) {
     // get the post payload
     $payload = $request->all();
 
@@ -215,8 +215,13 @@ Route::post('/word', function (Request $request) {
         app(WordService::class)->createWord($payload);
     }
 
-    return redirect()->back();
-})->name('word.new');
+    return Inertia::render('NewWord', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'isLoggedIn' => Auth::check(),
+        'success' => true,
+    ]);
+})->name('create');
 
 Route::middleware([
     'auth:sanctum',

@@ -1,7 +1,7 @@
 <script setup>
 import { useForm } from "@inertiajs/inertia-vue3";
 import Selectable from "../components/Selectable.vue";
-const emit = defineEmits(["hide-form"]);
+const emit = defineEmits(["hide-form", "success"]);
 
 const form = useForm({
     newWord: "",
@@ -11,10 +11,11 @@ const form = useForm({
 });
 
 const createWord = () => {
-    form.post(route("word.new"), {
+    form.post(route("create"), {
         onFinish: () => {
             form.reset();
             emit("hide-form");
+            emit("success")
         },
     });
 };

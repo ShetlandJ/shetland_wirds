@@ -140,8 +140,11 @@ Route::get('/word/{word}/', function (string $word) {
 Route::get('/words/{letter}/', function (string $letter) {
     $total = app(WordService::class)->findBy('', [], $letter)->count();
     $pageTotal = request('perPage') ?? 10;
+
+    $page = request('page') ?? 1;
+
     $pagination = [
-        'page' => request('page') ?? 1,
+        'page' => (int) $page,
         'perPage' => request('perPage') ?? 10,
         'total' => $total,
         'pages' => ceil($total / $pageTotal),
@@ -152,6 +155,7 @@ Route::get('/words/{letter}/', function (string $letter) {
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'isLoggedIn' => Auth::check(),
+        'letter' => $letter,
         'words' => $words,
         'pagination' => $pagination,
     ]);

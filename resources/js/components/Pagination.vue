@@ -11,7 +11,7 @@ const changePage = (pageNumber) => {
         return;
     }
 
-    emit("page-change", pageNumber);
+    emit("page-change", Number(pageNumber));
 };
 
 </script>
@@ -32,7 +32,7 @@ const changePage = (pageNumber) => {
                 disabled:opacity-50
                 cursor-pointer
             "
-            @click="changePage(pagination.page - 1)"
+            @click="changePage(Number(pagination.page - 1))"
             :disabled="pagination.page === 1"
         >
             <svg

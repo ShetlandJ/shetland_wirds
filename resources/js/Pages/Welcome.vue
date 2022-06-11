@@ -23,6 +23,7 @@ const props = defineProps({
     words: Array,
     pagination: Object,
     searchString: String,
+    letter: String
 });
 
 const toggleSuggestWordForm = (value) => {
@@ -34,13 +35,27 @@ const form = useForm({
     searchString: "",
 });
 
+const letterForm = useForm({
+    page: 1,
+    letter: "",
+})
+
 const handlePageChange = (pageNumber) => {
-    form.page = pageNumber;
-    form.searchString = props.searchString;
-    form.post(route("search", { searchTerm: form.searchString }), {
-        searchString: form.searchString,
-        page: pageNumber,
-    });
+    if (props.letter) {
+        letterForm.letter = props.letter;
+        letterForm.page = pageNumber;
+        letterForm.get(route('letter', props.letter), {
+            letter: letterForm.letter,
+            page: letterForm.page,
+        });
+    } else {
+        form.page = pageNumber;
+        form.searchString = props.searchString;
+        form.post(route("search", { searchTerm: form.searchString }), {
+            searchString: form.searchString,
+            page: pageNumber,
+        });
+    }
 };
 
 const currentPageStartsAt = computed(() => {

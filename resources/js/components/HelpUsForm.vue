@@ -93,6 +93,8 @@ const defaultWordTypes = [
         "
     >
         <form @submit.prevent="submitDefinition(word.id)">
+            <h1 class="text-2xl mb-2">{{word.word}}</h1>
+
             <div class="form-group mb-6">
                 <label
                     for="wordInput"

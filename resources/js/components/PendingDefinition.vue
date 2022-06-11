@@ -13,9 +13,9 @@ const deleteForm = useForm({
     recordingUuid: null,
 });
 
-const deleteRecording = (recordingUuid) => {
+const deleteDefinition = (recordingUuid) => {
     deleteForm.recordingUuid = recordingUuid;
-    deleteForm.delete(route("recording.delete", recordingUuid), {
+    deleteForm.delete(route("definition.delete", recordingUuid), {
         recordingUuid,
         onFinish: () => {
             deleteForm.reset();
@@ -27,9 +27,9 @@ const approveForm = useForm({
     recordingUuid: null,
 });
 
-const approveRecording = (recordingUuid) => {
+const approveDefinition = (recordingUuid) => {
     approveForm.recordingUuid = recordingUuid;
-    approveForm.post(route("recording.approve", recordingUuid), {
+    approveForm.post(route("definition.approve", recordingUuid), {
         recordingUuid,
         onFinish: () => {
             approveForm.reset();
@@ -57,7 +57,7 @@ const approveRecording = (recordingUuid) => {
 
         <div class="mt-4">
             <button
-                @click="approveRecording(recording.id)"
+                @click="approveDefinition(definition.id)"
                 class="
                     px-4
                     py-2
@@ -72,18 +72,18 @@ const approveRecording = (recordingUuid) => {
                 Approve
             </button>
             <button
-                @click="deleteRecording(recording.id)"
+                @click="deleteDefinition(definition.id)"
                 class="
                     px-4
                     py-2
-                    bg-yellow-500
-                    hover:bg-yellow-600
+                    bg-red-500
+                    hover:bg-red-600
                     text-white text-sm
                     font-medium
                     rounded-md
                 "
             >
-                Reject
+                Delete
             </button>
         </div>
     </div>

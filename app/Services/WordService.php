@@ -469,4 +469,28 @@ class WordService
 
         return $recording->delete();
     }
+
+    public function approveDefinition(string $definitionUuid): ?WordDefinition
+    {
+        $definition = WordDefinition::where('uuid', $definitionUuid)->first();
+
+        if (!$definition) {
+            return null;
+        }
+
+        $definition->pending = false;
+        $definition->save();
+
+        return $definition;
+    }
+
+    public function deleteDefinition(string $definitionUuid): bool
+    {
+        $definition = WordDefinition::where('uuid', $definitionUuid)->first();
+        if (!$definition) {
+            return null;
+        }
+
+        return $definition->delete();
+    }
 }

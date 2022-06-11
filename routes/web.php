@@ -304,6 +304,21 @@ Route::delete('/dashboard/recordings/{recordingUuid}', function (string $recordi
     return redirect()->back();
 })->name('recording.delete');
 
+Route::post('/dashboard/definitions/{definitionUuid}', function (string $definitionUuid) {
+    if (request('definitionUuid')) {
+        app(WordService::class)->approveDefinition(request('definitionUuid'));
+    }
+
+    return redirect()->back();
+})->name('definition.approve');
+
+Route::delete('/dashboard/definitions/{definitionUuid}', function (string $definitionUuid) {
+    if (request('definitionUuid')) {
+        app(WordService::class)->deleteDefinition(request('definitionUuid'));
+    }
+
+    return redirect()->back();
+})->name('definition.delete');
 
 Route::get('/help-us', function () {
     $wordsWithoutDefinitions = app(WordService::class)->findWithoutDefinitions();

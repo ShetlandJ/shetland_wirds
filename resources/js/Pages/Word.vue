@@ -10,6 +10,7 @@ const props = defineProps({
     canLogin: Boolean,
     canRegister: Boolean,
     isLoggedIn: Boolean,
+    recordingJustSubmitted: Boolean,
 });
 
 const goBack = () => window.history.back();
@@ -36,6 +37,6 @@ const goBack = () => window.history.back();
             @suggest-word="toggleSuggestWordForm(true)"
         />
 
-        <WordResult :is-logged-in="isLoggedIn" :word="word" full-view />
+        <WordResult :recording-just-submitted="recordingJustSubmitted" :is-logged-in="isLoggedIn" :word="word" full-view />
     </div>
 </template>

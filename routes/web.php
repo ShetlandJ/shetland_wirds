@@ -7,6 +7,7 @@ use App\Models\Comment;
 use Illuminate\Http\Request;
 use App\Services\WordService;
 use App\Http\Middleware\UserIsAdmin;
+use App\Models\WordRecording;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
@@ -128,11 +129,20 @@ Route::post('/word/{word}/newRecording', function (string $word) {
 })->where('word', '.*')->name('uploadFile');
 
 Route::get('/word/{word}/', function (string $word) {
+    $foundWord = app(WordService::class)->findByWord($word);
+    if (!$foundWord) {
+        return redirect()->back();
+    }
+
+    $fullWord = Word::where('uuid', $foundWord['id'])->first();
+    $recording = WordRecording::where('word_id', $fullWord['id'])->where('created_at', '>', now()->subSeconds(10))->first();
+
     return Inertia::render('Word', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'isLoggedIn' => Auth::check(),
-        'word' => app(WordService::class)->findByWord($word),
+        'word' => $foundWord,
+        'recordingJustSubmitted' => (bool) $recording,
         'tab' => request('tab'),
     ]);
 })->where('word', '.*')->name('word');

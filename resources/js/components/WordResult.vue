@@ -16,6 +16,7 @@ const props = defineProps({
     isLoggedIn: Boolean,
     adminView: Boolean,
     fullView: Boolean,
+    recordingJustSubmitted: Boolean,
 });
 
 const form = useForm({
@@ -278,7 +279,7 @@ onMounted(() => {
                     </div>
                     <div v-else-if="activeTab === 'recordings'">
                         <div
-                            v-if="!word.recordings.length"
+                            v-if="!word.recordings.length && !recordingJustSubmitted"
                             class="
                                 text-center
                                 px-4
@@ -304,6 +305,7 @@ onMounted(() => {
                         />
 
                         <h4
+                        v-if="!recordingJustSubmitted"
                             class="
                                 my-5
                                 uppercase
@@ -316,17 +318,39 @@ onMounted(() => {
                             Add a recording of your own
                         </h4>
                         <template v-if="isLoggedIn">
-                        <p class="mb-2">
-                            To add your own recording, just press the Record
-                            button to start, and the same button again to stop.
-                            You'll be able to listen back to your recording
-                            before submitting.
-                        </p>
-                        <p class="mb-2">
-                            Your recording will need to be approved before it will be visible on the site.
-                        </p>
+                            <template v-if="!recordingJustSubmitted">
+                                <p class="mb-2">
+                                    To add your own recording, just press the
+                                    Record button to start, and the same button
+                                    again to stop. You'll be able to listen back
+                                    to your recording before submitting.
+                                </p>
+                                <p class="mb-2">
+                                    Your recording will need to be approved
+                                    before it will be visible on the site.
+                                </p>
 
-                        <RecordingInput :key="word.recordings.length" />
+                                <RecordingInput :key="word.recordings.length" />
+                            </template>
+
+                            <div
+                                v-else
+                                class="
+                                    text-center
+                                    px-4
+                                    py-3
+                                    leading-normal
+                                    text-blue-700
+                                    bg-blue-100
+                                    rounded-lg
+                                "
+                                role="alert"
+                            >
+                                <p>
+                                    Thanks for submitting your recording! We
+                                    will review it in a few days.
+                                </p>
+                            </div>
                         </template>
 
                         <div
@@ -342,10 +366,8 @@ onMounted(() => {
                             "
                             role="alert"
                         >
-                            <p>
-                                Sign up to add a recording!
-                            </p>
-                            </div>
+                            <p>Sign up to add a recording!</p>
+                        </div>
                     </div>
                 </div>
             </div>

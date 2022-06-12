@@ -15,7 +15,7 @@ let blob = null;
 let userRecording = ref(null);
 let blobToUpload = ref(null);
 
-const recordAudio = () => {
+const recordAudio = async () => {
     recordingAudio.value = true;
     userRecording.value = null;
     device = navigator.mediaDevices.getUserMedia({ audio: true });
@@ -51,6 +51,15 @@ const submitRecording = () => {
     form.userRecording = blobToUpload;
     form.post(route("uploadFile", { word: word.word }), {
         userRecording: form.blobToUpload,
+        onFinish: () => {
+            form.reset();
+            chunks = null;
+            form.blobToUpload = null;
+            form.userRecording = null;
+            userRecording = null;
+            recordingAudio.value = false;
+            device = null;
+        },
     });
 };
 </script>

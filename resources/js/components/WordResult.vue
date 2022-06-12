@@ -82,7 +82,7 @@ onMounted(() => {
     <div
         className="bg-white shadow-lg rounded-lg mx-4 md:mx-auto my-8 max-w-lg md:max-w-2xl"
     >
-        <div className="items-start px-4 py-6">
+        <div className="items-start px-4 py-6 dark:bg-grey-700 dark:text-white">
             <div>
                 <div className="flex items-center justify-between mb-2">
                     <div class="flex">

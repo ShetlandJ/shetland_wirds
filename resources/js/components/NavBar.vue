@@ -80,7 +80,7 @@ const showingNavigationDropdown = ref(false);
                     class="no-underline text-grey-darkest hover:text-black dark:text-white"
                     :href="route('home')"
                 >
-                    <span class="dark:text-white">Spaektionary (test)</span>
+                    <span class="dark:text-white">Spaektionary</span>
                 </Link>
             </h1>
 

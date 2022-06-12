@@ -177,7 +177,8 @@ onMounted(() => {
                                 text-sm
                                 font-medium
                                 text-center
-                                bg-gray-800 text-blue-500
+                                dark:bg-gray-800
+                                dark:text-blue-500
                             "
                             :class="[
                                 activeTab === 'comments' ? 'bg-gray-100' : '',
@@ -215,7 +216,8 @@ onMounted(() => {
                                 text-sm
                                 font-medium
                                 text-center
-                                bg-gray-800 text-blue-500
+                                dark:bg-gray-800
+                                dark:text-blue-500
                             "
                             :class="[
                                 activeTab === 'recordings' ? 'bg-gray-100' : '',

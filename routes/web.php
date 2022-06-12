@@ -199,12 +199,8 @@ Route::post('/word/{word}', function (string $word) {
 
         app(WordService::class)->createComment(request('text'), $foundWord, $comment);
     }
-    return Inertia::render('Word', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'isLoggedIn' => Auth::check(),
-        'word' => app(WordService::class)->findByWord($word),
-    ]);
+
+    return redirect()->back();
 })->where('word', '.*')->name('newComment');
 
 Route::get('/create', function () {

@@ -194,11 +194,12 @@ onMounted(() => {
                                 text-sm
                                 font-medium
                                 text-center
-                                dark:bg-gray-800
-                                dark:text-white
+                                dark:bg-gray-800 dark:text-white
                             "
                             :class="[
-                                activeTab === 'comments' ? 'bg-gray-100 dark:bg-gray-500' : '',
+                                activeTab === 'comments'
+                                    ? 'bg-gray-100 dark:bg-gray-500'
+                                    : '',
                             ]"
                         >
                             {{ word.comments.length }} comment{{
@@ -237,11 +238,12 @@ onMounted(() => {
                                 text-sm
                                 font-medium
                                 text-center
-                                dark:bg-gray-800
-                                dark:text-white
+                                dark:bg-gray-800 dark:text-white
                             "
                             :class="[
-                                activeTab === 'recordings' ? 'bg-gray-100 dark:bg-gray-500' : '',
+                                activeTab === 'recordings'
+                                    ? 'bg-gray-100 dark:bg-gray-500'
+                                    : '',
                             ]"
                         >
                             {{ word.recordings.length }} recording{{
@@ -281,8 +283,11 @@ onMounted(() => {
                             role="alert"
                         >
                             <p>
-                                There are no comments available for this word
-                                yet, be the first to add one!
+                                {{
+                                    isLoggedIn
+                                        ? "There are no comments available for this word yet, be the first to add one!"
+                                        : "Log in to add a comment"
+                                }}
                             </p>
                         </div>
 

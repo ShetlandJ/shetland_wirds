@@ -22,7 +22,6 @@ const newComment = () => {
         text: form.text,
         comment_id: form.comment_id,
         onSuccess: () => {
-            // message.value = '';
             var element = document.getElementsByClassName("ql-editor");
             element[0].innerHTML = "";
         },

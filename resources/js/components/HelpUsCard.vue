@@ -12,7 +12,7 @@ const props = defineProps({
             shadow-xs
             overflow-hidden
             bg-white
-            dark:bg-gray-800
+            bg-gray-800
         "
     >
         <div class="p-4 flex items-center">
@@ -22,7 +22,7 @@ const props = defineProps({
                         text-2xl
                         font-semibold
                         text-gray-700
-                        dark:text-gray-200
+                        text-gray-200
                     "
                 >
                     {{word.word}}

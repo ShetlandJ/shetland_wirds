@@ -74,7 +74,7 @@ const ignoreWord = (wordId) => {
             justify-center
             min-h-screen
             bg-gray-100
-            dark:bg-gray-900
+            bg-gray-900
             sm:items-center sm:pt-0
         "
     >
@@ -143,7 +143,7 @@ const ignoreWord = (wordId) => {
                 shadow-xs
                 overflow-hidden
                 bg-white
-                dark:bg-gray-800
+                bg-gray-800
             "
         >
             <HelpUsForm :word="selectedWord" />

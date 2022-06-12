@@ -59,7 +59,7 @@ const defaultWordTypes = [
             p-6
             md:mx-auto
             my-8
-            max-w-md
+            max-w-lg
             md:max-w-2xl
             rounded-lg
             shadow-lg

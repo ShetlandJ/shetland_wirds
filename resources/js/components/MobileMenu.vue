@@ -158,16 +158,35 @@ const alphabetArray = [
             </div>
 
             <button @click="showAlphabetBrowser = !showAlphabetBrowser">
-                {{showAlphabetBrowser ? 'Close' : 'Browse'}}
+                {{ showAlphabetBrowser ? "Close" : "Browse" }}
             </button>
 
             <div v-if="showAlphabetBrowser">
-                <div v-for="letter in alphabetArray" :key="letter" class="flex justify-center my-3">
+                <div
+                    v-for="letter in alphabetArray"
+                    :key="letter"
+                    class="flex justify-center my-3"
+                >
                     <Link class="uppercase" :href="route('letter', letter)">
                         {{ letter }}
                     </Link>
                 </div>
             </div>
+
+            <Link
+                class="
+                    block
+                    no-underline
+                    hover:underline
+                    py-2
+                    text-grey-darkest
+                    hover:text-black
+                    md:border-none md:p-0
+                "
+                :href="route('create')"
+            >
+                + Add
+            </Link>
 
             <Link
                 v-if="isLoggedIn"

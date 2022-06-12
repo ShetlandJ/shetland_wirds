@@ -72,6 +72,8 @@ const showingNavigationDropdown = ref(false);
             pb-0
             shadow-lg
             md:pb-4
+            bg-white
+            dark:bg-gray-800
         "
     >
         <div class="flex items-center justify-between mb-4 md:mb-0">

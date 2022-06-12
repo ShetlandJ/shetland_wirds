@@ -73,7 +73,7 @@ const alphabetArray = [
                     class="flex justify-center my-2 px-1"
                 >
                     <Link
-                        class="uppercase dark:text-white"
+                        class="uppercase"
                         :href="route('letter', letter)"
                     >
                         <div

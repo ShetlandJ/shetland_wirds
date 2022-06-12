@@ -80,7 +80,7 @@ onMounted(() => {
 
 <template>
     <div
-        className="bg-white shadow-lg rounded-lg mx-4 md:mx-auto my-8 max-w-md md:max-w-2xl"
+        className="bg-white shadow-lg rounded-lg mx-4 md:mx-auto my-8 max-w-lg md:max-w-2xl"
     >
         <div className="items-start px-4 py-6">
             <div>
@@ -152,7 +152,7 @@ onMounted(() => {
                 </div>
 
                 <div
-                    className="flex items-center mr-2 text-gray-700 text-sm mr-3"
+                    className="flex items-center mr-2 text-gray-700 text-sm mr-3 mt-2"
                 >
                     <div :class="[fullView ? 'border-b border-gray-200' : '']">
                         <Link

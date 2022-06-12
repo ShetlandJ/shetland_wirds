@@ -59,6 +59,7 @@ const submitRecording = () => {
             userRecording = null;
             recordingAudio.value = false;
             device = null;
+            window.location.reload();
         },
     });
 };

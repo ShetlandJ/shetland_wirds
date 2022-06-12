@@ -135,7 +135,7 @@ Route::get('/word/{word}/', function (string $word) {
     }
 
     $fullWord = Word::where('uuid', $foundWord['id'])->first();
-    $recording = WordRecording::where('word_id', $fullWord['id'])->where('created_at', '>', now()->subSeconds(10))->first();
+    $recording = WordRecording::where('word_id', $fullWord['id'])->where('created_at', '>', now()->subSeconds(5))->first();
 
     return Inertia::render('Word', [
         'canLogin' => Route::has('login'),

@@ -2,6 +2,9 @@
 import { Link, useForm, InertiaApp } from "@inertiajs/inertia-vue3";
 import JetDropdown from "@/Jetstream/Dropdown.vue";
 import JetDropdownLink from "@/Jetstream/DropdownLink.vue";
+import MobileMenu from "./MobileMenu.vue";
+import Hamburger from "./Hamburger.vue";
+import { ref } from 'vue';
 
 const emit = defineEmits(["setSearch", "suggest-word"]);
 
@@ -56,6 +59,8 @@ const alphabetArray = [
     "y",
     "z",
 ];
+
+const showingNavigationDropdown = ref(false);
 </script>
 
 <template>
@@ -82,9 +87,20 @@ const alphabetArray = [
             <a class="text-black hover:text-orange md:hidden" href="#">
                 <i class="fa fa-2x fa-bars"></i>
             </a>
+
+            <Hamburger
+                class="sm:hidden"
+                :showing-navigation-dropdown="showingNavigationDropdown"
+                @toggle="showingNavigationDropdown = !showingNavigationDropdown"
+            />
         </div>
 
-        <form class="mb-4 w-full md:mb-0 md:w-1/4" @submit.prevent="search">
+        <MobileMenu :showing-navigation-dropdown="showingNavigationDropdown" class="sm:hidden" />
+
+        <form
+            class="hidden sm:flex mb-4 w-full md:mb-0 md:w-1/4"
+            @submit.prevent="search"
+        >
             <div class="flex justify-center">
                 <div class="xl:w-96">
                     <div class="input-group relative flex items-stretch w-full">
@@ -173,13 +189,9 @@ const alphabetArray = [
             </div>
         </form>
 
-        <nav>
+        <nav class="hidden sm:flex sm:justify-center">
             <ul class="list-reset md:flex md:items-center">
-                <JetDropdown
-                    style="cursor-pointer"
-                    align="left"
-                    width="48"
-                >
+                <JetDropdown style="cursor-pointer" align="left" width="48">
                     <template #trigger>
                         <button
                             class="

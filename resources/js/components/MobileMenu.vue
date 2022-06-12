@@ -157,7 +157,7 @@ const alphabetArray = [
                 </form>
             </div>
 
-            <button @click="showAlphabetBrowser = !showAlphabetBrowser">
+            <button @click="showAlphabetBrowser = !showAlphabetBrowser" class="dark:text-white">
                 {{ showAlphabetBrowser ? "Close" : "Browse" }}
             </button>
 
@@ -167,7 +167,7 @@ const alphabetArray = [
                     :key="letter"
                     class="flex justify-center my-3"
                 >
-                    <Link class="uppercase" :href="route('letter', letter)">
+                    <Link class="uppercase dark:text-white" :href="route('letter', letter)">
                         {{ letter }}
                     </Link>
                 </div>
@@ -182,6 +182,7 @@ const alphabetArray = [
                     text-grey-darkest
                     hover:text-black
                     md:border-none md:p-0
+                    dark:text-white
                 "
                 :href="route('create')"
             >
@@ -192,6 +193,7 @@ const alphabetArray = [
                 v-if="isLoggedIn"
                 :href="route('dashboard')"
                 :active="route().current('dashboard')"
+                class="dark:text-white"
             >
                 Dashboard
             </Link>
@@ -199,15 +201,15 @@ const alphabetArray = [
 
         <div class="pt-2 pb-1 border-t border-gray-200">
             <div class="mb-2">
-                <Link v-if="!isLoggedIn" :href="route('login')"> Login </Link>
+                <Link v-if="!isLoggedIn" class="dark:text-white" :href="route('login')"> Login </Link>
             </div>
             <div class="mb-2">
-                <Link v-if="!isLoggedIn" :href="route('register')">
+                <Link v-if="!isLoggedIn" class="dark:text-white" :href="route('register')">
                     Register
                 </Link>
             </div>
             <form method="POST" v-if="isLoggedIn" @submit.prevent="logout">
-                <Link as="button"> Log Out </Link>
+                <Link as="button" class="dark:text-white"> Log Out </Link>
             </form>
         </div>
     </div>

@@ -26,7 +26,7 @@ const search = () => {
                 font-medium
                 text-gray-900
                 sr-only
-                text-gray-300
+                dark:text-gray-300
             "
             >Search</label
         >
@@ -44,7 +44,7 @@ const search = () => {
                     "
                 >
                     <svg
-                        class="w-5 h-5 text-gray-500 text-gray-400"
+                        class="w-5 h-5 text-gray-500 dark:text-gray-400"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -72,12 +72,12 @@ const search = () => {
                         rounded-lg
                         border border-gray-300
                         focus:ring-blue-500 focus:border-blue-500
-                        bg-gray-700
-                        border-gray-600
-                        placeholder-gray-400
-                        text-white
-                        focus:ring-blue-500
-                        focus:border-blue-500
+                        dark:bg-gray-700
+                        dark:border-gray-600
+                        dark:placeholder-gray-400
+                        dark:text-white
+                        dark:focus:ring-blue-500
+                        dark:focus:border-blue-500
                     "
                     placeholder="Search a Shetland or English word..."
                     required
@@ -97,9 +97,9 @@ const search = () => {
                         text-sm
                         px-4
                         py-2
-                        bg-blue-600
-                        hover:bg-blue-700
-                        focus:ring-blue-800
+                        dark:bg-blue-600
+                        dark:hover:bg-blue-700
+                        dark:focus:ring-blue-800
                     "
                 >
                     Search

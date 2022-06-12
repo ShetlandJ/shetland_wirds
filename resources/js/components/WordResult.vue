@@ -97,7 +97,7 @@ onMounted(() => {
                                 text-gray-900
                                 -mt-1
                                 dark:text-white
-                                dark:decoration-white
+                                dark:border-b
                             "
                             >
                                 {{ word.word }}

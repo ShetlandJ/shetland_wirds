@@ -82,7 +82,7 @@ onMounted(() => {
     <div
         className="bg-white shadow-lg rounded-lg mx-4 md:mx-auto my-8 max-w-lg md:max-w-2xl"
     >
-        <div className="items-start px-4 py-6 dark:bg-gray-700 dark:text-white">
+        <div className="items-start px-4 py-6 dark:bg-gray-700">
             <div>
                 <div className="flex items-center justify-between mb-2">
                     <div class="flex">
@@ -91,7 +91,7 @@ onMounted(() => {
                             class="text-sm text-gray-700 underline"
                         >
                             <h2
-                                className="text-lg font-semibold text-gray-900 -mt-1"
+                                className="text-lg font-semibold text-gray-900 -mt-1 dark:text-white"
                             >
                                 {{ word.word }}
                             </h2>
@@ -136,12 +136,12 @@ onMounted(() => {
                         <div class="mr-2" v-if="word.definitions.length > 1">
                             {{ index + 1 }}.
                         </div>
-                        <p className="text-gray-700">
+                        <p className="text-gray-700 dark:text-white">
                             {{ definition.definition }}
                         </p>
                     </div>
                     <div v-if="definition.example_sentence">
-                        <p className="mt-1 text-gray-700 mb-3">
+                        <p className="mt-1 text-gray-700 mb-3 dark:text-white">
                             {{
                                 definition.example_sentence
                                     ? `Usage: ${definition.example_sentence}`

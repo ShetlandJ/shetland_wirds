@@ -100,13 +100,13 @@ const showingNavigationDropdown = ref(false);
         <MobileMenu :showing-navigation-dropdown="showingNavigationDropdown" class="sm:hidden" />
 
         <form
-            class="hidden sm:flex mb-4 w-full md:mb-0 md:w-1/4"
+            class="sm:flex mb-4 w-full md:mb-0 md:w-1/4"
             @submit.prevent="search"
         >
             <div class="flex justify-center">
                 <div class="xl:w-96">
                     <div class="input-group relative flex items-stretch w-full">
-                        <form class="flex" @submit.prevent="search">
+                        <div class="flex">
                             <input
                                 v-model="form.searchString"
                                 size="150"
@@ -166,7 +166,7 @@ const showingNavigationDropdown = ref(false);
                                     items-center
                                     disabled:opacity-50
                                 "
-                                type="button"
+                                type="submit"
                                 id="button-addon2"
                             >
                                 <svg
@@ -185,7 +185,7 @@ const showingNavigationDropdown = ref(false);
                                     ></path>
                                 </svg>
                             </button>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>

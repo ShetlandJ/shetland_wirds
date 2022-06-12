@@ -23,7 +23,7 @@ defineProps({
             mb-4
         "
     >
-        <div class="basis-1/4">
+        <div class="basis-1/2 hidden md:block">
             <p><b>Speaker</b>: {{ recording.speaker_name }}</p>
             <p><b>Type</b>: {{ recording.type }}</p> <span v-if="adminView">
                 Word: {{recording.word.word}}
@@ -31,7 +31,7 @@ defineProps({
             <p><b>Date</b>: {{ formatDate(new Date(recording.created_at)) }}</p>
         </div>
 
-        <audio controls>
+        <audio controls class="w-full">
             <source :src="recording.url" type="audio/mpeg" />
         </audio>
 

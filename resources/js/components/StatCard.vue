@@ -44,7 +44,7 @@ switch (props.type) {
             shadow-xs
             overflow-hidden
             bg-white
-            bg-gray-800
+            dark:bg-gray-800
         "
     >
         <div class="p-4 flex items-center">
@@ -58,7 +58,7 @@ switch (props.type) {
                         text-md
                         font-medium
                         text-gray-600
-                        text-gray-400
+                        dark:text-gray-400
                     "
                 >
                     {{name}}
@@ -68,7 +68,7 @@ switch (props.type) {
                         text-3xl
                         font-semibold
                         text-gray-700
-                        text-gray-200
+                        dark:text-gray-200
                     "
                 >
                     {{stat}}

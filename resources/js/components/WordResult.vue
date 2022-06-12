@@ -101,7 +101,7 @@ onMounted(() => {
                         </span>
                     </div>
                     <div class="flex">
-                        <span class="mr-1 text-sm">{{ word.likes }}</span>
+                        <span class="mr-1 text-sm dark:text-white">{{ word.likes }}</span>
                         <svg
                             fill="none"
                             viewBox="0 0 24 24"
@@ -133,7 +133,7 @@ onMounted(() => {
                     :key="definition.id"
                 >
                     <div class="flex">
-                        <div class="mr-2" v-if="word.definitions.length > 1">
+                        <div class="mr-2 dark:text-white" v-if="word.definitions.length > 1">
                             {{ index + 1 }}.
                         </div>
                         <p className="text-gray-700 dark:text-white">
@@ -158,7 +158,7 @@ onMounted(() => {
                         <Link
                             v-if="!fullView"
                             :href="route('word', { word: word.slug })"
-                            class="text-sm text-gray-700 hover:underline mr-2"
+                            class="text-sm text-gray-700 hover:underline mr-2 dark:text-white"
                         >
                             {{ word.comments.length }} comment{{
                                 word.comments.length === 1 ? "" : "s"
@@ -191,7 +191,7 @@ onMounted(() => {
 
                         <Link
                             v-if="!fullView"
-                            class="text-sm text-gray-700 hover:underline"
+                            class="text-sm text-gray-700 hover:underline dark:text-white"
                             :href="
                                 route('word', {
                                     word: word.slug,

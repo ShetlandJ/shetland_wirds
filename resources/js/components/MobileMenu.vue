@@ -157,18 +157,35 @@ const alphabetArray = [
                 </form>
             </div>
 
-            <button @click="showAlphabetBrowser = !showAlphabetBrowser" class="dark:text-white">
+            <button
+                @click="showAlphabetBrowser = !showAlphabetBrowser"
+                class="dark:text-white"
+            >
                 {{ showAlphabetBrowser ? "Close" : "Browse" }}
             </button>
 
-            <div v-if="showAlphabetBrowser">
+            <div v-if="showAlphabetBrowser" class="flex flex-wrap justify-center">
                 <div
                     v-for="letter in alphabetArray"
                     :key="letter"
-                    class="flex justify-center my-3"
+                    class="flex justify-center my-2 px-1"
                 >
-                    <Link class="uppercase dark:text-white" :href="route('letter', letter)">
-                        {{ letter }}
+                    <Link
+                        class="uppercase dark:text-white"
+                        :href="route('letter', letter)"
+                    >
+                        <div
+                            style="width: 100px"
+                            class="
+                                bg-gray-300
+                                flex
+                                justify-center
+                                rounded-md
+                                text-xl
+                            "
+                        >
+                            {{ letter }}
+                        </div>
                     </Link>
                 </div>
             </div>
@@ -201,10 +218,20 @@ const alphabetArray = [
 
         <div class="pt-2 pb-1 border-t border-gray-200">
             <div class="mb-2">
-                <Link v-if="!isLoggedIn" class="dark:text-white" :href="route('login')"> Login </Link>
+                <Link
+                    v-if="!isLoggedIn"
+                    class="dark:text-white"
+                    :href="route('login')"
+                >
+                    Login
+                </Link>
             </div>
             <div class="mb-2">
-                <Link v-if="!isLoggedIn" class="dark:text-white" :href="route('register')">
+                <Link
+                    v-if="!isLoggedIn"
+                    class="dark:text-white"
+                    :href="route('register')"
+                >
                     Register
                 </Link>
             </div>

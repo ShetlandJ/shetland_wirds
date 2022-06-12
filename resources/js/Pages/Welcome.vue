@@ -92,7 +92,7 @@ const currentPageEndsAt = computed(() => {
 
         <div class="mb-8">
             <div
-                class="flex justify-center mt-4"
+                class="flex justify-center mt-4 dark:text-white"
                 v-if="pagination && pagination.pages > 1"
             >
                 <span v-if="pagination.pages > 1">

@@ -91,7 +91,14 @@ onMounted(() => {
                             class="text-sm text-gray-700 underline"
                         >
                             <h2
-                                className="text-lg font-semibold text-gray-900 -mt-1 dark:text-white"
+                                className="
+                                text-lg
+                                font-semibold
+                                text-gray-900
+                                -mt-1
+                                dark:text-white
+                                dark:decoration-white
+                            "
                             >
                                 {{ word.word }}
                             </h2>
@@ -101,7 +108,9 @@ onMounted(() => {
                         </span>
                     </div>
                     <div class="flex">
-                        <span class="mr-1 text-sm dark:text-white">{{ word.likes }}</span>
+                        <span class="mr-1 text-sm dark:text-white">{{
+                            word.likes
+                        }}</span>
                         <svg
                             fill="none"
                             viewBox="0 0 24 24"
@@ -133,7 +142,10 @@ onMounted(() => {
                     :key="definition.id"
                 >
                     <div class="flex">
-                        <div class="mr-2 dark:text-white" v-if="word.definitions.length > 1">
+                        <div
+                            class="mr-2 dark:text-white"
+                            v-if="word.definitions.length > 1"
+                        >
                             {{ index + 1 }}.
                         </div>
                         <p className="text-gray-700 dark:text-white">
@@ -158,7 +170,12 @@ onMounted(() => {
                         <Link
                             v-if="!fullView"
                             :href="route('word', { word: word.slug })"
-                            class="text-sm text-gray-700 hover:underline mr-2 dark:text-white"
+                            class="
+                                text-sm text-gray-700
+                                hover:underline
+                                mr-2
+                                dark:text-white
+                            "
                         >
                             {{ word.comments.length }} comment{{
                                 word.comments.length === 1 ? "" : "s"
@@ -177,8 +194,7 @@ onMounted(() => {
                                 text-sm
                                 font-medium
                                 text-center
-                                dark:bg-gray-800
-                                dark:text-blue-500
+                                dark:bg-gray-800 dark:text-blue-500
                             "
                             :class="[
                                 activeTab === 'comments' ? 'bg-gray-100' : '',
@@ -191,7 +207,11 @@ onMounted(() => {
 
                         <Link
                             v-if="!fullView"
-                            class="text-sm text-gray-700 hover:underline dark:text-white"
+                            class="
+                                text-sm text-gray-700
+                                hover:underline
+                                dark:text-white
+                            "
                             :href="
                                 route('word', {
                                     word: word.slug,
@@ -216,8 +236,7 @@ onMounted(() => {
                                 text-sm
                                 font-medium
                                 text-center
-                                dark:bg-gray-800
-                                dark:text-blue-500
+                                dark:bg-gray-800 dark:text-blue-500
                             "
                             :class="[
                                 activeTab === 'recordings' ? 'bg-gray-100' : '',
@@ -281,7 +300,10 @@ onMounted(() => {
                     </div>
                     <div v-else-if="activeTab === 'recordings'">
                         <div
-                            v-if="!word.recordings.length && !recordingJustSubmitted"
+                            v-if="
+                                !word.recordings.length &&
+                                !recordingJustSubmitted
+                            "
                             class="
                                 text-center
                                 px-4
@@ -307,7 +329,7 @@ onMounted(() => {
                         />
 
                         <h4
-                        v-if="!recordingJustSubmitted"
+                            v-if="!recordingJustSubmitted"
                             class="
                                 my-5
                                 uppercase

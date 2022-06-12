@@ -194,10 +194,11 @@ onMounted(() => {
                                 text-sm
                                 font-medium
                                 text-center
-                                dark:bg-gray-800 dark:text-blue-500
+                                dark:bg-gray-800
+                                dark:text-blue-500
                             "
                             :class="[
-                                activeTab === 'comments' ? 'bg-gray-100' : '',
+                                activeTab === 'comments' ? 'bg-gray-100 dark:bg-gray-500' : '',
                             ]"
                         >
                             {{ word.comments.length }} comment{{
@@ -239,7 +240,7 @@ onMounted(() => {
                                 dark:bg-gray-800 dark:text-blue-500
                             "
                             :class="[
-                                activeTab === 'recordings' ? 'bg-gray-100' : '',
+                                activeTab === 'recordings' ? 'bg-gray-100 dark:bg-gray-500' : '',
                             ]"
                         >
                             {{ word.recordings.length }} recording{{

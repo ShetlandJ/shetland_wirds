@@ -72,7 +72,7 @@ const showingNavigationDropdown = ref(false);
             pb-0
             shadow-lg
             md:pb-4
-            bg-white
+            bg-grey-100
             dark:bg-gray-800
         "
     >

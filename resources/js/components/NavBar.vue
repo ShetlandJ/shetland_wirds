@@ -77,7 +77,7 @@ const showingNavigationDropdown = ref(false);
         <div class="flex items-center justify-between mb-4 md:mb-0">
             <h1 class="leading-none text-2xl text-grey-darkest">
                 <Link
-                    class="no-underline text-grey-darkest hover:text-black"
+                    class="no-underline text-grey-darkest hover:text-black dark:text-white"
                     :href="route('home')"
                 >
                     Spaektionary

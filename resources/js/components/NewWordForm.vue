@@ -226,7 +226,7 @@ const defaultWordTypes = [
                     <select
                         v-model="form.word_type"
                         class="
-
+                            appearance-none
                             w-full
                             px-3
                             py-1.5
@@ -291,5 +291,12 @@ const defaultWordTypes = [
 <style scoped>
 .text-danger {
     color: #f44336;
+}
+
+select {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  background-image: none;
 }
 </style>

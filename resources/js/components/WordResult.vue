@@ -156,7 +156,7 @@ onMounted(() => {
                             class="
                                 ml-auto
                                 text-right text-sm
-                                dark:text-grey-100
+                                dark:text-white
                                 text-gray-500
                                 italic
                             "

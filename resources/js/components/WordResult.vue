@@ -141,19 +141,31 @@ onMounted(() => {
                     v-for="(definition, index) in word.definitions"
                     :key="definition.id"
                 >
-                    <div class="flex items-center">
+                    <div class="flex">
                         <div
                             class="mr-2 dark:text-white"
                             v-if="word.definitions.length > 1"
                         >
                             {{ index + 1 }}.
                         </div>
-                        <p className="text-gray-700 dark:text-white">
+                        <div className="text-gray-700 dark:text-white">
                             {{ definition.definition }}
-                        </p>
-                        <span v-if="definition.readable_type" class="ml-3 text-sm dark:text-grey-200 text-gray-500 italic">
-                            {{definition.readable_type}}
-                        </span>
+                        </div>
+                    </div>
+                    <div
+                        v-if="definition.readable_type"
+                        class="
+                            md:text-left
+                            ml-4
+                            text-right
+                            text-sm
+                            dark:text-grey-100
+                            text-gray-500
+                            italic
+                            mb-2
+                        "
+                    >
+                        {{ definition.readable_type }}
                     </div>
                     <div v-if="definition.example_sentence">
                         <p className="mt-1 text-gray-700 mb-3 dark:text-white">
@@ -294,7 +306,6 @@ onMounted(() => {
                         >
                             locations
                         </button>
-
                     </div>
                 </div>
                 <div v-if="fullView" class="mt-4">
@@ -309,8 +320,12 @@ onMounted(() => {
                         "
                     >
                         <span v-if="activeTab === 'comments'">Comments</span>
-                        <span v-else-if="activeTab === 'recordings'">Recordings</span>
-                        <span v-else-if="activeTab === 'locations'">Locations</span>
+                        <span v-else-if="activeTab === 'recordings'"
+                            >Recordings</span
+                        >
+                        <span v-else-if="activeTab === 'locations'"
+                            >Locations</span
+                        >
                     </h4>
                     <div v-if="activeTab === 'comments'">
                         <div

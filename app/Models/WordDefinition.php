@@ -77,6 +77,6 @@ class WordDefinition extends Model
 
     public function getValidWordTypesAttribute(): array
     {
-        return array_keys(self::WORD_TYPE_ABBR_MAP);
+        return array_values(self::WORD_TYPE_ABBR_MAP);
     }
 }

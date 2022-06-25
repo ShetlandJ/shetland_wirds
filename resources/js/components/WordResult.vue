@@ -151,7 +151,7 @@ onMounted(() => {
                         <p className="text-gray-700 dark:text-white">
                             {{ definition.definition }}
                         </p>
-                        <span v-if="definition.readable_type" class="ml-3 text-sm text-gray-500 italic">
+                        <span v-if="definition.readable_type" class="ml-3 text-sm dark:text-grey-200 text-gray-500 italic">
                             {{definition.readable_type}}
                         </span>
                     </div>

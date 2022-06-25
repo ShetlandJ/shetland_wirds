@@ -22,10 +22,6 @@ const createWord = () => {
 
 const defaultWordTypes = [
     {
-        name: "I'm not sure!",
-        value: null,
-    },
-    {
         name: "Verb",
         value: "verb",
     },
@@ -242,10 +238,9 @@ const defaultWordTypes = [
                             focus:border-blue-600
                             focus:outline-none
                         "
-                            size="5"
                     >
-                    <option disabled selected>
-                        -- Select word type (optional) --
+                    <option disabled selected :value="null">
+                        Select word type (optional)
 
                     </option>
                         <option

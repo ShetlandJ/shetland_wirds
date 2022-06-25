@@ -244,6 +244,10 @@ const defaultWordTypes = [
                         "
                             size="5"
                     >
+                    <option disabled selected>
+                        -- Select word type (optional) --
+
+                    </option>
                         <option
                             v-for="(wordType, index) in defaultWordTypes"
                             :key="index"

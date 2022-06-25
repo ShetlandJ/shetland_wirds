@@ -78,6 +78,7 @@ class Word extends Model
                 'definition' => $definition->definition,
                 'example_sentence' => $definition->example_sentence,
                 'type' => $definition->type,
+                'readable_type' => $definition->convertedType ?? null,
                 'creator' => $definition->user ? $definition->user->name : null,
                 'word_id' => $definition->word->uuid,
                 'created_at' => $definition->created_at,

@@ -209,7 +209,7 @@ const defaultWordTypes = [
             </div>
             <div class="form-group form-check mb-6">
                 <p>What type of word is it?</p>
-                <div class="flex flex-wrap hidden md:block">
+                <!-- <div class="flex flex-wrap hidden md:block">
                     <selectable
                         class="mr-2"
                         v-for="(wordType, index) in defaultWordTypes"
@@ -220,13 +220,13 @@ const defaultWordTypes = [
                         v-model="form.word_type"
                         @select="form.word_type = $event"
                     />
-                </div>
+                </div> -->
                 <!-- create select with defaultWordTypes as options and form.word_type as value -->
                 <div class="">
                     <select
                         v-model="form.word_type"
                         class="
-                            md:hidden
+
                             w-full
                             px-3
                             py-1.5

@@ -93,13 +93,14 @@ const defaultWordTypes = [
             shadow-lg
             bg-white
             max-w-sm
+            dark:bg-gray-700
         "
     >
         <form @submit.prevent="createWord">
             <div class="form-group mb-6">
                 <label
                     for="wordInput"
-                    class="form-label inline-block mb-2 text-gray-700"
+                    class="form-label inline-block mb-2 dark:text-white text-gray-700"
                 >
                     Suggested word <span class="text-danger">(required)</span>
                 </label>
@@ -129,14 +130,14 @@ const defaultWordTypes = [
                     id="wordInput"
                     aria-describedby="wordHelp"
                 />
-                <small id="wordHelp" class="block mt-1 text-xs text-gray-600">
+                <small id="wordHelp" class="block mt-1 text-xs dark:text-white text-gray-600">
                     Enter the new word you wish to add to the dictionary
                 </small>
             </div>
             <div class="form-group mb-6">
                 <label
                     for="translationInput"
-                    class="form-label inline-block mb-2 text-gray-700"
+                    class="form-label inline-block mb-2 dark:text-white text-gray-700"
                 >
                     What does it mean in English?
                     <span class="text-danger">(required)</span>
@@ -171,7 +172,7 @@ const defaultWordTypes = [
             <div class="form-group mb-6">
                 <label
                     for="exampleSentenceInput"
-                    class="form-label inline-block mb-2 text-gray-700"
+                    class="form-label inline-block mb-2 dark:text-white text-gray-700"
                 >
                     Can you provide an example Shetland language sentence?
                     (Optional)
@@ -204,7 +205,7 @@ const defaultWordTypes = [
                 />
             </div>
             <div class="form-group form-check mb-6">
-                <p>What type of word is it?</p>
+                <p class="dark:text-white">What type of word is it?</p>
                 <!-- <div class="flex flex-wrap hidden md:block">
                     <selectable
                         class="mr-2"

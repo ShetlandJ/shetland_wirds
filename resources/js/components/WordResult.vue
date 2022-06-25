@@ -250,6 +250,48 @@ onMounted(() => {
                                 word.recordings.length === 1 ? "" : "s"
                             }}
                         </button>
+
+                        <Link
+                            v-if="!fullView"
+                            class="
+                                text-sm text-gray-700
+                                hover:underline
+                                dark:text-white
+                                ml-1
+                            "
+                            :href="
+                                route('word', {
+                                    word: word.slug,
+                                    tab: 'locations',
+                                })
+                            "
+                        >
+                            locations
+                        </Link>
+
+                        <button
+                            @click="activeTab = 'locations'"
+                            v-else
+                            class="
+                                inline-block
+                                text-blue-600
+                                rounded-t-lg
+                                py-4
+                                px-4
+                                text-sm
+                                font-medium
+                                text-center
+                                dark:bg-gray-800 dark:text-white
+                            "
+                            :class="[
+                                activeTab === 'locations'
+                                    ? 'bg-gray-100 dark:bg-gray-500'
+                                    : '',
+                            ]"
+                        >
+                            locations
+                        </button>
+
                     </div>
                 </div>
                 <div v-if="fullView" class="mt-4">
@@ -263,9 +305,9 @@ onMounted(() => {
                             text-xs
                         "
                     >
-                        {{
-                            activeTab === "comments" ? "Comments" : "Recordings"
-                        }}
+                        <span v-if="activeTab === 'comments'">Comments</span>
+                        <span v-else-if="activeTab === 'recordings'">Recordings</span>
+                        <span v-else-if="activeTab === 'locations'">Locations</span>
                     </h4>
                     <div v-if="activeTab === 'comments'">
                         <div
@@ -399,6 +441,10 @@ onMounted(() => {
                         >
                             <p>Sign up to add a recording!</p>
                         </div>
+                    </div>
+
+                    <div v-else-if="activeTab === 'locations'">
+                        Where in Shetland is this word spoken?
                     </div>
                 </div>
             </div>

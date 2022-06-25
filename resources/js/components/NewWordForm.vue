@@ -15,7 +15,7 @@ const createWord = () => {
         onFinish: () => {
             form.reset();
             emit("hide-form");
-            emit("success")
+            emit("success");
         },
     });
 };
@@ -27,27 +27,59 @@ const defaultWordTypes = [
     },
     {
         name: "Verb",
-        value: "v",
+        value: "verb",
     },
     {
         name: "Noun",
-        value: "n",
+        value: "noun",
     },
     {
         name: "Adjective",
-        value: "adj",
+        value: "adjectiev",
     },
     {
         name: "Adverb",
-        value: "adv",
+        value: "adverb",
     },
     {
         name: "Preposition",
-        value: "prep",
+        value: "preposition",
     },
     {
         name: "Conjunction",
-        value: "conj",
+        value: "conjunction",
+    },
+    {
+        name: "Interjection",
+        value: "interjection",
+    },
+    {
+        name: "Pronoun",
+        value: "pronoun",
+    },
+    {
+        name: "Numeral",
+        value: "numeral",
+    },
+    {
+        name: "Article",
+        value: "article",
+    },
+    {
+        name: "Auxiliary",
+        value: "auxiliary",
+    },
+    {
+        name: "Determiner",
+        value: "determiner",
+    },
+    {
+        name: "Idiom",
+        value: "idiom",
+    },
+    {
+        name: "Proper noun",
+        value: "proper_noun",
     },
 ];
 </script>
@@ -177,7 +209,7 @@ const defaultWordTypes = [
             </div>
             <div class="form-group form-check mb-6">
                 <p>What type of word is it?</p>
-                <div class="flex flex-wrap">
+                <div class="flex flex-wrap hidden md:block">
                     <selectable
                         class="mr-2"
                         v-for="(wordType, index) in defaultWordTypes"
@@ -189,11 +221,40 @@ const defaultWordTypes = [
                         @select="form.word_type = $event"
                     />
                 </div>
-                <!-- <label
-                    class="form-check-label inline-block text-gray-800"
-                    for="exampleCheck1"
-                    >Check me out</label
-                > -->
+                <!-- create select with defaultWordTypes as options and form.word_type as value -->
+                <div class="">
+                    <select
+                        v-model="form.word_type"
+                        class="
+                            md:hidden
+                            w-full
+                            px-3
+                            py-1.5
+                            font-normal
+                            text-gray-700
+                            bg-white bg-clip-padding
+                            border border-solid border-gray-300
+                            rounded
+                            transition
+                            ease-in-out
+                            m-0
+                            focus:text-gray-700
+                            focus:bg-white
+                            focus:border-blue-600
+                            focus:outline-none
+                        "
+                            size="5"
+                    >
+                        <option
+                            v-for="(wordType, index) in defaultWordTypes"
+                            :key="index"
+                            class="h1"
+                            :value="wordType.value"
+                        >
+                            {{ wordType.name }}
+                        </option>
+                    </select>
+                </div>
             </div>
             <button
                 :disabled="!form.newWord || !form.translation"
@@ -229,6 +290,6 @@ const defaultWordTypes = [
 
 <style scoped>
 .text-danger {
-  color: #f44336;
+    color: #f44336;
 }
 </style>

@@ -141,7 +141,7 @@ onMounted(() => {
                     v-for="(definition, index) in word.definitions"
                     :key="definition.id"
                 >
-                    <div class="flex">
+                    <div class="flex mb-2">
                         <div
                             class="mr-2 dark:text-white"
                             v-if="word.definitions.length > 1"
@@ -151,21 +151,18 @@ onMounted(() => {
                         <div className="text-gray-700 dark:text-white">
                             {{ definition.definition }}
                         </div>
-                    </div>
-                    <div
-                        v-if="definition.readable_type"
-                        class="
-                            md:text-left
-                            ml-4
-                            text-right
-                            text-sm
-                            dark:text-grey-100
-                            text-gray-500
-                            italic
-                            mb-2
-                        "
-                    >
-                        {{ definition.readable_type }}
+                        <div
+                            v-if="definition.readable_type"
+                            class="
+                                ml-auto
+                                text-right text-sm
+                                dark:text-grey-100
+                                text-gray-500
+                                italic
+                            "
+                        >
+                            {{ definition.readable_type }}
+                        </div>
                     </div>
                     <div v-if="definition.example_sentence">
                         <p className="mt-1 text-gray-700 mb-3 dark:text-white">

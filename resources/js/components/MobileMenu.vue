@@ -58,7 +58,7 @@ const alphabetArray = [
             block: showingNavigationDropdown,
             hidden: !showingNavigationDropdown,
         }"
-        class="sm:hidden"
+        class=""
     >
         <div class="pt-2 pb-3 space-y-1">
             <button

@@ -62,8 +62,8 @@ const rejectWord = (wordId) => {
         rejectReason: rejectForm.rejectReason,
         onFinish: () => {
             showRejectForm.value = false;
-            form.reset("rejectForm")
-        }
+            form.reset("rejectForm");
+        },
     });
 };
 
@@ -272,7 +272,7 @@ onMounted(() => {
                                 text-sm text-gray-700
                                 hover:underline
                                 dark:text-white
-                                ml-1
+                                ml-2
                             "
                             :href="
                                 route('word', {
@@ -280,9 +280,7 @@ onMounted(() => {
                                     tab: 'locations',
                                 })
                             "
-                        >
-                            locations
-                        </Link>
+                            >locations</Link>
 
                         <button
                             @click="activeTab = 'locations'"

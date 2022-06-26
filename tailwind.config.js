@@ -15,10 +15,12 @@ module.exports = {
             },
         },
         screens: {
-            'sm': '640px',
+            'sm': '768px',
             // => @media (min-width: 640px) { ... }
 
-            'md': '641px',
+            'md': '769px',
+
+            'lg': '1024px',
         },
     },
 

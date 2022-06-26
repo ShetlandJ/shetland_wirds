@@ -67,7 +67,7 @@ const showingNavigationDropdown = ref(false);
     <header
         class="
             border-b
-            md:flex md:items-center md:justify-between
+            lg:flex md:items-center md:justify-between
             p-4
             pb-0
             shadow-lg
@@ -91,12 +91,8 @@ const showingNavigationDropdown = ref(false);
                 </Link>
             </h1>
 
-            <a class="text-black hover:text-orange md:hidden" href="#">
-                <i class="fa fa-2x fa-bars"></i>
-            </a>
-
             <Hamburger
-                class="sm:hidden"
+                class="md:flex lg:hidden"
                 :showing-navigation-dropdown="showingNavigationDropdown"
                 @toggle="showingNavigationDropdown = !showingNavigationDropdown"
             />
@@ -104,11 +100,11 @@ const showingNavigationDropdown = ref(false);
 
         <MobileMenu
             :showing-navigation-dropdown="showingNavigationDropdown"
-            class="sm:hidden"
+            class="lg:hidden"
         />
 
         <form
-            class="sm:flex mb-4 w-full md:mb-0 md:w-1/4"
+            class="md:flex mb-4 w-full md:mb-0 lg:w-1/4"
             @submit.prevent="search"
         >
             <div class="flex justify-center">
@@ -199,7 +195,7 @@ const showingNavigationDropdown = ref(false);
             </div>
         </form>
 
-        <nav class="hidden sm:flex sm:justify-center">
+        <nav class="hidden lg:flex sm:justify-center">
             <ul class="list-reset md:flex md:items-center">
                 <JetDropdown style="cursor-pointer" align="left" width="48">
                     <template #trigger>

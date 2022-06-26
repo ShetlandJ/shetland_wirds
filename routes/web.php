@@ -72,6 +72,7 @@ Route::get('/search', function () {
         'words' => app(WordService::class)->findAllWordsWithPagination($searchTerm, $pagination),
         'pagination' => $pagination,
         'searchString' => $searchTerm,
+        'randomWord' => DB::table('words')->inRandomOrder()->first()->slug,
     ]);
 })->name('search');
 
@@ -103,6 +104,7 @@ Route::post('/search', function () {
         'words' => $words,
         'pagination' => $pagination,
         'searchString' => $searchTerm,
+        'randomWord' => DB::table('words')->inRandomOrder()->first()->slug,
     ]);
 })->name('search');
 
@@ -171,6 +173,7 @@ Route::get('/words/{letter}/', function (string $letter) {
         'letter' => $letter,
         'words' => $words,
         'pagination' => $pagination,
+        'randomWord' => DB::table('words')->inRandomOrder()->first()->slug,
     ]);
 })->where('letter', '.*')->name('letter');
 

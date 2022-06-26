@@ -1,5 +1,5 @@
 <script setup>
-import { Link, useForm, InertiaApp } from "@inertiajs/inertia-vue3";
+import { Link, useForm, usePage, InertiaApp } from "@inertiajs/inertia-vue3";
 import JetDropdown from "@/Jetstream/Dropdown.vue";
 import JetDropdownLink from "@/Jetstream/DropdownLink.vue";
 import MobileMenu from "./MobileMenu.vue";
@@ -24,6 +24,8 @@ const search = () => {
         searchString: form.searchString,
     });
 };
+
+const randomWordSlug = usePage().props.value.randomWord;
 
 defineProps({
     canLogin: Boolean,
@@ -67,7 +69,8 @@ const showingNavigationDropdown = ref(false);
     <header
         class="
             border-b
-            lg:flex md:items-center md:justify-between
+            lg:flex
+            md:items-center md:justify-between
             p-4
             pb-0
             shadow-lg
@@ -269,6 +272,12 @@ const showingNavigationDropdown = ref(false);
                                 </li>
                             </ul>
                         </div>
+                        <Link
+                            class="p-0 flex justify-center m-0 font-bold random"
+                            :href="route('word', { word: randomWordSlug })"
+                        >
+                            Random?
+                        </Link>
                     </template>
                 </JetDropdown>
 
@@ -409,5 +418,11 @@ input {
     border-radius: 50%;
     color: black;
     background-color: rgb(241 241 241);
+}
+
+.random {
+    background-color: #ffe368;
+    margin-bottom: 3px;
+    cursor: pointer;
 }
 </style>

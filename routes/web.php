@@ -145,6 +145,7 @@ Route::get('/word/{word}/', function (string $word) {
         'isLoggedIn' => Auth::check(),
         'word' => $foundWord,
         'recordingJustSubmitted' => (bool) $recording,
+        'randomWord' => DB::table('words')->inRandomOrder()->first()->slug,
         'tab' => request('tab'),
     ]);
 })->where('word', '.*')->name('word');

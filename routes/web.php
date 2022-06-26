@@ -141,8 +141,7 @@ Route::post('/word/{word}/newLocation', function (string $word) {
 
     $locations = request('locations');
 
-
-    app(WordService::class)->addLocations($foundWord, $locations);
+    app(WordService::class)->addLocationsToWordLinks($foundWord, $locations);
     return redirect()->back();
 })->where('word', '.*')->name('newLocation');
 
@@ -163,6 +162,7 @@ Route::get('/word/{word}/', function (string $word) {
         'recordingJustSubmitted' => (bool) $recording,
         'randomWord' => DB::table('words')->inRandomOrder()->first()->slug,
         'locations' => app(WordService::class)->getAllLocations(),
+        'userSelectedLocations' => app(WordService::class)->getUserLocationsForWordUuids($fullWord),
         'tab' => request('tab'),
     ]);
 })->where('word', '.*')->name('word');

@@ -18,6 +18,7 @@ const props = defineProps({
     adminView: Boolean,
     fullView: Boolean,
     recordingJustSubmitted: Boolean,
+    userSelectedLocations: Array,
 });
 
 const locations = usePage().props.value.locations;
@@ -466,7 +467,7 @@ onMounted(() => {
                     <div v-else-if="activeTab === 'locations'">
                         <p class="mb-2">Where in Shetland is this word spoken?</p>
 
-                        <LocationInput :locations="locations" :word="word" />
+                        <LocationInput :user-selected-locations="userSelectedLocations" :locations="locations" :word="word" />
                     </div>
                 </div>
             </div>

@@ -1,18 +1,19 @@
 <script setup>
 import "@vueup/vue-quill/dist/vue-quill.snow.css";
 import { useForm, usePage } from "@inertiajs/inertia-vue3";
-import { onMounted, onUpdated } from "vue";
-import { ref, getCurrentInstance } from "vue";
+import { onMounted, onBeforeMount, onUpdated, computed } from "vue";
+import { ref, getCurrentInstance, reactive } from "vue";
 const isLoggedIn = usePage().props.value.isLoggedIn;
 
 const props = defineProps({
     locations: Object,
     word: Object,
+    userSelectedLocations: Array
 });
 
 const form = useForm({
     wordId: props.word.id,
-    locations: [],
+    locations: props.userSelectedLocations,
 });
 
 const createLocationLink = () => {
@@ -57,15 +58,18 @@ const onLocationChecked = (value) => {
 
                 <template v-else>
                     <div>
-                        <div v-for="location in locations" :key="location.id + new Date()">
+                        <div v-for="location in locations" :key="location.id + JSON.stringify(userSelectedLocations)">
                             <label class="inline-flex items-center">
                                 <input
+                                    :checked="form.locations.includes(location.id)"
                                     :value="location.id"
                                     type="checkbox"
                                     class="w-6 h-6 rounded"
                                     @input="event => onLocationChecked(event.target.value)"
                                 />
-                                <span class="ml-2">{{ location.name }}</span>
+                                <span class="ml-2">
+                                    {{ location.name }}
+                                </span>
                             </label>
                         </div>
                     </div>

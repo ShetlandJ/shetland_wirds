@@ -1,9 +1,9 @@
 <script setup>
 import WordResult from "../components/WordResult.vue";
 import NavBar from "../components/NavBar.vue";
-import { Head, usePage } from '@inertiajs/inertia-vue3'
+import { Head, usePage } from "@inertiajs/inertia-vue3";
 
-let urlPrev = usePage().props.value.urlPrev
+let urlPrev = usePage().props.value.urlPrev;
 
 const props = defineProps({
     word: Object,
@@ -12,6 +12,7 @@ const props = defineProps({
     isLoggedIn: Boolean,
     recordingJustSubmitted: Boolean,
     locations: Array,
+    userSelectedLocations: Array,
 });
 
 const goBack = () => window.history.back();
@@ -38,6 +39,12 @@ const goBack = () => window.history.back();
             @suggest-word="toggleSuggestWordForm(true)"
         />
 
-        <WordResult :recording-just-submitted="recordingJustSubmitted" :is-logged-in="isLoggedIn" :word="word" full-view />
+        <WordResult
+            :recording-just-submitted="recordingJustSubmitted"
+            :is-logged-in="isLoggedIn"
+            :word="word"
+            full-view
+            :user-selected-locations="userSelectedLocations"
+        />
     </div>
 </template>

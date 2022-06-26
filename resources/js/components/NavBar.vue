@@ -227,6 +227,7 @@ const showingNavigationDropdown = ref(false);
                                     text-grey-darkest
                                     hover:text-black
                                     md:border-none md:p-0
+                                    dark:text-white dark:hover:text-white
                                 "
                             >
                                 Browse
@@ -292,6 +293,7 @@ const showingNavigationDropdown = ref(false);
                                 text-grey-darkest
                                 hover:text-black
                                 md:border-none md:p-0
+                                dark:text-white dark:hover:text-white
                             "
                             :href="route('login')"
                         >
@@ -309,6 +311,7 @@ const showingNavigationDropdown = ref(false);
                                 text-grey-darkest
                                 hover:text-black
                                 md:border-none md:p-0
+                                dark:text-white dark:hover:text-white
                             "
                             :href="route('register')"
                         >
@@ -327,6 +330,7 @@ const showingNavigationDropdown = ref(false);
                             text-grey-darkest
                             hover:text-black
                             md:border-none md:p-0
+                            dark:text-white dark:hover:text-white
                         "
                         :href="route('help-us')"
                         :class="{ 'font-bold': $page.url === '/help-us' }"
@@ -345,6 +349,7 @@ const showingNavigationDropdown = ref(false);
                             text-grey-darkest
                             hover:text-black
                             md:border-none md:p-0
+                            dark:text-white dark:hover:text-white
                         "
                         :href="route('about')"
                         :class="{ 'font-bold': $page.url === '/about' }"
@@ -363,6 +368,7 @@ const showingNavigationDropdown = ref(false);
                             text-grey-darkest
                             hover:text-black
                             md:border-none md:p-0
+                            dark:text-white dark:hover:text-white
                         "
                         :href="route('create')"
                         :class="{ 'font-bold': $page.url === '/create' }"

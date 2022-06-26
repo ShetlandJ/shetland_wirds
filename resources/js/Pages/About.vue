@@ -54,7 +54,7 @@ defineProps({
             <p class="text-lg dark:text-white mb-6">
                 We also aim to capture Shetland words not necessarily recorded
                 within 'official' publications, such as John G. Graham's
-                <i>Shetland Dictionary</i>. To sign up
+                <i>Shetland Dictionary</i>.
             </p>
 
             <p class="text-lg dark:text-white">

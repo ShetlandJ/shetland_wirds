@@ -14,9 +14,10 @@ defineProps({
 });
 
 const isLoggedIn = usePage().props.value.isLoggedIn;
+const randomWordSlug = usePage().props.value.randomWord;
 
 const logout = async () => {
-    Inertia.post(route("logout"))
+    Inertia.post(route("logout"));
     window.location.reload();
 };
 
@@ -49,6 +50,7 @@ const alphabetArray = [
     "x",
     "y",
     "z",
+    "random"
 ];
 </script>
 
@@ -77,7 +79,29 @@ const alphabetArray = [
                     :key="letter"
                     class="flex justify-center my-2 px-1"
                 >
-                    <Link class="uppercase" :href="route('letter', letter)">
+                    <Link
+                        v-if="letter !== 'random'"
+                        class="uppercase"
+                        :href="route('letter', letter)"
+                    >
+                        <div
+                            style="width: 100px"
+                            class="
+                                bg-gray-300
+                                flex
+                                justify-center
+                                rounded-md
+                                text-xl
+                            "
+                        >
+                            {{ letter }}
+                        </div>
+                    </Link>
+                    <Link
+                        v-else
+                        class="uppercase"
+                        :href="route('word', { word: randomWordSlug })"
+                    >
                         <div
                             style="width: 100px"
                             class="
@@ -125,7 +149,6 @@ const alphabetArray = [
                     block
                     no-underline
                     hover:underline
-                    py-2
                     mt-0
                     text-grey-darkest
                     hover:text-black

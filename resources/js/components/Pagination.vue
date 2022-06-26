@@ -17,16 +17,8 @@ const changePage = (pageNumber) => {
 <template>
     <button
         class="
-            border border-teal-500
-            text-teal-500
-            block
-            rounded-sm
-            font-bold
-            py-4
-            px-6
             flex
             items-center
-            hover:bg-teal-500 hover:text-white
             disabled:opacity-50
             cursor-pointer
             dark:text-white
@@ -60,17 +52,8 @@ const changePage = (pageNumber) => {
 
     <button
         class="
-            border border-teal-500
-            text-teal-500
-            block
-            rounded-sm
-            font-bold
-            py-4
-            px-6
-            mr-2
             flex
             items-center
-            hover:bg-teal-500 hover:text-white
             disabled:opacity-50
             cursor-pointer
             dark:text-white

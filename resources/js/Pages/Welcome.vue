@@ -22,7 +22,8 @@ const props = defineProps({
     words: Array,
     pagination: Object,
     searchString: String,
-    letter: String
+    letter: String,
+    randomWord: String,
 });
 
 const form = useForm({
@@ -81,6 +82,7 @@ const currentPageEndsAt = computed(() => {
             dark:bg-gray-900
             sm:items-center sm:pt-0
         "
+        style="padding-bottom: 25px"
     >
         <NavBar
             :can-login="canLogin"
@@ -130,7 +132,7 @@ const currentPageEndsAt = computed(() => {
                 </p>
             </div>
 
-            <div class="flex justify-center mb-4">
+            <div class="flex justify-center">
                 <Pagination
                     v-if="pagination && pagination.pages > 1"
                     :pagination="pagination"

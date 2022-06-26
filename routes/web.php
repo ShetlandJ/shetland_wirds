@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 /*
@@ -42,6 +43,7 @@ Route::get('/', function () {
         'isLoggedIn' => Auth::check(),
         'phpVersion' => PHP_VERSION,
         'words' => app(WordService::class)->findAllWordsWithPagination('', $pagination),
+        'randomWord' => DB::table('words')->inRandomOrder()->first()->slug,
         'pagination' => $pagination,
     ]);
 })->name('home');
@@ -208,6 +210,7 @@ Route::get('/create', function () {
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'isLoggedIn' => Auth::check(),
+        'randomWord' => DB::table('words')->inRandomOrder()->first()->slug,
     ]);
 })->name('create');
 
@@ -380,6 +383,7 @@ Route::get('/about', function () {
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
+        'randomWord' => DB::table('words')->inRandomOrder()->first()->slug,
         'isLoggedIn' => Auth::check(),
     ]);
 })->name('about');

@@ -11,6 +11,7 @@ defineProps({
     isLoggedIn: Boolean,
     missingDefinitions: Array,
     missingExampleSentences: Array,
+    randomWord: String,
 });
 </script>
 
@@ -36,7 +37,7 @@ defineProps({
         />
 
         <div class="md:mx-auto my-8 mx-4 max-w-md md:max-w-2xl">
-            <p class="text-lg mb-3 dark:text-white">
+            <p class="text-lg mb-6 dark:text-white">
                 <b>Spaektionary</b> is a collaboration with
                 <a class="underline" href="https://www.iheardee.com/"
                     >I Hear Dee</a
@@ -45,15 +46,15 @@ defineProps({
                 language.
             </p>
 
-            <p class="text-lg dark:text-white mb-3">
+            <p class="text-lg dark:text-white mb-6">
                 We hope to capture recordings of pronounciations, and the
                 location where words are most often used.
             </p>
 
-            <p class="text-lg dark:text-white mb-3">
+            <p class="text-lg dark:text-white mb-6">
                 We also aim to capture Shetland words not necessarily recorded
-                'official' publications, such as John G. Graham's
-                <i>Shetland Dictionary</i>, while also capturing
+                within 'official' publications, such as John G. Graham's
+                <i>Shetland Dictionary</i>. To sign up
             </p>
 
             <p class="text-lg dark:text-white">

@@ -1,4 +1,5 @@
 <script setup>
+import { Inertia } from "@inertiajs/inertia";
 import { useForm, usePage, Link } from "@inertiajs/inertia-vue3";
 import JetApplicationMark from "@/Jetstream/ApplicationMark.vue";
 import JetBanner from "@/Jetstream/Banner.vue";
@@ -14,8 +15,9 @@ defineProps({
 
 const isLoggedIn = usePage().props.value.isLoggedIn;
 
-const logout = () => {
-    Inertia.post(route("logout"));
+const logout = async () => {
+    Inertia.post(route("logout"))
+    window.location.reload();
 };
 
 const showAlphabetBrowser = ref(false);
@@ -66,16 +68,16 @@ const alphabetArray = [
                 {{ showAlphabetBrowser ? "Close" : "Browse" }}
             </button>
 
-            <div v-if="showAlphabetBrowser" class="flex flex-wrap justify-center">
+            <div
+                v-if="showAlphabetBrowser"
+                class="flex flex-wrap justify-center"
+            >
                 <div
                     v-for="letter in alphabetArray"
                     :key="letter"
                     class="flex justify-center my-2 px-1"
                 >
-                    <Link
-                        class="uppercase"
-                        :href="route('letter', letter)"
-                    >
+                    <Link class="uppercase" :href="route('letter', letter)">
                         <div
                             style="width: 100px"
                             class="
@@ -91,7 +93,6 @@ const alphabetArray = [
                     </Link>
                 </div>
             </div>
-
 
             <Link
                 class="
@@ -119,7 +120,7 @@ const alphabetArray = [
                 Dashboard
             </Link>
 
-             <Link
+            <Link
                 class="
                     block
                     no-underline
@@ -157,8 +158,8 @@ const alphabetArray = [
                     Register
                 </Link>
             </div>
-            <form method="POST" v-if="isLoggedIn" @submit.prevent="logout">
-                <Link as="button" class="dark:text-white"> Log Out </Link>
+            <form v-if="isLoggedIn" @submit.prevent="logout">
+                <button type="submit" class="dark:text-white">Log Out</button>
             </form>
         </div>
     </div>

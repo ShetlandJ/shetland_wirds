@@ -15,6 +15,7 @@ class CreateWordLocationsTable extends Migration
             $table->uuid('uuid')->unique();
             $table->unsignedBigInteger('word_id');
             $table->unsignedBigInteger('location_id');
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
         });
     }

@@ -7,6 +7,7 @@ import Comment from "./Comment.vue";
 import CommentInput from "./CommentInput.vue";
 import Recording from "./Recording.vue";
 import RecordingInput from "./RecordingInput.vue";
+import LocationInput from './LocationInput.vue';
 
 import { onMounted, ref } from "vue";
 
@@ -18,6 +19,8 @@ const props = defineProps({
     fullView: Boolean,
     recordingJustSubmitted: Boolean,
 });
+
+const locations = usePage().props.value.locations;
 
 const form = useForm({
     wordToLike: null,
@@ -280,7 +283,8 @@ onMounted(() => {
                                     tab: 'locations',
                                 })
                             "
-                            >locations</Link>
+                            >locations</Link
+                        >
 
                         <button
                             @click="activeTab = 'locations'"
@@ -460,7 +464,9 @@ onMounted(() => {
                     </div>
 
                     <div v-else-if="activeTab === 'locations'">
-                        Where in Shetland is this word spoken?
+                        <p class="mb-2">Where in Shetland is this word spoken?</p>
+
+                        <LocationInput :locations="locations" :word="word" />
                     </div>
                 </div>
             </div>

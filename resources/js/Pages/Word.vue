@@ -11,6 +11,7 @@ const props = defineProps({
     canRegister: Boolean,
     isLoggedIn: Boolean,
     recordingJustSubmitted: Boolean,
+    locations: Array,
 });
 
 const goBack = () => window.history.back();

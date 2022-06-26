@@ -132,6 +132,20 @@ Route::post('/word/{word}/newRecording', function (string $word) {
     return redirect()->back();
 })->where('word', '.*')->name('uploadFile');
 
+Route::post('/word/{word}/newLocation', function (string $word) {
+    if (!Auth::check()) {
+        return redirect()->back();
+    }
+
+    $foundWord = Word::where('word', $word)->first();
+
+    $locations = request('locations');
+
+
+    app(WordService::class)->addLocations($foundWord, $locations);
+    return redirect()->back();
+})->where('word', '.*')->name('newLocation');
+
 Route::get('/word/{word}/', function (string $word) {
     $foundWord = app(WordService::class)->findByWord($word);
     if (!$foundWord) {
@@ -148,6 +162,7 @@ Route::get('/word/{word}/', function (string $word) {
         'word' => $foundWord,
         'recordingJustSubmitted' => (bool) $recording,
         'randomWord' => DB::table('words')->inRandomOrder()->first()->slug,
+        'locations' => app(WordService::class)->getAllLocations(),
         'tab' => request('tab'),
     ]);
 })->where('word', '.*')->name('word');

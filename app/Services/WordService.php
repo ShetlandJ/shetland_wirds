@@ -7,11 +7,13 @@ use Exception;
 use Carbon\Carbon;
 use App\Models\Word;
 use App\Models\Comment;
+use App\Models\Location;
 use App\Models\WordToWord;
 use Illuminate\Support\Str;
 use App\Models\UserWordLike;
 use App\Models\WordRecording;
 use App\Models\WordDefinition;
+use App\Models\WordToLocation;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -492,5 +494,32 @@ class WordService
         }
 
         return $definition->delete();
+    }
+
+    public function getAllLocations(): array
+    {
+        return Location::all()->map(fn (Location $location) => $this->formatLocation($location))->values()->all();
+    }
+
+    public function formatLocation(Location $location): array
+    {
+        return [
+            'id' => $location->uuid,
+            'name' => $location->name,
+        ];
+    }
+
+    public function addLocations(Word $word, array $locationUuids): void
+    {
+        $fullLocations = Location::whereIn('uuid', $locationUuids)->get();
+
+        foreach ($fullLocations as $location) {
+            WordToLocation::create([
+                'uuid' => (string) Str::uuid(),
+                'word_id' => $word->id,
+                'location_id' => $location->id,
+                'user_id' => Auth::id()
+            ]);
+        }
     }
 }

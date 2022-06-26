@@ -47,34 +47,62 @@ const ignoreWord = (wordId) => {
 
 const defaultWordTypes = [
     {
-        name: "I'm not sure!",
-        value: null,
-    },
-    {
         name: "Verb",
-        value: "v",
+        value: "verb",
     },
     {
         name: "Noun",
-        value: "n",
+        value: "noun",
     },
     {
         name: "Adjective",
-        value: "adj",
+        value: "adjectiev",
     },
     {
         name: "Adverb",
-        value: "adv",
+        value: "adverb",
     },
     {
         name: "Preposition",
-        value: "prep",
+        value: "preposition",
     },
     {
         name: "Conjunction",
-        value: "conj",
+        value: "conjunction",
     },
-];
+    {
+        name: "Interjection",
+        value: "interjection",
+    },
+    {
+        name: "Pronoun",
+        value: "pronoun",
+    },
+    {
+        name: "Numeral",
+        value: "numeral",
+    },
+    {
+        name: "Article",
+        value: "article",
+    },
+    {
+        name: "Auxiliary",
+        value: "auxiliary",
+    },
+    {
+        name: "Determiner",
+        value: "determiner",
+    },
+    {
+        name: "Idiom",
+        value: "idiom",
+    },
+    {
+        name: "Proper noun",
+        value: "proper_noun",
+    },
+];{}
 </script>
 
 <template>
@@ -82,23 +110,23 @@ const defaultWordTypes = [
         class="
             block
             p-6
-            md:mx-auto
             my-8
-            max-w-md
             md:max-w-2xl
             rounded-lg
             shadow-lg
             bg-white
             max-w-sm
+            dark:bg-gray-700
         "
+        style="width: 50%"
     >
         <form @submit.prevent="submitDefinition(word.id)">
-            <h1 class="text-2xl mb-2">{{word.word}}</h1>
+            <h1 class="text-2xl mb-2 dark:text-white">{{word.word}}</h1>
 
             <div class="form-group mb-6">
                 <label
                     for="wordInput"
-                    class="form-label inline-block mb-2 text-gray-700"
+                    class="form-label inline-block mb-2 text-gray-700 dark:text-white"
                 >
                     Word/phrase definition
                     <span class="text-danger">(required)</span>
@@ -129,14 +157,14 @@ const defaultWordTypes = [
                     id="wordInput"
                     aria-describedby="wordHelp"
                 />
-                <small id="wordHelp" class="block mt-1 text-xs text-gray-600">
+                <small id="wordHelp" class="block mt-1 text-xs text-gray-600 dark:text-white">
                     Enter the definition for {{ word.word }}
                 </small>
             </div>
             <div class="form-group mb-6">
                 <label
                     for="translationInput"
-                    class="form-label inline-block mb-2 text-gray-700"
+                    class="form-label inline-block mb-2 text-gray-700 dark:text-white"
                 >
                     Example sentence
                 </label>
@@ -169,19 +197,43 @@ const defaultWordTypes = [
             </div>
 
             <div class="form-group form-check mb-6">
-                <p>What type of word is it?</p>
-                <div class="flex flex-wrap">
-                    <selectable
-                        class="mr-2"
-                        v-for="(wordType, index) in defaultWordTypes"
-                        :key="index"
-                        :input-name="wordType.name"
-                        :input-value="wordType.value"
-                        :selected="form.word_type === wordType.value"
+                <p class="dark:text-white">What type of word is it?</p>
+                <div>
+                    <select
                         v-model="form.word_type"
-                        @select="form.word_type = $event"
-                    />
+                        class="
+                            w-full
+                            px-3
+                            py-1.5
+                            font-normal
+                            text-gray-700
+                            bg-white bg-clip-padding
+                            border border-solid border-gray-300
+                            rounded
+                            transition
+                            ease-in-out
+                            m-0
+                            focus:text-gray-700
+                            focus:bg-white
+                            focus:border-blue-600
+                            focus:outline-none
+                        "
+                    >
+                    <option disabled selected :value="null">
+                        Select word type (optional)
+
+                    </option>
+                        <option
+                            v-for="(wordType, index) in defaultWordTypes"
+                            :key="index"
+                            class="h1"
+                            :value="wordType.value"
+                        >
+                            {{ wordType.name }}
+                        </option>
+                    </select>
                 </div>
+
             </div>
             <div class="flex justify-between">
             <button

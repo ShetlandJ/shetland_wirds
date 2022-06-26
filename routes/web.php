@@ -343,6 +343,7 @@ Route::get('/help-us', function () {
     $definitionsWithoutExampleSentences = app(WordService::class)->findWithoutExampleSentences();
 
     return Inertia::render('HelpUs', [
+        'randomWord' => DB::table('words')->inRandomOrder()->first()->slug,
         'isLoggedIn' => Auth::check(),
         'missingDefinitions' => $wordsWithoutDefinitions,
         'missingExampleSentences' => $definitionsWithoutExampleSentences,
@@ -354,6 +355,7 @@ Route::get('/help-us', function () {
     $definitionsWithoutExampleSentences = app(WordService::class)->findWithoutExampleSentences();
 
     return Inertia::render('HelpUs', [
+        'randomWord' => DB::table('words')->inRandomOrder()->first()->slug,
         'isLoggedIn' => Auth::check(),
         'missingDefinitions' => $wordsWithoutDefinitions,
         'missingExampleSentences' => $definitionsWithoutExampleSentences,

@@ -103,9 +103,8 @@ const alphabetArray = [
                         :href="route('word', { word: randomWordSlug })"
                     >
                         <div
-                            style="width: 100px"
+                            style="width: 100px; background-color: #ffe368;"
                             class="
-                                bg-gray-300
                                 flex
                                 justify-center
                                 rounded-md

@@ -92,6 +92,7 @@ const alphabetArray = [
                 </div>
             </div>
 
+
             <Link
                 class="
                     block
@@ -104,6 +105,7 @@ const alphabetArray = [
                     dark:text-white
                 "
                 :href="route('create')"
+                :class="{ 'font-bold': $page.url === '/create' }"
             >
                 + Add
             </Link>
@@ -115,6 +117,24 @@ const alphabetArray = [
                 class="dark:text-white"
             >
                 Dashboard
+            </Link>
+
+             <Link
+                class="
+                    block
+                    no-underline
+                    hover:underline
+                    py-2
+                    mt-0
+                    text-grey-darkest
+                    hover:text-black
+                    md:border-none md:p-0
+                    dark:text-white
+                "
+                :href="route('about')"
+                :class="{ 'font-bold': $page.url === '/about' }"
+            >
+                About
             </Link>
         </div>
 

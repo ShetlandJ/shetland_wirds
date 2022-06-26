@@ -374,3 +374,12 @@ Route::post('/help-us-ignore', function () {
 
     return redirect()->back();
 })->name('help-us-ignore');
+
+Route::get('/about', function () {
+    return Inertia::render('About', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'isLoggedIn' => Auth::check(),
+    ]);
+})->name('about');

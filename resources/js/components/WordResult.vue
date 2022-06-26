@@ -60,7 +60,10 @@ const rejectWord = (wordId) => {
     rejectForm.post(route("reject"), {
         wordToApprove: rejectForm.wordToApprove,
         rejectReason: rejectForm.rejectReason,
-        onFinish: () => form.reset("rejectForm"),
+        onFinish: () => {
+            showRejectForm.value = false;
+            form.reset("rejectForm")
+        }
     });
 };
 

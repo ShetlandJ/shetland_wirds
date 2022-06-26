@@ -4,7 +4,7 @@ import JetDropdown from "@/Jetstream/Dropdown.vue";
 import JetDropdownLink from "@/Jetstream/DropdownLink.vue";
 import MobileMenu from "./MobileMenu.vue";
 import Hamburger from "./Hamburger.vue";
-import { ref } from 'vue';
+import { ref } from "vue";
 
 const emit = defineEmits(["setSearch", "suggest-word"]);
 
@@ -79,7 +79,12 @@ const showingNavigationDropdown = ref(false);
         <div class="flex items-center justify-between mb-4 md:mb-0">
             <h1 class="leading-none text-2xl text-grey-darkest">
                 <Link
-                    class="no-underline text-grey-darkest hover:text-black dark:text-white"
+                    class="
+                        no-underline
+                        text-grey-darkest
+                        hover:text-black
+                        dark:text-white
+                    "
                     :href="route('home')"
                 >
                     <span class="dark:text-white">Spaektionary</span>
@@ -97,7 +102,10 @@ const showingNavigationDropdown = ref(false);
             />
         </div>
 
-        <MobileMenu :showing-navigation-dropdown="showingNavigationDropdown" class="sm:hidden" />
+        <MobileMenu
+            :showing-navigation-dropdown="showingNavigationDropdown"
+            class="sm:hidden"
+        />
 
         <form
             class="sm:flex mb-4 w-full md:mb-0 md:w-1/4"
@@ -316,9 +324,46 @@ const showingNavigationDropdown = ref(false);
                             md:border-none md:p-0
                         "
                         :href="route('help-us')"
+                        :class="{ 'font-bold': $page.url === '/help-us' }"
                     >
                         How to help
                     </Link>
+                </li>
+                <li class="md:ml-4">
+                    <Link
+                        class="
+                            border-t
+                            block
+                            no-underline
+                            hover:underline
+                            py-2
+                            text-grey-darkest
+                            hover:text-black
+                            md:border-none md:p-0
+                        "
+                        :href="route('about')"
+                        :class="{ 'font-bold': $page.url === '/about' }"
+                    >
+                        About
+                    </Link>
+                </li>
+                <li class="md:ml-4">
+                    <a
+                        class="
+                            border-t
+                            block
+                            no-underline
+                            hover:underline
+                            py-2
+                            text-grey-darkest
+                            hover:text-black
+                            md:border-none md:p-0
+                        "
+                        :href="route('create')"
+                        :class="{ 'font-bold': $page.url === '/create' }"
+                    >
+                        + Add
+                    </a>
                 </li>
                 <li class="md:ml-4" v-if="isLoggedIn">
                     <Link
@@ -336,23 +381,6 @@ const showingNavigationDropdown = ref(false);
                     >
                         Dashboard
                     </Link>
-                </li>
-                <li class="md:ml-4">
-                    <a
-                        class="
-                            border-t
-                            block
-                            no-underline
-                            hover:underline
-                            py-2
-                            text-grey-darkest
-                            hover:text-black
-                            md:border-none md:p-0
-                        "
-                        :href="route('create')"
-                    >
-                        + Add
-                    </a>
                 </li>
             </ul>
         </nav>

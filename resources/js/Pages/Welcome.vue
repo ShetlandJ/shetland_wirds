@@ -98,7 +98,7 @@ const currentPageEndsAt = computed(() => {
                 <span v-if="pagination.pages > 1">
                     Showing <b>{{ currentPageStartsAt }}</b> to
                     <b>{{ currentPageEndsAt }}</b> out of
-                    <b>{{ pagination.total }}</b> words.
+                    <b>{{ pagination.total }}</b> words
                 </span>
             </div>
 

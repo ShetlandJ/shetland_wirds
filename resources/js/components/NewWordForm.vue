@@ -219,7 +219,7 @@ const defaultWordTypes = [
                     />
                 </div> -->
                 <!-- create select with defaultWordTypes as options and form.word_type as value -->
-                <div class="">
+                <div>
                     <select
                         v-model="form.word_type"
                         class="

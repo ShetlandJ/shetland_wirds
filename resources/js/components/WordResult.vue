@@ -1,4 +1,5 @@
 <script setup>
+import { Inertia } from "@inertiajs/inertia";
 import { Link, useForm, usePage } from "@inertiajs/inertia-vue3";
 import BookIcon from "./icons/BookIcon.vue";
 import Tooltip from "./Tooltip.vue";
@@ -7,7 +8,7 @@ import Comment from "./Comment.vue";
 import CommentInput from "./CommentInput.vue";
 import Recording from "./Recording.vue";
 import RecordingInput from "./RecordingInput.vue";
-import LocationInput from './LocationInput.vue';
+import LocationInput from "./LocationInput.vue";
 
 import { onMounted, ref } from "vue";
 
@@ -75,14 +76,10 @@ const commentOptions = ref({
     placeholder: `Any thoughts on ${props.word.word}?`,
 });
 
-const tab = usePage().props.value.tab;
-const activeTab = ref("comments");
-
-onMounted(() => {
-    if (tab) {
-        activeTab.value = tab;
-    }
-});
+const url = Inertia.page.url;
+const isComments = url.includes("comments");
+const isRecordings = url.includes("recordings");
+const isLocations = url.includes("locations");
 </script>
 
 <template>
@@ -94,7 +91,7 @@ onMounted(() => {
                 <div className="flex items-center justify-between mb-2">
                     <div class="flex">
                         <Link
-                            :href="route('word', { word: word.slug })"
+                            :href="route('word.comments', { word: word.slug })"
                             class="text-sm text-gray-700 underline"
                         >
                             <h2
@@ -188,7 +185,7 @@ onMounted(() => {
                     <div :class="[fullView ? 'border-b border-gray-200' : '']">
                         <Link
                             v-if="!fullView"
-                            :href="route('word', { word: word.slug })"
+                            :href="route('word.comments', { word: word.slug })"
                             class="
                                 text-sm text-gray-700
                                 hover:underline
@@ -201,8 +198,8 @@ onMounted(() => {
                             }}
                         </Link>
 
-                        <button
-                            @click="activeTab = 'comments'"
+                        <Link
+                            :href="route('word.comments', { word: word.slug })"
                             v-else
                             class="
                                 inline-block
@@ -216,15 +213,15 @@ onMounted(() => {
                                 dark:bg-gray-800 dark:text-white
                             "
                             :class="[
-                                activeTab === 'comments'
-                                    ? 'bg-gray-100 dark:bg-gray-500'
+                                isComments
+                                    ? 'bg-gray-100 dark:bg-gray-500 font-bold'
                                     : '',
                             ]"
                         >
                             {{ word.comments.length }} comment{{
                                 word.comments.length === 1 ? "" : "s"
                             }}
-                        </button>
+                        </Link>
 
                         <Link
                             v-if="!fullView"
@@ -234,9 +231,8 @@ onMounted(() => {
                                 dark:text-white
                             "
                             :href="
-                                route('word', {
+                                route('word.recordings', {
                                     word: word.slug,
-                                    tab: 'recordings',
                                 })
                             "
                         >
@@ -245,8 +241,12 @@ onMounted(() => {
                             }}
                         </Link>
 
-                        <button
-                            @click="activeTab = 'recordings'"
+                        <Link
+                            :href="
+                                route('word.recordings', {
+                                    word: word.slug,
+                                })
+                            "
                             v-else
                             class="
                                 inline-block
@@ -260,15 +260,15 @@ onMounted(() => {
                                 dark:bg-gray-800 dark:text-white
                             "
                             :class="[
-                                activeTab === 'recordings'
-                                    ? 'bg-gray-100 dark:bg-gray-500'
+                                isRecordings
+                                    ? 'bg-gray-100 dark:bg-gray-500 font-bold'
                                     : '',
                             ]"
                         >
                             {{ word.recordings.length }} recording{{
                                 word.recordings.length === 1 ? "" : "s"
                             }}
-                        </button>
+                        </Link>
 
                         <Link
                             v-if="!fullView"
@@ -279,16 +279,19 @@ onMounted(() => {
                                 ml-2
                             "
                             :href="
-                                route('word', {
+                                route('word.locations', {
                                     word: word.slug,
-                                    tab: 'locations',
                                 })
                             "
                             >locations</Link
                         >
 
-                        <button
-                            @click="activeTab = 'locations'"
+                        <Link
+                            :href="
+                                route('word.locations', {
+                                    word: word.slug,
+                                })
+                            "
                             v-else
                             class="
                                 inline-block
@@ -302,13 +305,13 @@ onMounted(() => {
                                 dark:bg-gray-800 dark:text-white
                             "
                             :class="[
-                                activeTab === 'locations'
-                                    ? 'bg-gray-100 dark:bg-gray-500'
+                                isLocations
+                                    ? 'bg-gray-100 dark:bg-gray-500 font-bold'
                                     : '',
                             ]"
                         >
                             locations
-                        </button>
+                        </Link>
                     </div>
                 </div>
                 <div v-if="fullView" class="mt-4">
@@ -322,15 +325,11 @@ onMounted(() => {
                             text-xs
                         "
                     >
-                        <span v-if="activeTab === 'comments'">Comments</span>
-                        <span v-else-if="activeTab === 'recordings'"
-                            >Recordings</span
-                        >
-                        <span v-else-if="activeTab === 'locations'"
-                            >Locations</span
-                        >
+                        <span v-if="isComments">Comments</span>
+                        <span v-else-if="isRecordings">Recordings</span>
+                        <span v-else-if="isLocations">Locations</span>
                     </h4>
-                    <div v-if="activeTab === 'comments'">
+                    <div v-if="isComments">
                         <div
                             v-if="!word.comments.length"
                             class="
@@ -368,7 +367,7 @@ onMounted(() => {
                             />
                         </div>
                     </div>
-                    <div v-else-if="activeTab === 'recordings'">
+                    <div v-else-if="isRecordings">
                         <div
                             v-if="
                                 !word.recordings.length &&
@@ -464,10 +463,16 @@ onMounted(() => {
                         </div>
                     </div>
 
-                    <div v-else-if="activeTab === 'locations'">
-                        <p class="mb-2">Where in Shetland is this word spoken?</p>
+                    <div v-else-if="isLocations">
+                        <p class="mb-2">
+                            Where in Shetland is this word spoken?
+                        </p>
 
-                        <LocationInput :user-selected-locations="userSelectedLocations" :locations="locations" :word="word" />
+                        <LocationInput
+                            :user-selected-locations="userSelectedLocations"
+                            :locations="locations"
+                            :word="word"
+                        />
                     </div>
                 </div>
             </div>

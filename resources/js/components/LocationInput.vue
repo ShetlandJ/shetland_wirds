@@ -18,7 +18,7 @@ const form = useForm({
 
 const createLocationLink = () => {
     form.comment_id = props.parentComment ? props.parentComment.id : null;
-    form.post(route("newLocation", { word: props.word.word }), {
+    form.post(route("word.locations.new", { word: props.word.word }), {
         wordId: form.wordId,
         locations: form.locations,
         onSuccess: () => {

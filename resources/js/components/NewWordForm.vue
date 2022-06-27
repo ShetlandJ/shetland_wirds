@@ -11,7 +11,7 @@ const form = useForm({
 });
 
 const createWord = () => {
-    form.post(route("create"), {
+    form.post(route("word.comments.new"), {
         onFinish: () => {
             form.reset();
             emit("hide-form");

@@ -6,8 +6,9 @@ import Tooltip from "./Tooltip.vue";
 import ShetlandFlag from "./icons/ShetlandFlag.vue";
 import Comment from "./Comment.vue";
 import CommentInput from "./CommentInput.vue";
-import Recording from "./Recording.vue";
-import RecordingInput from "./RecordingInput.vue";
+import Recording from "./recordings/Recording.vue";
+import RecordingInput from "./recordings/RecordingInput.vue";
+import Recordings from './recordings/Recordings.vue';
 import Locations from './locations/Locations.vue';
 
 import { onMounted, ref } from "vue";
@@ -366,89 +367,9 @@ const isLocations = url.includes("locations");
                             />
                         </div>
                     </div>
-                    <div v-else-if="isRecordings">
-                        <div
-                            v-if="!word.recordings.length"
-                            class="
-                                text-center
-                                px-4
-                                py-3
-                                leading-normal
-                                text-blue-700
-                                bg-blue-100
-                                rounded-lg
-                            "
-                            role="alert"
-                        >
-                            <p>
-                                There are no recordings available for this word
-                                yet, be the first to add one!
-                            </p>
-                        </div>
 
-                        <Recording
-                            v-for="(recording, index) in word.recordings"
-                            :recording="recording"
-                            :key="recording.id"
-                            :index="index"
-                        />
-
-                        <h4
-                            class="
-                                my-5
-                                uppercase
-                                tracking-wide
-                                text-gray-400
-                                font-bold
-                                text-xs
-                            "
-                        >
-                            Add a recording of your own
-                        </h4>
-                        <template v-if="isLoggedIn">
-                                <p class="mb-2">
-                                    To add your own recording, just press the
-                                    Record button to start, and the same button
-                                    again to stop. You'll be able to listen back
-                                    to your recording before submitting.
-                                </p>
-                                <p class="mb-2">
-                                    Your recording will need to be approved
-                                    before it will be visible on the site.
-                                </p>
-
-                                <RecordingInput :key="word.recordings.length" />
-                        </template>
-
-                        <div
-                            v-else
-                            class="
-                                text-center
-                                px-4
-                                py-3
-                                leading-normal
-                                text-blue-700
-                                bg-blue-100
-                                rounded-lg
-                            "
-                            role="alert"
-                        >
-                            <p>Sign up to add a recording!</p>
-                        </div>
-                    </div>
-
-                    <!-- <div v-else-if="isLocations">
-                        <p class="mb-2" v-if="isLoggedIn">
-                            Where in Shetland is this word spoken?
-                        </p>
-
-                        <LocationInput
-                            :user-selected-locations="userSelectedLocations"
-                            :locations="locations"
-                            :word="word"
-                        />
-                    </div> -->
-                    <Locations v-else-if="isLocations && word" />
+                    <Recordings v-else-if="isRecordings" />
+                    <Locations v-else-if="isLocations" />
                 </div>
             </div>
 

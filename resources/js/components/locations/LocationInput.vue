@@ -1,5 +1,4 @@
 <script setup>
-import "@vueup/vue-quill/dist/vue-quill.snow.css";
 import { useForm, usePage } from "@inertiajs/inertia-vue3";
 import {
     onMounted,
@@ -33,8 +32,7 @@ const createLocationLink = () => {
     form.post(route("word.locations.new", { word: props.word.word }), {
         wordId: form.wordId,
         locations: form.locations,
-        onSuccess: () => {
-            form.reset();
+        onSuccess: ({props}) => {
             form.locations = props.userSelectedLocations;
         },
     });
@@ -65,7 +63,7 @@ const filteredLocations = computed(() => {
 </script>
 
 <template>
-    <div>
+    <div :key="JSON.stringify(props.userSelectedLocations)">
         <form @submit.prevent="createLocationLink">
             <div class="justify-end mt-2">
                 <div

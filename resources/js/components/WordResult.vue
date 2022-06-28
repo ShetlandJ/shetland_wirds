@@ -8,7 +8,7 @@ import Comment from "./Comment.vue";
 import CommentInput from "./CommentInput.vue";
 import Recording from "./Recording.vue";
 import RecordingInput from "./RecordingInput.vue";
-import LocationInput from "./LocationInput.vue";
+import Locations from './locations/Locations.vue';
 
 import { onMounted, ref } from "vue";
 
@@ -437,7 +437,7 @@ const isLocations = url.includes("locations");
                         </div>
                     </div>
 
-                    <div v-else-if="isLocations">
+                    <!-- <div v-else-if="isLocations">
                         <p class="mb-2" v-if="isLoggedIn">
                             Where in Shetland is this word spoken?
                         </p>
@@ -447,7 +447,8 @@ const isLocations = url.includes("locations");
                             :locations="locations"
                             :word="word"
                         />
-                    </div>
+                    </div> -->
+                    <Locations v-else-if="isLocations && word" />
                 </div>
             </div>
 

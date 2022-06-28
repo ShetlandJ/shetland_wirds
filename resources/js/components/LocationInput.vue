@@ -145,6 +145,7 @@ const filteredLocations = computed(() => {
                     <button
                         :disabled="!isLoggedIn"
                         class="
+                            mt-3
                             btn
                             inline-block
                             px-6

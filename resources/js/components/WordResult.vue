@@ -4,12 +4,13 @@ import { Link, useForm, usePage } from "@inertiajs/inertia-vue3";
 import BookIcon from "./icons/BookIcon.vue";
 import Tooltip from "./Tooltip.vue";
 import ShetlandFlag from "./icons/ShetlandFlag.vue";
-import Comment from "./Comment.vue";
-import CommentInput from "./CommentInput.vue";
+import Comment from "./comments/Comment.vue";
+import CommentInput from "./comments/CommentInput.vue";
 import Recording from "./recordings/Recording.vue";
 import RecordingInput from "./recordings/RecordingInput.vue";
-import Recordings from './recordings/Recordings.vue';
-import Locations from './locations/Locations.vue';
+import Comments from "./comments/Comments.vue";
+import Recordings from "./recordings/Recordings.vue";
+import Locations from "./locations/Locations.vue";
 
 import { onMounted, ref } from "vue";
 
@@ -329,45 +330,8 @@ const isLocations = url.includes("locations");
                         <span v-else-if="isRecordings">Recordings</span>
                         <span v-else-if="isLocations">Locations</span>
                     </h4>
-                    <div v-if="isComments">
-                        <div
-                            v-if="!word.comments.length"
-                            class="
-                                text-center
-                                px-4
-                                py-3
-                                leading-normal
-                                text-blue-700
-                                bg-blue-100
-                                rounded-lg
-                                mb-4
-                            "
-                            role="alert"
-                        >
-                            <p>
-                                {{
-                                    isLoggedIn
-                                        ? "There are no comments available for this word yet, be the first to add one!"
-                                        : "Log in to add a comment"
-                                }}
-                            </p>
-                        </div>
 
-                        <Comment
-                            v-for="comment in word.comments"
-                            :key="comment.id"
-                            :comment="comment"
-                            :word="word"
-                        />
-                        <div class="mb-4">
-                            <CommentInput
-                                v-if="isLoggedIn"
-                                :word="word"
-                                :options="commentOptions"
-                            />
-                        </div>
-                    </div>
-
+                    <Comments v-if="isComments" />
                     <Recordings v-else-if="isRecordings" />
                     <Locations v-else-if="isLocations" />
                 </div>

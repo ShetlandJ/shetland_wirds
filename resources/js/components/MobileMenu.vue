@@ -100,7 +100,7 @@ const alphabetArray = [
                     <Link
                         v-else
                         class="uppercase"
-                        :href="route('word', { word: randomWordSlug })"
+                        :href="route('word.comments', { word: randomWordSlug })"
                     >
                         <div
                             style="width: 100px; background-color: #ffe368;"

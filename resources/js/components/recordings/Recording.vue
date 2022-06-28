@@ -1,5 +1,5 @@
 <script setup>
-import { formatDate } from "../utils/formatters";
+import { formatDate } from "../../utils/formatters";
 import { ref } from "vue";
 const isLoggedIn = ref(() => usePage().props.value.isLoggedIn);
 

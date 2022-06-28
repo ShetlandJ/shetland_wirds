@@ -509,9 +509,17 @@ class WordService
         ];
     }
 
-    public function addLocations(Word $word, array $locationUuids): void
+    public function addLocationsToWordLinks(Word $word, array $locationUuids): void
     {
         $fullLocations = Location::whereIn('uuid', $locationUuids)->get();
+
+        $links = WordToLocation::where('word_id', $word->id)
+            ->where('user_id', Auth::id())
+            ->get();
+
+        foreach ($links as $link) {
+            $link->delete();
+        }
 
         foreach ($fullLocations as $location) {
             WordToLocation::create([
@@ -521,5 +529,14 @@ class WordService
                 'user_id' => Auth::id()
             ]);
         }
+    }
+
+    public function getUserLocationsForWordUuids(Word $word): array
+    {
+        $locations = WordToLocation::where('user_id', Auth::id())
+            ->where('word_id', $word->id)
+            ->get();
+
+        return $locations->map(fn (WordToLocation $location) => $location->location->uuid)->all();
     }
 }

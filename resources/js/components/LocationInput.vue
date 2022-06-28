@@ -49,6 +49,19 @@ const onLocationChecked = (value) => {
         form.locations.push(value);
     }
 };
+
+const searchString = ref("");
+
+const filteredLocations = computed(() => {
+    if (searchString.value === "") {
+        return props.locations;
+    }
+    return props.locations.filter((location) => {
+        return location.name
+            .toLowerCase()
+            .includes(searchString.value.toLowerCase());
+    });
+});
 </script>
 
 <template>
@@ -72,8 +85,41 @@ const onLocationChecked = (value) => {
                 </div>
 
                 <template v-else>
+                    <input
+                        class="
+                            form-control
+                            relative
+                            flex-auto
+                            min-w-0
+                            block
+                            w-1/2
+                            px-3
+                            py-1.5
+                            text-base
+                            font-normal
+                            text-gray-700
+                            bg-white bg-clip-padding
+                            border border-solid border-gray-300
+                            rounded
+                            transition
+                            ease-in-out
+                            m-0
+                            focus:text-gray-700
+                            focus:bg-white
+                            focus:border-blue-600
+                            focus:outline-none
+                            mb-4
+                        "
+                        type="text"
+                        placeholder="Search locations"
+                        v-model="searchString"
+                    />
+
                     <div>
-                        <div v-for="location in locations" :key="location.id">
+                        <div
+                            v-for="location in filteredLocations"
+                            :key="location.id"
+                        >
                             <label class="inline-flex items-center">
                                 <input
                                     :checked="

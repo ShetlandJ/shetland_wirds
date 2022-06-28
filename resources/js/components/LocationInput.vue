@@ -13,11 +13,10 @@ const props = defineProps({
 
 const form = useForm({
     wordId: props.word.id,
-    locations: props.userSelectedLocations,
+    locations: computed(() => props.userSelectedLocations),
 });
 
 const createLocationLink = () => {
-    form.comment_id = props.parentComment ? props.parentComment.id : null;
     form.post(route("word.locations.new", { word: props.word.word }), {
         wordId: form.wordId,
         locations: form.locations,
@@ -34,6 +33,10 @@ const onLocationChecked = (value) => {
         form.locations.push(value);
     }
 }
+
+onUpdated(() => {
+    console.log("UPDATE");
+})
 </script>
 
 <template>

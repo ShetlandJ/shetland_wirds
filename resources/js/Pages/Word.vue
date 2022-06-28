@@ -10,7 +10,6 @@ const props = defineProps({
     canLogin: Boolean,
     canRegister: Boolean,
     isLoggedIn: Boolean,
-    recordingJustSubmitted: Boolean,
     locations: Array,
     userSelectedLocations: Array,
 });
@@ -40,7 +39,6 @@ const goBack = () => window.history.back();
         />
 
         <WordResult
-            :recording-just-submitted="recordingJustSubmitted"
             :is-logged-in="isLoggedIn"
             :word="word"
             full-view

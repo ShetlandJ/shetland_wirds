@@ -116,14 +116,12 @@ Route::get('/word/{word}/recordings', function (string $word) {
     }
 
     $fullWord = Word::where('uuid', $foundWord['id'])->first();
-    $recording = WordRecording::where('word_id', $fullWord['id'])->where('created_at', '>', now()->subSeconds(5))->first();
 
     return Inertia::render('WordRecordings', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'isLoggedIn' => Auth::check(),
         'word' => $foundWord,
-        'recordingJustSubmitted' => (bool) $recording,
         'randomWord' => DB::table('words')->inRandomOrder()->first()->slug,
         'locations' => app(WordService::class)->getAllLocations(),
         'userSelectedLocations' => app(WordService::class)->getUserLocationsForWordUuids($fullWord),
@@ -161,14 +159,12 @@ Route::get('/word/{word}/locations', function (string $word) {
     }
 
     $fullWord = Word::where('uuid', $foundWord['id'])->first();
-    $recording = WordRecording::where('word_id', $fullWord['id'])->where('created_at', '>', now()->subSeconds(5))->first();
 
     return Inertia::render('WordLocations', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'isLoggedIn' => Auth::check(),
         'word' => $foundWord,
-        'recordingJustSubmitted' => (bool) $recording,
         'randomWord' => DB::table('words')->inRandomOrder()->first()->slug,
         'locations' => app(WordService::class)->getAllLocations(),
         'userSelectedLocations' => app(WordService::class)->getUserLocationsForWordUuids($fullWord),
@@ -241,14 +237,12 @@ Route::get('/word/{word}/comments', function (string $word) {
     }
 
     $fullWord = Word::where('uuid', $foundWord['id'])->first();
-    $recording = WordRecording::where('word_id', $fullWord['id'])->where('created_at', '>', now()->subSeconds(5))->first();
 
     return Inertia::render('WordComments', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'isLoggedIn' => Auth::check(),
         'word' => $foundWord,
-        'recordingJustSubmitted' => (bool) $recording,
         'randomWord' => DB::table('words')->inRandomOrder()->first()->slug,
         'locations' => app(WordService::class)->getAllLocations(),
         'userSelectedLocations' => app(WordService::class)->getUserLocationsForWordUuids($fullWord),

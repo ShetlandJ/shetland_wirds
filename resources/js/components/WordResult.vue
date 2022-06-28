@@ -18,7 +18,6 @@ const props = defineProps({
     isLoggedIn: Boolean,
     adminView: Boolean,
     fullView: Boolean,
-    recordingJustSubmitted: Boolean,
     userSelectedLocations: Array,
 });
 
@@ -371,7 +370,6 @@ const isLocations = url.includes("locations");
                         <div
                             v-if="
                                 !word.recordings.length &&
-                                !recordingJustSubmitted
                             "
                             class="
                                 text-center
@@ -398,7 +396,6 @@ const isLocations = url.includes("locations");
                         />
 
                         <h4
-                            v-if="!recordingJustSubmitted"
                             class="
                                 my-5
                                 uppercase
@@ -411,7 +408,6 @@ const isLocations = url.includes("locations");
                             Add a recording of your own
                         </h4>
                         <template v-if="isLoggedIn">
-                            <template v-if="!recordingJustSubmitted">
                                 <p class="mb-2">
                                     To add your own recording, just press the
                                     Record button to start, and the same button
@@ -424,26 +420,6 @@ const isLocations = url.includes("locations");
                                 </p>
 
                                 <RecordingInput :key="word.recordings.length" />
-                            </template>
-
-                            <div
-                                v-else
-                                class="
-                                    text-center
-                                    px-4
-                                    py-3
-                                    leading-normal
-                                    text-blue-700
-                                    bg-blue-100
-                                    rounded-lg
-                                "
-                                role="alert"
-                            >
-                                <p>
-                                    Thanks for submitting your recording! We
-                                    will review it in a few days.
-                                </p>
-                            </div>
                         </template>
 
                         <div

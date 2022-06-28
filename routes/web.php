@@ -185,7 +185,16 @@ Route::post('/word/{word}/locations', function (string $word) {
     $locations = request('locations');
 
     app(WordService::class)->addLocationsToWordLinks($foundWord, $locations);
-    return redirect()->back();
+
+    return Inertia::render('WordLocations', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'isLoggedIn' => Auth::check(),
+        'word' => $foundWord,
+        'randomWord' => DB::table('words')->inRandomOrder()->first()->slug,
+        'locations' => app(WordService::class)->getAllLocations(),
+        'userSelectedLocations' => app(WordService::class)->getUserLocationsForWordUuids($foundWord),
+    ]);
 })->where('word', '.*')->name('word.locations');
 
 Route::get('/words/{letter}/', function (string $letter) {

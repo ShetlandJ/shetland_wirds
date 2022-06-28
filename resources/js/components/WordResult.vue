@@ -464,7 +464,7 @@ const isLocations = url.includes("locations");
                     </div>
 
                     <div v-else-if="isLocations">
-                        <p class="mb-2">
+                        <p class="mb-2" v-if="isLoggedIn">
                             Where in Shetland is this word spoken?
                         </p>
 

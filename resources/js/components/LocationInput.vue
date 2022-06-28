@@ -1,20 +1,33 @@
 <script setup>
 import "@vueup/vue-quill/dist/vue-quill.snow.css";
 import { useForm, usePage } from "@inertiajs/inertia-vue3";
-import { onMounted, onBeforeMount, onUpdated, computed } from "vue";
-import { ref, getCurrentInstance, reactive } from "vue";
+import {
+    onMounted,
+    onBeforeMount,
+    onUpdated,
+    computed,
+    ref,
+    getCurrentInstance,
+    reactive,
+} from "vue";
 const isLoggedIn = usePage().props.value.isLoggedIn;
 
 const props = defineProps({
     locations: Object,
     word: Object,
-    userSelectedLocations: Array
+    userSelectedLocations: Array,
 });
 
 const form = useForm({
     wordId: props.word.id,
-    locations: computed(() => props.userSelectedLocations),
+    locations: [],
 });
+
+onMounted(() => {
+    form.locations = props.userSelectedLocations;
+});
+
+const locationKey = reactive(JSON.stringify(props.userSelectedLocations));
 
 const createLocationLink = () => {
     form.post(route("word.locations.new", { word: props.word.word }), {
@@ -22,21 +35,20 @@ const createLocationLink = () => {
         locations: form.locations,
         onSuccess: () => {
             form.reset();
+            form.locations = props.userSelectedLocations
         },
     });
 };
 
 const onLocationChecked = (value) => {
     if (form.locations.includes(value)) {
-        form.locations = form.locations.filter((location) => location !== value);
+        form.locations = form.locations.filter(
+            (location) => location !== value
+        );
     } else {
         form.locations.push(value);
     }
-}
-
-onUpdated(() => {
-    console.log("UPDATE");
-})
+};
 </script>
 
 <template>
@@ -60,15 +72,29 @@ onUpdated(() => {
                 </div>
 
                 <template v-else>
-                    <div>
-                        <div v-for="location in locations" :key="location.id + JSON.stringify(userSelectedLocations)">
+                    <div :key="locationKey">
+                        <div
+
+                            v-for="location in locations"
+                            :key="
+                                location.id +
+                                JSON.stringify(userSelectedLocations)
+                            "
+                        >
                             <label class="inline-flex items-center">
                                 <input
-                                    :checked="form.locations.includes(location.id)"
+                                    :checked="
+                                        form.locations.includes(location.id)
+                                    "
                                     :value="location.id"
                                     type="checkbox"
                                     class="w-6 h-6 rounded"
-                                    @input="event => onLocationChecked(event.target.value)"
+                                    @input="
+                                        (event) =>
+                                            onLocationChecked(
+                                                event.target.value
+                                            )
+                                    "
                                 />
                                 <span class="ml-2">
                                     {{ location.name }}

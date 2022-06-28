@@ -368,9 +368,7 @@ const isLocations = url.includes("locations");
                     </div>
                     <div v-else-if="isRecordings">
                         <div
-                            v-if="
-                                !word.recordings.length &&
-                            "
+                            v-if="!word.recordings.length"
                             class="
                                 text-center
                                 px-4

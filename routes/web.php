@@ -177,6 +177,7 @@ Route::post('/word/{word}/locations', function (string $word) {
     }
 
     $foundWord = Word::where('word', $word)->first();
+    $fullWord = app(WordService::class)->findByWord($foundWord->word);
 
     $locations = request('locations');
 
@@ -186,7 +187,7 @@ Route::post('/word/{word}/locations', function (string $word) {
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'isLoggedIn' => Auth::check(),
-        'word' => $foundWord,
+        'word' => $fullWord,
         'randomWord' => DB::table('words')->inRandomOrder()->first()->slug,
         'locations' => app(WordService::class)->getAllLocations(),
         'userSelectedLocations' => app(WordService::class)->getUserLocationsForWordUuids($foundWord),

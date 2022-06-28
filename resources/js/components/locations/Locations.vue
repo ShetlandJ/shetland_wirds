@@ -11,10 +11,11 @@ const toggleShowAddForm = () => (showAddForm.value = !showAddForm.value);
 
 let elementHeight = reactive({ height: 0 });
 let elementWidth = reactive({ width: 0 });
+let elHeight = 1164;
 
 import h337 from "heatmap.js";
 
-onMounted(() => {
+setTimeout(() => {
     var heatmapInstance = h337.create({
         // required container
         container: document.querySelector(".heatmap"),
@@ -38,10 +39,12 @@ onMounted(() => {
     // now generate some random data
     var points = [];
     var max = 0;
-    console.log(document.querySelector('img').offsetHeight);
-    var width = 840;
-    var height = 400;
-    var len = 300;
+
+    var width = document.querySelector('img').offsetWidth;
+    var height = document.querySelector('img').offsetHeight;
+    elHeight = height;
+    console.log(width, height);
+    var len = 75;
 
     while (len--) {
         var val = Math.floor(Math.random() * 100);
@@ -64,7 +67,7 @@ onMounted(() => {
     // if you have a set of datapoints always use setData instead of addData
     // for data initialization
     heatmapInstance.setData(data);
-});
+}, 400);
 </script>
 
 <template>
@@ -82,8 +85,8 @@ onMounted(() => {
         </p>
 
         <div v-if="!showAddForm">
-            <div class="heatmap" style="height: 500px">
-                <img src="/shetland.gif" style="width: 100%" />
+            <div class="heatmap" :style="`height: ${elHeight}`">
+                <img class="heatmap" src="/shetland.gif" style="width: 100%" />
             </div>
             <p>
                 You have previously selected locations for <b>{{ word.word }}</b

@@ -35,7 +35,7 @@ const createLocationLink = () => {
         locations: form.locations,
         onSuccess: () => {
             form.reset();
-            form.locations = props.userSelectedLocations
+            form.locations = props.userSelectedLocations;
         },
     });
 };
@@ -72,15 +72,8 @@ const onLocationChecked = (value) => {
                 </div>
 
                 <template v-else>
-                    <div :key="locationKey">
-                        <div
-
-                            v-for="location in locations"
-                            :key="
-                                location.id +
-                                JSON.stringify(userSelectedLocations)
-                            "
-                        >
+                    <div>
+                        <div v-for="location in locations" :key="location.id">
                             <label class="inline-flex items-center">
                                 <input
                                     :checked="

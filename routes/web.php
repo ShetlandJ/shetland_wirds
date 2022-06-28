@@ -5,15 +5,16 @@ use App\Models\Word;
 use Inertia\Inertia;
 use App\Models\Comment;
 use Illuminate\Http\Request;
-use App\Services\WordService;
-use App\Http\Middleware\UserIsAdmin;
 use App\Models\WordRecording;
+use App\Services\WordService;
+use Illuminate\Support\Facades\DB;
+use App\Http\Middleware\UserIsAdmin;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Redirect;
 
 /*
 |--------------------------------------------------------------------------
@@ -108,7 +109,26 @@ Route::post('/search', function () {
     ]);
 })->name('search');
 
-Route::post('/word/{word}/newRecording', function (string $word) {
+Route::get('/word/{word}/recordings', function (string $word) {
+    $foundWord = app(WordService::class)->findByWord($word);
+    if (!$foundWord) {
+        return redirect()->back();
+    }
+
+    $fullWord = Word::where('uuid', $foundWord['id'])->first();
+
+    return Inertia::render('WordRecordings', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'isLoggedIn' => Auth::check(),
+        'word' => $foundWord,
+        'randomWord' => DB::table('words')->inRandomOrder()->first()->slug,
+        'locations' => app(WordService::class)->getAllLocations(),
+        'userSelectedLocations' => app(WordService::class)->getUserLocationsForWordUuids($fullWord),
+    ]);
+})->where('word', '.*')->name('word.recordings');
+
+Route::post('/word/{word}/recording', function (string $word) {
     if (!Auth::check()) {
         return redirect()->back();
     }
@@ -130,42 +150,49 @@ Route::post('/word/{word}/newRecording', function (string $word) {
 
     app(WordService::class)->saveRecording($foundWord, $filePath);
     return redirect()->back();
-})->where('word', '.*')->name('uploadFile');
+})->where('word', '.*')->name('word.recordings.create');
 
-Route::post('/word/{word}/newLocation', function (string $word) {
-    if (!Auth::check()) {
-        return redirect()->back();
-    }
-
-    $foundWord = Word::where('word', $word)->first();
-
-    $locations = request('locations');
-
-    app(WordService::class)->addLocationsToWordLinks($foundWord, $locations);
-    return redirect()->back();
-})->where('word', '.*')->name('newLocation');
-
-Route::get('/word/{word}/', function (string $word) {
+Route::get('/word/{word}/locations', function (string $word) {
     $foundWord = app(WordService::class)->findByWord($word);
     if (!$foundWord) {
         return redirect()->back();
     }
 
     $fullWord = Word::where('uuid', $foundWord['id'])->first();
-    $recording = WordRecording::where('word_id', $fullWord['id'])->where('created_at', '>', now()->subSeconds(5))->first();
 
-    return Inertia::render('Word', [
+    return Inertia::render('WordLocations', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'isLoggedIn' => Auth::check(),
         'word' => $foundWord,
-        'recordingJustSubmitted' => (bool) $recording,
         'randomWord' => DB::table('words')->inRandomOrder()->first()->slug,
         'locations' => app(WordService::class)->getAllLocations(),
         'userSelectedLocations' => app(WordService::class)->getUserLocationsForWordUuids($fullWord),
-        'tab' => request('tab'),
     ]);
-})->where('word', '.*')->name('word');
+})->where('word', '.*')->name('word.locations.new');
+
+Route::post('/word/{word}/locations', function (string $word) {
+    if (!Auth::check()) {
+        return redirect()->back();
+    }
+
+    $foundWord = Word::where('word', $word)->first();
+    $fullWord = app(WordService::class)->findByWord($foundWord->word);
+
+    $locations = request('locations');
+
+    app(WordService::class)->addLocationsToWordLinks($foundWord, $locations);
+
+    return Inertia::render('WordLocations', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'isLoggedIn' => Auth::check(),
+        'word' => $fullWord,
+        'randomWord' => DB::table('words')->inRandomOrder()->first()->slug,
+        'locations' => app(WordService::class)->getAllLocations(),
+        'userSelectedLocations' => app(WordService::class)->getUserLocationsForWordUuids($foundWord),
+    ]);
+})->where('word', '.*')->name('word.locations');
 
 Route::get('/words/{letter}/', function (string $letter) {
     $total = app(WordService::class)->findBy('', [], $letter)->count();
@@ -204,7 +231,26 @@ Route::post('/word/{word}/like', function (string $word) {
     return redirect()->back();
 })->where('word', '.*')->name('wordLike');
 
-Route::post('/word/{word}', function (string $word) {
+Route::get('/word/{word}/comments', function (string $word) {
+    $foundWord = app(WordService::class)->findByWord($word);
+    if (!$foundWord) {
+        return redirect()->back();
+    }
+
+    $fullWord = Word::where('uuid', $foundWord['id'])->first();
+
+    return Inertia::render('WordComments', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'isLoggedIn' => Auth::check(),
+        'word' => $foundWord,
+        'randomWord' => DB::table('words')->inRandomOrder()->first()->slug,
+        'locations' => app(WordService::class)->getAllLocations(),
+        'userSelectedLocations' => app(WordService::class)->getUserLocationsForWordUuids($fullWord),
+    ]);
+})->where('word', '.*')->name('word.comments');
+
+Route::post('/word/{word}/comments', function (string $word) {
     if (!Auth::check()) {
         return redirect()->back();
     }
@@ -222,16 +268,7 @@ Route::post('/word/{word}', function (string $word) {
     }
 
     return redirect()->back();
-})->where('word', '.*')->name('newComment');
-
-Route::get('/create', function () {
-    return Inertia::render('NewWord', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'isLoggedIn' => Auth::check(),
-        'randomWord' => DB::table('words')->inRandomOrder()->first()->slug,
-    ]);
-})->name('create');
+})->where('word', '.*')->name('word.comments.new');
 
 Route::post('/create', function (Request $request) {
     // get the post payload

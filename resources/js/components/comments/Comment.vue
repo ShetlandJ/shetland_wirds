@@ -1,9 +1,9 @@
 <script setup>
 import { usePage } from '@inertiajs/inertia-vue3';
-import { formatDateTime } from "../utils/formatters";
+import { formatDateTime } from "../../utils/formatters";
 import { ref } from "vue";
-import SanitisedHtml from "./SanitisedHtml.vue";
-import CommentInput from "./CommentInput.vue";
+import SanitisedHtml from "../SanitisedHtml.vue";
+import CommentInput from "../comments/CommentInput.vue";
 const isLoggedIn = usePage().props.value.isLoggedIn;
 
 const showChildReplies = ref(false);

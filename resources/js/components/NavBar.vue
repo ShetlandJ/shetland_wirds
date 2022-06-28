@@ -275,7 +275,7 @@ const showingNavigationDropdown = ref(false);
                         </div>
                         <Link
                             class="p-0 flex justify-center m-0 font-bold random"
-                            :href="route('word', { word: randomWordSlug })"
+                            :href="route('word.comments', { word: randomWordSlug })"
                         >
                             Random?
                         </Link>

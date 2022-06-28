@@ -1,13 +1,16 @@
 <script setup>
+import { Inertia } from "@inertiajs/inertia";
 import { Link, useForm, usePage } from "@inertiajs/inertia-vue3";
 import BookIcon from "./icons/BookIcon.vue";
 import Tooltip from "./Tooltip.vue";
 import ShetlandFlag from "./icons/ShetlandFlag.vue";
-import Comment from "./Comment.vue";
-import CommentInput from "./CommentInput.vue";
-import Recording from "./Recording.vue";
-import RecordingInput from "./RecordingInput.vue";
-import LocationInput from './LocationInput.vue';
+import Comment from "./comments/Comment.vue";
+import CommentInput from "./comments/CommentInput.vue";
+import Recording from "./recordings/Recording.vue";
+import RecordingInput from "./recordings/RecordingInput.vue";
+import Comments from "./comments/Comments.vue";
+import Recordings from "./recordings/Recordings.vue";
+import Locations from "./locations/Locations.vue";
 
 import { onMounted, ref } from "vue";
 
@@ -17,7 +20,6 @@ const props = defineProps({
     isLoggedIn: Boolean,
     adminView: Boolean,
     fullView: Boolean,
-    recordingJustSubmitted: Boolean,
     userSelectedLocations: Array,
 });
 
@@ -75,14 +77,10 @@ const commentOptions = ref({
     placeholder: `Any thoughts on ${props.word.word}?`,
 });
 
-const tab = usePage().props.value.tab;
-const activeTab = ref("comments");
-
-onMounted(() => {
-    if (tab) {
-        activeTab.value = tab;
-    }
-});
+const url = Inertia.page.url;
+const isComments = url.includes("comments");
+const isRecordings = url.includes("recordings");
+const isLocations = url.includes("locations");
 </script>
 
 <template>
@@ -94,7 +92,7 @@ onMounted(() => {
                 <div className="flex items-center justify-between mb-2">
                     <div class="flex">
                         <Link
-                            :href="route('word', { word: word.slug })"
+                            :href="route('word.comments', { word: word.slug })"
                             class="text-sm text-gray-700 underline"
                         >
                             <h2
@@ -188,7 +186,7 @@ onMounted(() => {
                     <div :class="[fullView ? 'border-b border-gray-200' : '']">
                         <Link
                             v-if="!fullView"
-                            :href="route('word', { word: word.slug })"
+                            :href="route('word.comments', { word: word.slug })"
                             class="
                                 text-sm text-gray-700
                                 hover:underline
@@ -201,8 +199,8 @@ onMounted(() => {
                             }}
                         </Link>
 
-                        <button
-                            @click="activeTab = 'comments'"
+                        <Link
+                            :href="route('word.comments', { word: word.slug })"
                             v-else
                             class="
                                 inline-block
@@ -216,15 +214,15 @@ onMounted(() => {
                                 dark:bg-gray-800 dark:text-white
                             "
                             :class="[
-                                activeTab === 'comments'
-                                    ? 'bg-gray-100 dark:bg-gray-500'
+                                isComments
+                                    ? 'bg-gray-100 dark:bg-gray-500 font-bold'
                                     : '',
                             ]"
                         >
                             {{ word.comments.length }} comment{{
                                 word.comments.length === 1 ? "" : "s"
                             }}
-                        </button>
+                        </Link>
 
                         <Link
                             v-if="!fullView"
@@ -234,9 +232,8 @@ onMounted(() => {
                                 dark:text-white
                             "
                             :href="
-                                route('word', {
+                                route('word.recordings', {
                                     word: word.slug,
-                                    tab: 'recordings',
                                 })
                             "
                         >
@@ -245,8 +242,12 @@ onMounted(() => {
                             }}
                         </Link>
 
-                        <button
-                            @click="activeTab = 'recordings'"
+                        <Link
+                            :href="
+                                route('word.recordings', {
+                                    word: word.slug,
+                                })
+                            "
                             v-else
                             class="
                                 inline-block
@@ -260,15 +261,15 @@ onMounted(() => {
                                 dark:bg-gray-800 dark:text-white
                             "
                             :class="[
-                                activeTab === 'recordings'
-                                    ? 'bg-gray-100 dark:bg-gray-500'
+                                isRecordings
+                                    ? 'bg-gray-100 dark:bg-gray-500 font-bold'
                                     : '',
                             ]"
                         >
                             {{ word.recordings.length }} recording{{
                                 word.recordings.length === 1 ? "" : "s"
                             }}
-                        </button>
+                        </Link>
 
                         <Link
                             v-if="!fullView"
@@ -279,16 +280,19 @@ onMounted(() => {
                                 ml-2
                             "
                             :href="
-                                route('word', {
+                                route('word.locations', {
                                     word: word.slug,
-                                    tab: 'locations',
                                 })
                             "
                             >locations</Link
                         >
 
-                        <button
-                            @click="activeTab = 'locations'"
+                        <Link
+                            :href="
+                                route('word.locations', {
+                                    word: word.slug,
+                                })
+                            "
                             v-else
                             class="
                                 inline-block
@@ -302,13 +306,13 @@ onMounted(() => {
                                 dark:bg-gray-800 dark:text-white
                             "
                             :class="[
-                                activeTab === 'locations'
-                                    ? 'bg-gray-100 dark:bg-gray-500'
+                                isLocations
+                                    ? 'bg-gray-100 dark:bg-gray-500 font-bold'
                                     : '',
                             ]"
                         >
                             locations
-                        </button>
+                        </Link>
                     </div>
                 </div>
                 <div v-if="fullView" class="mt-4">
@@ -322,153 +326,14 @@ onMounted(() => {
                             text-xs
                         "
                     >
-                        <span v-if="activeTab === 'comments'">Comments</span>
-                        <span v-else-if="activeTab === 'recordings'"
-                            >Recordings</span
-                        >
-                        <span v-else-if="activeTab === 'locations'"
-                            >Locations</span
-                        >
+                        <span v-if="isComments">Comments</span>
+                        <span v-else-if="isRecordings">Recordings</span>
+                        <span v-else-if="isLocations">Locations</span>
                     </h4>
-                    <div v-if="activeTab === 'comments'">
-                        <div
-                            v-if="!word.comments.length"
-                            class="
-                                text-center
-                                px-4
-                                py-3
-                                leading-normal
-                                text-blue-700
-                                bg-blue-100
-                                rounded-lg
-                                mb-4
-                            "
-                            role="alert"
-                        >
-                            <p>
-                                {{
-                                    isLoggedIn
-                                        ? "There are no comments available for this word yet, be the first to add one!"
-                                        : "Log in to add a comment"
-                                }}
-                            </p>
-                        </div>
 
-                        <Comment
-                            v-for="comment in word.comments"
-                            :key="comment.id"
-                            :comment="comment"
-                            :word="word"
-                        />
-                        <div class="mb-4">
-                            <CommentInput
-                                v-if="isLoggedIn"
-                                :word="word"
-                                :options="commentOptions"
-                            />
-                        </div>
-                    </div>
-                    <div v-else-if="activeTab === 'recordings'">
-                        <div
-                            v-if="
-                                !word.recordings.length &&
-                                !recordingJustSubmitted
-                            "
-                            class="
-                                text-center
-                                px-4
-                                py-3
-                                leading-normal
-                                text-blue-700
-                                bg-blue-100
-                                rounded-lg
-                            "
-                            role="alert"
-                        >
-                            <p>
-                                There are no recordings available for this word
-                                yet, be the first to add one!
-                            </p>
-                        </div>
-
-                        <Recording
-                            v-for="(recording, index) in word.recordings"
-                            :recording="recording"
-                            :key="recording.id"
-                            :index="index"
-                        />
-
-                        <h4
-                            v-if="!recordingJustSubmitted"
-                            class="
-                                my-5
-                                uppercase
-                                tracking-wide
-                                text-gray-400
-                                font-bold
-                                text-xs
-                            "
-                        >
-                            Add a recording of your own
-                        </h4>
-                        <template v-if="isLoggedIn">
-                            <template v-if="!recordingJustSubmitted">
-                                <p class="mb-2">
-                                    To add your own recording, just press the
-                                    Record button to start, and the same button
-                                    again to stop. You'll be able to listen back
-                                    to your recording before submitting.
-                                </p>
-                                <p class="mb-2">
-                                    Your recording will need to be approved
-                                    before it will be visible on the site.
-                                </p>
-
-                                <RecordingInput :key="word.recordings.length" />
-                            </template>
-
-                            <div
-                                v-else
-                                class="
-                                    text-center
-                                    px-4
-                                    py-3
-                                    leading-normal
-                                    text-blue-700
-                                    bg-blue-100
-                                    rounded-lg
-                                "
-                                role="alert"
-                            >
-                                <p>
-                                    Thanks for submitting your recording! We
-                                    will review it in a few days.
-                                </p>
-                            </div>
-                        </template>
-
-                        <div
-                            v-else
-                            class="
-                                text-center
-                                px-4
-                                py-3
-                                leading-normal
-                                text-blue-700
-                                bg-blue-100
-                                rounded-lg
-                            "
-                            role="alert"
-                        >
-                            <p>Sign up to add a recording!</p>
-                        </div>
-                    </div>
-
-                    <div v-else-if="activeTab === 'locations'">
-                        <p class="mb-2">Where in Shetland is this word spoken?</p>
-
-                        <LocationInput :user-selected-locations="userSelectedLocations" :locations="locations" :word="word" />
-                    </div>
+                    <Comments v-if="isComments" />
+                    <Recordings v-else-if="isRecordings" />
+                    <Locations v-else-if="isLocations" />
                 </div>
             </div>
 

@@ -168,6 +168,7 @@ Route::get('/word/{word}/locations', function (string $word) {
         'randomWord' => DB::table('words')->inRandomOrder()->first()->slug,
         'locations' => app(WordService::class)->getAllLocations(),
         'userSelectedLocations' => app(WordService::class)->getUserLocationsForWordUuids($fullWord),
+        'locationData' => app(WordService::class)->getPercentageDistributionWordLocations($fullWord),
     ]);
 })->where('word', '.*')->name('word.locations.new');
 

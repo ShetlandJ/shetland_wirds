@@ -539,4 +539,40 @@ class WordService
 
         return $locations->map(fn (WordToLocation $location) => $location->location->uuid)->all();
     }
+
+    public function getAllWordLocationLinks(Word $word): Collection
+    {
+        return WordToLocation::where('word_id', $word->id)->get();
+    }
+
+    public function getPercentageDistributionWordLocations(Word $word): array
+    {
+        $wordLocations = $this->getAllWordLocationLinks($word);
+
+        // get counts for each location
+        $counts = [];
+
+        // Need a total number of selected locations
+        $total = $wordLocations->count();
+        // Need the number of times that location has been selected
+        // need to present it like ['word' => 'string', 'count' => 0]
+        foreach ($wordLocations as $wordLocation) {
+            if (!isset($counts[$wordLocation->location->uuid])) {
+                $counts[$wordLocation->location->uuid]['count'] = 0;
+                $counts[$wordLocation->location->uuid]['location'] = $wordLocation->location->name;
+                $counts[$wordLocation->location->uuid]['location_id'] = $wordLocation->location->uuid;
+            }
+            $counts[$wordLocation->location->uuid]['count']++;
+        }
+
+        // calculate the percentage
+        $percentages = [];
+        foreach ($counts as $key => $count) {
+            $percentages[$key]['percentage'] = round(($count['count'] / $total) * 100);
+            $percentages[$key]['count'] = $count['count'];
+            $percentages[$key]['location'] = $count['location'];
+        }
+
+        return (array) array_values($percentages);
+    }
 }

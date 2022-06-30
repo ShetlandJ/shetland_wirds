@@ -12,6 +12,7 @@ const props = defineProps({
     isLoggedIn: Boolean,
     locations: Array,
     userSelectedLocations: Array,
+    locationData: Array
 });
 </script>
 

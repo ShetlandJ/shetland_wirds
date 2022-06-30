@@ -13,8 +13,6 @@ const props = defineProps({
     locations: Array,
     userSelectedLocations: Array,
 });
-
-const goBack = () => window.history.back();
 </script>
 
 <template>

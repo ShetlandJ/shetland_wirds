@@ -66,21 +66,10 @@ const filteredLocations = computed(() => {
     <div :key="JSON.stringify(props.userSelectedLocations)">
         <form @submit.prevent="createLocationLink">
             <div class="justify-end mt-2">
-                <div
+                <Alert
                     v-if="!isLoggedIn"
-                    class="
-                        text-center
-                        px-4
-                        py-3
-                        leading-normal
-                        text-blue-700
-                        bg-blue-100
-                        rounded-lg
-                    "
-                    role="alert"
-                >
-                    <p>You must be logged in to add locations.</p>
-                </div>
+                    message="You must be logged in to add locations."
+                />
 
                 <template v-else>
                     <input

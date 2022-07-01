@@ -113,24 +113,12 @@ const currentPageEndsAt = computed(() => {
                     :word="word"
                 />
             </template>
-            <div
+
+            <Alert
                 v-else-if="searchString && !words.length"
-                class="
-                    text-center
-                    px-4
-                    py-3
-                    leading-normal
-                    text-blue-700
-                    bg-blue-100
-                    rounded-lg
-                "
-                role="alert"
-            >
-                <p>
-                    Sorry, we couldn't find any words that match your search
-                    term
-                </p>
-            </div>
+                message="Sorry, we couldn't find any words that match your search
+                    term"
+            />
 
             <div class="flex justify-center">
                 <Pagination

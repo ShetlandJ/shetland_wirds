@@ -4,15 +4,15 @@ import Comment from "./Comment.vue";
 import CommentInput from "./CommentInput.vue";
 import { ref, reactive } from "vue";
 
-const { isLoggedIn } = usePage().props.value
+const { isLoggedIn } = usePage().props.value;
 const word = reactive(usePage().props.value.word);
 
 const props = defineProps({
     comments: {
         type: Array,
-        default: []
-    }
-})
+        default: [],
+    },
+});
 
 const commentOptions = ref({
     placeholder: `Any thoughts on ${word.word}?`,
@@ -21,28 +21,15 @@ const commentOptions = ref({
 
 <template>
     <div v-if="word">
-        <div
+        <Alert
+            class="mb-2"
             v-if="!comments.length"
-            class="
-                text-center
-                px-4
-                py-3
-                leading-normal
-                text-blue-700
-                bg-blue-100
-                rounded-lg
-                mb-4
+            :message="
+                isLoggedIn
+                    ? 'There are no comments available for this word yet, be the first to add one!'
+                    : 'Log in to add a comment'
             "
-            role="alert"
-        >
-            <p>
-                {{
-                    isLoggedIn
-                        ? "There are no comments available for this word yet, be the first to add one!"
-                        : "Log in to add a comment"
-                }}
-            </p>
-        </div>
+        />
 
         <Comment
             v-for="comment in comments"

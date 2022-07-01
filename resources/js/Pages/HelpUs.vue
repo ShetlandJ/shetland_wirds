@@ -150,22 +150,9 @@ const ignoreWord = (wordId) => {
             <HelpUsForm :word="selectedWord" />
         </div>
 
-            <div
-                v-else-if="showThanksMessage"
-                class="
-                    text-center
-                    px-4
-                    py-3
-                    leading-normal
-                    text-blue-700
-                    bg-blue-100
-                    rounded-lg
-                "
-                role="alert"
-            >
-                <p>
-                    Thanks! Click on another word to submit another.
-                </p>
-            </div>
+        <Alert
+            v-else-if="showThanksMessage"
+            message="Thanks! Click on another word to submit another."
+        />
     </div>
 </template>

@@ -39,20 +39,10 @@ const goBack = () => window.history.back();
         <NewWordForm
             v-if="!success"
         />
-        <div
+
+        <Alert
             v-else
-            class="
-                text-center
-                px-4
-                py-3
-                leading-normal
-                text-blue-700
-                bg-blue-100
-                rounded-lg
-            "
-            role="alert"
-        >
-            <p>Thanks! We'll review your submission over the next few days.</p>
-        </div>
+            message="Thanks! We'll review your submission over the next few days."
+        />
     </div>
 </template>

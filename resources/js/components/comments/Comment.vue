@@ -9,7 +9,6 @@ const swearFilter = new Filter();
 
 const isLoggedIn = usePage().props.value.isLoggedIn;
 
-
 const showChildReplies = ref(false);
 
 defineProps({

@@ -5,8 +5,8 @@ import { createInertiaApp } from '@inertiajs/inertia-vue3';
 import { InertiaProgress } from '@inertiajs/progress';
 import { QuillEditor } from '@vueup/vue-quill'
 
-
 import Alert from './components/global/Alert.vue';
+import ActionButton from './components/global/ActionButton.vue';
 
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Spaektionary';
 
@@ -17,7 +17,7 @@ createInertiaApp({
         return createApp({ render: () => h(app, props) })
             .use(plugin)
             .mixin({ methods: { route } })
-            .mixin({ components: { QuillEditor, Alert } })
+            .mixin({ components: { QuillEditor, Alert, ActionButton } })
             .mount(el);
     },
 });

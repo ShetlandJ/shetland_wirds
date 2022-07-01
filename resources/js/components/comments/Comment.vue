@@ -4,7 +4,11 @@ import { formatDateTime } from "../../utils/formatters";
 import { ref } from "vue";
 import SanitisedHtml from "../SanitisedHtml.vue";
 import CommentInput from "../comments/CommentInput.vue";
+const Filter = require('bad-words');
+const swearFilter = new Filter();
+
 const isLoggedIn = usePage().props.value.isLoggedIn;
+
 
 const showChildReplies = ref(false);
 
@@ -56,7 +60,7 @@ const commentOptions = ref({
                 {{ formatDateTime(comment.created_at) }}
             </span>
             <p class="text-sm">
-                <SanitisedHtml :html-string="comment.message" />
+                <SanitisedHtml :html-string="swearFilter.clean(comment.message)" />
             </p>
             <div class="mt-4 flex items-center">
                 <!-- <div class="flex -space-x-2 mr-2">

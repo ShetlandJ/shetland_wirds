@@ -43,12 +43,12 @@ const {
             Add a recording of your own
         </h4>
         <template v-if="isLoggedIn">
-            <p class="mb-2">
+            <p class="mb-2 dark:text-white">
                 To add your own recording, just press the Record button to
                 start, and the same button again to stop. You'll be able to
                 listen back to your recording before submitting.
             </p>
-            <p class="mb-2">
+            <p class="mb-2 dark:text-white">
                 Your recording will need to be approved before it will be
                 visible on the site.
             </p>

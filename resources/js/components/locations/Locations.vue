@@ -18,7 +18,7 @@ onMounted(() => {
 
 <template>
     <div v-if="word">
-        <p class="mb-2" v-if="isLoggedIn">
+        <p class="mb-2 dark:text-white" v-if="isLoggedIn">
             Where in Shetland is this word spoken? <span v-if="showAddForm">Add your own below or&nbsp;</span>
             <button v-if="showAddForm" @click="toggleShowAddForm" class="underline">
                 see chart
@@ -28,7 +28,7 @@ onMounted(() => {
             </button>
         </p>
 
-        <div v-if="!showAddForm && userSelectedLocations.length > 0">
+        <div v-if="!showAddForm && userSelectedLocations.length > 0" class="dark:text-white">
             You have previously selected locations for <b>{{ word.word }}</b>. If you
             would like to amend your selection, please click
             <button class="underline" @click="toggleShowAddForm">here</button>.

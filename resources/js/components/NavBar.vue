@@ -386,6 +386,7 @@ const showingNavigationDropdown = ref(false);
                             py-2
                             text-grey-darkest
                             hover:text-black
+                            dark:text-white
                             md:border-none md:p-0
                         "
                         :href="route('dashboard')"

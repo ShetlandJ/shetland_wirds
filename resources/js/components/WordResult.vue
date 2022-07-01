@@ -331,7 +331,7 @@ const isLocations = url.includes("locations");
                         <span v-else-if="isLocations">Locations</span>
                     </h4>
 
-                    <Comments v-if="isComments" />
+                    <Comments v-if="isComments" :comments="word.comments" />
                     <Recordings v-else-if="isRecordings" />
                     <Locations v-else-if="isLocations" />
                 </div>

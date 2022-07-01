@@ -2,9 +2,17 @@
 import { usePage } from "@inertiajs/inertia-vue3";
 import Comment from "./Comment.vue";
 import CommentInput from "./CommentInput.vue";
-import { ref } from "vue";
+import { ref, reactive } from "vue";
 
-const { word, isLoggedIn } = usePage().props.value;
+const { isLoggedIn } = usePage().props.value
+const word = reactive(usePage().props.value.word);
+
+const props = defineProps({
+    comments: {
+        type: Array,
+        default: []
+    }
+})
 
 const commentOptions = ref({
     placeholder: `Any thoughts on ${word.word}?`,
@@ -14,7 +22,7 @@ const commentOptions = ref({
 <template>
     <div v-if="word">
         <div
-            v-if="!word.comments.length"
+            v-if="!comments.length"
             class="
                 text-center
                 px-4
@@ -37,7 +45,7 @@ const commentOptions = ref({
         </div>
 
         <Comment
-            v-for="comment in word.comments"
+            v-for="comment in comments"
             :key="comment.id"
             :comment="comment"
             :word="word"

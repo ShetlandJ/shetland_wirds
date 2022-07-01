@@ -133,7 +133,7 @@ const filteredLocations = computed(() => {
                                             )
                                     "
                                 />
-                                <span class="ml-2">
+                                <span class="ml-2 dark:text-white">
                                     {{ location.name }}
                                 </span>
                             </label>

@@ -256,9 +256,10 @@ Route::post('/word/{word}/comments', function (string $word) {
         return redirect()->back();
     }
 
-    if (request('text')) {
-        $foundWord = Word::where('word', $word)->first();
+    // $foundWord
+    $foundWord = Word::where('word', $word)->first();
 
+    if (request('text')) {
         $comment = null;
 
         if (request('comment_id')) {
@@ -267,9 +268,27 @@ Route::post('/word/{word}/comments', function (string $word) {
 
         app(WordService::class)->createComment(request('text'), $foundWord, $comment);
     }
+    $fullWord = app(WordService::class)->findByWord($foundWord->slug);
 
-    return redirect()->back();
+    return Inertia::render('WordComments', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'isLoggedIn' => Auth::check(),
+        'word' => $fullWord,
+        'randomWord' => DB::table('words')->inRandomOrder()->first()->slug,
+        'locations' => [],
+        'userSelectedLocations' => []
+    ]);
 })->where('word', '.*')->name('word.comments.new');
+
+Route::get('/create', function (Request $request) {
+    return Inertia::render('NewWord', [
+        'randomWord' => DB::table('words')->inRandomOrder()->first()->slug,
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'isLoggedIn' => Auth::check(),
+    ]);
+})->name('create');
 
 Route::post('/create', function (Request $request) {
     // get the post payload

@@ -1,7 +1,7 @@
 <script setup>
 import "@vueup/vue-quill/dist/vue-quill.snow.css";
 import { useForm, usePage } from "@inertiajs/inertia-vue3";
-import { onMounted, onUpdated } from "vue";
+import { onMounted, onUpdated, computed } from "vue";
 import { ref, getCurrentInstance } from "vue";
 const isLoggedIn = usePage().props.value.isLoggedIn;
 
@@ -27,6 +27,20 @@ const newComment = () => {
         },
     });
 };
+
+const isDarkMode = computed(() =>
+    window.matchMedia('(prefers-color-scheme: dark)').matches
+);
+
+onMounted(() => {
+    const toolbar = document.getElementsByClassName('ql-toolbar ql-snow')[0];
+    const editor = document.getElementsByClassName('ql-editor ql-blank')[0];
+
+    if (isDarkMode.value) {
+        toolbar.classList.add('bg-gray-400');
+        editor.classList.add('bg-gray-400');
+    }
+})
 </script>
 
 <template>

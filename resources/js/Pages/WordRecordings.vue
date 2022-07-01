@@ -12,6 +12,7 @@ const props = defineProps({
     isLoggedIn: Boolean,
     locations: Array,
     userSelectedLocations: Array,
+    success: Boolean
 });
 
 const goBack = () => window.history.back();
@@ -37,6 +38,7 @@ const goBack = () => window.history.back();
         />
 
         <WordResult
+            :key="success ? 'success' : ''"
             :is-logged-in="isLoggedIn"
             :word="word"
             full-view

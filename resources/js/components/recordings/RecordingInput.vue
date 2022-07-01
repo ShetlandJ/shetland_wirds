@@ -1,9 +1,7 @@
 <script setup>
 import { ref } from "vue";
 import { useForm, usePage } from "@inertiajs/inertia-vue3";
-
 import { convertToBlogUri } from "@/utils/helpers";
-import MicIcon from "@/components/icons/MicIcon.vue";
 
 const word = usePage().props.value.word;
 
@@ -59,7 +57,6 @@ const submitRecording = () => {
             userRecording = null;
             recordingAudio.value = false;
             device = null;
-            window.location.reload();
         },
     });
 };

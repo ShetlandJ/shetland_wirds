@@ -4,6 +4,10 @@ defineProps({
         type: String,
         required: true,
     },
+    variant: {
+        type: String,
+        default: 'info',
+    },
 });
 </script>
 
@@ -18,6 +22,10 @@ defineProps({
             bg-blue-100
             rounded-lg
         "
+        :class="[
+            variant === 'info' ? 'bg-blue-100 text-blue-700' : '',
+            variant === 'success' ? 'bg-green-100 text-green-700' : '',
+        ]"
         role="alert"
     >
         <p>

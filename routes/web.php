@@ -125,10 +125,11 @@ Route::get('/word/{word}/recordings', function (string $word) {
         'randomWord' => DB::table('words')->inRandomOrder()->first()->slug,
         'locations' => app(WordService::class)->getAllLocations(),
         'userSelectedLocations' => app(WordService::class)->getUserLocationsForWordUuids($fullWord),
+        'success' => false,
     ]);
 })->where('word', '.*')->name('word.recordings');
 
-Route::post('/word/{word}/recording', function (string $word) {
+Route::post('/word/{word}/recordings', function (string $word) {
     if (!Auth::check()) {
         return redirect()->back();
     }
@@ -144,12 +145,23 @@ Route::post('/word/{word}/recording', function (string $word) {
         request('userRecording'),
     );
 
-    $foundWord = Word::where('word', $word)->first();
+    $foundWord = app(WordService::class)->findByWord($word);
 
     $filePath = sprintf('storage/%s/%s', $word, basename($file));
 
-    app(WordService::class)->saveRecording($foundWord, $filePath);
-    return redirect()->back();
+    $fullWord = Word::where('word', $word)->first();
+    app(WordService::class)->saveRecording($fullWord, $filePath);
+
+    return Inertia::render('WordRecordings', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'isLoggedIn' => Auth::check(),
+        'word' => $foundWord,
+        'randomWord' => DB::table('words')->inRandomOrder()->first()->slug,
+        'locations' => app(WordService::class)->getAllLocations(),
+        'userSelectedLocations' => app(WordService::class)->getUserLocationsForWordUuids($fullWord),
+        'success' => true,
+    ]);
 })->where('word', '.*')->name('word.recordings.create');
 
 Route::get('/word/{word}/locations', function (string $word) {

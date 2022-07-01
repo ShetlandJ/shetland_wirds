@@ -34,8 +34,6 @@ const goBack = () => window.history.back();
             :can-login="canLogin"
             :can-register="canRegister"
             :is-logged-in="isLoggedIn"
-            @set-search="searchString = $event"
-            @suggest-word="toggleSuggestWordForm(true)"
         />
 
         <WordResult

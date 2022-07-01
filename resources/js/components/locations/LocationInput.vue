@@ -32,7 +32,7 @@ const createLocationLink = () => {
     form.post(route("word.locations.new", { word: props.word.word }), {
         wordId: form.wordId,
         locations: form.locations,
-        onSuccess: ({props}) => {
+        onSuccess: ({ props }) => {
             form.locations = props.userSelectedLocations;
         },
     });
@@ -66,21 +66,10 @@ const filteredLocations = computed(() => {
     <div :key="JSON.stringify(props.userSelectedLocations)">
         <form @submit.prevent="createLocationLink">
             <div class="justify-end mt-2">
-                <div
+                <Alert
                     v-if="!isLoggedIn"
-                    class="
-                        text-center
-                        px-4
-                        py-3
-                        leading-normal
-                        text-blue-700
-                        bg-blue-100
-                        rounded-lg
-                    "
-                    role="alert"
-                >
-                    <p>You must be logged in to add locations.</p>
-                </div>
+                    message="You must be logged in to add locations."
+                />
 
                 <template v-else>
                     <input
@@ -140,39 +129,11 @@ const filteredLocations = computed(() => {
                         </div>
                     </div>
 
-                    <button
-                        :disabled="!isLoggedIn"
-                        class="
-                            mt-3
-                            btn
-                            inline-block
-                            px-6
-                            py-2.5
-                            bg-blue-600
-                            text-white
-                            font-medium
-                            text-xs
-                            leading-tight
-                            uppercase
-                            rounded
-                            shadow-md
-                            hover:bg-blue-700 hover:shadow-lg
-                            focus:bg-blue-700
-                            focus:shadow-lg
-                            focus:outline-none
-                            focus:ring-0
-                            active:bg-blue-800 active:shadow-lg
-                            transition
-                            duration-150
-                            ease-in-out
-                            flex
-                            items-center
-                            disabled:opacity-50
-                        "
+                    <ActionButton
                         type="submit"
-                    >
-                        Submit
-                    </button>
+                        :disabled="!isLoggedIn"
+                        message="Submit"
+                    />
                 </template>
             </div>
         </form>

@@ -68,35 +68,7 @@ const submitRecording = () => {
 <template>
     <div>
         <div class="flex">
-            <button
-                @click="recordingAudio ? stop() : recordAudio()"
-                class="
-                    btn
-                    inline-block
-                    px-6
-                    py-2.5
-                    bg-blue-600
-                    text-white
-                    font-medium
-                    text-xs
-                    leading-tight
-                    uppercase
-                    rounded
-                    shadow-md
-                    hover:bg-blue-700 hover:shadow-lg
-                    focus:bg-blue-700
-                    focus:shadow-lg
-                    focus:outline-none
-                    focus:ring-0
-                    active:bg-blue-800 active:shadow-lg
-                    transition
-                    duration-150
-                    ease-in-out
-                    flex
-                    items-center
-                    disabled:opacity-50
-                "
-            >
+            <ActionButton @click="recordingAudio ? stop() : recordAudio()">
                 <div
                     class="recording"
                     :id="[recordingAudio ? 'rec' : 'not-rec']"
@@ -107,7 +79,7 @@ const submitRecording = () => {
                 <span v-else>{{
                     recordingAudio ? "Stop recording" : "Try again?"
                 }}</span>
-            </button>
+            </ActionButton>
         </div>
         <hr class="my-4" v-if="userRecording" />
         <div class="flex items-center justify-between" v-if="userRecording">
@@ -117,38 +89,7 @@ const submitRecording = () => {
             </audio>
 
             <div v-if="userRecording" style="height: fit-content">
-                <button
-                    @click="submitRecording"
-                    class="
-                        btn
-                        inline-block
-                        px-6
-                        py-2.5
-                        bg-blue-600
-                        text-white
-                        font-medium
-                        text-xs
-                        leading-tight
-                        uppercase
-                        rounded
-                        shadow-md
-                        hover:bg-blue-700 hover:shadow-lg
-                        focus:bg-blue-700
-                        focus:shadow-lg
-                        focus:outline-none
-                        focus:ring-0
-                        active:bg-blue-800 active:shadow-lg
-                        transition
-                        duration-150
-                        ease-in-out
-                        flex
-                        items-center
-                        disabled:opacity-50
-                    "
-                    type="submit"
-                >
-                    Save
-                </button>
+                <ActionButton type="submit" @click="submitRecording" message="Save" />
             </div>
         </div>
     </div>

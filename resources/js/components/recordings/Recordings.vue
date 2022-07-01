@@ -1,34 +1,18 @@
 <script setup>
 import { usePage } from "@inertiajs/inertia-vue3";
-import Recording from './Recording.vue';
-import RecordingInput from './RecordingInput.vue';
+import Recording from "./Recording.vue";
+import RecordingInput from "./RecordingInput.vue";
 
-const {
-    word,
-    isLoggedIn
-} = usePage().props.value;
+const { word, isLoggedIn } = usePage().props.value;
 </script>
 
 <template>
     <div v-if="word">
-        <div
+        <Alert
             v-if="!word.recordings.length"
-            class="
-                text-center
-                px-4
-                py-3
-                leading-normal
-                text-blue-700
-                bg-blue-100
-                rounded-lg
-            "
-            role="alert"
-        >
-            <p>
-                There are no recordings available for this word yet, be the
-                first to add one!
-            </p>
-        </div>
+            message="There are no recordings available for this word yet, be the
+                first to add one!"
+        />
 
         <Recording
             v-for="(recording, index) in word.recordings"
@@ -56,21 +40,10 @@ const {
             <RecordingInput :key="word.recordings.length" />
         </template>
 
-        <div
+        <Alert
             v-else
-            class="
-                text-center
-                px-4
-                py-3
-                leading-normal
-                text-blue-700
-                bg-blue-100
-                rounded-lg
-            "
-            role="alert"
-        >
-            <p>Sign up to add a recording!</p>
-        </div>
+            message="Sign up to add a recording!"
+        />
     </div>
 </template>
 

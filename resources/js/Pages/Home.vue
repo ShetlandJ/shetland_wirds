@@ -103,25 +103,21 @@ const today = () => {
         >
             <div class="mb-8">
                 <p class="flex text-xl justify-center mb-2 dark:text-white">
-                    Welcome to the
-                    <b class="ml-1">Spaektionary!</b>
+                    <b>Spaektionary</b>
                 </p>
                 <p class="dark:text-white mb-4">
-                    The Spaektionary is a dictionary of words in the Shetland
-                    language, created and maintained by the team at
-                    <a class="underline" href="https://www.iheardee.com/"
-                        >I Hear Dee</a
-                    >. We have {{ pagination.total }} words/phrases in the dictionary.
+                    Welcome to the dictionary by and for Shetlanders!
                 </p>
 
                 <p class="dark:text-white mb-4">
-                    The goal of the Spaektionary is to record words and phrases
-                    that are not always found in the various official Shetland
-                    dictionaries that exist. Users are encouraged to contribute
-                    to the dictionary by adding their own words and phrases, as
-                    well as commenting on words, adding their own audio
-                    recordings and indicating which part of Shetland specific
-                    words are most often heard!
+                    Help us make this dictionary better by adding your voice to
+                    the words and expressions. And help us by adding the words
+                    and expressions that are missing!
+                </p>
+
+                <p class="dark:text-white mb-4">
+                    We will map the words and expressions by location to show a
+                    fuller picture of Shaetlan speech.
                 </p>
 
                 <div class="dark:text-white mb-4" style="display: block">
@@ -148,7 +144,6 @@ const today = () => {
                     </Link>
                     to register!
                 </div>
-
 
                 <div class="dark:text-white mb-2 flex" style="display: block">
                     Our featured entry for {{ today() }} is

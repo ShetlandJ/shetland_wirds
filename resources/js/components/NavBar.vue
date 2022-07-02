@@ -200,7 +200,302 @@ const showingNavigationDropdown = ref(false);
 
         <nav class="hidden lg:flex sm:justify-center">
             <ul class="list-reset md:flex md:items-center">
-                <JetDropdown style="cursor-pointer" align="left" width="48">
+                <JetDropdown style="cursor-pointer" align="right" width="48">
+                    <template #trigger>
+                        <span class="cursor-pointer">Menu</span>
+                    </template>
+
+                    <template #content>
+                        <!-- <JetDropdown
+                            style="cursor-pointer"
+                            align="left"
+                            width="48"
+                            allow-mouseover
+                        >
+                            <template #trigger>
+                                <button
+                                    class="
+                                        flex
+                                        text-sm
+                                        border-2 border-transparent
+                                        rounded-full
+                                        focus:outline-none focus:border-gray-300
+                                        transition
+                                    "
+                                ></button>
+
+                                <span class="inline-flex rounded-md">
+                                    <button
+                                        type="button"
+                                        class="
+                                            items-center
+                                            inline-flex
+                                            border-t
+                                            block
+                                            no-underline
+                                            hover:underline
+                                            py-2
+                                            text-grey-darkest
+                                            hover:text-black
+                                            md:border-none md:p-0
+                                            dark:text-white
+                                            dark:hover:text-white
+                                        "
+                                    >
+                                        Browse
+
+                                        <svg
+                                            class="ml-2 -mr-0.5 h-4 w-4"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 20 20"
+                                            fill="currentColor"
+                                        >
+                                            <path
+                                                fill-rule="evenodd"
+                                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                clip-rule="evenodd"
+                                            />
+                                        </svg>
+                                    </button>
+                                </span>
+                            </template>
+
+                            <template #content style="width: max-content">
+                                <div class="p-2" style="width: max-content">
+                                    <ul
+                                        class="
+                                            p-0
+                                            list-none
+                                            m-0
+                                            font-bold
+                                            text-sm
+                                            md:grid
+                                            md:grid-cols-4
+                                            md:gap-1
+                                            md:gap-y-2
+                                        "
+                                    >
+                                        <li
+                                            v-for="letter in alphabetArray"
+                                            :key="letter"
+                                        >
+                                            <a
+                                                class="nav-link uppercase"
+                                                :href="route('letter', letter)"
+                                            >
+                                                {{ letter }}
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <Link
+                                    class="
+                                        p-0
+                                        flex
+                                        justify-center
+                                        m-0
+                                        font-bold
+                                        random
+                                    "
+                                    :href="
+                                        route('word.comments', {
+                                            word: randomWordSlug,
+                                        })
+                                    "
+                                >
+                                    Random?
+                                </Link>
+                            </template>
+                        </JetDropdown> -->
+
+                        <template v-if="!isLoggedIn">
+                            <li class="md:ml-4 my-2" v-if="!isLoggedIn">
+                                <Link
+                                    class="
+                                        block
+                                        no-underline
+                                        hover:underline
+                                        py-2
+                                        text-grey-darkest
+                                        hover:text-black
+                                        md:border-none md:p-0
+                                        dark:text-white dark:hover:text-white
+                                    "
+                                    :href="route('login')"
+                                >
+                                    Login
+                                </Link>
+                            </li>
+                            <li class="md:ml-4 my-2" v-if="!isLoggedIn">
+                                <Link
+                                    class="
+                                        border-t
+                                        block
+                                        no-underline
+                                        hover:underline
+                                        py-2
+                                        text-grey-darkest
+                                        hover:text-black
+                                        md:border-none md:p-0
+                                        dark:text-white dark:hover:text-white
+                                    "
+                                    :href="route('register')"
+                                >
+                                    Register
+                                </Link>
+                            </li>
+                        </template>
+                        <li class="md:ml-4 my-2">
+                            <Link
+                                class="
+                                    border-t
+                                    block
+                                    no-underline
+                                    hover:underline
+                                    py-2
+                                    text-grey-darkest
+                                    hover:text-black
+                                    md:border-none md:p-0
+                                    dark:text-white dark:hover:text-white
+                                "
+                                :href="route('help-us')"
+                                :class="{
+                                    'font-bold': $page.url === '/help-us',
+                                }"
+                            >
+                                How to help
+                            </Link>
+                        </li>
+                        <li class="md:ml-4 my-2">
+                            <Link
+                                class="
+                                    border-t
+                                    block
+                                    no-underline
+                                    hover:underline
+                                    py-2
+                                    text-grey-darkest
+                                    hover:text-black
+                                    md:border-none md:p-0
+                                    dark:text-white dark:hover:text-white
+                                "
+                                :href="route('about')"
+                                :class="{ 'font-bold': $page.url === '/about' }"
+                            >
+                                About
+                            </Link>
+                        </li>
+                        <li class="md:ml-4 my-2">
+                            <a
+                                class="
+                                    border-t
+                                    block
+                                    no-underline
+                                    hover:underline
+                                    py-2
+                                    text-grey-darkest
+                                    hover:text-black
+                                    md:border-none md:p-0
+                                    dark:text-white dark:hover:text-white
+                                "
+                                :href="route('create')"
+                                :class="{
+                                    'font-bold': $page.url === '/create',
+                                }"
+                            >
+                                + Add
+                            </a>
+                        </li>
+                        <li class="md:ml-4 my-2" v-if="isLoggedIn">
+                            <Link
+                                class="
+                                    border-t
+                                    block
+                                    no-underline
+                                    hover:underline
+                                    py-2
+                                    text-grey-darkest
+                                    hover:text-black
+                                    dark:text-white
+                                    md:border-none md:p-0
+                                "
+                                :href="route('dashboard')"
+                            >
+                                Dashboard
+                            </Link>
+                        </li>
+
+                        <span class="inline-flex rounded-md">
+                            <button
+                                type="button"
+                                class="
+                                    md:ml-4
+                                    items-center
+                                    inline-flex
+                                    border-t
+                                    block
+                                    no-underline
+                                    py-2
+                                    text-grey-darkest
+                                    hover:text-black
+                                    md:border-none md:p-0
+                                    dark:text-white dark:hover:text-white
+                                "
+                            >
+                                Browse
+
+                                <svg
+                                    class="ml-2 -mr-0.5 h-4 w-4"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 20 20"
+                                    fill="currentColor"
+                                >
+                                    <path
+                                        fill-rule="evenodd"
+                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                        clip-rule="evenodd"
+                                    />
+                                </svg>
+                            </button>
+                        </span>
+                        <div class="p-2" style="width: max-content">
+                            <ul
+                                class="
+                                    p-0
+                                    list-none
+                                    m-0
+                                    font-bold
+                                    text-sm
+                                    md:grid md:grid-cols-4 md:gap-1 md:gap-y-2
+                                "
+                            >
+                                <li
+                                    v-for="letter in alphabetArray"
+                                    :key="letter"
+                                >
+                                    <a
+                                        class="nav-link uppercase"
+                                        :href="route('letter', letter)"
+                                    >
+                                        {{ letter }}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <Link
+                            class="p-0 flex justify-center m-0 font-bold random"
+                            :href="
+                                route('word.comments', {
+                                    word: randomWordSlug,
+                                })
+                            "
+                        >
+                            Random?
+                        </Link>
+                    </template>
+                </JetDropdown>
+
+                <!-- <JetDropdown style="cursor-pointer" align="left" width="48">
                     <template #trigger>
                         <button
                             class="
@@ -393,7 +688,7 @@ const showingNavigationDropdown = ref(false);
                     >
                         Dashboard
                     </Link>
-                </li>
+                </li> -->
             </ul>
         </nav>
     </header>

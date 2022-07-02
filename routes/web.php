@@ -73,7 +73,7 @@ Route::get('/words', function () {
         'randomWord' => DB::table('words')->inRandomOrder()->first()->slug,
         'pagination' => $pagination,
     ]);
-})->name('home');
+})->name('words');
 
 Route::get('/search', function () {
     $searchTerm = '';

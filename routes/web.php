@@ -37,6 +37,32 @@ Route::get('/', function () {
         'pages' => ceil($total / $pageTotal),
     ];
 
+    $randomWord = DB::table('words')->inRandomOrder()->first()->slug;
+    $wordOfTheDay = DB::table('words')->inRandomOrder()->first();
+
+    return Inertia::render('Home', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'isLoggedIn' => Auth::check(),
+        'phpVersion' => PHP_VERSION,
+        'words' => app(WordService::class)->findAllWordsWithPagination('', $pagination),
+        'randomWord' => $randomWord,
+        'featuredWord' => app(WordService::class)->findByWord($wordOfTheDay->word),
+        'pagination' => $pagination,
+    ]);
+})->name('home');
+
+Route::get('/words', function () {
+    $total = app(WordService::class)->findBy()->count();
+    $pageTotal = request('perPage') ?? 10;
+    $pagination = [
+        'page' => request('page') ?? 1,
+        'perPage' => request('perPage') ?? 10,
+        'total' => $total,
+        'pages' => ceil($total / $pageTotal),
+    ];
+
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
@@ -47,7 +73,7 @@ Route::get('/', function () {
         'randomWord' => DB::table('words')->inRandomOrder()->first()->slug,
         'pagination' => $pagination,
     ]);
-})->name('home');
+})->name('words');
 
 Route::get('/search', function () {
     $searchTerm = '';

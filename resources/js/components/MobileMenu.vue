@@ -50,7 +50,7 @@ const alphabetArray = [
     "x",
     "y",
     "z",
-    "random"
+    "random",
 ];
 </script>
 
@@ -103,13 +103,8 @@ const alphabetArray = [
                         :href="route('word.comments', { word: randomWordSlug })"
                     >
                         <div
-                            style="width: 100px; background-color: #ffe368;"
-                            class="
-                                flex
-                                justify-center
-                                rounded-md
-                                text-xl
-                            "
+                            style="width: 100px; background-color: #ffe368"
+                            class="flex justify-center rounded-md text-xl"
                         >
                             {{ letter }}
                         </div>
@@ -128,19 +123,10 @@ const alphabetArray = [
                     md:border-none md:p-0
                     dark:text-white
                 "
-                :href="route('create')"
-                :class="{ 'font-bold': $page.url === '/create' }"
+                :href="route('faq')"
+                :class="{ 'font-bold': $page.url === '/faqs' }"
             >
-                + Add
-            </Link>
-
-            <Link
-                v-if="isLoggedIn"
-                :href="route('dashboard')"
-                :active="route().current('dashboard')"
-                class="dark:text-white"
-            >
-                Dashboard
+                FAQs
             </Link>
 
             <Link
@@ -148,7 +134,23 @@ const alphabetArray = [
                     block
                     no-underline
                     hover:underline
-                    mt-0
+                    text-grey-darkest
+                    hover:text-black
+                    md:border-none md:p-0
+                    dark:text-white
+                "
+                :href="route('create')"
+                :class="{ 'font-bold': $page.url === '/create' }"
+            >
+                + Add
+            </Link>
+
+            <Link
+                class="
+                    block
+                    no-underline
+                    hover:underline
+                    py-2
                     text-grey-darkest
                     hover:text-black
                     md:border-none md:p-0
@@ -161,21 +163,17 @@ const alphabetArray = [
             </Link>
 
             <Link
-                class="
-                    block
-                    no-underline
-                    hover:underline
-                    mt-0
-                    text-grey-darkest
-                    hover:text-black
-                    md:border-none md:p-0
-                    dark:text-white
-                "
-                :href="route('faq')"
-                :class="{ 'font-bold': $page.url === '/faq' }"
+                v-if="isLoggedIn"
+                :href="route('dashboard')"
+                :active="route().current('dashboard')"
+                class="dark:text-white"
             >
-                FAQs
+                Dashboard
             </Link>
+
+            <form v-if="isLoggedIn" @submit.prevent="logout" class="py-2">
+                <button type="submit" class="dark:text-white">Log Out</button>
+            </form>
         </div>
 
         <div class="pt-2 pb-1 border-t border-gray-200">
@@ -197,9 +195,6 @@ const alphabetArray = [
                     Register
                 </Link>
             </div>
-            <form v-if="isLoggedIn" @submit.prevent="logout">
-                <button type="submit" class="dark:text-white">Log Out</button>
-            </form>
         </div>
     </div>
 </template>

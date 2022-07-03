@@ -63,6 +63,11 @@ const alphabetArray = [
 ];
 
 const showingNavigationDropdown = ref(false);
+
+const logout = async () => {
+    Inertia.post(route("logout"));
+    window.location.reload();
+};
 </script>
 
 <template>
@@ -243,7 +248,7 @@ const showingNavigationDropdown = ref(false);
                                 </Link>
                             </li>
                         </template>
-                        <li class="md:ml-4 my-2">
+                        <!-- <li class="md:ml-4 my-2">
                             <Link
                                 class="
                                     border-t
@@ -263,7 +268,7 @@ const showingNavigationDropdown = ref(false);
                             >
                                 How to help
                             </Link>
-                        </li>
+                        </li> -->
                         <li class="md:ml-4 my-2">
                             <Link
                                 class="
@@ -323,7 +328,8 @@ const showingNavigationDropdown = ref(false);
                                 + Add
                             </a>
                         </li>
-                        <li class="md:ml-4 my-2" v-if="isLoggedIn">
+                        <template v-if="isLoggedIn">
+                        <li class="md:ml-4 my-2">
                             <Link
                                 class="
                                     border-t
@@ -332,7 +338,6 @@ const showingNavigationDropdown = ref(false);
                                     hover:underline
                                     py-2
                                     text-grey-darkest
-                                    hover:text-black
                                     dark:text-white
                                     md:border-none md:p-0
                                 "
@@ -341,6 +346,24 @@ const showingNavigationDropdown = ref(false);
                                 Dashboard
                             </Link>
                         </li>
+                        <li class="md:ml-4 my-2">
+                            <Link
+                                class="
+                                    border-t
+                                    block
+                                    no-underline
+                                    hover:underline
+                                    py-2
+                                    text-grey-darkest
+                                    dark:text-white
+                                    md:border-none md:p-0
+                                "
+                                @click="logout"
+                            >
+                                Logout
+                            </Link>
+                        </li>
+                        </template>
 
                         <hr>
 

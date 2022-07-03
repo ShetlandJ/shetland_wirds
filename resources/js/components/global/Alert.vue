@@ -2,7 +2,7 @@
 defineProps({
     message: {
         type: String,
-        required: true,
+        default: null,
     },
     variant: {
         type: String,
@@ -28,8 +28,9 @@ defineProps({
         ]"
         role="alert"
     >
-        <p>
+        <p v-if="message">
             {{ message }}
         </p>
+        <slot v-else />
     </div>
 </template>

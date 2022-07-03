@@ -154,7 +154,7 @@ const isLocations = url.includes("locations");
                             {{ index + 1 }}.
                         </div>
                         <div className="text-gray-700 dark:text-white">
-                            {{ definition.definition }}
+                            {{ definition.definition.replace(/,/g, ", ") }}
                         </div>
                         <div
                             v-if="definition.readable_type"

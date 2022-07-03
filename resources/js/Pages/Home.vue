@@ -97,7 +97,7 @@ const today = () => {
         />
 
         <div
-            className="bg-white dark:bg-gray-700 shadow-lg rounded-lg mx-4 p-2 md:mx-auto my-8 max-w-lg md:max-w-2xl"
+            className="bg-white dark:bg-gray-700 shadow-lg rounded-lg mx-4 p-2 md:mx-auto my-8 max-w-lg md:max-w-2xl text-center"
         >
             <div class="mb-8">
                 <p class="flex text-xl justify-center mb-2 dark:text-white">
@@ -143,32 +143,38 @@ const today = () => {
                     to register!
                 </div>
 
-                <div class="dark:text-white mb-2 flex" style="display: block">
-                    Our featured entry for {{ today() }} is
-
-                    <Link
-                        :href="
-                            route('word.comments', { word: featuredWord.slug })
-                        "
-                        class="text-sm text-gray-700 underline"
-                        style="display: inline-flex !important"
+                <Alert>
+                    <div
+                        class="dark:text-white flex"
+                        style="display: block"
                     >
-                        <h2
-                            className="
+                        Our featured entry for {{ today() }} is
+
+                        <Link
+                            :href="
+                                route('word.comments', {
+                                    word: featuredWord.slug,
+                                })
+                            "
+                            class="text-sm text-blue-700 underline"
+                            style="display: inline-flex !important"
+                        >
+                            <h2
+                                className="
                                 font-semibold
                                 text-lg
-                                text-gray-900
                                 -mt-1
                                 dark:text-white
                                 dark:border-b
                             "
-                        >
-                            {{ featuredWord.word }}
-                        </h2>
-                    </Link>.
+                            >
+                                {{ featuredWord.word }}
+                            </h2> </Link
+                        >.
 
-                    <span>Click to find out more!</span>
-                </div>
+                        <span>Click to find out more!</span>
+                    </div>
+                </Alert>
             </div>
         </div>
     </div>

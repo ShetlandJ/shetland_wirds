@@ -277,6 +277,25 @@ const showingNavigationDropdown = ref(false);
                                     md:border-none md:p-0
                                     dark:text-white dark:hover:text-white
                                 "
+                                :href="route('faq')"
+                                :class="{ 'font-bold': $page.url === '/faq' }"
+                            >
+                                FAQs
+                            </Link>
+                        </li>
+                        <li class="md:ml-4 my-2">
+                            <Link
+                                class="
+                                    border-t
+                                    block
+                                    no-underline
+                                    hover:underline
+                                    py-2
+                                    text-grey-darkest
+                                    hover:text-black
+                                    md:border-none md:p-0
+                                    dark:text-white dark:hover:text-white
+                                "
                                 :href="route('about')"
                                 :class="{ 'font-bold': $page.url === '/about' }"
                             >
@@ -323,10 +342,13 @@ const showingNavigationDropdown = ref(false);
                             </Link>
                         </li>
 
+                        <hr>
+
                         <span class="inline-flex rounded-md">
                             <button
                                 type="button"
                                 class="
+                                    mt-2
                                     md:ml-4
                                     items-center
                                     inline-flex
@@ -338,6 +360,7 @@ const showingNavigationDropdown = ref(false);
                                     hover:text-black
                                     md:border-none md:p-0
                                     dark:text-white dark:hover:text-white
+                                    cursor-default
                                 "
                             >
                                 Browse

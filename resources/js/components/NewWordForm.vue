@@ -8,9 +8,14 @@ const form = useForm({
     translation: "",
     example_sentence: "",
     word_type: null,
+    confirm: false,
 });
 
 const createWord = () => {
+    if (!form.confirm) {
+        return false;
+    }
+
     form.post(route("create"), {
         onFinish: () => {
             form.reset();
@@ -206,19 +211,6 @@ const defaultWordTypes = [
             </div>
             <div class="form-group form-check mb-6">
                 <p class="dark:text-white">What type of word is it?</p>
-                <!-- <div class="flex flex-wrap hidden md:block">
-                    <selectable
-                        class="mr-2"
-                        v-for="(wordType, index) in defaultWordTypes"
-                        :key="index"
-                        :input-name="wordType.name"
-                        :input-value="wordType.value"
-                        :selected="form.word_type === wordType.value"
-                        v-model="form.word_type"
-                        @select="form.word_type = $event"
-                    />
-                </div> -->
-                <!-- create select with defaultWordTypes as options and form.word_type as value -->
                 <div>
                     <select
                         v-model="form.word_type"
@@ -255,8 +247,21 @@ const defaultWordTypes = [
                     </select>
                 </div>
             </div>
+            <!-- Checkbox inside div -->
+            <div class="form-group form-check mb-6 flex">
+                <input
+                    type="checkbox"
+                    class="form-check-input mt-2"
+                    id="exampleCheck1"
+                    v-model="form.confirm"
+                />
+                <label class="ml-2 form-check-label dark:text-white" for="exampleCheck1">
+                    I confirm that I am happy for Spaektionary and I Hear Dee to use this word in this online
+                    dictionary, as well as in other media in the future. <span class="text-danger">(required)</span>
+                </label>
+            </div>
             <button
-                :disabled="!form.newWord || !form.translation"
+                :disabled="!form.newWord || !form.translation || !form.confirm"
                 type="submit"
                 class="
                     px-6

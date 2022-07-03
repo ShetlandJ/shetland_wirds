@@ -165,8 +165,8 @@ const today = () => {
                         >
                             {{ featuredWord.word }}
                         </h2>
-                    </Link>
-                    .
+                    </Link>.
+
                     <span>Click to find out more!</span>
                 </div>
             </div>

@@ -97,7 +97,7 @@ const today = () => {
         />
 
         <div
-            className="bg-white dark:bg-gray-700 shadow-lg rounded-lg mx-4 p-2 md:mx-auto my-8 max-w-lg md:max-w-2xl"
+            className="bg-white dark:bg-gray-700 shadow-lg rounded-lg mx-4 p-2 md:mx-auto my-8 max-w-lg md:max-w-2xl text-center"
         >
             <div class="mb-8">
                 <p class="flex text-xl justify-center mb-2 dark:text-white">
@@ -164,8 +164,8 @@ const today = () => {
                             "
                         >
                             {{ featuredWord.word }}
-                        </h2>
-                    </Link>.
+                        </h2> </Link
+                    >.
 
                     <span>Click to find out more!</span>
                 </div>

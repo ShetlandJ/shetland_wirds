@@ -85,19 +85,130 @@ const logout = async () => {
         "
     >
         <div class="flex items-center justify-between mb-4 md:mb-0">
-            <h1 class="leading-none text-2xl text-grey-darkest">
-                <Link
+            <div class="flex items-center">
+                <h1 class="leading-none text-2xl text-grey-darkest">
+                    <Link
+                        class="
+                            no-underline
+                            text-grey-darkest
+                            hover:text-black
+                            dark:text-white
+                        "
+                        :href="route('home')"
+                    >
+                        <span class="dark:text-white">Spaektionary</span>
+                    </Link>
+                </h1>
+
+                <form
                     class="
-                        no-underline
-                        text-grey-darkest
-                        hover:text-black
-                        dark:text-white
+                        md:grow
+                        md:flex
+                        mb-4
+                        ml-4
+                        w-full
+                        md:mb-0
+                        lg:w-1/4 lg:flex
+                        md:hidden
+                        hidden
                     "
-                    :href="route('home')"
+                    @submit.prevent="search"
                 >
-                    <span class="dark:text-white">Spaektionary</span>
-                </Link>
-            </h1>
+                    <div class="flex justify-center">
+                        <div
+                            class="
+                                input-group
+                                relative
+                                flex
+                                items-stretch
+                                w-full
+                            "
+                        >
+                            <div class="flex">
+                                <input
+                                    v-model="form.searchString"
+                                    size="300"
+                                    type="search"
+                                    style="max-width: 300px;"
+                                    class="
+                                        form-control
+                                        relative
+                                        flex-auto
+                                        min-w-0
+                                        block
+                                        w-full
+                                        px-3
+                                        py-1.5
+                                        text-base
+                                        font-normal
+                                        text-gray-700
+                                        bg-white bg-clip-padding
+                                        border border-solid border-gray-300
+                                        rounded
+                                        transition
+                                        ease-in-out
+                                        m-0
+                                        focus:text-gray-700
+                                        focus:bg-white
+                                        focus:border-blue-600
+                                        focus:outline-none
+                                    "
+                                    placeholder="Search words"
+                                    aria-label="Search"
+                                    aria-describedby="button-addon2"
+                                />
+                                <button
+                                    :disabled="form.searchString.length === 0"
+                                    class="
+                                        btn
+                                        inline-block
+                                        px-6
+                                        py-2.5
+                                        bg-blue-600
+                                        text-white
+                                        font-medium
+                                        text-xs
+                                        leading-tight
+                                        uppercase
+                                        rounded
+                                        shadow-md
+                                        hover:bg-blue-700 hover:shadow-lg
+                                        focus:bg-blue-700
+                                        focus:shadow-lg
+                                        focus:outline-none
+                                        focus:ring-0
+                                        active:bg-blue-800 active:shadow-lg
+                                        transition
+                                        duration-150
+                                        ease-in-out
+                                        flex
+                                        items-center
+                                        disabled:opacity-50
+                                    "
+                                    type="submit"
+                                    id="button-addon2"
+                                >
+                                    <svg
+                                        aria-hidden="true"
+                                        focusable="false"
+                                        data-prefix="fas"
+                                        data-icon="search"
+                                        class="w-4"
+                                        role="img"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 512 512"
+                                    >
+                                        <path
+                                            fill="currentColor"
+                                            d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"
+                                        ></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
 
             <Hamburger
                 class="md:flex lg:hidden"
@@ -112,7 +223,7 @@ const logout = async () => {
         />
 
         <form
-            class="md:flex mb-4 w-full md:mb-0 lg:w-1/4"
+            class="md:flex mb-4 w-full md:mb-0 lg:w-1/4 lg:hidden"
             @submit.prevent="search"
         >
             <div class="flex justify-center">
@@ -204,170 +315,147 @@ const logout = async () => {
         </form>
 
         <nav class="hidden lg:flex sm:justify-center">
-            <ul class="list-reset md:flex md:items-center">
-                <JetDropdown style="cursor-pointer" align="right" width="48">
+            <ul
+                class="list-reset md:flex md:items-center"
+                style="width: max-content"
+            >
+                <template v-if="!isLoggedIn">
+                    <li class="md:ml-4 my-2" v-if="!isLoggedIn">
+                        <Link
+                            class="
+                                block
+                                no-underline
+                                hover:underline
+                                py-2
+                                text-grey-darkest
+                                hover:text-black
+                                md:border-none md:p-0
+                                dark:text-white dark:hover:text-white
+                            "
+                            :href="route('login')"
+                        >
+                            Login
+                        </Link>
+                    </li>
+                    <li class="md:ml-4 my-2" v-if="!isLoggedIn">
+                        <Link
+                            class="
+                                border-t
+                                block
+                                no-underline
+                                hover:underline
+                                py-2
+                                text-grey-darkest
+                                hover:text-black
+                                md:border-none md:p-0
+                                dark:text-white dark:hover:text-white
+                            "
+                            :href="route('register')"
+                        >
+                            Register
+                        </Link>
+                    </li>
+                </template>
+
+                <li class="md:ml-4 my-2">
+                    <Link
+                        class="
+                            border-t
+                            block
+                            no-underline
+                            hover:underline
+                            py-2
+                            text-grey-darkest
+                            hover:text-black
+                            md:border-none md:p-0
+                            dark:text-white dark:hover:text-white
+                        "
+                        :href="route('faq')"
+                        :class="{ 'font-bold': $page.url === '/faq' }"
+                    >
+                        FAQs
+                    </Link>
+                </li>
+                <li class="md:ml-4 my-2">
+                    <Link
+                        class="
+                            border-t
+                            block
+                            no-underline
+                            hover:underline
+                            py-2
+                            text-grey-darkest
+                            hover:text-black
+                            md:border-none md:p-0
+                            dark:text-white dark:hover:text-white
+                        "
+                        :href="route('about')"
+                        :class="{ 'font-bold': $page.url === '/about' }"
+                    >
+                        About
+                    </Link>
+                </li>
+                <li class="md:ml-4 my-2">
+                    <a
+                        class="
+                            border-t
+                            block
+                            no-underline
+                            hover:underline
+                            py-2
+                            text-grey-darkest
+                            hover:text-black
+                            md:border-none md:p-0
+                            dark:text-white dark:hover:text-white
+                        "
+                        :href="route('create')"
+                        :class="{
+                            'font-bold': $page.url === '/create',
+                        }"
+                    >
+                        + Add
+                    </a>
+                </li>
+                <template v-if="isLoggedIn">
+                    <li class="md:ml-4 my-2">
+                        <Link
+                            class="
+                                border-t
+                                block
+                                no-underline
+                                hover:underline
+                                py-2
+                                text-grey-darkest
+                                dark:text-white
+                                md:border-none md:p-0
+                            "
+                            :href="route('dashboard')"
+                        >
+                            Dashboard
+                        </Link>
+                    </li>
+                    <li class="md:ml-4 my-2">
+                        <Link
+                            class="
+                                border-t
+                                block
+                                no-underline
+                                hover:underline
+                                py-2
+                                text-grey-darkest
+                                dark:text-white
+                                md:border-none md:p-0
+                            "
+                            @click="logout"
+                        >
+                            Logout
+                        </Link>
+                    </li>
+                </template>
+
+                <JetDropdown>
                     <template #trigger>
-                        <span class="cursor-pointer dark:text-white">Menu</span>
-                    </template>
-
-                    <template #content>
-                        <template v-if="!isLoggedIn">
-                            <li class="md:ml-4 my-2" v-if="!isLoggedIn">
-                                <Link
-                                    class="
-                                        block
-                                        no-underline
-                                        hover:underline
-                                        py-2
-                                        text-grey-darkest
-                                        hover:text-black
-                                        md:border-none md:p-0
-                                        dark:text-white dark:hover:text-white
-                                    "
-                                    :href="route('login')"
-                                >
-                                    Login
-                                </Link>
-                            </li>
-                            <li class="md:ml-4 my-2" v-if="!isLoggedIn">
-                                <Link
-                                    class="
-                                        border-t
-                                        block
-                                        no-underline
-                                        hover:underline
-                                        py-2
-                                        text-grey-darkest
-                                        hover:text-black
-                                        md:border-none md:p-0
-                                        dark:text-white dark:hover:text-white
-                                    "
-                                    :href="route('register')"
-                                >
-                                    Register
-                                </Link>
-                            </li>
-                        </template>
-                        <!-- <li class="md:ml-4 my-2">
-                            <Link
-                                class="
-                                    border-t
-                                    block
-                                    no-underline
-                                    hover:underline
-                                    py-2
-                                    text-grey-darkest
-                                    hover:text-black
-                                    md:border-none md:p-0
-                                    dark:text-white dark:hover:text-white
-                                "
-                                :href="route('help-us')"
-                                :class="{
-                                    'font-bold': $page.url === '/help-us',
-                                }"
-                            >
-                                How to help
-                            </Link>
-                        </li> -->
-                        <li class="md:ml-4 my-2">
-                            <Link
-                                class="
-                                    border-t
-                                    block
-                                    no-underline
-                                    hover:underline
-                                    py-2
-                                    text-grey-darkest
-                                    hover:text-black
-                                    md:border-none md:p-0
-                                    dark:text-white dark:hover:text-white
-                                "
-                                :href="route('faq')"
-                                :class="{ 'font-bold': $page.url === '/faq' }"
-                            >
-                                FAQs
-                            </Link>
-                        </li>
-                        <li class="md:ml-4 my-2">
-                            <Link
-                                class="
-                                    border-t
-                                    block
-                                    no-underline
-                                    hover:underline
-                                    py-2
-                                    text-grey-darkest
-                                    hover:text-black
-                                    md:border-none md:p-0
-                                    dark:text-white dark:hover:text-white
-                                "
-                                :href="route('about')"
-                                :class="{ 'font-bold': $page.url === '/about' }"
-                            >
-                                About
-                            </Link>
-                        </li>
-                        <li class="md:ml-4 my-2">
-                            <a
-                                class="
-                                    border-t
-                                    block
-                                    no-underline
-                                    hover:underline
-                                    py-2
-                                    text-grey-darkest
-                                    hover:text-black
-                                    md:border-none md:p-0
-                                    dark:text-white dark:hover:text-white
-                                "
-                                :href="route('create')"
-                                :class="{
-                                    'font-bold': $page.url === '/create',
-                                }"
-                            >
-                                + Add
-                            </a>
-                        </li>
-                        <template v-if="isLoggedIn">
-                        <li class="md:ml-4 my-2">
-                            <Link
-                                class="
-                                    border-t
-                                    block
-                                    no-underline
-                                    hover:underline
-                                    py-2
-                                    text-grey-darkest
-                                    dark:text-white
-                                    md:border-none md:p-0
-                                "
-                                :href="route('dashboard')"
-                            >
-                                Dashboard
-                            </Link>
-                        </li>
-                        <li class="md:ml-4 my-2">
-                            <Link
-                                class="
-                                    border-t
-                                    block
-                                    no-underline
-                                    hover:underline
-                                    py-2
-                                    text-grey-darkest
-                                    dark:text-white
-                                    md:border-none md:p-0
-                                "
-                                @click="logout"
-                            >
-                                Logout
-                            </Link>
-                        </li>
-                        </template>
-
-                        <hr>
-
-                        <span class="inline-flex rounded-md">
+                        <span class="inline-flex rounded-md mb-2">
                             <button
                                 type="button"
                                 class="
@@ -383,7 +471,7 @@ const logout = async () => {
                                     hover:text-black
                                     md:border-none md:p-0
                                     dark:text-white dark:hover:text-white
-                                    cursor-default
+                                    cursor-pointer
                                 "
                             >
                                 Browse
@@ -402,6 +490,9 @@ const logout = async () => {
                                 </svg>
                             </button>
                         </span>
+                    </template>
+
+                    <template #content>
                         <div class="p-2" style="width: max-content">
                             <ul
                                 class="

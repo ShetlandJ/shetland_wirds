@@ -81,6 +81,14 @@ const url = Inertia.page.url;
 const isComments = url.includes("comments");
 const isRecordings = url.includes("recordings");
 const isLocations = url.includes("locations");
+
+let showDescriptor = ref(false);
+
+const toggleDescriptor = (definition) => {
+    if (definition.type_descriptor) {
+        showDescriptor.value = !showDescriptor.value;
+    }
+};
 </script>
 
 <template>
@@ -163,11 +171,27 @@ const isLocations = url.includes("locations");
                                 text-right text-sm
                                 dark:text-white
                                 text-gray-500
-                                italic
+                                cursor-pointer
                             "
                         >
-                            {{ definition.readable_type }}
+                            <div @click="toggleDescriptor(definition)">
+                                <span class="italic underline">{{
+                                    definition.readable_type
+                                }}</span>
+                            </div>
                         </div>
+                    </div>
+                    <div
+                        v-if="showDescriptor"
+                        class="
+                            ml-auto
+                            text-right text-sm
+                            dark:text-white
+                            text-gray-500
+                            cursor-pointer
+                        "
+                    >
+                        {{ definition.type_descriptor }}
                     </div>
                     <div v-if="definition.example_sentence">
                         <p className="mt-1 text-gray-700 mb-3 dark:text-white">

@@ -200,25 +200,52 @@ const showingNavigationDropdown = ref(false);
 
         <nav class="hidden lg:flex sm:justify-center">
             <ul class="list-reset md:flex md:items-center">
-                <JetDropdown style="cursor-pointer" align="left" width="48">
+                <JetDropdown style="cursor-pointer" align="right" width="48">
                     <template #trigger>
-                        <button
-                            class="
-                                flex
-                                text-sm
-                                border-2 border-transparent
-                                rounded-full
-                                focus:outline-none focus:border-gray-300
-                                transition
-                            "
-                        ></button>
+                        <span class="cursor-pointer">Menu</span>
+                    </template>
 
-                        <span class="inline-flex rounded-md">
-                            <button
-                                type="button"
+                    <template #content>
+                        <template v-if="!isLoggedIn">
+                            <li class="md:ml-4 my-2" v-if="!isLoggedIn">
+                                <Link
+                                    class="
+                                        block
+                                        no-underline
+                                        hover:underline
+                                        py-2
+                                        text-grey-darkest
+                                        hover:text-black
+                                        md:border-none md:p-0
+                                        dark:text-white dark:hover:text-white
+                                    "
+                                    :href="route('login')"
+                                >
+                                    Login
+                                </Link>
+                            </li>
+                            <li class="md:ml-4 my-2" v-if="!isLoggedIn">
+                                <Link
+                                    class="
+                                        border-t
+                                        block
+                                        no-underline
+                                        hover:underline
+                                        py-2
+                                        text-grey-darkest
+                                        hover:text-black
+                                        md:border-none md:p-0
+                                        dark:text-white dark:hover:text-white
+                                    "
+                                    :href="route('register')"
+                                >
+                                    Register
+                                </Link>
+                            </li>
+                        </template>
+                        <li class="md:ml-4 my-2">
+                            <Link
                                 class="
-                                    items-center
-                                    inline-flex
                                     border-t
                                     block
                                     no-underline
@@ -228,6 +255,112 @@ const showingNavigationDropdown = ref(false);
                                     hover:text-black
                                     md:border-none md:p-0
                                     dark:text-white dark:hover:text-white
+                                "
+                                :href="route('help-us')"
+                                :class="{
+                                    'font-bold': $page.url === '/help-us',
+                                }"
+                            >
+                                How to help
+                            </Link>
+                        </li>
+                        <li class="md:ml-4 my-2">
+                            <Link
+                                class="
+                                    border-t
+                                    block
+                                    no-underline
+                                    hover:underline
+                                    py-2
+                                    text-grey-darkest
+                                    hover:text-black
+                                    md:border-none md:p-0
+                                    dark:text-white dark:hover:text-white
+                                "
+                                :href="route('faq')"
+                                :class="{ 'font-bold': $page.url === '/faq' }"
+                            >
+                                FAQs
+                            </Link>
+                        </li>
+                        <li class="md:ml-4 my-2">
+                            <Link
+                                class="
+                                    border-t
+                                    block
+                                    no-underline
+                                    hover:underline
+                                    py-2
+                                    text-grey-darkest
+                                    hover:text-black
+                                    md:border-none md:p-0
+                                    dark:text-white dark:hover:text-white
+                                "
+                                :href="route('about')"
+                                :class="{ 'font-bold': $page.url === '/about' }"
+                            >
+                                About
+                            </Link>
+                        </li>
+                        <li class="md:ml-4 my-2">
+                            <a
+                                class="
+                                    border-t
+                                    block
+                                    no-underline
+                                    hover:underline
+                                    py-2
+                                    text-grey-darkest
+                                    hover:text-black
+                                    md:border-none md:p-0
+                                    dark:text-white dark:hover:text-white
+                                "
+                                :href="route('create')"
+                                :class="{
+                                    'font-bold': $page.url === '/create',
+                                }"
+                            >
+                                + Add
+                            </a>
+                        </li>
+                        <li class="md:ml-4 my-2" v-if="isLoggedIn">
+                            <Link
+                                class="
+                                    border-t
+                                    block
+                                    no-underline
+                                    hover:underline
+                                    py-2
+                                    text-grey-darkest
+                                    hover:text-black
+                                    dark:text-white
+                                    md:border-none md:p-0
+                                "
+                                :href="route('dashboard')"
+                            >
+                                Dashboard
+                            </Link>
+                        </li>
+
+                        <hr>
+
+                        <span class="inline-flex rounded-md">
+                            <button
+                                type="button"
+                                class="
+                                    mt-2
+                                    md:ml-4
+                                    items-center
+                                    inline-flex
+                                    border-t
+                                    block
+                                    no-underline
+                                    py-2
+                                    text-grey-darkest
+                                    hover:text-black
+                                    md:border-none md:p-0
+                                    dark:text-white dark:hover:text-white
+                                    cursor-default
                                 "
                             >
                                 Browse
@@ -246,9 +379,6 @@ const showingNavigationDropdown = ref(false);
                                 </svg>
                             </button>
                         </span>
-                    </template>
-
-                    <template #content style="width: max-content">
                         <div class="p-2" style="width: max-content">
                             <ul
                                 class="
@@ -275,125 +405,16 @@ const showingNavigationDropdown = ref(false);
                         </div>
                         <Link
                             class="p-0 flex justify-center m-0 font-bold random"
-                            :href="route('word.comments', { word: randomWordSlug })"
+                            :href="
+                                route('word.comments', {
+                                    word: randomWordSlug,
+                                })
+                            "
                         >
                             Random?
                         </Link>
                     </template>
                 </JetDropdown>
-
-                <template v-if="!isLoggedIn">
-                    <li class="md:ml-4" v-if="!isLoggedIn">
-                        <Link
-                            class="
-                                block
-                                no-underline
-                                hover:underline
-                                py-2
-                                text-grey-darkest
-                                hover:text-black
-                                md:border-none md:p-0
-                                dark:text-white dark:hover:text-white
-                            "
-                            :href="route('login')"
-                        >
-                            Login
-                        </Link>
-                    </li>
-                    <li class="md:ml-4" v-if="!isLoggedIn">
-                        <Link
-                            class="
-                                border-t
-                                block
-                                no-underline
-                                hover:underline
-                                py-2
-                                text-grey-darkest
-                                hover:text-black
-                                md:border-none md:p-0
-                                dark:text-white dark:hover:text-white
-                            "
-                            :href="route('register')"
-                        >
-                            Register
-                        </Link>
-                    </li>
-                </template>
-                <li class="md:ml-4">
-                    <Link
-                        class="
-                            border-t
-                            block
-                            no-underline
-                            hover:underline
-                            py-2
-                            text-grey-darkest
-                            hover:text-black
-                            md:border-none md:p-0
-                            dark:text-white dark:hover:text-white
-                        "
-                        :href="route('help-us')"
-                        :class="{ 'font-bold': $page.url === '/help-us' }"
-                    >
-                        How to help
-                    </Link>
-                </li>
-                <li class="md:ml-4">
-                    <Link
-                        class="
-                            border-t
-                            block
-                            no-underline
-                            hover:underline
-                            py-2
-                            text-grey-darkest
-                            hover:text-black
-                            md:border-none md:p-0
-                            dark:text-white dark:hover:text-white
-                        "
-                        :href="route('about')"
-                        :class="{ 'font-bold': $page.url === '/about' }"
-                    >
-                        About
-                    </Link>
-                </li>
-                <li class="md:ml-4">
-                    <a
-                        class="
-                            border-t
-                            block
-                            no-underline
-                            hover:underline
-                            py-2
-                            text-grey-darkest
-                            hover:text-black
-                            md:border-none md:p-0
-                            dark:text-white dark:hover:text-white
-                        "
-                        :href="route('create')"
-                        :class="{ 'font-bold': $page.url === '/create' }"
-                    >
-                        + Add
-                    </a>
-                </li>
-                <li class="md:ml-4" v-if="isLoggedIn">
-                    <Link
-                        class="
-                            border-t
-                            block
-                            no-underline
-                            hover:underline
-                            py-2
-                            text-grey-darkest
-                            hover:text-black
-                            dark:text-white
-                            md:border-none md:p-0
-                        "
-                        :href="route('dashboard')"
-                    >
-                        Dashboard
-                    </Link>
-                </li>
             </ul>
         </nav>
     </header>

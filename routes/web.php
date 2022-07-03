@@ -503,3 +503,13 @@ Route::get('/about', function () {
         'isLoggedIn' => Auth::check(),
     ]);
 })->name('about');
+
+Route::get('/faq', function () {
+    return Inertia::render('FAQ', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'randomWord' => DB::table('words')->inRandomOrder()->first()->slug,
+        'isLoggedIn' => Auth::check(),
+    ]);
+})->name('faq');

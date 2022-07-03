@@ -4,8 +4,6 @@ import { Head, useForm, Link } from "@inertiajs/inertia-vue3";
 import SearchBar from "../components/SearchBar.vue";
 import WordResult from "../components/WordResult.vue";
 import NavBar from "../components/NavBar.vue";
-import Pagination from "../components/Pagination.vue";
-import MobileMenu from "../components/MobileMenu.vue";
 
 let searchString = "";
 

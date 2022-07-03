@@ -14,6 +14,10 @@ const props = defineProps({
         type: Array,
         default: () => ["py-1", "bg-white"],
     },
+    allowMouseover: {
+        type: Boolean,
+        default: false,
+    },
 });
 
 let open = ref(false);
@@ -48,7 +52,10 @@ const alignmentClasses = computed(() => {
 
 <template>
     <div class="relative">
-        <div @click="open = !open">
+        <div
+            @click="open = !open"
+            @mouseover="allowMouseover ? (open = true) : null"
+        >
             <slot name="trigger" />
         </div>
 
@@ -78,7 +85,10 @@ const alignmentClasses = computed(() => {
                     "
                     :class="contentClasses"
                 >
-                    <slot name="content" />
+                    <slot
+                        name="content"
+                        @mouseleave="allowMouseover ? (open = false) : null"
+                    />
                 </div>
             </div>
         </transition>

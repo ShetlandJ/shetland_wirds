@@ -159,6 +159,23 @@ const alphabetArray = [
             >
                 About
             </Link>
+
+            <Link
+                class="
+                    block
+                    no-underline
+                    hover:underline
+                    mt-0
+                    text-grey-darkest
+                    hover:text-black
+                    md:border-none md:p-0
+                    dark:text-white
+                "
+                :href="route('faq')"
+                :class="{ 'font-bold': $page.url === '/faq' }"
+            >
+                FAQs
+            </Link>
         </div>
 
         <div class="pt-2 pb-1 border-t border-gray-200">

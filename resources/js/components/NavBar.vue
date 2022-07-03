@@ -202,7 +202,7 @@ const showingNavigationDropdown = ref(false);
             <ul class="list-reset md:flex md:items-center">
                 <JetDropdown style="cursor-pointer" align="right" width="48">
                     <template #trigger>
-                        <span class="cursor-pointer">Menu</span>
+                        <span class="cursor-pointer dark:text-white">Menu</span>
                     </template>
 
                     <template #content>

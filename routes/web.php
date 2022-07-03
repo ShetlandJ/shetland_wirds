@@ -359,7 +359,7 @@ Route::middleware([
             ]);
         }
 
-        return Inertia::render('Dashboard');
+        return redirect()->to('/');
     })->name('dashboard');
 });
 

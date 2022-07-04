@@ -79,6 +79,7 @@ class Word extends Model
                 'example_sentence' => $definition->example_sentence,
                 'type' => $definition->type,
                 'readable_type' => $definition->convertedType ?? null,
+                'type_descriptor' => isset(WordDefinition::WORD_TYPE_MEANING_MAP[$definition->type]) ? WordDefinition::WORD_TYPE_MEANING_MAP[$definition->type] : null,
                 'creator' => $definition->user ? $definition->user->name : null,
                 'word_id' => $definition->word->uuid,
                 'created_at' => $definition->created_at,

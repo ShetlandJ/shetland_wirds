@@ -143,7 +143,7 @@ const today = () => {
                     to register!
                 </div>
 
-                <Alert>
+                <Alert v-if="featuredWord">
                     <div
                         class="dark:text-white flex"
                         style="display: block"

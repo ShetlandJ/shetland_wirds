@@ -618,7 +618,6 @@ class WordService
 
                 if ($diff > 1) {
                     $scheduledFor = $wordOfTheDay->scheduled_for->addDay();
-                    // break;
                 } else {
                     $scheduledFor = $wordsOfTheDay[$key+1]->scheduled_for->addDay();
                 }

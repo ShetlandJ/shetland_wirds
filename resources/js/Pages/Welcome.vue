@@ -20,6 +20,7 @@ const props = defineProps({
     canRegister: Boolean,
     isLoggedIn: Boolean,
     words: Array,
+    exactMatch: Object,
     pagination: Object,
     searchString: String,
     letter: String,
@@ -34,13 +35,13 @@ const form = useForm({
 const letterForm = useForm({
     page: 1,
     letter: "",
-})
+});
 
 const handlePageChange = (pageNumber) => {
     if (props.letter) {
         letterForm.letter = props.letter;
         letterForm.page = pageNumber;
-        letterForm.get(route('letter', props.letter), {
+        letterForm.get(route("letter", props.letter), {
             letter: letterForm.letter,
             page: letterForm.page,
         });
@@ -104,7 +105,18 @@ const currentPageEndsAt = computed(() => {
                 </span>
             </div>
 
-            <template v-if="words && words.length">
+            <template v-if="(words && words.length) || exactMatch">
+                <template v-if="exactMatch">
+                    <WordResult
+                        :is-logged-in="isLoggedIn"
+                        :search-string="searchString"
+                        v-for="word in [exactMatch]"
+                        :key="word.uuid"
+                        :word="word"
+                        exact-match
+                    />
+                </template>
+
                 <WordResult
                     :is-logged-in="isLoggedIn"
                     :search-string="searchString"

@@ -92,10 +92,13 @@ Route::get('/search', function () {
         'pages' => ceil($total / $pageTotal),
     ];
 
+    $exactMatch = app(WordService::class)->findExactWordBySearch($searchTerm, true);
+
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'isLoggedIn' => Auth::check(),
+        'exactMatch' => $exactMatch,
         'words' => app(WordService::class)->findAllWordsWithPagination($searchTerm, $pagination),
         'pagination' => $pagination,
         'searchString' => $searchTerm,
@@ -123,12 +126,14 @@ Route::post('/search', function () {
     ];
 
     $words = app(WordService::class)->findAllWordsWithPagination($searchTerm, $pagination);
+    $exactMatch = app(WordService::class)->findExactWordBySearch($searchTerm, true);
 
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'isLoggedIn' => Auth::check(),
         'words' => $words,
+        'exactMatch' => $exactMatch,
         'pagination' => $pagination,
         'searchString' => $searchTerm,
         'randomWord' => DB::table('words')->inRandomOrder()->first()->slug,

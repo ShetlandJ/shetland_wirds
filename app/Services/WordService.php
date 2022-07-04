@@ -51,6 +51,11 @@ class WordService
 
         $query->groupBy('words.id');
 
+        $exactMatchWord = $this->findExactWordBySearch($searchString);
+        if ($exactMatchWord) {
+            $query->where('words.uuid', '!=', $exactMatchWord['id']);
+        }
+
         return $query->get();
     }
 
@@ -62,6 +67,17 @@ class WordService
 
         return $query->get()
             ->map(fn (Word $word) => $this->formatWord($word));
+    }
+
+    public function findExactWordBySearch(string $searchString): ?array
+    {
+        $foundWord = Word::where('word', $searchString)->first();
+
+        if (!$foundWord) {
+            return null;
+        }
+
+        return $this->formatWord($foundWord);
     }
 
     public function findByWord(string $word): ?array

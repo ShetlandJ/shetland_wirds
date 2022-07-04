@@ -21,6 +21,7 @@ const props = defineProps({
     adminView: Boolean,
     fullView: Boolean,
     userSelectedLocations: Array,
+    exactMatch: Boolean,
 });
 
 const locations = usePage().props.value.locations;
@@ -101,12 +102,13 @@ const toggleDescriptor = (definition) => {
                     <div class="flex">
                         <Link
                             :href="route('word.comments', { word: word.slug })"
-                            class="text-sm text-gray-700 underline"
+                            class="text-sm text-gray-700 flex"
                         >
                             <h2
                                 className="
                                 text-lg
                                 font-semibold
+                                underline
                                 text-gray-900
                                 -mt-1
                                 dark:text-white
@@ -115,6 +117,7 @@ const toggleDescriptor = (definition) => {
                             >
                                 {{ word.word }}
                             </h2>
+                            <span v-if="exactMatch" class="font-sm ml-2 text-green-500"> 🎯 exact match</span>
                         </Link>
                         <span v-if="word.rejected" class="text-red-500 ml-3">
                             (Rejected)

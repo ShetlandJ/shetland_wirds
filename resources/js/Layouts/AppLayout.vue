@@ -74,10 +74,10 @@ const logout = () => {
                                     Dictionary
                                 </JetNavLink>
                                 <JetNavLink
-                                    :href="route('my-words')"
-                                    :active="route().current('my-words')"
+                                    :href="route('word-admin')"
+                                    :active="route().current('word-admin')"
                                 >
-                                    My words
+                                    Word admin
                                 </JetNavLink>
                                 <JetNavLink
                                     :href="route('approval')"

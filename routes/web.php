@@ -368,12 +368,11 @@ Route::middleware([
     })->name('dashboard');
 });
 
-Route::get('/dashboard/my-words', function () {
+Route::get('/dashboard/word-admin', function () {
     return Inertia::render('AdminDashboard', [
-        'words' => app(WordService::class)->findAllUserWords(),
         'isLoggedIn' => Auth::check(),
     ]);
-})->name('my-words');
+})->name('word-admin');
 
 Route::get('/dashboard/approve', function () {
     return Inertia::render('AdminDashboard', [

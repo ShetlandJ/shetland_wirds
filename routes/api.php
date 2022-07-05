@@ -84,4 +84,12 @@ Route::middleware([config('jetstream.auth_session')])->group(function () {
 
         return app(WordService::class)->findByUuid($req['uuid']);
     });
+
+    Route::post('/word', function (Request $request) {
+        $payload = $request->input()['payload'];
+
+        app(AdminService::class)->updateWord($payload);
+
+        return ["data" => null];
+    });
 });

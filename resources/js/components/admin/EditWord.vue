@@ -36,6 +36,29 @@ const getWord = (uuid) => {
             console.log(error);
         });
 };
+
+const updateWord = () => {
+    const payload = {
+        id: word.value.id,
+        word: word.value.word,
+        definitions:
+            word.value.definitions?.map((definition) => ({
+                id: definition.id,
+                definition: definition.definition,
+            })) || [],
+    };
+
+    axios
+        .post("/api/word", {
+            payload,
+        })
+        .then(({ data }) => {
+            word.value = data;
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+};
 </script>
 
 <template>
@@ -80,7 +103,7 @@ const getWord = (uuid) => {
                         focus:border-blue-600
                         focus:outline-none
                     "
-                    @input="event => getWord(event.target.value)"
+                    @input="(event) => getWord(event.target.value)"
                 >
                     <option disabled selected :value="null">
                         Select new word
@@ -99,13 +122,21 @@ const getWord = (uuid) => {
         </div>
 
         <div v-if="word" class="mt-4">
-            <hr>
-            <h4 class="text-lg mt-6 mb-2">Editing <b>{{word.word}}</b></h4>
+            <hr />
+            <h4 class="text-lg mt-6 mb-2">
+                Editing <b>{{ word.word }}</b>
+            </h4>
 
             <div class="form-group mb-6">
                 <label
                     for="wordInput"
-                    class="form-label inline-block mb-2 dark:text-white text-gray-700"
+                    class="
+                        form-label
+                        inline-block
+                        mb-2
+                        dark:text-white
+                        text-gray-700
+                    "
                 >
                     Word:
                 </label>
@@ -136,12 +167,22 @@ const getWord = (uuid) => {
                 />
             </div>
 
-            <div class="form-group mb-6" v-for="(definition, index) in word.definitions" :key="definition.id">
+            <div
+                class="form-group mb-6"
+                v-for="(definition, index) in word.definitions"
+                :key="definition.id"
+            >
                 <label
-                    for="definitionInput"
-                    class="form-label inline-block mb-2 dark:text-white text-gray-700"
+                    :for="`definitionInput-${index}`"
+                    class="
+                        form-label
+                        inline-block
+                        mb-2
+                        dark:text-white
+                        text-gray-700
+                    "
                 >
-                    Definition {{index + 1}}:
+                    Definition {{ index + 1 }}:
                 </label>
                 <input
                     v-model="definition.definition"
@@ -166,9 +207,11 @@ const getWord = (uuid) => {
                         focus:border-blue-600
                         focus:outline-none
                     "
-                    id="definitionInput"
+                    :id="`definitionInput-${index}`"
                 />
             </div>
+
+            <ActionButton @click="updateWord" message="Update" />
         </div>
     </div>
 </template>

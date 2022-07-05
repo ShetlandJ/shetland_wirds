@@ -102,4 +102,23 @@ class AdminService
 
         return array_merge($exactResult, $formattedResult);
     }
+
+    public function updateWord(array $payload): Word
+    {
+        $word = Word::where('uuid', $payload['id'])->first();
+
+        $word->word = $payload['word'];
+
+        foreach ($payload['definitions'] as $definition) {
+            $wordDefinition = WordDefinition::where('uuid', $definition['id'])->first();
+            if ($wordDefinition) {
+                $wordDefinition->definition = $definition['definition'];
+                $wordDefinition->save();
+            }
+        }
+
+        $word->save();
+
+        return $word;
+    }
 }

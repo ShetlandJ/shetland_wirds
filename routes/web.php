@@ -39,7 +39,6 @@ Route::get('/', function () {
     ];
 
     $randomWord = DB::table('words')->inRandomOrder()->first()->slug;
-    $wordOfTheDay = DB::table('words')->inRandomOrder()->first();
 
     return Inertia::render('Home', [
         'canLogin' => Route::has('login'),
@@ -49,7 +48,7 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
         'words' => app(WordService::class)->findAllWordsWithPagination('', $pagination),
         'randomWord' => $randomWord,
-        'featuredWord' => app(WordService::class)->findByWord($wordOfTheDay->word),
+        'featuredWord' => app(WordService::class)->getFeaturedWord(),
         'pagination' => $pagination,
     ]);
 })->name('home');

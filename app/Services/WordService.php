@@ -631,4 +631,11 @@ class WordService
             'scheduled_for' => $scheduledFor,
         ]);
     }
+
+    public function getFeaturedWord(): array
+    {
+        $wotd = WordOfTheDay::where('scheduled_for', Carbon::today())->first();
+
+        return $this->formatWord($wotd->word);
+    }
 }

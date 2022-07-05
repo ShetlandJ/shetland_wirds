@@ -2,7 +2,7 @@
 import { ref } from "vue";
 import format from "date-fns/format";
 const DATE_FORMAT = "d MMM yy";
-import { Inertia } from '@inertiajs/inertia'
+import { Inertia } from "@inertiajs/inertia";
 
 const props = defineProps({
     wordOfTheDayToEdit: {
@@ -35,11 +35,11 @@ const replaceWord = () => {
         .post("/api/wotd/replace", {
             id: props.wordOfTheDayToEdit.id,
             replacement_word_id: replacementWordId.value,
-    })
-        .then(({ data }) => {
-            Inertia.visit('wotd', {
-                only: ['wordQueue'],
-            })
+        })
+        .then(() => {
+            Inertia.visit("wotd", {
+                only: ["wordQueue"],
+            });
         })
         .catch((error) => {
             console.log(error);

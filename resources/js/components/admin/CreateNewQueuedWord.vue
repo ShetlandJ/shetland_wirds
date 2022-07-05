@@ -1,7 +1,7 @@
 <script setup>
 import { usePage } from "@inertiajs/inertia-vue3";
 import { computed, ref } from "@vue/runtime-core";
-import { Inertia } from '@inertiajs/inertia'
+import { Inertia } from "@inertiajs/inertia";
 
 const props = defineProps({
     wordQueue: {
@@ -11,10 +11,10 @@ const props = defineProps({
 });
 
 const pullInWordsList = () => {
-    Inertia.visit('wotd', {
-        only: ['wordQueue'],
-    })
-}
+    Inertia.visit("wotd", {
+        only: ["wordQueue"],
+    });
+};
 
 const disabledDates = computed(() => {
     return props.wordQueue.map((word) => new Date(word.scheduled_for));
@@ -40,16 +40,18 @@ const searchWords = () => {
         });
 };
 
-    console.log(usePage().props.value.user);
+console.log(usePage().props.value.user);
 const addWord = () => {
     axios
         .post("/api/wotd/new", {
             word_id: newWordId.value,
             schedule_date: scheduleDate.value,
             creator_id: usePage().props.value.user.id,
-    })
-        .then(({ data }) => {
-           pullInWordsList();
+        })
+        .then(() => {
+            Inertia.visit("wotd", {
+                only: ["wordQueue"],
+            });
         })
         .catch((error) => {
             console.log(error);

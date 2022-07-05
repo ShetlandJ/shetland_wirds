@@ -7,6 +7,7 @@ import AdminMetrics from "../components/admin/AdminsMetrics.vue";
 import PendingRecording from "../components/PendingRecording.vue";
 import PendingDefinition from "../components/PendingDefinition.vue";
 import WordOfTheDayQueue from '../components/admin/WordOfTheDayQueue.vue';
+import EditWord from '../components/admin/EditWord.vue';
 import { computed } from "vue";
 
 defineProps({
@@ -35,7 +36,7 @@ defineProps({
 const heading = computed(() => {
     if (route().current("dashboard")) return "Admin dashboard";
     if (route().current("approval")) return "Words requiring approval";
-    if (route().current("my-words")) return "My words";
+    if (route().current("word-admin")) return "Word admin";
     if (route().current("rejected")) return "Rejected words";
     if (route().current("recordings")) return "Pending recordings";
     return "Admin dashboard";
@@ -58,6 +59,10 @@ const heading = computed(() => {
                 :word="word"
                 admin-view
             />
+        </div>
+
+        <div v-if="route().current('word-admin')">
+            <EditWord />
         </div>
 
         <div v-if="wordQueue.length > 0">

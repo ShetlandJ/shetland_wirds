@@ -4,6 +4,7 @@ use App\Models\Word;
 use Illuminate\Support\Str;
 use App\Models\WordOfTheDay;
 use Illuminate\Http\Request;
+use App\Services\WordService;
 use App\Services\AdminService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -70,6 +71,24 @@ Route::middleware([config('jetstream.auth_session')])->group(function () {
 
         $wordOfTheDay->word_id = $newWord->id;
         $wordOfTheDay->save();
+
+        return ["data" => null];
+    });
+
+    Route::get('/word', function (Request $request) {
+        $req = $request->input();
+
+        if (!isset($req['uuid'])) {
+            return ["data" => null];
+        }
+
+        return app(WordService::class)->findByUuid($req['uuid']);
+    });
+
+    Route::post('/word', function (Request $request) {
+        $payload = $request->input()['payload'];
+
+        app(AdminService::class)->updateWord($payload);
 
         return ["data" => null];
     });

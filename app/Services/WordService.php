@@ -92,6 +92,17 @@ class WordService
         return $this->formatWord($foundWord);
     }
 
+    public function findByUuid(string $uuid): ?array
+    {
+        $foundWord = Word::where('uuid', $uuid)->first();
+
+        if (!$foundWord) {
+            return null;
+        }
+
+        return $this->formatWord($foundWord);
+    }
+
     public function findAllWordsWithPagination(string $searchString, array $pagination = [], ?string $letter = null): array
     {
         $words = $this->findBy($searchString, $pagination, $letter);

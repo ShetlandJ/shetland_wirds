@@ -1,11 +1,12 @@
 <script setup>
 import AppLayout from "@/Layouts/AppLayout.vue";
 import Welcome from "@/Jetstream/Welcome.vue";
-import WordResult from "../components/WordResult.vue";
+import WordResult from "../components/WordResu\lt.vue";
 import StatCard from "../components/StatCard.vue";
 import AdminMetrics from "../components/admin/AdminsMetrics.vue";
 import PendingRecording from "../components/PendingRecording.vue";
 import PendingDefinition from "../components/PendingDefinition.vue";
+import WordOfTheDayQueue from '../components/admin/WordOfTheDayQueue.vue';
 import { computed } from "vue";
 
 defineProps({
@@ -25,6 +26,10 @@ defineProps({
         type: Object,
         default: () => ({}),
     },
+    wordQueue: {
+        type: Array,
+        default: () => [],
+    }
 });
 
 const heading = computed(() => {
@@ -53,6 +58,10 @@ const heading = computed(() => {
                 :word="word"
                 admin-view
             />
+        </div>
+
+        <div v-if="wordQueue.length > 0">
+            <WordOfTheDayQueue :word-queue="wordQueue" />
         </div>
 
         <div v-if="recordings">

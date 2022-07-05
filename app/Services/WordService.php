@@ -11,6 +11,7 @@ use App\Models\Location;
 use App\Models\WordToWord;
 use Illuminate\Support\Str;
 use App\Models\UserWordLike;
+use App\Models\WordOfTheDay;
 use App\Models\WordRecording;
 use App\Models\WordDefinition;
 use App\Models\WordToLocation;
@@ -590,5 +591,51 @@ class WordService
         }
 
         return (array) array_values($percentages);
+    }
+
+    public function getRecentWordOfTheDayIds(): array
+    {
+        return WordOfTheDay::select('*')
+            ->orderBy('created_at', 'desc')
+            ->take(90)
+            ->get()
+            ->pluck('id')
+            ->values()
+            ->all();
+    }
+
+    public function createWordOfTheDay(Word $word): WordOfTheDay
+    {
+        $wordsOfTheDay = WordOfTheDay::select('scheduled_for')
+            ->orderBy('scheduled_for', 'asc')
+            ->get();
+
+        $scheduledFor = Carbon::today();
+
+        foreach ($wordsOfTheDay as $key => $wordOfTheDay) {
+            if (isset($wordsOfTheDay[$key+1])) {
+                $diff = $wordsOfTheDay[$key+1]->scheduled_for->diffInDays($wordOfTheDay->scheduled_for);
+
+                if ($diff > 1) {
+                    $scheduledFor = $wordOfTheDay->scheduled_for->addDay();
+                } else {
+                    $scheduledFor = $wordsOfTheDay[$key+1]->scheduled_for->addDay();
+                }
+            }
+        }
+
+        return WordOfTheDay::create([
+            'uuid' => (string) Str::uuid(),
+            'word_id' => $word->id,
+            'creator_id' => Auth::id() ?? null,
+            'scheduled_for' => $scheduledFor,
+        ]);
+    }
+
+    public function getFeaturedWord(): array
+    {
+        $wotd = WordOfTheDay::where('scheduled_for', Carbon::today())->first();
+
+        return $this->formatWord($wotd->word);
     }
 }

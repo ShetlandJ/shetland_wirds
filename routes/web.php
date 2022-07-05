@@ -9,6 +9,7 @@ use App\Models\WordRecording;
 use App\Services\WordService;
 use Illuminate\Support\Facades\DB;
 use App\Http\Middleware\UserIsAdmin;
+use App\Services\AdminService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
@@ -38,7 +39,6 @@ Route::get('/', function () {
     ];
 
     $randomWord = DB::table('words')->inRandomOrder()->first()->slug;
-    $wordOfTheDay = DB::table('words')->inRandomOrder()->first();
 
     return Inertia::render('Home', [
         'canLogin' => Route::has('login'),
@@ -48,7 +48,7 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
         'words' => app(WordService::class)->findAllWordsWithPagination('', $pagination),
         'randomWord' => $randomWord,
-        'featuredWord' => app(WordService::class)->findByWord($wordOfTheDay->word),
+        'featuredWord' => app(WordService::class)->getFeaturedWord(),
         'pagination' => $pagination,
     ]);
 })->name('home');
@@ -387,9 +387,11 @@ Route::post('/dashboard/approve', function () {
         app(WordService::class)->approveWord(request('wordToApprove'));
     }
 
-    return redirect()->back();
+    return Inertia::render('AdminDashboard', [
+        'words' => app(WordService::class)->findAllPendingWords(),
+        'isLoggedIn' => Auth::check(),
+    ]);
 })->name('approve');
-
 
 Route::get('/dashboard/new-definitions', function () {
     return Inertia::render('AdminDashboard', [
@@ -398,6 +400,13 @@ Route::get('/dashboard/new-definitions', function () {
     ]);
 })->name('new-definitions');
 
+
+Route::get('/dashboard/wotd', function () {
+    return Inertia::render('AdminDashboard', [
+        'wordQueue' => app(AdminService::class)->getQueuedWords(),
+        'isLoggedIn' => Auth::check(),
+    ]);
+})->name('wotd');
 
 Route::get('/dashboard/rejected', function () {
     return Inertia::render('AdminDashboard', [

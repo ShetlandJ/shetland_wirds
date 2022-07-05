@@ -103,6 +103,12 @@ const logout = () => {
                                 >
                                     Recordings
                                 </JetNavLink>
+                                <JetNavLink
+                                    :href="route('wotd')"
+                                    :active="route().current('wotd')"
+                                >
+                                    Word of the Day
+                                </JetNavLink>
                             </div>
                         </div>
 

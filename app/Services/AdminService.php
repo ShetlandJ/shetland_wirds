@@ -24,7 +24,7 @@ use Symfony\Component\Routing\Loader\Configurator\CollectionConfigurator;
 
 class AdminService
 {
-    public function getQueuedWords(?string $searchString = '', array $pagination = []): Collection
+    public function getQueuedWords(?string $searchString = '', array $pagination = []): array
     {
         $query = WordOfTheDay::query();
 
@@ -47,8 +47,20 @@ class AdminService
         $query->where('words.pending', false);
         $query->where('words.rejected', false);
 
-        $query->groupBy('words.id');
+        $query->where('word_of_the_day.scheduled_for', '>=', Carbon::today()->toDateTimeString());
 
-        return $query->get();
+        $list = $query->get();
+
+        // format list
+        $formattedList = [];
+        foreach ($list as $item) {
+            $newItem = [];
+            $newItem['word'] = $item->word->word;
+            $newItem['scheduled_for'] = Carbon::parse($item->scheduled_for)->toDateTimeString();
+            $newItem['creator'] = $item->creator ? $item->creator->name : 'System generated';
+            $formattedList[] = $newItem;
+        }
+
+        return $formattedList;
     }
 }

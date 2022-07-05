@@ -9,6 +9,7 @@ use App\Models\WordRecording;
 use App\Services\WordService;
 use Illuminate\Support\Facades\DB;
 use App\Http\Middleware\UserIsAdmin;
+use App\Services\AdminService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
@@ -387,7 +388,10 @@ Route::post('/dashboard/approve', function () {
         app(WordService::class)->approveWord(request('wordToApprove'));
     }
 
-    return redirect()->back();
+    return Inertia::render('AdminDashboard', [
+        'words' => app(WordService::class)->findAllPendingWords(),
+        'isLoggedIn' => Auth::check(),
+    ]);
 })->name('approve');
 
 Route::get('/dashboard/new-definitions', function () {
@@ -396,6 +400,14 @@ Route::get('/dashboard/new-definitions', function () {
         'isLoggedIn' => Auth::check(),
     ]);
 })->name('new-definitions');
+
+
+Route::get('/dashboard/wotd', function () {
+    return Inertia::render('AdminDashboard', [
+        'wordQueue' => app(AdminService::class)->getQueuedWords(),
+        'isLoggedIn' => Auth::check(),
+    ]);
+})->name('wotd');
 
 Route::get('/dashboard/rejected', function () {
     return Inertia::render('AdminDashboard', [

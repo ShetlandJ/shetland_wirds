@@ -36,7 +36,7 @@ defineProps({
             @suggest-word="toggleSuggestWordForm(true)"
         />
         <div
-            className="bg-white shadow-lg rounded-lg mx-4 p-2 md:mx-auto my-8 max-w-lg md:max-w-2xl"
+            className="bg-white shadow-lg rounded-lg mx-4 p-6 md:mx-auto my-8 max-w-lg md:max-w-2xl"
         >
             <div class="md:mx-auto mt-2 mb-8 mx-4 max-w-md md:max-w-2xl">
                 <p class="flex text-xl justify-center mb-2 dark:text-white">

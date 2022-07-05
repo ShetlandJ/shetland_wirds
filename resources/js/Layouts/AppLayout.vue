@@ -285,10 +285,52 @@ const logout = () => {
                         >
                             Dashboard
                         </JetResponsiveNavLink>
+                        <JetResponsiveNavLink
+                            :href="route('home')"
+                            :active="route().current('home')"
+                        >
+                            Dictionary
+                        </JetResponsiveNavLink>
+                        <JetResponsiveNavLink
+                            :href="route('word-admin')"
+                            :active="route().current('word-admin')"
+                        >
+                            Word admin
+                        </JetResponsiveNavLink>
+                        <JetResponsiveNavLink
+                            :href="route('approval')"
+                            :active="route().current('approval')"
+                        >
+                            Pending words
+                        </JetResponsiveNavLink>
+                        <JetResponsiveNavLink
+                            :href="route('new-definitions')"
+                            :active="route().current('new-definitions')"
+                        >
+                            Pending definitions
+                        </JetResponsiveNavLink>
+                        <JetResponsiveNavLink
+                            :href="route('rejected')"
+                            :active="route().current('rejected')"
+                        >
+                            Rejected
+                        </JetResponsiveNavLink>
+                        <JetResponsiveNavLink
+                            :href="route('recordings')"
+                            :active="route().current('recordings')"
+                        >
+                            Recordings
+                        </JetResponsiveNavLink>
+                        <JetResponsiveNavLink
+                            :href="route('wotd')"
+                            :active="route().current('wotd')"
+                        >
+                            Word of the Day
+                        </JetResponsiveNavLink>
                     </div>
 
                     <!-- Responsive Settings Options -->
-                    <div class="pt-4 pb-1 border-t border-gray-200">
+                    <!-- <div class="pt-4 pb-1 border-t border-gray-200">
                         <div class="flex items-center px-4">
                             <div
                                 v-if="
@@ -331,14 +373,12 @@ const logout = () => {
                                 API Tokens
                             </JetResponsiveNavLink>
 
-                            <!-- Authentication -->
                             <form method="POST" @submit.prevent="logout">
                                 <JetResponsiveNavLink as="button">
                                     Log Out
                                 </JetResponsiveNavLink>
                             </form>
 
-                            <!-- Team Management -->
                             <template
                                 v-if="$page.props.jetstream.hasTeamFeatures"
                             >
@@ -355,7 +395,6 @@ const logout = () => {
                                     Manage Team
                                 </div>
 
-                                <!-- Team Settings -->
                                 <JetResponsiveNavLink
                                     :href="
                                         route(
@@ -378,7 +417,6 @@ const logout = () => {
 
                                 <div class="border-t border-gray-200" />
 
-                                <!-- Team Switcher -->
                                 <div
                                     class="
                                         block
@@ -427,7 +465,7 @@ const logout = () => {
                                 </template>
                             </template>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </nav>
 

@@ -83,7 +83,8 @@ const addWord = () => {
                 <select
                     v-model="newWordId"
                     class="
-                        w-1/4
+                        w-full
+                        md:w-1/2
                         px-3
                         py-1.5
                         font-normal

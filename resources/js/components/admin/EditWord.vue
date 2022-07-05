@@ -3,6 +3,7 @@ import { ref } from "vue";
 
 const searchString = ref("");
 const wordResultsList = ref([]);
+const showSuccessMessage = ref(false);
 
 const searchWords = () => {
     axios
@@ -19,7 +20,6 @@ const searchWords = () => {
         });
 };
 
-const wordId = ref(null);
 const word = ref(null);
 
 const getWord = (uuid) => {
@@ -53,7 +53,10 @@ const updateWord = () => {
             payload,
         })
         .then(({ data }) => {
-            word.value = data;
+            word.value = null;
+            searchString.value = "";
+            wordResultsList.value = [];
+            showSuccessMessage.value = true;
         })
         .catch((error) => {
             console.log(error);
@@ -63,8 +66,15 @@ const updateWord = () => {
 
 <template>
     <div
-        className="bg-white shadow-lg rounded-lg mx-4 p-2 md:mx-auto my-8 max-w-lg md:max-w-2xl"
+        className="bg-white shadow-lg rounded-lg mx-4 p-6 md:mx-auto my-8 max-w-lg md:max-w-2xl"
     >
+        <Alert
+            class="mb-4"
+            v-if="showSuccessMessage"
+            variant="success"
+            message="Word successfully updated"
+        />
+
         <p class="mb-2">
             1. First search for the word you want to add. Note that if your
             preferred word has been used in the 90 days, it will not return in
@@ -85,7 +95,6 @@ const updateWord = () => {
 
             <div class="flex">
                 <select
-                    v-model="wordId"
                     class="
                         w-1/4
                         px-3

@@ -1,18 +1,22 @@
 <script setup>
-import { ref } from "vue";
-import format from "date-fns/format";
-const DATE_FORMAT = "d MMM yy";
+import { usePage } from "@inertiajs/inertia-vue3";
+import { computed, ref } from "@vue/runtime-core";
 
 const props = defineProps({
-    wordOfTheDayToEdit: {
-        type: Object,
-        default: null,
+    wordQueue: {
+        type: Array,
+        default: () => [],
     },
 });
 
-const wordResultsList = ref([]);
+const disabledDates = computed(() => {
+    return props.wordQueue.map((word) => new Date(word.scheduled_for));
+});
+
 const searchString = ref("");
-const replacementWordId = ref(null);
+const wordResultsList = ref([]);
+const newWordId = ref(null);
+const scheduleDate = ref(null);
 
 const searchWords = () => {
     axios
@@ -29,11 +33,13 @@ const searchWords = () => {
         });
 };
 
-const replaceWord = () => {
+    console.log(usePage().props.value.user);
+const addWord = () => {
     axios
-        .post("/api/wotd/replace", {
-            id: props.wordOfTheDayToEdit.id,
-            replacement_word_id: replacementWordId.value,
+        .post("/api/wotd/new", {
+            word_id: newWordId.value,
+            schedule_date: scheduleDate.value,
+            creator_id: usePage().props.value.user.id,
     })
         .then(({ data }) => {
             window.location.reload();
@@ -47,20 +53,7 @@ const replaceWord = () => {
 <template>
     <div>
         <p class="mb-2">
-            Update the Word Of The Day <b>{{ wordOfTheDayToEdit.word }}</b> for
-            <b
-                >{{
-                    format(
-                        new Date(wordOfTheDayToEdit.scheduled_for),
-                        DATE_FORMAT
-                    )
-                }}
-            </b>
-        </p>
-
-        <p class="mb-2">
-            1. First search for the word you want to replace
-            <b>{{ wordOfTheDayToEdit.word }}</b> with. Note that if your
+            1. First search for the word you want to add. Note that if your
             preferred word has been used in the 90 days, it will not return in
             these results
         </p>
@@ -75,13 +68,11 @@ const replaceWord = () => {
             v-if="wordResultsList.length > 0"
             class="mb-4"
         >
-            <p class="mb-2">
-                2. Select the replacement word from the below list
-            </p>
+            <p class="mb-2">2. Select a word from the list</p>
 
             <div class="flex">
                 <select
-                    v-model="replacementWordId"
+                    v-model="newWordId"
                     class="
                         w-1/4
                         px-3
@@ -101,7 +92,7 @@ const replaceWord = () => {
                     "
                 >
                     <option disabled selected :value="null">
-                        Select replacement word
+                        Select new word
                     </option>
 
                     <option
@@ -116,12 +107,24 @@ const replaceWord = () => {
             </div>
         </div>
 
-        <div v-if="replacementWordId">
-            <div>
-                <p class="mb-2">3. Click to save the replacement</p>
+        <template v-if="newWordId">
+            <p class="mb-2">3. Select a date to schedule the word for</p>
 
-                <ActionButton @click="replaceWord">Replace</ActionButton>
-            </div>
+            <Datepicker
+                v-model="scheduleDate"
+                class="w-1/4 mb-4"
+                :enable-time-picker="false"
+                :disabled-dates="disabledDates"
+                :min-date="new Date()"
+                format="dd/MM/yyyy"
+                placeholder="Please select a date"
+            />
+        </template>
+
+        <div v-if="scheduleDate">
+            <p class="mb-2">4. Add it to the queue!</p>
+
+            <ActionButton @click="addWord">Add</ActionButton>
         </div>
     </div>
 </template>

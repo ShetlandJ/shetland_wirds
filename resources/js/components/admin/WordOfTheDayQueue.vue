@@ -2,6 +2,7 @@
 import { reactive, ref } from "@vue/runtime-core";
 import format from "date-fns/format";
 import UpdateWordOfTheDayForm from './UpdateWordOfTheDayForm.vue';
+import CreateNewQueuedWord from './CreateNewQueuedWord.vue';
 
 const DATE_FORMAT = "d MMM yy";
 
@@ -18,6 +19,8 @@ const showChangeWordForm = (word) => {
     changeWordFormShown.value = true;
     wordOfTheDayToEdit.value = word;
 };
+
+const showCreateNewWordForm = ref(false);
 </script>
 
 <template>
@@ -29,25 +32,15 @@ const showChangeWordForm = (word) => {
             <div class="flex items-center justify-between">
                 <div class="flex bg-gray-50 items-center p-2 rounded-md"></div>
                 <div class="lg:ml-40 ml-10 space-x-8">
-                    <button
-                        class="
-                            bg-indigo-600
-                            px-4
-                            py-2
-                            rounded-md
-                            text-white
-                            font-semibold
-                            tracking-wide
-                            cursor-pointer
-                        "
-                    >
+                    <ActionButton @click="showCreateNewWordForm = true">
                         Create
-                    </button>
+                    </ActionButton>
                 </div>
             </div>
         </div>
         <div>
             <!-- <div v-if="changeWordFormShown"> -->
+                <CreateNewQueuedWord v-if="showCreateNewWordForm" :word-queue="wordQueue" />
                 <UpdateWordOfTheDayForm v-if="changeWordFormShown" :word-of-the-day-to-edit="wordOfTheDayToEdit" />
             <!-- </div> -->
 

@@ -19,7 +19,7 @@ class WordOfTheDay extends Model
     public $fillable = [
         'uuid',
         'word_id',
-        'user_id',
+        'creator_id',
         'scheduled_for',
         'created_at',
         'updated_at',

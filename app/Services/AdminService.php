@@ -48,6 +48,7 @@ class AdminService
         $query->where('words.rejected', false);
 
         $query->where('word_of_the_day.scheduled_for', '>=', Carbon::today()->toDateTimeString());
+        $query->orderBy('word_of_the_day.scheduled_for', 'asc');
 
         $list = $query->get();
 
@@ -55,6 +56,7 @@ class AdminService
         $formattedList = [];
         foreach ($list as $item) {
             $newItem = [];
+            $newItem['id'] = $item->uuid;
             $newItem['word'] = $item->word->word;
             $newItem['scheduled_for'] = Carbon::parse($item->scheduled_for)->toDateTimeString();
             $newItem['creator'] = $item->creator ? $item->creator->name : 'System generated';
@@ -62,5 +64,42 @@ class AdminService
         }
 
         return $formattedList;
+    }
+
+    public function returnSearchedWordsList(string $searchString)
+    {
+        $query = Word::query();
+
+        $lowercasedSearchString = Str::lower($searchString);
+        $query->where('words.word', 'like', "%{$lowercasedSearchString}%");
+
+        $query->groupBy('words.id');
+
+        $result = $query->get();
+
+        $exactResult = [];
+        $formattedResult = [];
+
+        $recentWordIds = app(WordService::class)->getRecentWordOfTheDayIds();
+
+        foreach ($result as $item) {
+            if (in_array($item->id, $recentWordIds)) {
+                continue;
+            }
+
+            if ($item->word === $searchString) {
+                $exactResult[] =
+                ['id' => $item->uuid, 'word' => sprintf('%s (exact match)', $item->word)];
+                continue;
+            }
+
+
+            $formattedResult[] = [
+                'id' => $item->uuid,
+                'word' => $item->word,
+            ];
+        }
+
+        return array_merge($exactResult, $formattedResult);
     }
 }

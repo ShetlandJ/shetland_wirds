@@ -1,5 +1,7 @@
 <script setup>
+import { reactive, ref } from "@vue/runtime-core";
 import format from "date-fns/format";
+import UpdateWordOfTheDayForm from './UpdateWordOfTheDayForm.vue';
 
 const DATE_FORMAT = "d MMM yy";
 
@@ -9,6 +11,13 @@ defineProps({
         default: () => [],
     },
 });
+
+const changeWordFormShown = ref(false);
+const wordOfTheDayToEdit = ref(null);
+const showChangeWordForm = (word) => {
+    changeWordFormShown.value = true;
+    wordOfTheDayToEdit.value = word;
+};
 </script>
 
 <template>
@@ -38,6 +47,10 @@ defineProps({
             </div>
         </div>
         <div>
+            <!-- <div v-if="changeWordFormShown"> -->
+                <UpdateWordOfTheDayForm v-if="changeWordFormShown" :word-of-the-day-to-edit="wordOfTheDayToEdit" />
+            <!-- </div> -->
+
             <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
                 <div
                     class="
@@ -77,7 +90,7 @@ defineProps({
                         </thead>
                         <tbody>
                             <tr
-                                v-for="(queuedWord, index) in wordQueue"
+                                v-for="queuedWord in wordQueue"
                                 :key="queuedWord.id"
                             >
                                 <td
@@ -106,7 +119,6 @@ defineProps({
                                             DATE_FORMAT
                                         )
                                     }}</span>
-                                    <!-- {{new Date(queuedWord.scheduled_for)}} -->
                                 </td>
                                 <td
                                     class="
@@ -128,7 +140,12 @@ defineProps({
                                         text-sm
                                     "
                                 >
-                                    <button class="underline">Change</button>
+                                    <button
+                                        class="underline"
+                                        @click="showChangeWordForm(queuedWord)"
+                                    >
+                                        Change
+                                    </button>
                                 </td>
                             </tr>
                         </tbody>

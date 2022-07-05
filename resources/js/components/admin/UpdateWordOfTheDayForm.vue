@@ -2,6 +2,7 @@
 import { ref } from "vue";
 import format from "date-fns/format";
 const DATE_FORMAT = "d MMM yy";
+import { Inertia } from '@inertiajs/inertia'
 
 const props = defineProps({
     wordOfTheDayToEdit: {
@@ -36,7 +37,9 @@ const replaceWord = () => {
             replacement_word_id: replacementWordId.value,
     })
         .then(({ data }) => {
-            window.location.reload();
+            Inertia.visit('wotd', {
+                only: ['wordQueue'],
+            })
         })
         .catch((error) => {
             console.log(error);

@@ -40,7 +40,10 @@ const showCreateNewWordForm = ref(false);
         </div>
         <div>
             <!-- <div v-if="changeWordFormShown"> -->
-                <CreateNewQueuedWord v-if="showCreateNewWordForm" :word-queue="wordQueue" />
+                <CreateNewQueuedWord
+                    v-if="showCreateNewWordForm"
+                    :word-queue="wordQueue"
+                />
                 <UpdateWordOfTheDayForm v-if="changeWordFormShown" :word-of-the-day-to-edit="wordOfTheDayToEdit" />
             <!-- </div> -->
 

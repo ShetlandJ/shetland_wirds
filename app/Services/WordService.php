@@ -636,6 +636,10 @@ class WordService
     {
         $wotd = WordOfTheDay::where('scheduled_for', Carbon::today())->first();
 
-        return $this->formatWord($wotd->word);
+        if ($wotd) {
+            return $this->formatWord($wotd->word);
+        }
+
+        return [];
     }
 }

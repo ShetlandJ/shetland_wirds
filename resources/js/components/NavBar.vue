@@ -519,6 +519,7 @@ const logout = () => {
                             </ul>
                         </div>
                         <Link
+                            v-if="randomWordSlug"
                             class="p-0 flex justify-center m-0 font-bold random"
                             :href="
                                 route('word.comments', {

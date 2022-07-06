@@ -98,7 +98,7 @@ const alphabetArray = [
                         </div>
                     </Link>
                     <Link
-                        v-else
+                        v-else-if="randomWordSlug"
                         class="uppercase"
                         :href="route('word.comments', { word: randomWordSlug })"
                     >

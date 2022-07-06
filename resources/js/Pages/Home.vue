@@ -151,6 +151,7 @@ const today = () => {
                         Our featured entry for {{ today() }} is
 
                         <Link
+                            v-if="featuredWord"
                             :href="
                                 route('word.comments', {
                                     word: featuredWord.slug,

@@ -644,14 +644,17 @@ class WordService
         ]);
     }
 
-    public function getFeaturedWord(): array
+    public function getFeaturedWord(): ?array
     {
-        $wotd = WordOfTheDay::where('scheduled_for', Carbon::today())->first();
+        // get word of the day where scheduled_for is between the start and end of today
+        $wotd = WordOfTheDay::whereBetween('scheduled_for', [Carbon::today(), Carbon::tomorrow()])
+            ->first();
 
+        dd($wotd->word_id);
         if ($wotd) {
             return $this->formatWord($wotd->word);
         }
 
-        return [];
+        return null;
     }
 }

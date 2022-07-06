@@ -378,8 +378,6 @@ Route::delete('/word/{word}/comments/{commentId}', function (string $word, strin
 
     app(CommentService::class)->delete($comment);
 
-    $fullWord = app(WordService::class)->findByWord($foundWord->slug);
-
     return redirect()->back();
 })->where('word', '.*')->name('word.comments.delete');
 

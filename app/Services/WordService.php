@@ -156,6 +156,7 @@ class WordService
             'id' => $comment->uuid,
             'parent_comment_id' => $comment->parent ? $comment->parent->uuid : null,
             'word_id' => $comment->word->uuid,
+            'author_id' => $comment->author->uuid,
             'author' => $comment->author->name,
             'author_initials' => $comment->author->initials,
             'created_at' => $this->formatDate($comment->created_at),

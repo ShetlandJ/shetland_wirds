@@ -53,7 +53,7 @@ const commentOptions = ref({
             <span class="text-xs text-gray-400 ml-2">
                 {{ formatDateTime(childComment.created_at) }}
             </span>
-            <p class="text-sm">
+            <p class="text-sm mt-2">
                 <SanitisedHtml :html-string="childComment.message" />
             </p>
         </div>

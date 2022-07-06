@@ -1,13 +1,14 @@
 <script setup>
-import { usePage } from '@inertiajs/inertia-vue3';
+import { usePage } from "@inertiajs/inertia-vue3";
 import { formatDateTime } from "../../utils/formatters";
 import { ref } from "vue";
 import ChildComment from "./ChildComment.vue";
 import CommentInput from "../comments/CommentInput.vue";
-const Filter = require('bad-words');
+const Filter = require("bad-words");
 const swearFilter = new Filter();
 
 const isLoggedIn = usePage().props.value.isLoggedIn;
+const userId = usePage().props.value.user?.uuid;
 
 const showChildReplies = ref(false);
 
@@ -59,10 +60,12 @@ const commentOptions = ref({
             <span class="text-xs text-gray-400 ml-2">
                 {{ formatDateTime(comment.created_at) }}
             </span>
-            <p class="text-sm">
-                <SanitisedHtml :html-string="swearFilter.clean(comment.message)" />
+            <p class="text-md dark:text-white mt-2">
+                <SanitisedHtml
+                    :html-string="swearFilter.clean(comment.message)"
+                />
             </p>
-            <div class="mt-4 flex items-center">
+            <div class="mt-4 flex justify-between items-center">
                 <div
                     v-if="
                         comment.child_comments && comment.child_comments.length
@@ -72,7 +75,7 @@ const commentOptions = ref({
                         font-semibold
                         hover:underline
                         cursor-pointer
-                        dark:text-gray-300
+                        dark:text-gray-400
                     "
                     @click="showChildReplies = !showChildReplies"
                 >
@@ -98,12 +101,25 @@ const commentOptions = ref({
                             font-semibold
                             hover:underline
                             cursor-pointer
-                            dark:text-grey-300
+                            dark:text-gray-300
                         "
                     >
                         reply
                     </p>
                 </div>
+
+                <p
+                    v-if="comment.author_uuid === userId"
+                    class="
+                        text-xs text-gray-500
+                        font-semibold
+                        hover:underline
+                        cursor-pointer
+                        dark:text-gray-400
+                    "
+                >
+                    Delete
+                </p>
             </div>
 
             <div v-if="showChildReplies" class="space-y-4">
@@ -128,64 +144,7 @@ const commentOptions = ref({
                     :child-comment="childComment"
                     :key="childComment.id"
                 />
-                <!-- <div
-                    v-for="childComment in comment.child_comments"
-                    :key="childComment.id"
-                >
-                    <div class="flex">
-                        <div class="flex-shrink-0 mr-3">
-                            <div
-                                style="background: #2663eb"
-                                class="
-                                    rounded-full
-                                    flex
-                                    items-center
-                                    justify-center
-                                    mt-2
-                                    w-8
-                                    h-8
-                                    sm:w-10
-                                    bg-blue-500
-                                    sm:h-10
-                                    text-white text-xl
-                                "
-                            >
-                                {{ childComment.author_initials }}
-                            </div>
-                        </div>
-                        <div
-                            class="
-                                flex-1
-                                bg-gray-100
-                                rounded-lg
-                                px-4
-                                py-2
-                                sm:px-6 sm:py-4
-                                leading-relaxed
-                            "
-                        >
-                            <strong>{{ childComment.author }}</strong>
-                            <span class="text-xs text-gray-400 ml-2">
-                                {{ formatDateTime(childComment.created_at) }}
-                            </span>
-                            <p class="text-sm">
-                                <SanitisedHtml
-                                    :html-string="childComment.message"
-                                />
-                            </p>
-                        </div>
-                    </div>
-                </div>
 
-                <CommentInput
-                    v-if="isLoggedIn"
-                    :class="{
-                        'mt-4': comment.child_comments.length === 0,
-                    }"
-                    :word="word"
-                    :options="commentOptions"
-                    :parent-comment="comment"
-                /> -->
                 <CommentInput
                     v-if="isLoggedIn"
                     :class="{

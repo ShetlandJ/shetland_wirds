@@ -41,6 +41,7 @@ const deleteComment = (commentId) => {
 
 const toggleEdit = () => {
     editMode.value = !editMode.value;
+    showChildReplies.value = !showChildReplies.value;
 };
 </script>
 
@@ -129,6 +130,7 @@ const toggleEdit = () => {
 
                 <div v-else-if="isLoggedIn">
                     <p
+                        v-if="!editMode"
                         @click="showChildReplies = !showChildReplies"
                         class="
                             text-sm text-gray-500
@@ -142,7 +144,7 @@ const toggleEdit = () => {
                     </p>
                 </div>
                 <div
-                    v-if="comment.author_id === userId && isLoggedIn"
+                    v-if="comment.author_id === userId && isLoggedIn && !editMode"
                     class="flex"
                 >
                     <p

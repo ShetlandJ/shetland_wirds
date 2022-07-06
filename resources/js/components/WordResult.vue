@@ -90,7 +90,7 @@ const toggleDescriptor = (definition) => {
 
 <template>
     <Container>
-        <div className="items-start px-4 py-6 dark:bg-gray-700">
+        <div className="items-start dark:bg-gray-700">
             <div>
                 <div className="flex items-center justify-between mb-2">
                     <div

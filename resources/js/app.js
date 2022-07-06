@@ -10,6 +10,7 @@ import Alert from './components/global/Alert.vue';
 import ActionButton from './components/global/ActionButton.vue';
 import Datepicker from '@vuepic/vue-datepicker';
 import Container from './components/global/Container.vue';
+import SanitisedHtml from './components/global/SanitisedHtml.vue';
 
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Spaektionary';
 
@@ -27,6 +28,7 @@ createInertiaApp({
                     Container,
                     Datepicker,
                     QuillEditor,
+                    SanitisedHtml,
                 }
             })
             .mount(el);

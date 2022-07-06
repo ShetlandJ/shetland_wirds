@@ -1,6 +1,6 @@
 <script setup>
 import { computed } from 'vue';
-import { sanitiseString } from "../utils/formatters";
+import { sanitiseString } from '../../utils/formatters';
 
 const props = defineProps({
     htmlString: String,

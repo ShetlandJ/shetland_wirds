@@ -2,7 +2,7 @@
 import { usePage } from '@inertiajs/inertia-vue3';
 import { formatDateTime } from "../../utils/formatters";
 import { ref } from "vue";
-import SanitisedHtml from "../SanitisedHtml.vue";
+import ChildComment from "./ChildComment.vue";
 import CommentInput from "../comments/CommentInput.vue";
 const Filter = require('bad-words');
 const swearFilter = new Filter();
@@ -52,6 +52,7 @@ const commentOptions = ref({
                 py-2
                 sm:px-6 sm:py-4
                 leading-relaxed
+                dark:text-gray-200
             "
         >
             <strong>{{ comment.author }}</strong>
@@ -62,13 +63,6 @@ const commentOptions = ref({
                 <SanitisedHtml :html-string="swearFilter.clean(comment.message)" />
             </p>
             <div class="mt-4 flex items-center">
-                <!-- <div class="flex -space-x-2 mr-2">
-                    <img
-                        class="rounded-full w-6 h-6 border border-white"
-                        src="https://images.unsplash.com/photo-1554151228-14d9def656e4?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=100&h=100&q=80"
-                        alt=""
-                    />
-                </div> -->
                 <div
                     v-if="
                         comment.child_comments && comment.child_comments.length
@@ -78,6 +72,7 @@ const commentOptions = ref({
                         font-semibold
                         hover:underline
                         cursor-pointer
+                        dark:text-gray-300
                     "
                     @click="showChildReplies = !showChildReplies"
                 >
@@ -103,6 +98,7 @@ const commentOptions = ref({
                             font-semibold
                             hover:underline
                             cursor-pointer
+                            dark:text-grey-300
                         "
                     >
                         reply
@@ -126,7 +122,13 @@ const commentOptions = ref({
                 >
                     Replies
                 </h4>
-                <div
+
+                <ChildComment
+                    v-for="childComment in comment.child_comments"
+                    :child-comment="childComment"
+                    :key="childComment.id"
+                />
+                <!-- <div
                     v-for="childComment in comment.child_comments"
                     :key="childComment.id"
                 >
@@ -175,6 +177,15 @@ const commentOptions = ref({
                     </div>
                 </div>
 
+                <CommentInput
+                    v-if="isLoggedIn"
+                    :class="{
+                        'mt-4': comment.child_comments.length === 0,
+                    }"
+                    :word="word"
+                    :options="commentOptions"
+                    :parent-comment="comment"
+                /> -->
                 <CommentInput
                     v-if="isLoggedIn"
                     :class="{

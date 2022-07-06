@@ -23,8 +23,8 @@ defineProps({
             rounded-lg
         "
         :class="[
-            variant === 'info' ? 'bg-blue-100 text-blue-700' : '',
-            variant === 'success' ? 'bg-green-100 text-green-700' : '',
+            variant === 'info' ? 'bg-blue-100 text-blue-700 dark:bg-blue-800 dark:text-blue-200' : '',
+            variant === 'success' ? 'bg-green-100 text-green-700 dark:bg-green-800 dark:text-green-200' : '',
         ]"
         role="alert"
     >

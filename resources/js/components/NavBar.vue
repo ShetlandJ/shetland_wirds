@@ -1,4 +1,5 @@
 <script setup>
+import { Inertia } from "@inertiajs/inertia";
 import { Link, useForm, usePage, InertiaApp } from "@inertiajs/inertia-vue3";
 import JetDropdown from "@/Jetstream/Dropdown.vue";
 import JetDropdownLink from "@/Jetstream/DropdownLink.vue";
@@ -64,7 +65,7 @@ const alphabetArray = [
 
 const showingNavigationDropdown = ref(false);
 
-const logout = async () => {
+const logout = () => {
     Inertia.post(route("logout"));
     window.location.reload();
 };
@@ -80,7 +81,7 @@ const logout = async () => {
             pb-0
             shadow-lg
             md:pb-4
-            bg-grey-100
+            bg-gray-100
             dark:bg-gray-800
         "
     >

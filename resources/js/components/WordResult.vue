@@ -74,10 +74,6 @@ const rejectWord = (wordId) => {
     });
 };
 
-const commentOptions = ref({
-    placeholder: `Any thoughts on ${props.word.word}?`,
-});
-
 const url = Inertia.page.url;
 const isComments = url.includes("comments");
 const isRecordings = url.includes("recordings");
@@ -97,7 +93,10 @@ const toggleDescriptor = (definition) => {
         <div className="items-start px-4 py-6 dark:bg-gray-700">
             <div>
                 <div className="flex items-center justify-between mb-2">
-                    <div class="flex">
+                    <div
+                        class="flex"
+                        :class="[word.definitions && word.definitions.length > 0 ? 'mb-1' : 'mb-3']"
+                    >
                         <Link
                             :href="route('word.comments', { word: word.slug })"
                             class="text-sm text-gray-700 flex"
@@ -110,12 +109,17 @@ const toggleDescriptor = (definition) => {
                                 text-gray-900
                                 -mt-1
                                 dark:text-white
-                                dark:border-b
+
                             "
                             >
                                 {{ word.word }}
                             </h2>
-                            <span v-if="exactMatch" class="font-sm ml-2 text-green-500"> 🎯 exact match</span>
+                            <span
+                                v-if="exactMatch"
+                                class="font-sm ml-2 text-green-500"
+                            >
+                                🎯 exact match</span
+                            >
                         </Link>
                         <span v-if="word.rejected" class="text-red-500 ml-3">
                             (Rejected)

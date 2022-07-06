@@ -24,6 +24,12 @@ use Symfony\Component\Routing\Loader\Configurator\CollectionConfigurator;
 
 class CommentService
 {
+    public function update(Comment $comment, string $newText)
+    {
+        $comment->comment = $newText;
+        $comment->save();
+    }
+
     public function delete(Comment $comment): bool
     {
         if ($comment->parent) {

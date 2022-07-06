@@ -32,6 +32,7 @@
         "bad-words": "^3.0.4",
         "date-fns": "^2.28.0",
         "dompurify": "^2.3.8",
+        "pinia": "^2.0.14",
         "vue3-popper": "^1.4.2"
     }
 }

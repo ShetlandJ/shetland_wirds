@@ -3,6 +3,10 @@ import { Inertia } from "@inertiajs/inertia";
 import { usePage } from "@inertiajs/inertia-vue3";
 import { ref } from "vue";
 import { formatDateTime } from "../../utils/formatters";
+import CommentInput from "../comments/CommentInput.vue";
+
+import { useStore } from "../../store/commentStore";
+const commentStore = useStore();
 
 const isLoggedIn = usePage().props.value.isLoggedIn;
 const userId = usePage().props.value.user?.uuid;
@@ -16,6 +20,8 @@ const commentOptions = ref({
     placeholder: `Continue the conversation...`,
 });
 
+const editMode = ref(false);
+
 const deleteComment = (commentId) => {
     Inertia.delete(
         route("word.comments.delete", { word: props.word.word, commentId }),
@@ -24,10 +30,15 @@ const deleteComment = (commentId) => {
         }
     );
 };
+
+const toggleEdit = () => {
+    commentStore.setChildEditing(!editMode.value);
+    editMode.value = !editMode.value;
+};
 </script>
 
 <template>
-    <div class="flex">
+    <div class="flex" v-if="childComment && childComment.id">
         <div class="flex-shrink-0 mr-3">
             <div
                 style="background: #2663eb"
@@ -65,23 +76,68 @@ const deleteComment = (commentId) => {
             <span class="text-xs text-gray-400 ml-2">
                 {{ formatDateTime(childComment.created_at) }}
             </span>
-            <p class="text-sm mt-2">
+            <p class="text-sm mt-2" v-if="!editMode">
                 <SanitisedHtml :html-string="childComment.message" />
             </p>
+            <CommentInput
+                v-else
+                :value="childComment.message"
+                :child-comment="childComment"
+                class="mt-4"
+                :comment-id="childComment.id"
+                :word="word"
+                action-message="Update comment"
+                :edit-mode="editMode"
+                @editing-complete="editMode = false"
+            />
+
             <div class="flex justify-end">
-                <p
-                    v-if="childComment.author_id === userId && isLoggedIn"
-                    class="
-                        text-xs text-gray-500
-                        font-semibold
-                        hover:underline
-                        cursor-pointer
-                        dark:text-gray-400
-                    "
-                    @click="deleteComment(childComment.id)"
-                >
-                    Delete
-                </p>
+                <template v-if="!editMode">
+                    <p
+                        v-if="childComment.author_id === userId && isLoggedIn"
+                        class="
+                            text-xs text-gray-500
+                            font-semibold
+                            hover:underline
+                            cursor-pointer
+                            dark:text-gray-400
+                            mr-2
+                        "
+                        @click="toggleEdit"
+                    >
+                        Edit
+                    </p>
+
+                    <p
+                        v-if="childComment.author_id === userId && isLoggedIn"
+                        class="
+                            text-xs text-gray-500
+                            font-semibold
+                            hover:underline
+                            cursor-pointer
+                            dark:text-gray-400
+                        "
+                        @click="deleteComment(childComment.id)"
+                    >
+                        Delete
+                    </p>
+                </template>
+                <template v-else>
+                    <p
+                        v-if="childComment.author_id === userId && isLoggedIn"
+                        class="
+                            text-xs text-red-500
+                            font-semibold
+                            hover:underline
+                            cursor-pointer
+                            dark:text-gray-400
+                            mt-3
+                        "
+                        @click="toggleEdit"
+                    >
+                        Cancel
+                    </p>
+                </template>
             </div>
         </div>
     </div>

@@ -1,10 +1,12 @@
 <script setup>
 import { usePage } from "@inertiajs/inertia-vue3";
 import { formatDateTime } from "../../utils/formatters";
-import { ref } from "vue";
+import { computed, reactive, ref } from "vue";
 import ChildComment from "./ChildComment.vue";
 import CommentInput from "../comments/CommentInput.vue";
 import { Inertia } from "@inertiajs/inertia";
+import { storeToRefs } from "pinia";
+
 const Filter = require("bad-words");
 const swearFilter = new Filter();
 
@@ -12,6 +14,12 @@ const isLoggedIn = usePage().props.value.isLoggedIn;
 const userId = usePage().props.value.user?.uuid;
 
 const showChildReplies = ref(false);
+const editMode = ref(false);
+
+import { useStore } from "../../store/commentStore";
+const commentStore = useStore();
+
+const isEditingChildComment = storeToRefs(commentStore).childEditing;
 
 const props = defineProps({
     word: Object,
@@ -23,9 +31,16 @@ const commentOptions = ref({
 });
 
 const deleteComment = (commentId) => {
-    Inertia.delete(route("word.comments.delete", { word: props.word.word, commentId, }), {
-        commentId,
-    });
+    Inertia.delete(
+        route("word.comments.delete", { word: props.word.word, commentId }),
+        {
+            commentId,
+        }
+    );
+};
+
+const toggleEdit = () => {
+    editMode.value = !editMode.value;
 };
 </script>
 
@@ -67,11 +82,23 @@ const deleteComment = (commentId) => {
             <span class="text-xs text-gray-400 ml-2">
                 {{ formatDateTime(comment.created_at) }}
             </span>
-            <p class="text-md dark:text-white mt-2">
+            <p class="text-md dark:text-white mt-2" v-if="!editMode">
                 <SanitisedHtml
                     :html-string="swearFilter.clean(comment.message)"
                 />
             </p>
+
+            <CommentInput
+                v-else
+                :value="comment.message"
+                class="mt-4"
+                :word="word"
+                :comment-id="comment.id"
+                action-message="Update comment"
+                :edit-mode="editMode"
+                @editing-complete="editMode = false"
+            />
+
             <div class="mt-4 flex justify-between items-center">
                 <div
                     v-if="
@@ -114,19 +141,36 @@ const deleteComment = (commentId) => {
                         reply
                     </p>
                 </div>
-                <p
-                    v-if="(comment.author_id === userId && isLoggedIn)"
-                    class="
-                        text-xs text-gray-500
-                        font-semibold
-                        hover:underline
-                        cursor-pointer
-                        dark:text-gray-400
-                    "
-                    @click="deleteComment(comment.id)"
+                <div
+                    v-if="comment.author_id === userId && isLoggedIn"
+                    class="flex"
                 >
-                    Delete
-                </p>
+                    <p
+                        class="
+                            text-xs text-gray-500
+                            font-semibold
+                            hover:underline
+                            cursor-pointer
+                            dark:text-gray-400
+                            mr-2
+                        "
+                        @click="toggleEdit"
+                    >
+                        Edit
+                    </p>
+                    <p
+                        class="
+                            text-xs text-gray-500
+                            font-semibold
+                            hover:underline
+                            cursor-pointer
+                            dark:text-gray-400
+                        "
+                        @click="deleteComment(comment.id)"
+                    >
+                        Delete
+                    </p>
+                </div>
             </div>
 
             <div v-if="showChildReplies" class="space-y-4">
@@ -147,6 +191,7 @@ const deleteComment = (commentId) => {
                 </h4>
 
                 <ChildComment
+                    ref="childComment"
                     v-for="childComment in comment.child_comments"
                     :child-comment="childComment"
                     :key="childComment.id"
@@ -154,7 +199,7 @@ const deleteComment = (commentId) => {
                 />
 
                 <CommentInput
-                    v-if="isLoggedIn"
+                    v-if="isLoggedIn && !isEditingChildComment"
                     :class="{
                         'mt-4': comment.child_comments.length === 0,
                     }"
@@ -168,7 +213,7 @@ const deleteComment = (commentId) => {
 </template>
 
 <style scoped>
-<style > .ql-snow {
+.ql-snow {
     border-spacing: 0;
 }
 .ql-toolbar,

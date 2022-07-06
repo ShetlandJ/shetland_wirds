@@ -97,7 +97,7 @@ const today = () => {
         />
 
         <Container>
-            <div>
+            <div class="text-center">
                 <p class="flex text-xl justify-center mb-2 dark:text-white">
                     <b>Spaektionary</b>
                 </p>

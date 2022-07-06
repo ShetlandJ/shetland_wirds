@@ -10,6 +10,7 @@ use App\Services\WordService;
 use Illuminate\Support\Facades\DB;
 use App\Http\Middleware\UserIsAdmin;
 use App\Services\AdminService;
+use App\Services\CommentService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
@@ -323,6 +324,38 @@ Route::post('/word/{word}/comments', function (string $word) {
         'userSelectedLocations' => []
     ]);
 })->where('word', '.*')->name('word.comments.new');
+
+
+Route::delete('/word/{word}/comments/{commentId}', function (string $word, string $commentId) {
+    if (!Auth::check()) {
+        return redirect()->back();
+    }
+
+    if (!$commentId) {
+        return redirect()->back();
+    }
+
+    $foundWord = Word::where('word', $word)->first();
+    $comment = Comment::where('uuid', $commentId)->first();
+
+    if ($comment->author->id !== Auth::id()) {
+        return redirect()->back();
+    }
+
+    app(CommentService::class)->delete($comment);
+
+    $fullWord = app(WordService::class)->findByWord($foundWord->slug);
+
+    return Inertia::render('WordComments', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'isLoggedIn' => Auth::check(),
+        'word' => $fullWord,
+        'randomWord' => DB::table('words')->inRandomOrder()->first()->slug,
+        'locations' => [],
+        'userSelectedLocations' => []
+    ]);
+})->where('word', '.*')->name('word.comments.delete');
 
 Route::get('/create', function (Request $request) {
     return Inertia::render('NewWord', [

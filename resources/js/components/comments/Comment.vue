@@ -4,6 +4,7 @@ import { formatDateTime } from "../../utils/formatters";
 import { ref } from "vue";
 import ChildComment from "./ChildComment.vue";
 import CommentInput from "../comments/CommentInput.vue";
+import { Inertia } from "@inertiajs/inertia";
 const Filter = require("bad-words");
 const swearFilter = new Filter();
 
@@ -12,7 +13,7 @@ const userId = usePage().props.value.user?.uuid;
 
 const showChildReplies = ref(false);
 
-defineProps({
+const props = defineProps({
     word: Object,
     comment: Object,
 });
@@ -20,6 +21,12 @@ defineProps({
 const commentOptions = ref({
     placeholder: `Continue the conversation...`,
 });
+
+const deleteComment = (commentId) => {
+    Inertia.delete(route("word.comments.delete", { word: props.word.word, commentId, }), {
+        commentId,
+    });
+};
 </script>
 
 <template>
@@ -107,9 +114,8 @@ const commentOptions = ref({
                         reply
                     </p>
                 </div>
-
                 <p
-                    v-if="comment.author_uuid === userId"
+                    v-if="(comment.author_id === userId && isLoggedIn)"
                     class="
                         text-xs text-gray-500
                         font-semibold
@@ -117,6 +123,7 @@ const commentOptions = ref({
                         cursor-pointer
                         dark:text-gray-400
                     "
+                    @click="deleteComment(comment.id)"
                 >
                     Delete
                 </p>
@@ -143,6 +150,7 @@ const commentOptions = ref({
                     v-for="childComment in comment.child_comments"
                     :child-comment="childComment"
                     :key="childComment.id"
+                    :word="word"
                 />
 
                 <CommentInput

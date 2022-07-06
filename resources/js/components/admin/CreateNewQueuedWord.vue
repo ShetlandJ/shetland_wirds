@@ -40,7 +40,6 @@ const searchWords = () => {
         });
 };
 
-console.log(usePage().props.value.user);
 const addWord = () => {
     axios
         .post("/api/wotd/new", {

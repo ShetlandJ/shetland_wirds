@@ -1,17 +1,29 @@
 <script setup>
-import { usePage } from '@inertiajs/inertia-vue3';
+import { Inertia } from "@inertiajs/inertia";
+import { usePage } from "@inertiajs/inertia-vue3";
 import { ref } from "vue";
 import { formatDateTime } from "../../utils/formatters";
 
 const isLoggedIn = usePage().props.value.isLoggedIn;
+const userId = usePage().props.value.user?.uuid;
 
-defineProps({
+const props = defineProps({
     childComment: Object,
+    word: Object,
 });
 
 const commentOptions = ref({
     placeholder: `Continue the conversation...`,
 });
+
+const deleteComment = (commentId) => {
+    Inertia.delete(
+        route("word.comments.delete", { word: props.word.word, commentId }),
+        {
+            commentId,
+        }
+    );
+};
 </script>
 
 <template>
@@ -56,6 +68,21 @@ const commentOptions = ref({
             <p class="text-sm mt-2">
                 <SanitisedHtml :html-string="childComment.message" />
             </p>
+            <div class="flex justify-end">
+                <p
+                    v-if="childComment.author_id === userId && isLoggedIn"
+                    class="
+                        text-xs text-gray-500
+                        font-semibold
+                        hover:underline
+                        cursor-pointer
+                        dark:text-gray-400
+                    "
+                    @click="deleteComment(childComment.id)"
+                >
+                    Delete
+                </p>
+            </div>
         </div>
     </div>
 </template>

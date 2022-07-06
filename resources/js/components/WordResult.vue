@@ -474,12 +474,12 @@ const URL = window.location.href;
 
             <div v-if="fullView">
                 <div class="text-sm text-gray-600 flex justify-end">
-                    <span class="cursor-pointer" @click="showCite = !showCite"
+                    <span class="cursor-pointer dark:text-white" @click="showCite = !showCite"
                         >cite</span
                     >
                 </div>
 
-                <div v-if="showCite">
+                <div v-if="showCite" class="dark:text-white">
                     <div class="flex mb-4">
                         <button class="underline w-40">APA</button>
                         <p class="text-sm w-full">

@@ -474,14 +474,21 @@ const URL = window.location.href;
 
             <div v-if="fullView">
                 <div class="text-sm text-gray-600 flex justify-end">
-                    <span class="cursor-pointer dark:text-white" @click="showCite = !showCite"
+                    <span
+                        class="cursor-pointer dark:text-white"
+                        @click="showCite = !showCite"
                         >cite</span
                     >
                 </div>
 
                 <div v-if="showCite" class="dark:text-white">
                     <div class="flex mb-4">
-                        <button class="underline w-40">APA</button>
+                        <a
+                            class="underline w-40"
+                            href="https://en.wikipedia.org/wiki/APA_style"
+                            target="_blank"
+                            >APA</a
+                        >
                         <p class="text-sm w-full">
                             Spaektionary. ({{
                                 format(new Date(), APA_DATE_FORMAT)
@@ -492,7 +499,12 @@ const URL = window.location.href;
                         </p>
                     </div>
                     <div class="flex mb-4">
-                        <button class="underline w-40">Chicago</button>
+                        <a
+                            class="underline w-40"
+                            href="https://en.wikipedia.org/wiki/The_Chicago_Manual_of_Style"
+                            target="_blank"
+                            >Chicago</a
+                        >
                         <p class="text-sm w-full">
                             Spaektionary, "{{ word.word }},"
                             {{ URL }}
@@ -501,7 +513,12 @@ const URL = window.location.href;
                         </p>
                     </div>
                     <div class="flex mb-4">
-                        <button class="underline w-40">BibTeX</button>
+                        <a
+                            class="underline w-40"
+                            href="https://en.wikipedia.org/wiki/BibTeX"
+                            target="_blank"
+                            >BibTeX</a
+                        >
                         <code class="text-sm w-full">
                             @misc{<br />
                             author = "{Spaektionary}",<br />

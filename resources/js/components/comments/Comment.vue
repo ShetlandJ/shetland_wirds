@@ -100,7 +100,7 @@ const toggleEdit = () => {
                 @editing-complete="editMode = false"
             />
 
-            <div class="mt-4 flex justify-between items-center">
+            <div class="mt-2 flex justify-between items-center">
                 <div
                     v-if="
                         comment.child_comments && comment.child_comments.length

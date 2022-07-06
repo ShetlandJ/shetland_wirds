@@ -132,7 +132,7 @@ const toggleDescriptor = (definition) => {
                         <svg
                             fill="none"
                             viewBox="0 0 24 24"
-                            class="w-4 h-4 mr-3 heart"
+                            class="w-4 h-4 heart"
                             :class="[isLoggedIn ? 'cursor-pointer' : '']"
                             stroke="red"
                             @click="likeWord(word.word, searchString)"
@@ -156,6 +156,7 @@ const toggleDescriptor = (definition) => {
                     </div>
                 </div>
                 <div
+                    class="mb-3"
                     v-for="(definition, index) in word.definitions"
                     :key="definition.id"
                 >

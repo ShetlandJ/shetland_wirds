@@ -122,7 +122,7 @@ const addWord = () => {
 
             <Datepicker
                 v-model="scheduleDate"
-                class="w-1/4 mb-4"
+                class="w-full md:w-1/2 mb-4"
                 :enable-time-picker="false"
                 :disabled-dates="disabledDates"
                 :min-date="new Date()"

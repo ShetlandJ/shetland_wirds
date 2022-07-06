@@ -30,7 +30,6 @@ const showCreateNewWordForm = ref(false);
                 <h2 class="text-gray-600 font-semibold">Upcoming words</h2>
             </div>
             <div class="flex items-center justify-between">
-                <div class="flex bg-gray-50 items-center p-2 rounded-md"></div>
                 <div class="lg:ml-40 ml-10 space-x-8">
                     <ActionButton @click="showCreateNewWordForm = true">
                         Create

@@ -22,7 +22,7 @@ const commentOptions = ref({
 <template>
     <div v-if="word">
         <Alert
-            class="mb-2"
+            class="mb-4"
             v-if="!comments.length"
             :message="
                 isLoggedIn

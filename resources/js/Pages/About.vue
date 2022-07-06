@@ -41,7 +41,7 @@ defineProps({
                     <b> About </b>
                 </p>
                 <p class="text-lg mb-4 dark:text-white">
-                    The Spaektionary was created by
+                    The <b>Spaektionary</b> was created by
                     <a
                         class="underline"
                         href="https://www.twitter.com/JAStewart"
@@ -68,7 +68,7 @@ defineProps({
                     corpus of the speech by 20 oral history interviews by the
                     Shetland Museum and Archives done in the 1980s and 1990s,
                     released for research by kind permission from Dr. Brian
-                    Smith. This oral history corpus has a total of 37,5 hours of
+                    Smith. This oral history corpus has a total of 37.5 hours of
                     speech (ca 316,000 words). The speakers are from different
                     areas of Shetland, there are 10 male and 10 female speakers
                     and they are all 60 years or above at the time of recording.

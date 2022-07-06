@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use App\Models\Word;
 use App\Models\Comment;
 use App\Models\Location;
+use App\Models\Revision;
 use App\Models\WordToWord;
 use Illuminate\Support\Str;
 use App\Models\UserWordLike;
@@ -24,6 +25,13 @@ use Symfony\Component\Routing\Loader\Configurator\CollectionConfigurator;
 
 class AdminService
 {
+    public RevisionService $revisionService;
+
+    public function __construct(RevisionService $revisionService)
+    {
+        $this->revisionService = $revisionService;
+    }
+
     public function getQueuedWords(?string $searchString = '', array $pagination = []): array
     {
         $query = WordOfTheDay::query();
@@ -106,18 +114,30 @@ class AdminService
     public function updateWord(array $payload): Word
     {
         $word = Word::where('uuid', $payload['id'])->first();
+        $originalWord = $word->word;
 
         $word->word = $payload['word'];
 
+        $definitionsChanges = [];
         foreach ($payload['definitions'] as $definition) {
             $wordDefinition = WordDefinition::where('uuid', $definition['id'])->first();
+            $definitionsChanges[$wordDefinition->uuid]['original'] = $wordDefinition->definition;
             if ($wordDefinition) {
                 $wordDefinition->definition = $definition['definition'];
                 $wordDefinition->save();
+                $definitionsChanges[$wordDefinition->uuid]['updated'] = $wordDefinition->definition;
             }
         }
 
         $word->save();
+
+        $updatedWord = $word->word;
+
+        $this->revisionService->create($word->word, [
+            'originalWord' => $originalWord,
+            'updatedWord' => $updatedWord,
+            'definitionChanges' => $definitionsChanges,
+        ], $payload['userId']);
 
         return $word;
     }

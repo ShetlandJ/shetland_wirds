@@ -1,9 +1,11 @@
 <script setup>
+import { usePage } from "@inertiajs/inertia-vue3";
 import { ref } from "vue";
 
 const searchString = ref("");
 const wordResultsList = ref([]);
 const showSuccessMessage = ref(false);
+const userId = usePage().props.value.user?.uuid;
 
 const searchWords = () => {
     axios
@@ -41,6 +43,7 @@ const updateWord = () => {
     const payload = {
         id: word.value.id,
         word: word.value.word,
+        userId: userId,
         definitions:
             word.value.definitions?.map((definition) => ({
                 id: definition.id,

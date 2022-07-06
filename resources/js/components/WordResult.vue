@@ -14,6 +14,13 @@ import Locations from "./locations/Locations.vue";
 
 import { onMounted, ref } from "vue";
 
+import format from "date-fns/format";
+const APA_DATE_FORMAT = "yyyy MMMM d";
+const CHICAGO_DATE_FORMAT = "MMMM d, yyyy";
+const BIBTEX_YEAR = "yyyy";
+const BIBTEX_DATE = "d-MMMM-yyyy";
+const HOUR_MINUTE_FORMAT = "h:mm a";
+
 const props = defineProps({
     word: Object,
     searchString: String,
@@ -86,6 +93,10 @@ const toggleDescriptor = (definition) => {
         showDescriptor.value = !showDescriptor.value;
     }
 };
+
+const showCite = ref(false);
+
+const URL = window.location.href;
 </script>
 
 <template>
@@ -95,7 +106,11 @@ const toggleDescriptor = (definition) => {
                 <div className="flex items-center justify-between mb-2">
                     <div
                         class="flex"
-                        :class="[word.definitions && word.definitions.length > 0 ? 'mb-1' : 'mb-3']"
+                        :class="[
+                            word.definitions && word.definitions.length > 0
+                                ? 'mb-1'
+                                : 'mb-3',
+                        ]"
                     >
                         <Link
                             :href="route('word.comments', { word: word.slug })"
@@ -454,6 +469,52 @@ const toggleDescriptor = (definition) => {
                     >
                         Reject
                     </button>
+                </div>
+            </div>
+
+            <div v-if="fullView">
+                <div class="text-sm text-gray-600 flex justify-end">
+                    <span class="cursor-pointer" @click="showCite = !showCite"
+                        >cite</span
+                    >
+                </div>
+
+                <div v-if="showCite">
+                    <div class="flex mb-4">
+                        <button class="underline w-40">APA</button>
+                        <p class="text-sm w-full">
+                            Spaektionary. ({{
+                                format(new Date(), APA_DATE_FORMAT)
+                            }}). {{ word.word }} Retrieved
+                            {{ format(new Date(), HOUR_MINUTE_FORMAT) }},
+                            {{ format(new Date(), CHICAGO_DATE_FORMAT) }}, from
+                            {{ URL }}
+                        </p>
+                    </div>
+                    <div class="flex mb-4">
+                        <button class="underline w-40">Chicago</button>
+                        <p class="text-sm w-full">
+                            Spaektionary, "{{ word.word }},"
+                            {{ URL }}
+                            (accessed
+                            {{ format(new Date(), CHICAGO_DATE_FORMAT) }}).
+                        </p>
+                    </div>
+                    <div class="flex mb-4">
+                        <button class="underline w-40">BibTeX</button>
+                        <code class="text-sm w-full">
+                            @misc{<br />
+                            author = "{Spaektionary}",<br />
+                            title = "{{ word.word }} --- {Spaektionary},<br />
+                            year = "{{
+                                format(new Date(), BIBTEX_YEAR)
+                            }}",<br />
+                            url = "{{ URL }}",<br />
+                            note = "[Online; accessed
+                            {{ format(new Date(), BIBTEX_DATE) }}]<br />
+                            }
+                        </code>
+                    </div>
                 </div>
             </div>
         </div>

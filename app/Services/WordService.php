@@ -650,7 +650,6 @@ class WordService
         $wotd = WordOfTheDay::whereBetween('scheduled_for', [Carbon::today(), Carbon::tomorrow()])
             ->first();
 
-        dd($wotd->word_id);
         if ($wotd) {
             return $this->formatWord($wotd->word);
         }

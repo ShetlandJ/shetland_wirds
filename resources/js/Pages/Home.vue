@@ -96,29 +96,27 @@ const today = () => {
             @suggest-word="toggleSuggestWordForm(true)"
         />
 
-        <div
-            className="bg-white dark:bg-gray-700 shadow-lg rounded-lg mx-4 p-2 md:mx-auto my-8 max-w-lg md:max-w-2xl text-center"
-        >
-            <div class="mb-8">
+        <Container>
+            <div>
                 <p class="flex text-xl justify-center mb-2 dark:text-white">
                     <b>Spaektionary</b>
                 </p>
-                <p class="dark:text-white mb-4">
+                <p class="dark:text-white text-lg mb-4">
                     Welcome to the dictionary by and for Shetlanders!
                 </p>
 
-                <p class="dark:text-white mb-4">
+                <p class="dark:text-white text-lg mb-4">
                     Help us make this dictionary better by adding your voice to
                     the words and expressions. And help us by adding the words
                     and expressions that are missing!
                 </p>
 
-                <p class="dark:text-white mb-4">
+                <p class="dark:text-white text-lg mb-4">
                     We will map the words and expressions by location to show a
                     fuller picture of Shaetlan speech.
                 </p>
 
-                <div class="dark:text-white mb-4" style="display: block">
+                <div class="dark:text-white text-lg mb-4" style="display: block">
                     To get started, you can search for a word or phrase in the
                     search bar above, or click on browse in the menu to browse
                     by letter. If you want to contribute, click
@@ -177,7 +175,7 @@ const today = () => {
                     </div>
                 </Alert>
             </div>
-        </div>
+        </Container>
     </div>
 </template>
 

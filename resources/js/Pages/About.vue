@@ -36,7 +36,7 @@ defineProps({
             @suggest-word="toggleSuggestWordForm(true)"
         />
         <Container>
-            <div class="md:mx-auto mt-2 mb-8 mx-4 max-w-md md:max-w-2xl">
+            <div class="md:mx-auto mb-8 max-w-md md:max-w-2xl">
                 <p class="flex text-xl justify-center mb-2 dark:text-white">
                     <b> About </b>
                 </p>

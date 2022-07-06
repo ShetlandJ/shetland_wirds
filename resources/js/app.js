@@ -9,6 +9,7 @@ import '@vuepic/vue-datepicker/dist/main.css'
 import Alert from './components/global/Alert.vue';
 import ActionButton from './components/global/ActionButton.vue';
 import Datepicker from '@vuepic/vue-datepicker';
+import Container from './components/global/Container.vue';
 
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Spaektionary';
 
@@ -19,7 +20,15 @@ createInertiaApp({
         return createApp({ render: () => h(app, props) })
             .use(plugin)
             .mixin({ methods: { route } })
-            .mixin({ components: { QuillEditor, Alert, ActionButton, Datepicker } })
+            .mixin({
+                components: {
+                    ActionButton,
+                    Alert,
+                    Container,
+                    Datepicker,
+                    QuillEditor,
+                }
+            })
             .mount(el);
     },
 });

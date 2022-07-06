@@ -65,9 +65,7 @@ const updateWord = () => {
 </script>
 
 <template>
-    <div
-        className="bg-white shadow-lg rounded-lg mx-4 p-6 md:mx-auto my-8 max-w-lg md:max-w-2xl"
-    >
+    <Container>
         <Alert
             class="mb-4"
             v-if="showSuccessMessage"
@@ -222,5 +220,5 @@ const updateWord = () => {
 
             <ActionButton @click="updateWord" message="Update" />
         </div>
-    </div>
+    </Container>
 </template>

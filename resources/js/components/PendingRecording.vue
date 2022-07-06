@@ -40,9 +40,7 @@ const approveRecording = (recordingUuid) => {
 </script>
 
 <template>
-    <div
-        className="bg-white shadow-lg rounded-lg p-4 mx-4 md:mx-auto my-8 max-w-md md:max-w-2xl"
-    >
+    <Container>
         <div class="flex justify-between">
             <div class="basis-1/4">
                 <p><b>Speaker</b>: {{ recording.speaker_name }}</p>
@@ -89,5 +87,5 @@ const approveRecording = (recordingUuid) => {
                 Reject
             </button>
         </div>
-    </div>
+    </Container>
 </template>

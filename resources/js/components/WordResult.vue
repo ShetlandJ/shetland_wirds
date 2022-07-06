@@ -93,9 +93,7 @@ const toggleDescriptor = (definition) => {
 </script>
 
 <template>
-    <div
-        className="bg-white shadow-lg rounded-lg mx-4 md:mx-auto my-8 max-w-lg md:max-w-2xl"
-    >
+    <Container>
         <div className="items-start px-4 py-6 dark:bg-gray-700">
             <div>
                 <div className="flex items-center justify-between mb-2">
@@ -454,7 +452,7 @@ const toggleDescriptor = (definition) => {
                 </div>
             </div>
         </div>
-    </div>
+    </Container>
 </template>
 
 <style scoped>

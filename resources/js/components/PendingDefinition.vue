@@ -39,9 +39,7 @@ const approveDefinition = (recordingUuid) => {
 </script>
 
 <template>
-    <div
-        className="bg-white shadow-lg rounded-lg p-4 mx-4 md:mx-auto my-8 max-w-md md:max-w-2xl"
-    >
+    <Container>
         <div class="flex justify-between">
             <div>
                 <p><b>User</b>: {{ definition.user }}</p>
@@ -86,5 +84,5 @@ const approveDefinition = (recordingUuid) => {
                 Delete
             </button>
         </div>
-    </div>
+    </Container>
 </template>

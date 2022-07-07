@@ -81,6 +81,17 @@ class WordService
         return $this->formatWord($foundWord);
     }
 
+    public function findByWordRaw(string $word): ?Word
+    {
+        $foundWord = Word::where('slug', $word)->first();
+
+        if (!$foundWord) {
+            return null;
+        }
+
+        return $foundWord;
+    }
+
     public function findByWord(string $word): ?array
     {
         $foundWord = Word::where('slug', $word)->first();

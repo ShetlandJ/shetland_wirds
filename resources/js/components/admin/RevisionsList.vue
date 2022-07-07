@@ -199,7 +199,7 @@ const comparisonExists = (text1, text2) => {
                                         text-sm
                                     "
                                 >
-                                    {{revision.created_at}}
+                                    {{format(new Date(revision.created_at), DATE_FORMAT)}}
                                 </td>
                             </tr>
                         </tbody>

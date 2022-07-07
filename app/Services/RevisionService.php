@@ -19,7 +19,7 @@ class RevisionService
 
     public function findAll(): array
     {
-        $revisions = Revision::all();
+        $revisions = Revision::orderBy('created_at', 'desc')->get();
 
         $payload = [];
 

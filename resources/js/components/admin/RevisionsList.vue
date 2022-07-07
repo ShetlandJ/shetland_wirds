@@ -74,8 +74,6 @@ const comparisonExists = (text1, text2) => {
 
     return strCompare(text1, text2);
 };
-
-console.log(comparisonExists("with, by, of, james", "with, by, of"));
 </script>
 
 <template>
@@ -203,10 +201,10 @@ console.log(comparisonExists("with, by, of, james", "with, by, of"));
 
 <style>
 .highlight {
-    background-color: palegreen;
+    background-color: rgb(171, 242, 188);
 }
 
 .highlight-removed {
-    background-color: pink;
+    background-color: rgba(255, 129, 130, 0.4);
 }
 </style>

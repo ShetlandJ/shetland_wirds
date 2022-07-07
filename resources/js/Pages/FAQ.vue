@@ -53,10 +53,10 @@ defineProps({
 
             <p class="text-lg dark:text-white mb-6">
                 It should be noted that this is not a dictionary of words that
-                are exclusive and unique to shaetlan. Very few words are. As is
-                normal for any language, shaetlan shares many words and
+                are exclusive and unique to Shaetlan. Very few words are. As is
+                normal for any language, Shaetlan shares many words and
                 expressions with other languages, especially those that are
-                closely related to shaetlan, or those that shaetlan has been in
+                closely related to Shaetlan, or those that Shaetlan has been in
                 close contact with. In fact, there is no known spoken language
                 in the world that does not share vocabulary with some other
                 language. This does not in any way make any given language less
@@ -65,22 +65,22 @@ defineProps({
             </p>
 
             <p class="text-lg dark:text-white mb-6">
-                The immediate ancestors of shaetlan are scots and norn. Norn is
-                extinct, but descended from western old norse. Scots is a macro
+                The immediate ancestors of Shaetlan are Scots and norn. Norn is
+                extinct, but descended from western old Norse. Scots is a macro
                 language with a number of highly diverse varieties. They descend
-                from northumbrian old english. Standard english, on the other
-                hand, descends from mercian old english. So scots is not and has
-                never been a dialect of english any more than english is or has
-                been a dialect of scots. Shaetlan has also been in intense
-                contact with the low country germanic languages (low german and
-                dutch), and, for the last few centuries, with standard english.
+                from northumbrian old English. Standard English, on the other
+                hand, descends from mercian old English. So Scots is not and has
+                never been a dialect of English any more than English is or has
+                been a dialect of Scots. Shaetlan has also been in intense
+                contact with the low country Germanic languages (low German and
+                Dutch), and, for the last few centuries, with standard English.
                 All of these languages are closely related and have many
                 similarities among them. But they are not identical. And they
-                have all affected the outcome of shaetlan. For more about the
-                history of shaetlan, see
+                have all affected the outcome of Shaetlan. For more about the
+                history of Shaetlan, see
                 <a
                     class="underline"
-                    href="https://www.iheardee.com/english/history-of-shaetlan"
+                    href="https://www.iheardee.com/English/history-of-Shaetlan"
                     >here</a
                 >.
             </p>

@@ -20,7 +20,7 @@
         </p>
 
         <p class="dark:text-white mb-4 text-lg font-bold">
-            Why don’t you spell English words the English way?
+            Why don't you spell English words the English way?
         </p>
         <p class="dark:text-white mb-2">
             Words like plaess, airm, neest are old Scots words and are no more
@@ -39,8 +39,8 @@ shaetlan"
         </p>
         <p class="dark:text-white mb-4">
             Ultimately plaess, for example, goes back to Latin platea, which is
-            also the origin of Swedish plats ‘place’ and Norwegian plass​
-            ‘place’. No localised spelling is more correct than the other, but
+            also the origin of Swedish plats 'place' and Norwegian plass
+            'place'. No localised spelling is more correct than the other, but
             in the Shetland context the English spelling is the familiar one
             because English has been the medium of instruction in schools for
             the last 200 years. However, the English spelling does not reflect
@@ -119,7 +119,7 @@ atlas.org"
         </p>
         <div class="dark:text-white mb-4">
             <p class="dark:text-white mb-2">
-                There are two potential reasons why you can’t find a particular
+                There are two potential reasons why you can't find a particular
                 word or expression in the Spaektionary:
             </p>
             <p class="dark:text-white mb-2">
@@ -130,7 +130,7 @@ atlas.org"
                 (2) it is not in the dictionary at all.
             </p>
             <p class="dark:text-white mb-2">
-                In that case we strongly encourage you to contribute it! This is
+                In that case we strongly encourage you to <a class="underline" href="/create">contribute</a> it! This is
                 what the Spaektionary is about: to keep building it and making
                 it better and more comprehensive.
             </p>

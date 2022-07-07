@@ -1,14 +1,14 @@
 <script setup>
 import AppLayout from "@/Layouts/AppLayout.vue";
 import Welcome from "@/Jetstream/Welcome.vue";
-import WordResult from "../components/WordResu\lt.vue";
+import WordResult from "../components/WordResult.vue";
 import StatCard from "../components/StatCard.vue";
 import AdminMetrics from "../components/admin/AdminsMetrics.vue";
 import PendingRecording from "../components/PendingRecording.vue";
 import PendingDefinition from "../components/PendingDefinition.vue";
-import WordOfTheDayQueue from '../components/admin/WordOfTheDayQueue.vue';
-import EditWord from '../components/admin/EditWord.vue';
-import RevisionsList from '../components/admin/RevisionsList.vue';
+import WordOfTheDayQueue from "../components/admin/WordOfTheDayQueue.vue";
+import EditWord from "../components/admin/EditWord.vue";
+import RevisionsList from "../components/admin/RevisionsList.vue";
 import { computed } from "vue";
 
 defineProps({
@@ -35,7 +35,7 @@ defineProps({
     revisions: {
         type: Object,
         default: () => null,
-    }
+    },
 });
 
 const heading = computed(() => {

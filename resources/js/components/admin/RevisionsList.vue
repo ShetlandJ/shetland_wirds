@@ -102,6 +102,7 @@ const comparisonExists = (text1, text2) => {
                                         'Word',
                                         'Definitions',
                                         'User',
+                                        'Date'
                                     ]"
                                     :key="type"
                                     class="
@@ -188,6 +189,17 @@ const comparisonExists = (text1, text2) => {
                                         revision.user
                                     }}</span>
                                     <span v-else>-</span>
+                                </td>
+                                <td
+                                    class="
+                                        px-5
+                                        py-5
+                                        border-b border-gray-200
+                                        bg-white
+                                        text-sm
+                                    "
+                                >
+                                    {{revision.created_at}}
                                 </td>
                             </tr>
                         </tbody>

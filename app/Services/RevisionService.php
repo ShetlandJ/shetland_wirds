@@ -17,6 +17,48 @@ class RevisionService
         $this->wordService = $wordService;
     }
 
+    public function findAll(): array
+    {
+        $revisions = Revision::all();
+
+        $payload = [];
+
+        foreach ($revisions as $revision) {
+            $payload[] = [
+                'id' => $revision->uuid,
+                'word' => $revision->word,
+                'user' => $revision->user->name ?? '',
+                'revisions' => $this->formatRevisions(json_decode($revision->revisions)),
+                'created_at' => $revision->created_at->format('Y-m-d H:i:s'),
+            ];
+        }
+
+        return $payload;
+    }
+
+    public function formatRevisions(object $revisions)
+    {
+        $payload = [];
+
+        $payload['word']['original'] = $revisions->word->word_original ?? '';
+        $payload['word']['updated'] = $revisions->word->word_updated ?? '';
+        $payload['word']['changed'] = false;
+        if (isset($revisions->word)) {
+            $payload['word']['changed'] = $revisions->word->word_original !== $revisions->word->word_updated;
+        }
+
+        if (isset($revisions->definitions)) {
+            foreach ($revisions->definitions as $definition) {
+                $payload['definitions'][] = [
+                    'original' => $definition->definition_original ?? '',
+                    'updated' => $definition->definition_updated ?? '',
+                ];
+            }
+        }
+
+        return $payload;
+    }
+
     public function formatPayload(array $payload): array
     {
         $difference = [];
@@ -34,18 +76,6 @@ class RevisionService
                 $difference['definitions'][$key] = [];
                 $difference['definitions'][$key]['definition_original'] = $value['original'];
                 $difference['definitions'][$key]['definition_updated'] = $value['updated'];
-
-                // compare original and updated definition and record the difference
-                // $contentAdded = substr($value['updated'], strlen($value['original']));
-
-                $added = str_replace(str_split(strtolower($value['original'])), '', strtolower($value['updated']));
-                $removed = str_replace(str_split(strtolower($value['updated'])), '', strtolower($value['original']));
-
-                if ($added) {
-                    $difference['definitions'][$key]['added'] = $added;
-                } else {
-                    $difference['definitions'][$key]['removed'] = $removed;
-                }
             }
         }
 

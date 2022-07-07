@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Middleware\UserIsAdmin;
 use App\Services\AdminService;
 use App\Services\CommentService;
+use App\Services\RevisionService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
@@ -517,6 +518,14 @@ Route::delete('/dashboard/definitions/{definitionUuid}', function (string $defin
 
     return redirect()->back();
 })->name('definition.delete');
+
+Route::get('/dashboard/revisions', function () {
+    return Inertia::render('AdminDashboard', [
+        'revisions' => app(RevisionService::class)->findAll(),
+        'isLoggedIn' => Auth::check(),
+    ]);
+})->name('revisions');
+
 
 Route::get('/help-us', function () {
     $wordsWithoutDefinitions = app(WordService::class)->findWithoutDefinitions();

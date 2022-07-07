@@ -109,6 +109,12 @@ const logout = () => {
                                 >
                                     Word of the Day
                                 </JetNavLink>
+                                <JetNavLink
+                                    :href="route('revisions')"
+                                    :active="route().current('revisions')"
+                                >
+                                    Revisions
+                                </JetNavLink>
                             </div>
                         </div>
 
@@ -326,6 +332,12 @@ const logout = () => {
                             :active="route().current('wotd')"
                         >
                             Word of the Day
+                        </JetResponsiveNavLink>
+                        <JetResponsiveNavLink
+                            :href="route('revisions')"
+                            :active="route().current('revisions')"
+                        >
+                            Revisions
                         </JetResponsiveNavLink>
                     </div>
 

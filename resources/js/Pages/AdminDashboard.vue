@@ -8,6 +8,7 @@ import PendingRecording from "../components/PendingRecording.vue";
 import PendingDefinition from "../components/PendingDefinition.vue";
 import WordOfTheDayQueue from '../components/admin/WordOfTheDayQueue.vue';
 import EditWord from '../components/admin/EditWord.vue';
+import RevisionsList from '../components/admin/RevisionsList.vue';
 import { computed } from "vue";
 
 defineProps({
@@ -30,6 +31,10 @@ defineProps({
     wordQueue: {
         type: Array,
         default: () => [],
+    },
+    revisions: {
+        type: Object,
+        default: () => null,
     }
 });
 
@@ -63,6 +68,10 @@ const heading = computed(() => {
 
         <div v-if="route().current('word-admin')">
             <EditWord />
+        </div>
+
+        <div v-if="revisions">
+            <RevisionsList :revisions="revisions" />
         </div>
 
         <div v-if="wordQueue.length > 0">

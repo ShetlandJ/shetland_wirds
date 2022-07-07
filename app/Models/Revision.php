@@ -23,4 +23,9 @@ class Revision extends Model
     {
         return $this->belongsTo(Word::class, 'word_id');
     }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }

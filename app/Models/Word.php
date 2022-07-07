@@ -42,7 +42,7 @@ class Word extends Model
 
     public function relatedWords(): HasMany
     {
-        return $this->hasMany(WordToWord::class, 'word_id');
+        return $this->hasMany(WordToWord::class, 'parent_word_id');
     }
 
     public function creator(): BelongsTo

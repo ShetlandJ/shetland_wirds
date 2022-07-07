@@ -13,4 +13,9 @@ class WordToWord extends Model
     {
         return $this->belongsTo(Word::class, 'parent_word_id');
     }
+
+    public function wordChild()
+    {
+        return $this->belongsTo(Word::class, 'word_id');
+    }
 }

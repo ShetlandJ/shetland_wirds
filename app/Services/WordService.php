@@ -147,7 +147,19 @@ class WordService
             'creator_name' => $word->creator ? $word->creator->name : 'Unregistered',
             'comments'=> $this->getComments($word)->values()->all(),
             'recordings' => $this->getRecordings($word),
+            'linked_words' => $this->getLinkedWords($word),
         ];
+    }
+
+    public function getLinkedWords(Word $word): Collection
+    {
+        return $word->relatedWords->map(function ($relatedWord) {
+            return [
+                'id' => $relatedWord->wordChild->uuid,
+                'word' => $relatedWord->wordChild->word,
+                'slug' => $relatedWord->wordChild->slug,
+            ];
+        });
     }
 
     public function getRecordings(Word $word): Collection

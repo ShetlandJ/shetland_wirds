@@ -74,6 +74,37 @@ class AdminService
         return $formattedList;
     }
 
+    public function searchAllWords(string $searchString)
+    {
+        $query = Word::query();
+
+        $lowercasedSearchString = Str::lower($searchString);
+        $query->where('words.word', 'like', "%{$lowercasedSearchString}%");
+
+        $query->groupBy('words.id');
+
+        $result = $query->get();
+
+        $exactResult = [];
+        $formattedResult = [];
+
+        foreach ($result as $item) {
+            if ($item->word === $searchString) {
+                $exactResult[] =
+                ['id' => $item->uuid, 'word' => sprintf('%s (exact match)', $item->word)];
+                continue;
+            }
+
+
+            $formattedResult[] = [
+                'id' => $item->uuid,
+                'word' => $item->word,
+            ];
+        }
+
+        return array_merge($exactResult, $formattedResult);
+    }
+
     public function returnSearchedWordsList(string $searchString)
     {
         $query = Word::query();
@@ -138,6 +169,22 @@ class AdminService
             'updatedWord' => $updatedWord,
             'definitionChanges' => $definitionsChanges,
         ], $payload['userId']);
+
+        $wordToWords = WordToWord::where('parent_word_id', $word->id)->get();
+        foreach ($wordToWords as $wordToWord) {
+            $wordToWord->delete();
+        }
+
+        if ($payload['wordLinks']) {
+            foreach ($payload['wordLinks'] as $link) {
+                $linkedWord = Word::where('uuid', $link['id'])->first();
+                $wordToWord = new WordToWord();
+                $wordToWord->uuid = (string) Str::uuid();
+                $wordToWord->parent_word_id = $word->id;
+                $wordToWord->word_id = $linkedWord->id;
+                $wordToWord->save();
+            }
+        }
 
         return $word;
     }

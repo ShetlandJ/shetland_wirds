@@ -225,6 +225,35 @@ const URL = window.location.href;
                     </div>
                 </div>
 
+                <div v-if="word.linked_words.length" class="my-3">
+                    <!-- loop through and create links based on the word -->
+                    <div class="flex text-sm italic">
+                        <div class="mr-2 text-gray-700 dark:text-white">
+                            Related words:
+                        </div>
+                        <div class="flex">
+                            <div
+                                v-for="(linkedWord, index) in word.linked_words"
+                                :key="linkedWord.id"
+                                class="mr-1"
+                            >
+                                <Link
+                                    :href="route('word.comments', {
+                                        word: linkedWord.slug,
+                                    })"
+                                    class="text-gray-700 dark:text-white underline"
+                                >
+                                    {{ linkedWord.word }}
+                                </Link>
+                                <span
+                                    v-if="index < word.linked_words.length - 1"
+                                    class="text-gray-500"
+                                >,</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div
                     className="flex items-center mr-2 text-gray-700 text-sm mr-3 mt-2"
                 >

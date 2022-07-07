@@ -102,7 +102,6 @@ const comparisonExists = (text1, text2) => {
                                         'Word',
                                         'Definitions',
                                         'User',
-                                        '',
                                     ]"
                                     :key="type"
                                     class="

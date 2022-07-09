@@ -170,7 +170,7 @@ class AdminService
             'definitionChanges' => $definitionsChanges,
         ], $payload['userId']);
 
-        $wordToWords = WordToWord::where('parent_word_id', $word->id)->get();
+        $wordToWords = WordToWord::where('word_id', $word->id)->get();
         foreach ($wordToWords as $wordToWord) {
             $wordToWord->delete();
         }
@@ -180,8 +180,8 @@ class AdminService
                 $linkedWord = Word::where('uuid', $link['id'])->first();
                 $wordToWord = new WordToWord();
                 $wordToWord->uuid = (string) Str::uuid();
-                $wordToWord->parent_word_id = $word->id;
-                $wordToWord->word_id = $linkedWord->id;
+                $wordToWord->word_id = $word->id;
+                $wordToWord->linked_word_id = $linkedWord->id;
                 $wordToWord->save();
             }
         }

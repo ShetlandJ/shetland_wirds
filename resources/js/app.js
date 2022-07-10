@@ -11,7 +11,6 @@ import ActionButton from './components/global/ActionButton.vue';
 import Datepicker from '@vuepic/vue-datepicker';
 import Container from './components/global/Container.vue';
 import SanitisedHtml from './components/global/SanitisedHtml.vue';
-import vSelect from 'vue-select'
 
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Spaektionary';
 

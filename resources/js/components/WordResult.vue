@@ -12,7 +12,7 @@ import Comments from "./comments/Comments.vue";
 import Recordings from "./recordings/Recordings.vue";
 import Locations from "./locations/Locations.vue";
 
-import { onMounted, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 
 import format from "date-fns/format";
 const APA_DATE_FORMAT = "yyyy MMMM d";
@@ -97,6 +97,8 @@ const toggleDescriptor = (definition) => {
 const showCite = ref(false);
 
 const URL = window.location.href;
+
+const citeURL = computed(() => `${window.location.origin}/word/${props.word.id}`);
 </script>
 
 <template>
@@ -520,11 +522,11 @@ const URL = window.location.href;
                         >
                         <p class="text-sm w-full">
                             Spaektionary. ({{
-                                format(new Date(), APA_DATE_FORMAT)
-                            }}). {{ word.word }} Retrieved
-                            {{ format(new Date(), HOUR_MINUTE_FORMAT) }},
-                            {{ format(new Date(), CHICAGO_DATE_FORMAT) }}, from
-                            {{ URL }}
+                                format(new Date(word.updated_at), APA_DATE_FORMAT)
+                            }}). {{ word.word }}. Retrieved
+                            {{ format(new Date(word.updated_at), HOUR_MINUTE_FORMAT) }},
+                            {{ format(new Date(word.updated_at), CHICAGO_DATE_FORMAT) }}, from
+                            {{ citeURL }}
                         </p>
                     </div>
                     <div class="flex mb-4">
@@ -535,8 +537,8 @@ const URL = window.location.href;
                             >Chicago</a
                         >
                         <p class="text-sm w-full">
-                            Spaektionary, "{{ word.word }},"
-                            {{ URL }}
+                            Spaektionary, "<i>{{ word.word }}</i>",
+                            {{ citeURL }}
                             (accessed
                             {{ format(new Date(), CHICAGO_DATE_FORMAT) }}).
                         </p>
@@ -555,7 +557,7 @@ const URL = window.location.href;
                             year = "{{
                                 format(new Date(), BIBTEX_YEAR)
                             }}",<br />
-                            url = "{{ URL }}",<br />
+                            url = "{{ citeURL }}",<br />
                             note = "[Online; accessed
                             {{ format(new Date(), BIBTEX_DATE) }}]<br />
                             }

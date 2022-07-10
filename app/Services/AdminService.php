@@ -179,6 +179,7 @@ class AdminService
             $definitionsChanges[$wordDefinition->uuid]['updated'] = '';
         }
 
+        $word->touch();
         $word->save();
 
         $updatedWord = $word->word;

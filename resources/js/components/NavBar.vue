@@ -97,7 +97,7 @@ const logout = () => {
                         "
                         :href="route('home')"
                     >
-                        <span class="dark:text-white">Spaektionary</span>
+                        <span class="dark:text-white">Da Spaektionary</span>
                     </Link>
                 </h1>
 

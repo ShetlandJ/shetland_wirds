@@ -99,7 +99,7 @@ const today = () => {
         <Container>
             <div class="text-center">
                 <p class="flex text-xl justify-center mb-2 dark:text-white">
-                    <b>Spaektionary</b>
+                    <b>Da Spaektionary</b>
                 </p>
                 <p class="dark:text-white text-lg mb-4">
                     Welcome to the dictionary by and for Shetlanders!

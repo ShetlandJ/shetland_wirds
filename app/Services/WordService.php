@@ -149,6 +149,7 @@ class WordService
             'comments'=> $this->getComments($word)->values()->all(),
             'recordings' => $this->getRecordings($word),
             'linked_words' => $this->getLinkedWords($word),
+            'updated_at' => $word->updated_at->format('Y-m-d H:i:s'),
         ];
     }
 

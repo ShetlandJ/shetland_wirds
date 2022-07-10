@@ -278,6 +278,15 @@ Route::post('/word/{word}/like', function (string $word) {
     return redirect()->back();
 })->where('word', '.*')->name('wordLike');
 
+Route::get('/word/{uuid}', function (string $wordUuid) {
+    // get the word by UUID then redirect to /word/{word}/comments using the found word
+    $word = Word::where('uuid', $wordUuid)->first();
+    if (!$word) {
+        return redirect()->back();
+    }
+    return redirect()->route('word.comments', $word->word);
+});
+
 Route::get('/word/{word}/comments', function (string $word) {
     $foundWord = app(WordService::class)->findByWord($word);
     if (!$foundWord) {

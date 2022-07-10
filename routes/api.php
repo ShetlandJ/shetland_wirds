@@ -75,6 +75,17 @@ Route::middleware([config('jetstream.auth_session')])->group(function () {
         return ["data" => null];
     });
 
+    Route::get('/words', function (Request $request) {
+        $req = $request->input();
+
+        if (!isset($req['search'])) {
+            return ["data" => null];
+        }
+        $searchString = $req['search'];
+
+        return app(AdminService::class)->searchAllWords($searchString);
+    });
+
     Route::get('/word', function (Request $request) {
         $req = $request->input();
 

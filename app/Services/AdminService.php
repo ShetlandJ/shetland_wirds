@@ -15,6 +15,7 @@ use App\Models\UserWordLike;
 use App\Models\WordOfTheDay;
 use App\Models\WordRecording;
 use App\Models\WordDefinition;
+use App\Models\WordRelationType;
 use App\Models\WordToLocation;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -74,6 +75,37 @@ class AdminService
         return $formattedList;
     }
 
+    public function searchAllWords(string $searchString)
+    {
+        $query = Word::query();
+
+        $lowercasedSearchString = Str::lower($searchString);
+        $query->where('words.word', 'like', "%{$lowercasedSearchString}%");
+
+        $query->groupBy('words.id');
+
+        $result = $query->get();
+
+        $exactResult = [];
+        $formattedResult = [];
+
+        foreach ($result as $item) {
+            if ($item->word === $searchString) {
+                $exactResult[] =
+                ['id' => $item->uuid, 'word' => sprintf('%s (exact match)', $item->word)];
+                continue;
+            }
+
+
+            $formattedResult[] = [
+                'id' => $item->uuid,
+                'word' => $item->word,
+            ];
+        }
+
+        return array_merge($exactResult, $formattedResult);
+    }
+
     public function returnSearchedWordsList(string $searchString)
     {
         $query = Word::query();
@@ -129,6 +161,24 @@ class AdminService
             }
         }
 
+        foreach ($payload['newDefinitions'] as $definition) {
+            $wordDefinition = new WordDefinition();
+            $wordDefinition->uuid = (string) Str::uuid();
+            $wordDefinition->word_id = $word->id;
+            $wordDefinition->definition = $definition['definition'];
+            $wordDefinition->save();
+            $definitionsChanges[$wordDefinition->uuid]['original'] = '';
+            $definitionsChanges[$wordDefinition->uuid]['updated'] = $wordDefinition->definition;
+        }
+
+        foreach ($payload['removedDefinitions'] as $definition) {
+            // dd($definition);
+            $wordDefinition = WordDefinition::where('uuid', $definition)->first();
+            $definitionsChanges[$wordDefinition->uuid]['original'] = $wordDefinition->definition;
+            $wordDefinition->delete();
+            $definitionsChanges[$wordDefinition->uuid]['updated'] = '';
+        }
+
         $word->save();
 
         $updatedWord = $word->word;
@@ -138,6 +188,29 @@ class AdminService
             'updatedWord' => $updatedWord,
             'definitionChanges' => $definitionsChanges,
         ], $payload['userId']);
+
+        $wordToWords = WordToWord::where('word_id', $word->id)->get();
+        foreach ($wordToWords as $wordToWord) {
+            $wordToWord->delete();
+        }
+
+        if ($payload['wordLinks']) {
+            foreach ($payload['wordLinks'] as $link) {
+                $relationType = WordRelationType::where('name', 'synonym')->first();
+
+                if (isset($payload['wordRelationType'])) {
+                    $relationType = WordRelationType::where('name', $payload['wordRelationType'])->first();
+                }
+
+                $linkedWord = Word::where('uuid', $link['id'])->first();
+                $wordToWord = new WordToWord();
+                $wordToWord->uuid = (string) Str::uuid();
+                $wordToWord->word_id = $word->id;
+                $wordToWord->linked_word_id = $linkedWord->id;
+                $wordToWord->type_id = $relationType->id;
+                $wordToWord->save();
+            }
+        }
 
         return $word;
     }

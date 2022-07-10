@@ -521,9 +521,7 @@ const citeURL = computed(() => `${window.location.origin}/word/${props.word.id}`
                             >APA</a
                         >
                         <p class="text-sm w-full">
-                            Spaektionary. ({{
-                                format(new Date(word.updated_at), APA_DATE_FORMAT)
-                            }}). {{ word.word }}. Retrieved
+                            Spaektionary. (2022). {{ word.word }}. Retrieved
                             {{ format(new Date(word.updated_at), HOUR_MINUTE_FORMAT) }},
                             {{ format(new Date(word.updated_at), CHICAGO_DATE_FORMAT) }}, from
                             {{ citeURL }}

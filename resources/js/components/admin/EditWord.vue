@@ -1,6 +1,6 @@
 <script setup>
 import { usePage } from "@inertiajs/inertia-vue3";
-import { onMounted, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 
 const searchString = ref("");
 const linkSearchString = ref("");
@@ -61,6 +61,8 @@ const updateWord = () => {
                 id: definition.id,
                 definition: definition.definition,
             })) || [],
+        newDefinitions: newDefinitions.value,
+        removedDefinitions: removedDefinitions.value,
         wordLinks: wordLinks.value,
     };
 
@@ -72,6 +74,8 @@ const updateWord = () => {
             word.value = null;
             searchString.value = "";
             wordResultsList.value = [];
+            newDefinitions.value = [];
+            removedDefinitions.value = [];
             showSuccessMessage.value = true;
         })
         .catch((error) => {
@@ -85,7 +89,9 @@ const setLinkedWord = (value) => {
     wordLinks.value.push({
         ...word,
         wordRelationType: wordRelationType.value,
-        type: wordRelationTypes.find((type) => type.uuid === wordRelationType.value).title,
+        type: wordRelationTypes.find(
+            (type) => type.uuid === wordRelationType.value
+        ).title,
     });
     linkSearchString.value = "";
     linkedWordResultsList.value = [];
@@ -95,13 +101,15 @@ const setLinkedWord = (value) => {
     typesInput.value = "";
 };
 
-const wordRelationType = ref('');
+const wordRelationType = ref("");
 const setWordRelationType = (value) => {
     wordRelationType.value = value;
 };
 
 onMounted(() => {
-    const synonym = wordRelationTypes.find((wordRelationType) => wordRelationType.name === 'synonym');
+    const synonym = wordRelationTypes.find(
+        (wordRelationType) => wordRelationType.name === "synonym"
+    );
     setWordRelationType(synonym.uuid);
 });
 
@@ -110,6 +118,34 @@ const removeLink = (value) => {
     const index = wordLinks.value.findIndex((word) => word.id === value);
     wordLinks.value.splice(index, 1);
 };
+
+const newDefinitions = ref([]);
+
+const addNewDefinition = () => {
+    newDefinitions.value.push({
+        definition: "",
+        id: newDefinitions.value.length + 1,
+    });
+};
+
+const removedDefinitions = ref([]);
+
+const removeExistingDefinition = (value) => {
+    removedDefinitions.value.push(value);
+};
+
+const removeNewDefinition = (value) => {
+    const index = newDefinitions.value.findIndex(
+        (definition) => definition.id === value
+    );
+    newDefinitions.value.splice(index, 1);
+};
+
+const definitionsWithoutRemovedOnes = computed(() => {
+    return word.value.definitions.filter(
+        (definition) => !removedDefinitions.value.includes(definition.id)
+    );
+})
 </script>
 
 <template>
@@ -142,7 +178,7 @@ const removeLink = (value) => {
             <div class="flex">
                 <select
                     class="
-                        w-1/4
+                        w-1/2
                         px-3
                         py-1.5
                         font-normal
@@ -224,7 +260,7 @@ const removeLink = (value) => {
 
             <div
                 class="form-group mb-6"
-                v-for="(definition, index) in word.definitions"
+                v-for="(definition, index) in definitionsWithoutRemovedOnes"
                 :key="definition.id"
             >
                 <label
@@ -239,32 +275,98 @@ const removeLink = (value) => {
                 >
                     Definition {{ index + 1 }}:
                 </label>
-                <input
-                    v-model="definition.definition"
-                    type="text"
-                    class="
-                        form-control
-                        block
-                        w-full
-                        px-3
-                        py-1.5
-                        text-base
-                        font-normal
-                        text-gray-700
-                        bg-white bg-clip-padding
-                        border border-solid border-gray-300
-                        rounded
-                        transition
-                        ease-in-out
-                        m-0
-                        focus:text-gray-700
-                        focus:bg-white
-                        focus:border-blue-600
-                        focus:outline-none
-                    "
-                    :id="`definitionInput-${index}`"
-                />
+                <div class="flex">
+                    <input
+                        v-model="definition.definition"
+                        type="text"
+                        class="
+                            form-control
+                            block
+                            w-full
+                            px-3
+                            py-1.5
+                            text-base
+                            font-normal
+                            text-gray-700
+                            bg-white bg-clip-padding
+                            border border-solid border-gray-300
+                            rounded
+                            transition
+                            ease-in-out
+                            m-0
+                            focus:text-gray-700
+                            focus:bg-white
+                            focus:border-blue-600
+                            focus:outline-none
+                        "
+                        :id="`definitionInput-${index}`"
+                    />
+                    <button
+                        class="p-4 text-red-700 items-center"
+                        @click="removeExistingDefinition(definition.id)"
+                    >
+                        X
+                    </button>
+                </div>
             </div>
+
+            <div v-if="newDefinitions">
+                <div
+                    class="form-group mb-6"
+                    v-for="(definition, index) in newDefinitions"
+                    :key="definition.id"
+                >
+                    <label
+                        :for="`newDefinitionInput-${index}`"
+                        class="
+                            form-label
+                            inline-block
+                            mb-2
+                            dark:text-white
+                            text-gray-700
+                        "
+                    >
+                        New definition {{ index + 1 }}:
+                    </label>
+                    <div class="flex">
+                        <input
+                            v-model="definition.definition"
+                            type="text"
+                            class="
+                                form-control
+                                block
+                                w-full
+                                px-3
+                                py-1.5
+                                text-base
+                                font-normal
+                                text-gray-700
+                                bg-white bg-clip-padding
+                                border border-solid border-gray-300
+                                rounded
+                                transition
+                                ease-in-out
+                                m-0
+                                focus:text-gray-700
+                                focus:bg-white
+                                focus:border-blue-600
+                                focus:outline-none
+                            "
+                            :id="`newDefinitionInput-${index}`"
+                        />
+                        <button
+                            class="p-4 text-red-700 items-center"
+                            @click="removeNewDefinition(definition.id)"
+                        >
+                            X
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <button class="underline mb-4" @click="addNewDefinition">
+                + Add a new definition
+            </button>
 
             <div class="mb-4">
                 <p class="mb-2">Find and add any linked words</p>
@@ -280,7 +382,7 @@ const removeLink = (value) => {
                     <select
                         id="linkedWordSelect"
                         class="
-                            w-1/4
+                            w-1/2
                             px-3
                             py-1.5
                             font-normal
@@ -315,7 +417,7 @@ const removeLink = (value) => {
                         id="wordRelationTypesSelect"
                         v-if="wordRelationTypes.length > 0"
                         class="
-                        ml-4
+                            ml-4
                             w-1/4
                             px-3
                             py-1.5
@@ -374,8 +476,9 @@ const removeLink = (value) => {
                             "
                         >
                             {{ link.word.replace(" (exact match)", "") }}
-                            <span class="text-sm text-white ml-1">({{link.type}})</span>
-
+                            <span class="text-sm text-white ml-1"
+                                >({{ link.type }})</span
+                            >
                         </div>
                         <div class="flex flex-auto flex-row-reverse">
                             <div>

@@ -161,6 +161,24 @@ class AdminService
             }
         }
 
+        foreach ($payload['newDefinitions'] as $definition) {
+            $wordDefinition = new WordDefinition();
+            $wordDefinition->uuid = (string) Str::uuid();
+            $wordDefinition->word_id = $word->id;
+            $wordDefinition->definition = $definition['definition'];
+            $wordDefinition->save();
+            $definitionsChanges[$wordDefinition->uuid]['original'] = '';
+            $definitionsChanges[$wordDefinition->uuid]['updated'] = $wordDefinition->definition;
+        }
+
+        foreach ($payload['removedDefinitions'] as $definition) {
+            // dd($definition);
+            $wordDefinition = WordDefinition::where('uuid', $definition)->first();
+            $definitionsChanges[$wordDefinition->uuid]['original'] = $wordDefinition->definition;
+            $wordDefinition->delete();
+            $definitionsChanges[$wordDefinition->uuid]['updated'] = '';
+        }
+
         $word->save();
 
         $updatedWord = $word->word;

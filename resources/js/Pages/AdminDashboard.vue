@@ -36,6 +36,10 @@ defineProps({
         type: Object,
         default: () => null,
     },
+    wordRelationTypes: {
+        type: Array,
+        default: () => [],
+    },
 });
 
 const heading = computed(() => {

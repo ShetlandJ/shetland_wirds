@@ -9,6 +9,7 @@ use App\Models\WordRecording;
 use App\Services\WordService;
 use Illuminate\Support\Facades\DB;
 use App\Http\Middleware\UserIsAdmin;
+use App\Models\WordRelationType;
 use App\Services\AdminService;
 use App\Services\CommentService;
 use App\Services\RevisionService;
@@ -428,6 +429,7 @@ Route::middleware([
 
 Route::get('/dashboard/word-admin', function () {
     return Inertia::render('AdminDashboard', [
+        'wordRelationTypes' => WordRelationType::all()->toArray(),
         'isLoggedIn' => Auth::check(),
     ]);
 })->name('word-admin');

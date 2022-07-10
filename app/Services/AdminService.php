@@ -15,6 +15,7 @@ use App\Models\UserWordLike;
 use App\Models\WordOfTheDay;
 use App\Models\WordRecording;
 use App\Models\WordDefinition;
+use App\Models\WordRelationType;
 use App\Models\WordToLocation;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -177,11 +178,18 @@ class AdminService
 
         if ($payload['wordLinks']) {
             foreach ($payload['wordLinks'] as $link) {
+                $relationType = WordRelationType::where('name', 'synonym')->first();
+
+                if (isset($payload['wordRelationType'])) {
+                    $relationType = WordRelationType::where('name', $payload['wordRelationType'])->first();
+                }
+
                 $linkedWord = Word::where('uuid', $link['id'])->first();
                 $wordToWord = new WordToWord();
                 $wordToWord->uuid = (string) Str::uuid();
                 $wordToWord->word_id = $word->id;
                 $wordToWord->linked_word_id = $linkedWord->id;
+                $wordToWord->type_id = $relationType->id;
                 $wordToWord->save();
             }
         }

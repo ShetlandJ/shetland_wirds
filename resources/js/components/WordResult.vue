@@ -229,7 +229,7 @@ const URL = window.location.href;
                     <!-- loop through and create links based on the word -->
                     <div class="flex text-sm italic">
                         <div class="mr-2 text-gray-700 dark:text-white">
-                            Related words:
+                            Synonyms:
                         </div>
                         <div class="flex">
                             <div

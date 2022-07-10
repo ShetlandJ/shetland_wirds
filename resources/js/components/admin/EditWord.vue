@@ -1,6 +1,6 @@
 <script setup>
 import { usePage } from "@inertiajs/inertia-vue3";
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 
 const searchString = ref("");
 const linkSearchString = ref("");
@@ -9,6 +9,7 @@ const linkedWordResultsList = ref([]);
 
 const showSuccessMessage = ref(false);
 const userId = usePage().props.value.user?.uuid;
+const { wordRelationTypes } = usePage().props.value;
 
 const searchWords = (firstSearch = true) => {
     axios
@@ -80,12 +81,29 @@ const updateWord = () => {
 
 const setLinkedWord = (value) => {
     const word = linkedWordResultsList.value.find((word) => word.id === value);
-    wordLinks.value.push(word);
+
+    wordLinks.value.push({
+        ...word,
+        wordRelationType: wordRelationType.value,
+        type: wordRelationTypes.find((type) => type.uuid === wordRelationType.value).title,
+    });
     linkSearchString.value = "";
     linkedWordResultsList.value = [];
     const input = document.getElementById("linkedWordSelect");
     input.value = "";
+    const typesInput = document.getElementById("wordRelationTypesSelect");
+    typesInput.value = "";
 };
+
+const wordRelationType = ref('');
+const setWordRelationType = (value) => {
+    wordRelationType.value = value;
+};
+
+onMounted(() => {
+    const synonym = wordRelationTypes.find((wordRelationType) => wordRelationType.name === 'synonym');
+    setWordRelationType(synonym.uuid);
+});
 
 // remove link from wordLinks array
 const removeLink = (value) => {
@@ -258,41 +276,74 @@ const removeLink = (value) => {
                     >
                 </div>
 
-                <select
-                    id="linkedWordSelect"
-                    v-if="linkedWordResultsList.length > 0"
-                    class="
-                        w-1/4
-                        px-3
-                        py-1.5
-                        font-normal
-                        text-gray-700
-                        bg-white bg-clip-padding
-                        border border-solid border-gray-300
-                        rounded
-                        transition
-                        ease-in-out
-                        m-0
-                        focus:text-gray-700
-                        focus:bg-white
-                        focus:border-blue-600
-                        focus:outline-none
-                    "
-                    @input="(event) => setLinkedWord(event.target.value)"
-                >
-                    <option disabled selected :value="null">
-                        Select new word
-                    </option>
-
-                    <option
-                        v-for="(word, index) in linkedWordResultsList"
-                        :key="index"
-                        class="h1"
-                        :value="word.id"
+                <div class="flex" v-if="linkedWordResultsList.length > 0">
+                    <select
+                        id="linkedWordSelect"
+                        class="
+                            w-1/4
+                            px-3
+                            py-1.5
+                            font-normal
+                            text-gray-700
+                            bg-white bg-clip-padding
+                            border border-solid border-gray-300
+                            rounded
+                            transition
+                            ease-in-out
+                            m-0
+                            focus:text-gray-700
+                            focus:bg-white
+                            focus:border-blue-600
+                            focus:outline-none
+                        "
+                        @input="(event) => setLinkedWord(event.target.value)"
                     >
-                        {{ word.word }}
-                    </option>
-                </select>
+                        <option disabled selected :value="null">
+                            Select new word
+                        </option>
+
+                        <option
+                            v-for="(word, index) in linkedWordResultsList"
+                            :key="index"
+                            class="h1"
+                            :value="word.id"
+                        >
+                            {{ word.word }}
+                        </option>
+                    </select>
+                    <select
+                        id="wordRelationTypesSelect"
+                        v-if="wordRelationTypes.length > 0"
+                        class="
+                        ml-4
+                            w-1/4
+                            px-3
+                            py-1.5
+                            font-normal
+                            text-gray-700
+                            bg-white bg-clip-padding
+                            border border-solid border-gray-300
+                            rounded
+                            transition
+                            ease-in-out
+                            m-0
+                            focus:text-gray-700
+                            focus:bg-white
+                            focus:border-blue-600
+                            focus:outline-none
+                        "
+                        @input="(event) => setRelationType(event.target.value)"
+                    >
+                        <option
+                            v-for="(type, index) in wordRelationTypes"
+                            :key="index"
+                            class="h1"
+                            :value="type.uuid"
+                        >
+                            {{ type.title }}
+                        </option>
+                    </select>
+                </div>
 
                 <div v-if="wordLinks.length" class="flex items-center mt-4">
                     <span class="mr-2">Links:</span>
@@ -322,7 +373,9 @@ const removeLink = (value) => {
                                 flex-initial
                             "
                         >
-                            {{link.word.replace(' (exact match)', '')}}
+                            {{ link.word.replace(" (exact match)", "") }}
+                            <span class="text-sm text-white ml-1">({{link.type}})</span>
+
                         </div>
                         <div class="flex flex-auto flex-row-reverse">
                             <div>
@@ -354,7 +407,9 @@ const removeLink = (value) => {
                         </div>
                     </div>
                 </div>
-                <div v-else-if="word && !wordLinks.length">There are no linked words for {{word.word}}</div>
+                <div v-else-if="word && !wordLinks.length">
+                    There are no linked words for {{ word.word }}
+                </div>
             </div>
 
             <ActionButton @click="updateWord" message="Update" />

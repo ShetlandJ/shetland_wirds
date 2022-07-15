@@ -19,13 +19,7 @@ onMounted(() => {
 <template>
     <div v-if="word">
         <p class="mb-2 dark:text-white" v-if="isLoggedIn">
-            Where in Shetland is this word spoken? <span v-if="showAddForm">Add your own below or&nbsp;</span>
-            <button v-if="showAddForm" @click="toggleShowAddForm" class="underline">
-                see chart
-            </button>
-            <button v-else-if="!showAddForm && userSelectedLocations.length === 0" @click="toggleShowAddForm" class="underline">
-                Add your own
-            </button>
+            Where in Shetland is this word spoken? <span v-if="showAddForm">Add your own below</span>
         </p>
 
         <div v-if="!showAddForm && userSelectedLocations.length > 0" class="dark:text-white">

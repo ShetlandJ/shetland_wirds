@@ -34,12 +34,6 @@ use Illuminate\Support\Facades\Redirect;
 Route::get('/', function () {
     $total = app(WordService::class)->findBy()->count();
     $pageTotal = request('perPage') ?? 10;
-    $pagination = [
-        'page' => request('page') ?? 1,
-        'perPage' => request('perPage') ?? 10,
-        'total' => $total,
-        'pages' => ceil($total / $pageTotal),
-    ];
 
     $randomWord = DB::table('words')->inRandomOrder()->first()->slug;
 
@@ -49,10 +43,8 @@ Route::get('/', function () {
         'laravelVersion' => Application::VERSION,
         'isLoggedIn' => Auth::check(),
         'phpVersion' => PHP_VERSION,
-        'words' => app(WordService::class)->findAllWordsWithPagination('', $pagination),
         'randomWord' => $randomWord,
         'featuredWord' => app(WordService::class)->getFeaturedWord(),
-        'pagination' => $pagination,
     ]);
 })->name('home');
 
@@ -61,7 +53,7 @@ Route::get('/words', function () {
     $pageTotal = request('perPage') ?? 10;
     $pagination = [
         'page' => request('page') ?? 1,
-        'perPage' => request('perPage') ?? 10,
+        'perPage' => request('perPage') ?? 20,
         'total' => $total,
         'pages' => ceil($total / $pageTotal),
     ];
@@ -90,7 +82,7 @@ Route::get('/search', function () {
 
     $pagination = [
         'page' => request('page') ?? 1,
-        'perPage' => request('perPage') ?? 10,
+        'perPage' => request('perPage') ?? 20,
         'total' => $total,
         'pages' => ceil($total / $pageTotal),
     ];
@@ -123,7 +115,7 @@ Route::post('/search', function () {
     $pageTotal = request('perPage') ?? 10;
     $pagination = [
         'page' => request('page') ?? 1,
-        'perPage' => request('perPage') ?? 10,
+        'perPage' => request('perPage') ?? 20,
         'total' => $total,
         'pages' => ceil($total / $pageTotal),
     ];
@@ -163,12 +155,12 @@ Route::get('/word/{word}/recordings', function (string $word) {
     ]);
 })->where('word', '.*')->name('word.recordings');
 
-Route::post('/word/{word}/recordings', function (string $word) {
+Route::post('/word/{slug}/recordings', function (string $slug) {
     if (!Auth::check()) {
         return redirect()->back();
     }
 
-    $path = "/public/$word";
+    $path = "/public/$slug";
 
     if (!Storage::exists($path)) {
         Storage::disk('local')->makeDirectory($path);
@@ -179,11 +171,11 @@ Route::post('/word/{word}/recordings', function (string $word) {
         request('userRecording'),
     );
 
-    $foundWord = app(WordService::class)->findByWord($word);
+    $foundWord = app(WordService::class)->findByWord($slug);
 
-    $filePath = sprintf('storage/%s/%s', $word, basename($file));
+    $filePath = sprintf('storage/%s/%s', $slug, basename($file));
 
-    $fullWord = Word::where('word', $word)->first();
+    $fullWord = Word::where('slug', $slug)->first();
     app(WordService::class)->saveRecording($fullWord, $filePath);
 
     return Inertia::render('WordRecordings', [
@@ -216,15 +208,15 @@ Route::get('/word/{word}/locations', function (string $word) {
         'userSelectedLocations' => app(WordService::class)->getUserLocationsForWordUuids($fullWord),
         'locationData' => app(WordService::class)->getPercentageDistributionWordLocations($fullWord),
     ]);
-})->where('word', '.*')->name('word.locations.new');
+})->where('word', '.*')->name('word.locations');
 
-Route::post('/word/{word}/locations', function (string $word) {
+Route::post('/word/{slug}/locations', function (string $slug) {
     if (!Auth::check()) {
         return redirect()->back();
     }
 
-    $foundWord = Word::where('word', $word)->first();
-    $fullWord = app(WordService::class)->findByWord($foundWord->word);
+    $foundWord = Word::where('slug', $slug)->first();
+    $fullWord = app(WordService::class)->findByWord($foundWord->slug);
 
     $locations = request('locations');
 
@@ -239,7 +231,7 @@ Route::post('/word/{word}/locations', function (string $word) {
         'locations' => app(WordService::class)->getAllLocations(),
         'userSelectedLocations' => app(WordService::class)->getUserLocationsForWordUuids($foundWord),
     ]);
-})->where('word', '.*')->name('word.locations');
+})->where('word', '.*')->name('word.locations.new');
 
 Route::get('/words/{letter}/', function (string $letter) {
     $total = app(WordService::class)->findBy('', [], $letter)->count();
@@ -249,7 +241,7 @@ Route::get('/words/{letter}/', function (string $letter) {
 
     $pagination = [
         'page' => (int) $page,
-        'perPage' => request('perPage') ?? 10,
+        'perPage' => request('perPage') ?? 20,
         'total' => $total,
         'pages' => ceil($total / $pageTotal),
     ];
@@ -306,13 +298,13 @@ Route::get('/word/{word}/comments', function (string $word) {
     ]);
 })->where('word', '.*')->name('word.comments');
 
-Route::post('/word/{word}/comments', function (string $word) {
+Route::post('/word/{slug}/comments', function (string $slug) {
     if (!Auth::check()) {
         return redirect()->back();
     }
 
     // $foundWord
-    $foundWord = Word::where('word', $word)->first();
+    $foundWord = Word::where('slug', $slug)->first();
 
     if (request('text')) {
         $comment = null;

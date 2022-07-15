@@ -40,7 +40,7 @@ const form = useForm({
 
 const newComment = () => {
     form.comment_id = props.parentComment ? props.parentComment.id : null;
-    form.post(route("word.comments.new", { word: props.word.word }), {
+    form.post(route("word.comments.new", { slug: props.word.slug }), {
         text: form.text,
         comment_id: form.comment_id,
         onSuccess: () => {

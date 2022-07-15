@@ -29,7 +29,7 @@ onMounted(() => {
 const locationKey = reactive(JSON.stringify(props.userSelectedLocations));
 
 const createLocationLink = () => {
-    form.post(route("word.locations.new", { word: props.word.word }), {
+    form.post(route("word.locations.new", { slug: props.word.slug }), {
         wordId: form.wordId,
         locations: form.locations,
         onSuccess: ({ props }) => {

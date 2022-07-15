@@ -47,7 +47,7 @@ const form = useForm({
 
 const submitRecording = () => {
     form.userRecording = blobToUpload;
-    form.post(route("word.recordings.create", { word: word.word }), {
+    form.post(route("word.recordings.create", { slug: word.slug }), {
         userRecording: form.blobToUpload,
         onFinish: () => {
             form.reset();

@@ -98,7 +98,9 @@ const showCite = ref(false);
 
 const URL = window.location.href;
 
-const citeURL = computed(() => `${window.location.origin}/word/${props.word.id}`);
+const citeURL = computed(
+    () => `${window.location.origin}/word/${props.word.id}`
+);
 </script>
 
 <template>
@@ -240,17 +242,24 @@ const citeURL = computed(() => `${window.location.origin}/word/${props.word.id}`
                                 class="mr-1"
                             >
                                 <Link
-                                    :href="route('word.comments', {
-                                        word: linkedWord.slug,
-                                    })"
-                                    class="text-gray-700 dark:text-white underline"
+                                    :href="
+                                        route('word.comments', {
+                                            word: linkedWord.slug,
+                                        })
+                                    "
+                                    class="
+                                        text-gray-700
+                                        dark:text-white
+                                        underline
+                                    "
                                 >
                                     {{ linkedWord.word }}
                                 </Link>
                                 <span
                                     v-if="index < word.linked_words.length - 1"
                                     class="text-gray-500"
-                                >,</span>
+                                    >,</span
+                                >
                             </div>
                         </div>
                     </div>
@@ -504,7 +513,7 @@ const citeURL = computed(() => `${window.location.origin}/word/${props.word.id}`
             </div>
 
             <div v-if="fullView">
-                <div class="text-sm text-gray-600 flex justify-end">
+                <div class="text-sm text-gray-600 flex justify-end mt-2">
                     <span
                         class="cursor-pointer dark:text-white"
                         @click="showCite = !showCite"
@@ -522,8 +531,18 @@ const citeURL = computed(() => `${window.location.origin}/word/${props.word.id}`
                         >
                         <p class="text-sm w-full">
                             Spaektionary. (2022). {{ word.word }}. Retrieved
-                            {{ format(new Date(word.updated_at), HOUR_MINUTE_FORMAT) }},
-                            {{ format(new Date(word.updated_at), CHICAGO_DATE_FORMAT) }}, from
+                            {{
+                                format(
+                                    new Date(word.updated_at),
+                                    HOUR_MINUTE_FORMAT
+                                )
+                            }},
+                            {{
+                                format(
+                                    new Date(word.updated_at),
+                                    CHICAGO_DATE_FORMAT
+                                )
+                            }}, from
                             {{ citeURL }}
                         </p>
                     </div>
@@ -535,7 +554,8 @@ const citeURL = computed(() => `${window.location.origin}/word/${props.word.id}`
                             >Chicago</a
                         >
                         <p class="text-sm w-full">
-                            Spaektionary, "<i>{{ word.word }}</i>",
+                            Spaektionary, "<i>{{ word.word }}</i
+                            >",
                             {{ citeURL }}
                             (accessed
                             {{ format(new Date(), CHICAGO_DATE_FORMAT) }}).

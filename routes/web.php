@@ -285,7 +285,7 @@ Route::get('/word/id/{uuid}', function (string $wordUuid) {
     if (!$word) {
         return redirect()->back();
     }
-    return redirect()->route('word.comments', $word->word);
+    return redirect()->route('word.comments', $word->slug);
 });
 
 Route::get('/word/{word}/comments', function (string $word) {

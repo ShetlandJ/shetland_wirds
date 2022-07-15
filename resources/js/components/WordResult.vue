@@ -99,7 +99,7 @@ const showCite = ref(false);
 const URL = window.location.href;
 
 const citeURL = computed(
-    () => `${window.location.origin}/word/${props.word.id}`
+    () => `${window.location.origin}/word/id/${props.word.id}`
 );
 </script>
 

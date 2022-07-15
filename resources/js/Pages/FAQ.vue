@@ -8,6 +8,10 @@ import ReloadIcon from "../components/icons/ReloadIcon.vue";
 import FaqList from '../components/FaqList.vue';
 
 defineProps({
+    canLogin: {
+        type: Boolean,
+        default: false,
+    },
     canRegister: Boolean,
     isLoggedIn: Boolean,
     missingDefinitions: Array,

@@ -7,6 +7,10 @@ import HelpUsForm from "../components/HelpUsForm.vue";
 import ReloadIcon from "../components/icons/ReloadIcon.vue";
 
 defineProps({
+    canLogin: {
+        type: Boolean,
+        default: false,
+    },
     canRegister: Boolean,
     isLoggedIn: Boolean,
     missingDefinitions: Array,

@@ -12,7 +12,8 @@ const props = defineProps({
     isLoggedIn: Boolean,
     locations: Array,
     userSelectedLocations: Array,
-    success: Boolean
+    success: Boolean,
+    userHasPendingRecordings: Boolean,
 });
 
 const goBack = () => window.history.back();

@@ -744,4 +744,16 @@ class WordService
 
         return null;
     }
+
+    public function userHasPendingRecording(Word $word): bool
+    {
+        if (!Auth::check()) {
+            return false;
+        }
+
+        return (bool) WordRecording::where('word_id', $word->id)
+            ->where('user_id', Auth::id())
+            ->where('pending', 1)
+            ->first();
+    }
 }

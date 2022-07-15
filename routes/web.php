@@ -150,6 +150,7 @@ Route::get('/word/{word}/recordings', function (string $word) {
         'word' => $foundWord,
         'randomWord' => DB::table('words')->inRandomOrder()->first()->slug,
         'locations' => app(WordService::class)->getAllLocations(),
+        'userHasPendingRecordings' => app(WordService::class)->userHasPendingRecording($fullWord),
         'userSelectedLocations' => app(WordService::class)->getUserLocationsForWordUuids($fullWord),
         'success' => false,
     ]);

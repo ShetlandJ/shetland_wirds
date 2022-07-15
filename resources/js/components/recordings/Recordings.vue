@@ -4,7 +4,7 @@ import { reactive } from "@vue/runtime-core";
 import Recording from "./Recording.vue";
 import RecordingInput from "./RecordingInput.vue";
 
-const { word, isLoggedIn, success } = usePage().props.value;
+const { word, isLoggedIn, success, userHasPendingRecordings } = usePage().props.value;
 </script>
 
 <template>
@@ -21,6 +21,10 @@ const { word, isLoggedIn, success } = usePage().props.value;
                 message="There are no recordings available for this word yet, be the
                 first to add one!"
             />
+
+            <Alert v-if="userHasPendingRecordings" variant="success" class="mb-4">
+                You have a pending recording(s). We will review it in due course! You can add another one below if you'd like.
+            </Alert>
 
             <Recording
                 v-for="(recording, index) in word.recordings"

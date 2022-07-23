@@ -158,9 +158,7 @@ const definitionsWithoutRemovedOnes = computed(() => {
         />
 
         <p class="mb-2">
-            1. First search for the word you want to add. Note that if your
-            preferred word has been used in the 90 days, it will not return in
-            these results
+            1. Search for the word you want to edit.
         </p>
 
         <div class="flex mb-4">

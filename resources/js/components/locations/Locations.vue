@@ -19,14 +19,21 @@ onMounted(() => {
 <template>
     <div v-if="word">
         <p class="mb-2 dark:text-white" v-if="isLoggedIn">
-            Where in Shetland is this word spoken?</p>
+            Where in Shetland is this word spoken?
+        </p>
 
         <p class="mb-2 dark:text-white">
-            We are gathering data and
-            will display a heatmap when we receive enough information to make
-            the data useful!
+            We are gathering data and will display a heatmap when we receive
+            enough information to make the data useful!
         </p>
-        <p class="mt-4" v-if="showAddForm">{{userSelectedLocations.length > 0 ? 'Edit your entries:' : 'Add your own below:'}}</p>
+
+        <p class="mt-4 dark:text-white" v-if="showAddForm && isLoggedIn">
+            {{
+                userSelectedLocations.length > 0
+                    ? "Edit your entries:"
+                    : "Add your own below:"
+            }}
+        </p>
 
         <div
             v-if="!showAddForm && userSelectedLocations.length > 0"

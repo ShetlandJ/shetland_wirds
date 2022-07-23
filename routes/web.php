@@ -643,3 +643,26 @@ Route::get('/faq', function () {
         'isLoggedIn' => Auth::check(),
     ]);
 })->name('faq');
+
+Route::post('/report/{word}', function (string $word) {
+    return Inertia::render('FAQ', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'randomWord' => DB::table('words')->inRandomOrder()->first()->slug,
+        'isLoggedIn' => Auth::check(),
+    ]);
+})->name('faq');
+
+Route::post('/report/{word}', function (string $word) {
+    $foundWord = app(WordService::class)->findByWord($word);
+
+    if (!$foundWord) {
+        return redirect()->back();
+    }
+
+    $fullWord = Word::where('uuid', $foundWord['id'])->first();
+    app(WordService::class)->reportWord($fullWord, request()->all());
+
+    return redirect()->back();
+})->where('word', '.*')->name('word.report');

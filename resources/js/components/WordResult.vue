@@ -11,6 +11,8 @@ import RecordingInput from "./recordings/RecordingInput.vue";
 import Comments from "./comments/Comments.vue";
 import Recordings from "./recordings/Recordings.vue";
 import Locations from "./locations/Locations.vue";
+import CiteSheet from "./words/CiteSheet.vue";
+import ReportForm from "./words/ReportForm.vue";
 
 import { computed, onMounted, ref } from "vue";
 
@@ -82,12 +84,37 @@ const URL = window.location.href;
 const citeURL = computed(
     () => `${window.location.origin}/word/id/${props.word.id}`
 );
+
+const showReportForm = ref(false);
+
+const toggleShowCite = () => {
+    showCite.value = !showCite.value;
+    showReportForm.value = false;
+};
+
+const toggleShowReportForm = () => {
+    showReportForm.value = !showReportForm.value;
+    showCite.value = false;
+};
+
+const closeReportForm = () => {
+    showReportForm.value = false;
+    showReportAlert.value = true;
+};
+
+const showReportAlert = ref(false);
 </script>
 
 <template>
     <Container>
         <div className="items-start dark:bg-gray-700">
             <div>
+                <Alert
+                    class="mb-4"
+                    v-if="showReportAlert"
+                    variant="success"
+                    message="Your word report was successful. We will review it as soon as possible"
+                />
                 <div className="flex items-center justify-between mb-2">
                     <div
                         class="flex"
@@ -211,7 +238,6 @@ const citeURL = computed(
                 </div>
 
                 <div v-if="word.linked_words.length" class="my-3">
-                    <!-- loop through and create links based on the word -->
                     <div class="flex text-sm italic">
                         <div class="mr-2 text-gray-700 dark:text-white">
                             Synonyms:
@@ -404,75 +430,29 @@ const citeURL = computed(
             </div>
 
             <div v-if="fullView">
-                <div class="text-sm text-gray-600 flex justify-end mt-2">
+                <div class="text-sm text-gray-600 flex mt-2">
                     <span
-                        class="cursor-pointer dark:text-white"
-                        @click="showCite = !showCite"
+                        class="cursor-pointer dark:text-white underline"
+                        @click="toggleShowCite"
                         >cite</span
                     >
+                    <span class="mx-2">&#8226;</span>
+                    <span
+                        @click="toggleShowReportForm"
+                        class="cursor-pointer dark:text-white underline"
+                    >
+                        report
+                    </span>
                 </div>
 
-                <div v-if="showCite" class="dark:text-white">
-                    <div class="flex mb-4">
-                        <a
-                            class="underline w-40"
-                            href="https://en.wikipedia.org/wiki/APA_style"
-                            target="_blank"
-                            >APA</a
-                        >
-                        <p class="text-sm w-full">
-                            Spaektionary. (2022). {{ word.word }}. Retrieved
-                            {{
-                                format(
-                                    new Date(word.updated_at),
-                                    HOUR_MINUTE_FORMAT
-                                )
-                            }},
-                            {{
-                                format(
-                                    new Date(word.updated_at),
-                                    CHICAGO_DATE_FORMAT
-                                )
-                            }}, from
-                            {{ citeURL }}
-                        </p>
-                    </div>
-                    <div class="flex mb-4">
-                        <a
-                            class="underline w-40"
-                            href="https://en.wikipedia.org/wiki/The_Chicago_Manual_of_Style"
-                            target="_blank"
-                            >Chicago</a
-                        >
-                        <p class="text-sm w-full">
-                            Spaektionary, "<i>{{ word.word }}</i
-                            >",
-                            {{ citeURL }}
-                            (accessed
-                            {{ format(new Date(), CHICAGO_DATE_FORMAT) }}).
-                        </p>
-                    </div>
-                    <div class="flex mb-4">
-                        <a
-                            class="underline w-40"
-                            href="https://en.wikipedia.org/wiki/BibTeX"
-                            target="_blank"
-                            >BibTeX</a
-                        >
-                        <code class="text-sm w-full">
-                            @misc{<br />
-                            author = "{Spaektionary}",<br />
-                            title = "{{ word.word }} --- {Spaektionary},<br />
-                            year = "{{
-                                format(new Date(), BIBTEX_YEAR)
-                            }}",<br />
-                            url = "{{ citeURL }}",<br />
-                            note = "[Online; accessed
-                            {{ format(new Date(), BIBTEX_DATE) }}]<br />
-                            }
-                        </code>
-                    </div>
-                </div>
+                <CiteSheet class="mt-3" v-if="showCite" :word="word" />
+
+                <ReportForm
+                    class="mt-3"
+                    v-if="showReportForm"
+                    :word="word"
+                    @success="closeReportForm"
+                />
             </div>
         </div>
     </Container>

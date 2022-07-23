@@ -15,6 +15,7 @@ use App\Models\WordOfTheDay;
 use App\Models\WordRecording;
 use App\Models\WordDefinition;
 use App\Models\WordRelationType;
+use App\Models\WordReport;
 use App\Models\WordToLocation;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -757,5 +758,15 @@ class WordService
             ->where('user_id', Auth::id())
             ->where('pending', 1)
             ->first();
+    }
+
+    public function reportWord(Word $word, array $payload): WordReport
+    {
+        return WordReport::create([
+            'word_id' => $word->id,
+            'user_id' => Auth::id() ?? null,
+            'reason' => $payload['report_reason'] ?? null,
+            'reason_type' => $payload['reason_type'] ?? null,
+        ]);
     }
 }

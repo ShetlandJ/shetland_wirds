@@ -72,8 +72,8 @@ defineProps({
                 The immediate ancestors of Shaetlan are Scots and norn. Norn is
                 extinct, but descended from western old Norse. Scots is a macro
                 language with a number of highly diverse varieties. They descend
-                from northumbrian old English. Standard English, on the other
-                hand, descends from mercian old English. So Scots is not and has
+                from Northumbrian old English. Standard English, on the other
+                hand, descends from Mercian old English. So Scots is not and has
                 never been a dialect of English any more than English is or has
                 been a dialect of Scots. Shaetlan has also been in intense
                 contact with the low country Germanic languages (low German and

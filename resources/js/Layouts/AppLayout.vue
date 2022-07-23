@@ -62,12 +62,6 @@ const logout = () => {
                                 "
                             >
                                 <JetNavLink
-                                    :href="route('dashboard')"
-                                    :active="route().current('dashboard')"
-                                >
-                                    Dashboard
-                                </JetNavLink>
-                                <JetNavLink
                                     :href="route('home')"
                                     :active="route().current('home')"
                                 >
@@ -79,17 +73,79 @@ const logout = () => {
                                 >
                                     Word admin
                                 </JetNavLink>
+
+                                <JetDropdown align="right" width="48">
+                                    <template #trigger>
+                                        <button
+                                            type="button"
+                                            class="
+                                                inline-flex
+                                                items-center
+                                                border border-transparent
+                                                text-sm
+                                                mt-3
+                                                leading-4
+                                                font-medium
+                                                rounded-md
+                                                text-gray-500
+                                                bg-white
+                                                hover:text-gray-700
+                                                focus:outline-none
+                                                transition
+                                            "
+                                        >
+                                            Pending
+
+                                            <svg
+                                                class="ml-2 -mr-0.5 h-4 w-4"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 20 20"
+                                                fill="currentColor"
+                                            >
+                                                <path
+                                                    fill-rule="evenodd"
+                                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                    clip-rule="evenodd"
+                                                />
+                                            </svg>
+                                        </button>
+                                    </template>
+
+                                    <template #content>
+                                        <JetNavLink
+                                            :href="route('approval')"
+                                            :active="
+                                                route().current('approval')
+                                            "
+                                        >
+                                            Pending words
+                                        </JetNavLink>
+                                        <JetNavLink
+                                            :href="route('recordings')"
+                                            :active="
+                                                route().current('recordings')
+                                            "
+                                        >
+                                            Pending recordings
+                                        </JetNavLink>
+                                        <JetNavLink
+                                            :href="route('new-definitions')"
+                                            :active="
+                                                route().current(
+                                                    'new-definitions'
+                                                )
+                                            "
+                                        >
+                                            Pending definitions
+                                        </JetNavLink>
+                                    </template>
+                                </JetDropdown>
+
                                 <JetNavLink
-                                    :href="route('approval')"
-                                    :active="route().current('approval')"
+                                    :href="route('wotd')"
+                                    :active="route().current('wotd')"
                                 >
-                                    Pending words
-                                </JetNavLink>
-                                <JetNavLink
-                                    :href="route('new-definitions')"
-                                    :active="route().current('new-definitions')"
-                                >
-                                    Pending definitions
+                                    Word of the Day
                                 </JetNavLink>
                                 <JetNavLink
                                     :href="route('rejected')"
@@ -98,22 +154,16 @@ const logout = () => {
                                     Rejected
                                 </JetNavLink>
                                 <JetNavLink
-                                    :href="route('recordings')"
-                                    :active="route().current('recordings')"
-                                >
-                                    Recordings
-                                </JetNavLink>
-                                <JetNavLink
-                                    :href="route('wotd')"
-                                    :active="route().current('wotd')"
-                                >
-                                    Word of the Day
-                                </JetNavLink>
-                                <JetNavLink
                                     :href="route('revisions')"
                                     :active="route().current('revisions')"
                                 >
                                     Revisions
+                                </JetNavLink>
+                                <JetNavLink
+                                    :href="route('users')"
+                                    :active="route().current('users')"
+                                >
+                                    Users
                                 </JetNavLink>
                             </div>
                         </div>
@@ -286,12 +336,6 @@ const logout = () => {
                 >
                     <div class="pt-2 pb-3 space-y-1">
                         <JetResponsiveNavLink
-                            :href="route('dashboard')"
-                            :active="route().current('dashboard')"
-                        >
-                            Dashboard
-                        </JetResponsiveNavLink>
-                        <JetResponsiveNavLink
                             :href="route('home')"
                             :active="route().current('home')"
                         >
@@ -310,22 +354,22 @@ const logout = () => {
                             Pending words
                         </JetResponsiveNavLink>
                         <JetResponsiveNavLink
+                            :href="route('recordings')"
+                            :active="route().current('recordings')"
+                        >
+                            Pending recordings
+                        </JetResponsiveNavLink>
+                        <JetResponsiveNavLink
                             :href="route('new-definitions')"
                             :active="route().current('new-definitions')"
                         >
-                            Pending definitions
+                            Pending definitions (Beta)
                         </JetResponsiveNavLink>
                         <JetResponsiveNavLink
                             :href="route('rejected')"
                             :active="route().current('rejected')"
                         >
-                            Rejected
-                        </JetResponsiveNavLink>
-                        <JetResponsiveNavLink
-                            :href="route('recordings')"
-                            :active="route().current('recordings')"
-                        >
-                            Recordings
+                            Rejected (Beta)
                         </JetResponsiveNavLink>
                         <JetResponsiveNavLink
                             :href="route('wotd')"
@@ -338,6 +382,12 @@ const logout = () => {
                             :active="route().current('revisions')"
                         >
                             Revisions
+                        </JetResponsiveNavLink>
+                        <JetResponsiveNavLink
+                            :href="route('users')"
+                            :active="route().current('users')"
+                        >
+                            Users
                         </JetResponsiveNavLink>
                     </div>
 

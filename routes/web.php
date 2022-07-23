@@ -6,13 +6,14 @@ use Inertia\Inertia;
 use App\Models\Comment;
 use Illuminate\Http\Request;
 use App\Models\WordRecording;
+use App\Services\UserService;
 use App\Services\WordService;
-use Illuminate\Support\Facades\DB;
-use App\Http\Middleware\UserIsAdmin;
-use App\Models\WordRelationType;
 use App\Services\AdminService;
+use App\Models\WordRelationType;
 use App\Services\CommentService;
 use App\Services\RevisionService;
+use Illuminate\Support\Facades\DB;
+use App\Http\Middleware\UserIsAdmin;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
@@ -539,6 +540,18 @@ Route::get('/dashboard/revisions', function () {
     ]);
 })->name('revisions');
 
+Route::get('/dashboard/users', function () {
+    return Inertia::render('AdminDashboard', [
+        'users' => app(UserService::class)->findAll(),
+        'roles' => Role::all()->map(function ($role) {
+            return [
+                'name' => $role->name,
+                'id' => $role->uuid,
+            ];
+        }),
+        'isLoggedIn' => Auth::check(),
+    ]);
+})->name('users');
 
 Route::get('/help-us', function () {
     $wordsWithoutDefinitions = app(WordService::class)->findWithoutDefinitions();

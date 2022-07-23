@@ -9,6 +9,7 @@ import EditWord from "../components/admin/EditWord.vue";
 import RevisionsList from "../components/admin/RevisionsList.vue";
 import PendingWordsTable from '../components/admin/PendingWordsTable.vue';
 import PendingRecordingsTable from '../components/admin/PendingRecordingsTable.vue';
+import UsersTable from '../components/admin/UsersTable.vue';
 
 import { computed } from "vue";
 
@@ -41,6 +42,14 @@ defineProps({
         type: Array,
         default: () => [],
     },
+    users: {
+        type: Array,
+        default: () => [],
+    },
+    roles: {
+        type: Array,
+        default: () => [],
+    }
 });
 
 const heading = computed(() => {
@@ -49,6 +58,7 @@ const heading = computed(() => {
     if (route().current("word-admin")) return "Word admin";
     if (route().current("rejected")) return "Rejected words";
     if (route().current("recordings")) return "Pending recordings";
+    if (route().current("users")) return "User management";
     return "Admin dashboard";
 });
 </script>
@@ -92,6 +102,10 @@ const heading = computed(() => {
 
         <div v-if="route().current('dashboard')">
             <AdminMetrics :metrics="metrics" />
+        </div>
+
+        <div v-if="route().current('users')">
+            <UsersTable :users="users" :roles="roles" />
         </div>
     </AppLayout>
 </template>

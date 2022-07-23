@@ -13,6 +13,10 @@ use Illuminate\Database\Eloquent\Collection;
 
 class UserService
 {
+    private const BLOCKED_EMAILS = [
+        'james@jastewart.co.uk',
+    ];
+
     public function findAll(): array
     {
         return User::all()->map(fn (User $user) => $this->formatUser($user))->all();
@@ -50,6 +54,12 @@ class UserService
 
         // check if user has the role already
         if ($user->roles->contains($role)) {
+            // check if role->name is admin and user's email is not in BLOCKED_EMAILS
+            if ($role->name === 'admin' && in_array($user->email, self::BLOCKED_EMAILS)) {
+                // if user has the role, but email is in BLOCKED_EMAILS, ignore the request
+                return;
+            }
+
             $link = $user->roles()->where('role_id', $role->id)->first();
 
             $link->delete();

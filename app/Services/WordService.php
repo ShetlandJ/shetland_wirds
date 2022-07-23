@@ -310,7 +310,7 @@ class WordService
         return true;
     }
 
-    public function createWord(array $payload): Word
+    public function createWord(array $payload, bool $pending = true): Word
     {
         $newWord = Word::create([
             'uuid' => (string) Str::uuid(),

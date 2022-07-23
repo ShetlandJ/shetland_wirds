@@ -14,6 +14,7 @@ use App\Services\CommentService;
 use App\Services\RevisionService;
 use Illuminate\Support\Facades\DB;
 use App\Http\Middleware\UserIsAdmin;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
@@ -410,8 +411,18 @@ Route::post('/create', function (Request $request) {
 
     $valid = app(WordService::class)->validateNewWordSubmission($payload);
 
+    $userIsTrusted = false;
+
+    if (Auth::user() && Auth::user()->isTrusted) {
+        $userIsTrusted = true;
+    }
+
     if ($valid) {
-        app(WordService::class)->createWord($payload);
+        $newWord = app(WordService::class)->createWord($payload, !$userIsTrusted);
+    }
+
+    if ($userIsTrusted) {
+        return redirect()->route('word.comments', $newWord->slug);
     }
 
     return Inertia::render('NewWord', [

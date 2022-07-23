@@ -82,6 +82,20 @@ class User extends Authenticatable
         );
     }
 
+    public function getIsTrustedAttribute(): bool
+    {
+        $isTrusted = false;
+
+        foreach ($this->roles as $role) {
+
+            if ($role->name === 'trusted' || $role->name === 'admin') {
+                $isTrusted = true;
+            }
+        }
+
+        return $isTrusted;
+    }
+
     public function getInitialsAttribute(): string
     {
         return $this->generateInitials($this->name);

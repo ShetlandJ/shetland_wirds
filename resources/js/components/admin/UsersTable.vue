@@ -1,6 +1,7 @@
 <script setup>
 import { useForm } from "@inertiajs/inertia-vue3";
 import { formatDate } from "../../utils/formatters";
+import { Inertia } from "@inertiajs/inertia";
 
 defineProps({
     users: {
@@ -16,6 +17,13 @@ defineProps({
 const fields = ["User", "Email", "Roles", "Joined", ""];
 
 const cellClass = "px-5 py-5 border-b border-gray-200 bg-white text-sm";
+
+const updateUserRoles = (userUuid, roleUuid) => {
+    Inertia.patch(route("users.update"), {
+        userUuid,
+        roleUuid,
+    });
+};
 </script>
 
 <template>
@@ -50,7 +58,9 @@ const cellClass = "px-5 py-5 border-b border-gray-200 bg-white text-sm";
                                 <b>{{ user.name }}</b>
                             </div>
                             <div v-if="user.word_count > 0">
-                                {{ user.word_count }} words
+                                {{ user.word_count }} word{{
+                                    user.word_count === 1 ? "" : "s"
+                                }}
                             </div>
                             <div v-else>No words submitted yet</div>
                         </td>
@@ -69,8 +79,13 @@ const cellClass = "px-5 py-5 border-b border-gray-200 bg-white text-sm";
                                     type="checkbox"
                                     :id="`${user.id}-${role.id}`"
                                     :value="role.id"
-                                    :checked="user.roles.map(role => role.id).includes(role.id)"
+                                    :checked="
+                                        user.roles
+                                            .map((role) => role.id)
+                                            .includes(role.id)
+                                    "
                                     class="mr-2"
+                                    @click="updateUserRoles(user.id, role.id)"
                                 />
                                 <label :for="`${user.id}-${role.id}`">
                                     {{ role.name }}

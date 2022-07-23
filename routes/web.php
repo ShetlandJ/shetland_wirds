@@ -553,6 +553,14 @@ Route::get('/dashboard/users', function () {
     ]);
 })->name('users');
 
+Route::patch('/dashboard/users', function () {
+    if (request('userUuid') && request('roleUuid')) {
+        app(UserService::class)->updateRole(request('userUuid'), request('roleUuid'));
+    }
+
+    return redirect()->back();
+})->name('users.update');
+
 Route::get('/help-us', function () {
     $wordsWithoutDefinitions = app(WordService::class)->findWithoutDefinitions();
     $definitionsWithoutExampleSentences = app(WordService::class)->findWithoutExampleSentences();

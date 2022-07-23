@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\User;
 use App\Models\Revision;
 use App\Models\Role;
+use App\Models\UserToRole;
 use Illuminate\Support\Str;
 use App\Services\WordService;
 use Illuminate\Support\Facades\Auth;
@@ -36,5 +37,29 @@ class UserService
             'word_count' => $user->words->count(),
             'created_at' => $user->created_at->format('Y-m-d H:i:s'),
         ];
+    }
+
+    public function updateRole(string $userId, string $roleId): void
+    {
+        $user = User::where('uuid', $userId)->first();
+        $role = Role::where('uuid', $roleId)->first();
+
+        if (!$user || !$role) {
+            throw new \Exception('User or role not found');
+        }
+
+        // check if user has the role already
+        if ($user->roles->contains($role)) {
+            $link = $user->roles()->where('role_id', $role->id)->first();
+
+            $link->delete();
+        } else {
+            $utr = new UserToRole();
+            $utr->user_id = $user->id;
+            $utr->role_id = $role->id;
+            $utr->save();
+        }
+
+        // if ($user->roles)
     }
 }

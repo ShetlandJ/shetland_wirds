@@ -10,6 +10,7 @@ import RevisionsList from "../components/admin/RevisionsList.vue";
 import PendingWordsTable from '../components/admin/PendingWordsTable.vue';
 import PendingRecordingsTable from '../components/admin/PendingRecordingsTable.vue';
 import UsersTable from '../components/admin/UsersTable.vue';
+import ReportedWordsTable from '../components/admin/ReportedWordsTable.vue';
 
 import { computed } from "vue";
 
@@ -49,7 +50,11 @@ defineProps({
     roles: {
         type: Array,
         default: () => [],
-    }
+    },
+    reports: {
+        type: Array,
+        default: () => [],
+    },
 });
 
 const heading = computed(() => {
@@ -59,6 +64,7 @@ const heading = computed(() => {
     if (route().current("rejected")) return "Rejected words";
     if (route().current("recordings")) return "Pending recordings";
     if (route().current("users")) return "User management";
+    if (route().current("reports")) return "Reported words";
     return "Admin dashboard";
 });
 </script>
@@ -107,5 +113,7 @@ const heading = computed(() => {
         <div v-if="route().current('users')">
             <UsersTable :users="users" :roles="roles" />
         </div>
+
+        <ReportedWordsTable v-if="route().current('reports')" :reports="reports" />
     </AppLayout>
 </template>

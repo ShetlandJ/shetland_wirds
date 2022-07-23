@@ -12,11 +12,14 @@ class AddReportedWordsTable extends Migration
     {
         Schema::create(self::TABLE, function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->uuid('uuid')->unique();
             $table->unsignedBigInteger('word_id');
             $table->unsignedBigInteger('user_id')->nullable();
             $table->string('reason_type')->nullable();
             $table->string('reason')->nullable();
             $table->string('email')->nullable();
+            $table->boolean('resolved')->default(false);
+            $table->unsignedBigInteger('resolved_by')->nullable();
             $table->timestamps();
         });
     }

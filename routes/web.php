@@ -15,6 +15,7 @@ use App\Services\RevisionService;
 use Illuminate\Support\Facades\DB;
 use App\Http\Middleware\UserIsAdmin;
 use App\Models\User;
+use App\Models\WordReport;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
@@ -449,6 +450,7 @@ Route::middleware([
             return Inertia::render('AdminDashboard', [
                 'isLoggedIn' => Auth::check(),
                 'metrics' => app(WordService::class)->getAdminDashboardMetrics(),
+                'reports' => app(WordService::class)->getReports(),
             ]);
         }
 
@@ -460,6 +462,7 @@ Route::get('/dashboard/word-admin', function () {
     return Inertia::render('AdminDashboard', [
         'wordRelationTypes' => WordRelationType::all()->toArray(),
         'isLoggedIn' => Auth::check(),
+        'reports' => app(WordService::class)->getReports(),
     ]);
 })->name('word-admin');
 
@@ -467,6 +470,7 @@ Route::get('/dashboard/approve', function () {
     return Inertia::render('AdminDashboard', [
         'pendingWords' => app(WordService::class)->findAllPendingWords(),
         'isLoggedIn' => Auth::check(),
+        'reports' => app(WordService::class)->getReports(),
     ]);
 })->name('approval');
 
@@ -478,6 +482,7 @@ Route::post('/dashboard/approve', function () {
     return Inertia::render('AdminDashboard', [
         'pendingWords' => app(WordService::class)->findAllPendingWords(),
         'isLoggedIn' => Auth::check(),
+        'reports' => app(WordService::class)->getReports(),
     ]);
 })->name('approve');
 
@@ -485,6 +490,7 @@ Route::get('/dashboard/new-definitions', function () {
     return Inertia::render('AdminDashboard', [
         'definitions' => app(WordService::class)->findAllPendingDefinitions(),
         'isLoggedIn' => Auth::check(),
+        'reports' => app(WordService::class)->getReports(),
     ]);
 })->name('new-definitions');
 
@@ -493,6 +499,7 @@ Route::get('/dashboard/wotd', function () {
     return Inertia::render('AdminDashboard', [
         'wordQueue' => app(AdminService::class)->getQueuedWords(),
         'isLoggedIn' => Auth::check(),
+        'reports' => app(WordService::class)->getReports(),
     ]);
 })->name('wotd');
 
@@ -500,6 +507,7 @@ Route::get('/dashboard/rejected', function () {
     return Inertia::render('AdminDashboard', [
         'words' => app(WordService::class)->findAllRejectedWords(),
         'isLoggedIn' => Auth::check(),
+        'reports' => app(WordService::class)->getReports(),
     ]);
 })->name('rejected');
 
@@ -515,6 +523,7 @@ Route::get('/dashboard/recordings', function () {
     return Inertia::render('AdminDashboard', [
         'pendingRecordings' => app(WordService::class)->getPendingRecordings(),
         'isLoggedIn' => Auth::check(),
+        'reports' => app(WordService::class)->getReports(),
     ]);
 })->name('recordings');
 
@@ -553,6 +562,7 @@ Route::delete('/dashboard/definitions/{definitionUuid}', function (string $defin
 Route::get('/dashboard/revisions', function () {
     return Inertia::render('AdminDashboard', [
         'revisions' => app(RevisionService::class)->findAll(),
+        'reports' => app(WordService::class)->getReports(),
         'isLoggedIn' => Auth::check(),
     ]);
 })->name('revisions');
@@ -567,6 +577,7 @@ Route::get('/dashboard/users', function () {
             ];
         }),
         'isLoggedIn' => Auth::check(),
+        'reports' => app(WordService::class)->getReports(),
     ]);
 })->name('users');
 
@@ -577,6 +588,25 @@ Route::patch('/dashboard/users', function () {
 
     return redirect()->back();
 })->name('users.update');
+
+Route::get('/dashboard/reports', function () {
+    return Inertia::render('AdminDashboard', [
+        'reports' => app(WordService::class)->getReports(),
+        'isLoggedIn' => Auth::check(),
+    ]);
+})->name('reports');
+
+Route::post('/dashboard/reports/{reportId}', function (string $reportId) {
+    $report = WordReport::where('uuid', $reportId)->first();
+
+    if (!$report) {
+        return redirect()->back();
+    }
+
+    app(WordService::class)->resolveReport($report);
+
+    return redirect()->back();
+})->name('reports.resolve');
 
 Route::get('/help-us', function () {
     $wordsWithoutDefinitions = app(WordService::class)->findWithoutDefinitions();

@@ -763,10 +763,41 @@ class WordService
     public function reportWord(Word $word, array $payload): WordReport
     {
         return WordReport::create([
+            'uuid' => (string) Str::uuid(),
             'word_id' => $word->id,
             'user_id' => Auth::id() ?? null,
             'reason' => $payload['report_reason'] ?? null,
             'reason_type' => $payload['reason_type'] ?? null,
         ]);
+    }
+
+    public function resolveReport(WordReport $report): WordReport
+    {
+        $report->resolved = true;
+        $report->resolved_by = Auth::id() ?? null;
+        $report->save();
+
+        return $report;
+    }
+
+    public function getReports(): Collection
+    {
+        return WordReport::where('resolved', false)
+            ->get()
+            ->map(fn (WordReport $report) => $this->formatReport($report));
+    }
+
+    public function formatReport(WordReport $report): array
+    {
+        return [
+            'id' => $report->uuid,
+            'word_id' => $report->word->uuid,
+            'word' => $report->word->word,
+            'user_id' => $report->user ? $report->user->uuid : null,
+            'user' => $report->user ? $report->user->name : 'Unregistered',
+            'reason' => $report->reason,
+            'reason_type' => $report->reason_type,
+            'created_at' => $report->created_at->format('Y-m-d H:i:s'),
+        ];
     }
 }

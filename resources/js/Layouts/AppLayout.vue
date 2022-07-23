@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from "vue";
 import { Inertia } from "@inertiajs/inertia";
-import { Head, Link } from "@inertiajs/inertia-vue3";
+import { Head, Link, usePage } from "@inertiajs/inertia-vue3";
 import JetApplicationMark from "@/Jetstream/ApplicationMark.vue";
 import JetBanner from "@/Jetstream/Banner.vue";
 import JetDropdown from "@/Jetstream/Dropdown.vue";
@@ -30,6 +30,8 @@ const switchToTeam = (team) => {
 const logout = () => {
     Inertia.post(route("logout"));
 };
+
+const { reports } = usePage().props.value;
 </script>
 
 <template>
@@ -164,6 +166,17 @@ const logout = () => {
                                     :active="route().current('users')"
                                 >
                                     Users
+                                </JetNavLink>
+                                <JetNavLink
+                                    :href="route('reports')"
+                                    :active="route().current('reports')"
+                                >
+                                    Reports
+                                    <span v-if="reports.length > 0">
+                                        <span class="text-red-500 ml-1">
+                                            ({{ reports.length }})
+                                        </span>
+                                    </span>
                                 </JetNavLink>
                             </div>
                         </div>
@@ -388,6 +401,17 @@ const logout = () => {
                             :active="route().current('users')"
                         >
                             Users
+                        </JetResponsiveNavLink>
+                        <JetResponsiveNavLink
+                            :href="route('reports')"
+                            :active="route().current('reports')"
+                        >
+                            Reports
+                            <span v-if="reports.length > 0">
+                                <span class="text-red-500 ml-1">
+                                    ({{ reports.length }})
+                                </span>
+                            </span>
                         </JetResponsiveNavLink>
                     </div>
 

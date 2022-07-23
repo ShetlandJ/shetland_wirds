@@ -13,7 +13,7 @@ defineProps({
     },
 });
 
-const fields = ["User", "Email", "Roles", "Date", ""];
+const fields = ["User", "Email", "Roles", "Joined", ""];
 
 const cellClass = "px-5 py-5 border-b border-gray-200 bg-white text-sm";
 </script>
@@ -77,6 +77,9 @@ const cellClass = "px-5 py-5 border-b border-gray-200 bg-white text-sm";
                                 </label>
                             </div>
                             <!-- {{ user.roles.map(role => role.name) }} -->
+                        </td>
+                        <td :class="cellClass">
+                            {{ formatDate(new Date(user.created_at)) }}
                         </td>
                     </tr>
                 </tbody>

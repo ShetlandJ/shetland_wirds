@@ -4,13 +4,13 @@ import { reactive } from "@vue/runtime-core";
 import Recording from "./Recording.vue";
 import RecordingInput from "./RecordingInput.vue";
 
-const { word, isLoggedIn, success, userHasPendingRecordings } = usePage().props.value;
+const { word, isLoggedIn, success, userHasPendingRecordings, user } = usePage().props.value;
 </script>
 
 <template>
     <div v-if="word">
         <Alert
-            v-if="success"
+            v-if="success && !user.is_trusted"
             variant="success"
             message="Recording successfully added! We'll review it and if it's appropriate, we'll approve it!"
         />
@@ -22,7 +22,7 @@ const { word, isLoggedIn, success, userHasPendingRecordings } = usePage().props.
                 first to add one!"
             />
 
-            <Alert v-if="userHasPendingRecordings" variant="success" class="mb-4">
+            <Alert v-if="userHasPendingRecordings && !user.is_trusted" variant="success" class="mb-4">
                 You have a pending recording(s). We will review it in due course! You can add another one below if you'd like.
             </Alert>
 

@@ -442,7 +442,7 @@ class WordService
         return $comment;
     }
 
-    public function saveRecording(Word $word, string $fileName): WordRecording
+    public function saveRecording(Word $word, string $fileName, bool $pending = true): WordRecording
     {
         $recording = new WordRecording();
 
@@ -451,7 +451,7 @@ class WordService
         $recording->uuid = (string) Str::uuid();
         $recording->type = 'word';
         $recording->filename = $fileName;
-        $recording->pending = true;
+        $recording->pending = $pending;
 
         $recording->save();
 

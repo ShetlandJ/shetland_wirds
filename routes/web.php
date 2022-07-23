@@ -179,7 +179,13 @@ Route::post('/word/{slug}/recordings', function (string $slug) {
     $filePath = sprintf('storage/%s/%s', $slug, basename($file));
 
     $fullWord = Word::where('slug', $slug)->first();
-    app(WordService::class)->saveRecording($fullWord, $filePath);
+
+    $userIsTrusted = false;
+    if (Auth::user() && Auth::user()->isTrusted) {
+        $userIsTrusted = true;
+    }
+
+    app(WordService::class)->saveRecording($fullWord, $filePath, !$userIsTrusted);
 
     return Inertia::render('WordRecordings', [
         'canLogin' => Route::has('login'),

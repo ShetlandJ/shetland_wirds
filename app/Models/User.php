@@ -63,6 +63,7 @@ class User extends Authenticatable
      */
     protected $appends = [
         'profile_photo_url',
+        'is_trusted',
     ];
 
     public function words(): HasMany

@@ -1,15 +1,14 @@
 <script setup>
 import AppLayout from "@/Layouts/AppLayout.vue";
 import Welcome from "@/Jetstream/Welcome.vue";
-import WordResult from "../components/WordResult.vue";
 import StatCard from "../components/StatCard.vue";
 import AdminMetrics from "../components/admin/AdminsMetrics.vue";
-import PendingRecording from "../components/PendingRecording.vue";
 import PendingDefinition from "../components/PendingDefinition.vue";
 import WordOfTheDayQueue from "../components/admin/WordOfTheDayQueue.vue";
 import EditWord from "../components/admin/EditWord.vue";
 import RevisionsList from "../components/admin/RevisionsList.vue";
 import PendingWordsTable from '../components/admin/PendingWordsTable.vue';
+import PendingRecordingsTable from '../components/admin/PendingRecordingsTable.vue';
 
 import { computed } from "vue";
 
@@ -18,7 +17,7 @@ defineProps({
         type: Array,
         default: () => [],
     },
-    recordings: {
+    pendingRecordings: {
         type: Array,
         default: () => [],
     },
@@ -62,16 +61,8 @@ const heading = computed(() => {
             </h2>
         </template>
 
-        <div v-if="pendingWords">
+        <div v-if="route().current('approval')">
             <PendingWordsTable :pending-words="pendingWords" />
-
-            <WordResult
-                is-logged-in
-                v-for="word in pendingWords"
-                :key="word.uuid"
-                :word="word"
-                admin-view
-            />
         </div>
 
         <div v-if="route().current('word-admin')">
@@ -86,14 +77,8 @@ const heading = computed(() => {
             <WordOfTheDayQueue :word-queue="wordQueue" />
         </div>
 
-        <div v-if="recordings">
-            <PendingRecording
-                v-for="(recording, index) in recordings"
-                :key="recording.uuid"
-                :index="index"
-                :recording="recording"
-                admin-view
-            />
+        <div v-if="route().current('recordings')">
+            <PendingRecordingsTable :pending-recordings="pendingRecordings" />
         </div>
 
         <div v-if="definitions">

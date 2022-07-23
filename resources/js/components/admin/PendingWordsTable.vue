@@ -9,7 +9,7 @@ defineProps({
     },
 });
 
-const fields = ["Word", "Definition", "Example sentence", "Type", ""];
+const fields = ["Word", "Definition", "Example sentence", "Type", 'Creator', ""];
 
 const approveForm = useForm({
     wordToApprove: null,
@@ -61,7 +61,7 @@ const cellClass = 'px-5 py-5 border-b border-gray-200 bg-white text-sm';
 </script>
 
 <template>
-    <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
+    <div class="mx-4 mx-8 px-4 px-8 py-4 overflow-x-auto">
         <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
             <table class="min-w-full leading-normal">
                 <thead>
@@ -129,6 +129,15 @@ const cellClass = 'px-5 py-5 border-b border-gray-200 bg-white text-sm';
                         <td
                             :class="cellClass"
                         >
+                            {{ pendingWord.creator_name }}
+                            <span v-if="pendingWord.creator_word_count > 0">
+                                ({{ pendingWord.creator_word_count }} words)
+                            </span>
+                            <span v-else>(first words)</span>
+                        </td>
+                        <td
+                            :class="cellClass"
+                        >
                             <div>
                                 <button
                                     class="
@@ -173,6 +182,7 @@ const cellClass = 'px-5 py-5 border-b border-gray-200 bg-white text-sm';
                                         form-label
                                         inline-block
                                         mb-2
+                                        mt-4
                                         text-gray-700
                                     "
                                     >Please provide a reject reason</label
@@ -215,7 +225,7 @@ const cellClass = 'px-5 py-5 border-b border-gray-200 bg-white text-sm';
                                             font-medium
                                             rounded-md
                                         "
-                                        @click="rejectWord(word.id)"
+                                        @click="rejectWord(pendingWord.id)"
                                     >
                                         Reject
                                     </button>

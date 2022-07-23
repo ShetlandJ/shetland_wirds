@@ -495,7 +495,7 @@ Route::post('/dashboard/reject', function () {
 
 Route::get('/dashboard/recordings', function () {
     return Inertia::render('AdminDashboard', [
-        'recordings' => app(WordService::class)->getPendingRecordings(),
+        'pendingRecordings' => app(WordService::class)->getPendingRecordings(),
         'isLoggedIn' => Auth::check(),
     ]);
 })->name('recordings');

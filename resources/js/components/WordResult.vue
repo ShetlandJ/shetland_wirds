@@ -62,25 +62,6 @@ const approveWord = (wordId) => {
     });
 };
 
-let showRejectForm = ref(false);
-
-const rejectForm = useForm({
-    wordToReject: null,
-    rejectReason: null,
-});
-
-const rejectWord = (wordId) => {
-    rejectForm.wordToReject = wordId;
-    rejectForm.post(route("reject"), {
-        wordToApprove: rejectForm.wordToApprove,
-        rejectReason: rejectForm.rejectReason,
-        onFinish: () => {
-            showRejectForm.value = false;
-            form.reset("rejectForm");
-        },
-    });
-};
-
 const url = Inertia.page.url;
 const isComments = url.includes("comments");
 const isRecordings = url.includes("recordings");
@@ -419,96 +400,6 @@ const citeURL = computed(
                     <Comments v-if="isComments" :comments="word.comments" />
                     <Recordings v-else-if="isRecordings" />
                     <Locations v-else-if="isLocations" />
-                </div>
-            </div>
-
-            <div class="mt-4 flex justify-between" v-if="word.pending">
-                <div class="mt-2">
-                    <span class="font-bold">Creator</span>:
-                    {{ word.creator_name }}
-                </div>
-                <div>
-                    <button
-                        class="
-                            px-4
-                            py-2
-                            bg-green-500
-                            hover:bg-green-600
-                            text-white text-sm
-                            font-medium
-                            rounded-md
-                            mr-2
-                        "
-                        @click="approveWord(word.id)"
-                    >
-                        Approve
-                    </button>
-                    <button
-                        v-if="!word.rejected"
-                        class="
-                            px-4
-                            py-2
-                            bg-yellow-500
-                            hover:bg-yellow-600
-                            text-white text-sm
-                            font-medium
-                            rounded-md
-                        "
-                        @click="showRejectForm = !showRejectForm"
-                    >
-                        {{ showRejectForm ? "Cancel" : "Reject" }}
-                    </button>
-                </div>
-            </div>
-
-            <div v-if="showRejectForm">
-                <label
-                    for="exampleFormControlTextarea1"
-                    class="form-label inline-block mb-2 text-gray-700"
-                    >Reject reason</label
-                >
-                <textarea
-                    v-model="rejectForm.rejectReason"
-                    class="
-                        form-control
-                        block
-                        w-full
-                        px-3
-                        py-1.5
-                        text-base
-                        font-normal
-                        text-gray-700
-                        bg-white bg-clip-padding
-                        border border-solid border-gray-300
-                        rounded
-                        transition
-                        ease-in-out
-                        m-0
-                        focus:text-gray-700
-                        focus:bg-white
-                        focus:border-blue-600
-                        focus:outline-none
-                    "
-                    id="exampleFormControlTextarea1"
-                    rows="3"
-                    placeholder="Your message"
-                />
-                <div class="flex justify-end">
-                    <button
-                        class="
-                            mt-2
-                            px-4
-                            py-2
-                            bg-red-500
-                            hover:bg-red-600
-                            text-white text-sm
-                            font-medium
-                            rounded-md
-                        "
-                        @click="rejectWord(word.id)"
-                    >
-                        Reject
-                    </button>
                 </div>
             </div>
 

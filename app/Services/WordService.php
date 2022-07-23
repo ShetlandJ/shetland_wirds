@@ -146,6 +146,7 @@ class WordService
             'rejected' => (bool) $word->rejected,
             'reason' => $word->reason,
             'creator_name' => $word->creator ? $word->creator->name : 'Unregistered',
+            'creator_word_count' => $word->creator ? $word->creator->words->count() : 0,
             'comments'=> $this->getComments($word)->values()->all(),
             'recordings' => $this->getRecordings($word),
             'linked_words' => $this->getLinkedWords($word),

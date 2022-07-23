@@ -67,7 +67,7 @@ class User extends Authenticatable
 
     public function words(): HasMany
     {
-        return $this->hasMany(Word::class);
+        return $this->hasMany(Word::class, 'creator_id', 'id');
     }
 
     public function roles(): HasManyThrough

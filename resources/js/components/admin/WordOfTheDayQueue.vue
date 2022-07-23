@@ -1,8 +1,8 @@
 <script setup>
 import { reactive, ref } from "@vue/runtime-core";
 import format from "date-fns/format";
-import UpdateWordOfTheDayForm from './UpdateWordOfTheDayForm.vue';
-import CreateNewQueuedWord from './CreateNewQueuedWord.vue';
+import UpdateWordOfTheDayForm from "./UpdateWordOfTheDayForm.vue";
+import CreateNewQueuedWord from "./CreateNewQueuedWord.vue";
 
 const DATE_FORMAT = "d MMM yy";
 
@@ -38,11 +38,14 @@ const showCreateNewWordForm = ref(false);
             </div>
         </div>
         <div>
-                <CreateNewQueuedWord
-                    v-if="showCreateNewWordForm"
-                    :word-queue="wordQueue"
-                />
-                <UpdateWordOfTheDayForm v-if="changeWordFormShown" :word-of-the-day-to-edit="wordOfTheDayToEdit" />
+            <CreateNewQueuedWord
+                v-if="showCreateNewWordForm"
+                :word-queue="wordQueue"
+            />
+            <UpdateWordOfTheDayForm
+                v-if="changeWordFormShown"
+                :word-of-the-day-to-edit="wordOfTheDayToEdit"
+            />
 
             <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
                 <div

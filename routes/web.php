@@ -447,7 +447,7 @@ Route::get('/dashboard/word-admin', function () {
 
 Route::get('/dashboard/approve', function () {
     return Inertia::render('AdminDashboard', [
-        'words' => app(WordService::class)->findAllPendingWords(),
+        'pendingWords' => app(WordService::class)->findAllPendingWords(),
         'isLoggedIn' => Auth::check(),
     ]);
 })->name('approval');
@@ -458,7 +458,7 @@ Route::post('/dashboard/approve', function () {
     }
 
     return Inertia::render('AdminDashboard', [
-        'words' => app(WordService::class)->findAllPendingWords(),
+        'pendingWords' => app(WordService::class)->findAllPendingWords(),
         'isLoggedIn' => Auth::check(),
     ]);
 })->name('approve');

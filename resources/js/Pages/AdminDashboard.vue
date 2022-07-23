@@ -9,10 +9,12 @@ import PendingDefinition from "../components/PendingDefinition.vue";
 import WordOfTheDayQueue from "../components/admin/WordOfTheDayQueue.vue";
 import EditWord from "../components/admin/EditWord.vue";
 import RevisionsList from "../components/admin/RevisionsList.vue";
+import PendingWordsTable from '../components/admin/PendingWordsTable.vue';
+
 import { computed } from "vue";
 
 defineProps({
-    words: {
+    pendingWords: {
         type: Array,
         default: () => [],
     },
@@ -60,10 +62,12 @@ const heading = computed(() => {
             </h2>
         </template>
 
-        <div v-if="words">
+        <div v-if="pendingWords">
+            <PendingWordsTable :pending-words="pendingWords" />
+
             <WordResult
                 is-logged-in
-                v-for="word in words"
+                v-for="word in pendingWords"
                 :key="word.uuid"
                 :word="word"
                 admin-view

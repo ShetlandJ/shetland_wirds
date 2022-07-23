@@ -38,13 +38,11 @@ const showCreateNewWordForm = ref(false);
             </div>
         </div>
         <div>
-            <!-- <div v-if="changeWordFormShown"> -->
                 <CreateNewQueuedWord
                     v-if="showCreateNewWordForm"
                     :word-queue="wordQueue"
                 />
                 <UpdateWordOfTheDayForm v-if="changeWordFormShown" :word-of-the-day-to-edit="wordOfTheDayToEdit" />
-            <!-- </div> -->
 
             <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
                 <div

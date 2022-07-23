@@ -325,6 +325,7 @@ class WordService
             'definition' => $payload['translation'],
             'example_sentence' => $payload['example_sentence'],
             'pending' => true,
+            'type' => $payload['word_type'],
         ]);
 
         return $newWord;

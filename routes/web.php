@@ -178,8 +178,9 @@ Route::post('/word/{slug}/recordings', function (string $slug) {
 
     $foundWord = app(WordService::class)->findByWord($slug);
 
+    $filePath = sprintf('%s/%s', $slug, basename($file));
     if (App::environment('production')) {
-        Storage::disk('s3')->put(sprintf('%s/%s', $slug, basename($file)), $file);
+        Storage::disk('s3')->put($filePath, $file);
     } else {
         $filePath = sprintf('%s/%s', $slug, basename($file));
     }

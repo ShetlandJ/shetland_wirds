@@ -1,0 +1,132 @@
+{
+    "global": {
+        "submit": "Submit",
+        "here": "here",
+        "logout": "Logout",
+        "login": "Login",
+        "register": "Register",
+        "browse": "Browse",
+        "random": "Random",
+        "contribute": "contribute",
+        "required": "required",
+        "edit": "edit",
+        "delete": "delete",
+        "reply": "reply",
+        "remove": "remove",
+        "approve": "approve",
+        "reject": "reject",
+        "save": "Save",
+        "cancel": "cancel",
+        "select": "Select"
+    },
+    "nav": {
+        "searchPlaceholder": "Search words",
+        "about": "About",
+        "add": "Add",
+        "dashboard": "Dashboard",
+        "previousPage": "Previous page",
+        "nextPage": "Next page",
+        "pagination": "Page {page} of {totalPages}",
+        "showingPagination": "Showing {from} to {to} of {total} words"
+    },
+    "home": {
+        "welcome1": "Welcome to the dictionary by and for Shetlanders!",
+        "welcome2": "Help us make this dictionary better by adding your voice to the words and expressions. And help us by adding the words and expressions that are missing!",
+        "welcome3": "We will map the words and expressions by location to show a fuller picture of Shaetlan speech.",
+        "welcome4": "To get started, you can search for a word or phrase in the search bar above, or click on browse in the menu to browse by letter. If you want to contribute, click {here} to register!",
+        "featured": "Our featured entry for {today} is {featuredWord}",
+        "findOutMore": "Click to find out more!"
+    },
+    "faq": {
+        "heading": "Frequently Asked Questions",
+        "message1": "The Spaektionary was created by {creator} and consists of the existing lexical database in the Shaetlan Project by {ihd}.",
+        "message2": "It should be noted that this is not a dictionary of words that are exclusive and unique to Shaetlan. Very few words are. As is normal for any language, Shaetlan shares many words and expressions with other languages, especially those that are closely related to Shaetlan, or those that Shaetlan has been in close contact with. In fact, there is no known spoken language in the world that does not share vocabulary with some other language. This does not in any way make any given language less valuable. It also does not mean that these words are less relevant for the given languages.",
+        "message3": "The immediate ancestors of Shaetlan are Scots and norn. Norn is extinct, but descended from western old Norse. Scots is a macro language with a number of highly diverse varieties. They descend from Northumbrian old English. Standard English, on the other hand, descends from Mercian old English. So Scots is not and has never been a dialect of English any more than English is or has been a dialect of Scots. Shaetlan has also been in intense contact with the low country Germanic languages (low German and Dutch), and, for the last few centuries, with standard English. All of these languages are closely related and have many similarities among them. But they are not identical. And they have all affected the outcome of Shaetlan. For more about the history of Shaetlan, see {here}.",
+        "message4": "We regularly get questions of these kinds:",
+        "question1": "Why are there English words in the dictionary?",
+        "answer1": "The words in this dictionary are those that can be found in the Shaetlan dictionaries listed on our {about} page and in the speech of the 20 Shetlanders in the Shetland Museum and Archive oral history interviews. Some words and their spellings will overlap with English, such as when George Gear, Mary Manson, James Ritch, Harriet Sandison, etc speaks about da sea, a ship, a parish, a piano, a pier, an ambulance, etc. But they are words found in Shaetlan speech that have been localised to a relevant Shaetlan context, and are therefore relevant for the Shaetlan language.",
+        "question2": "Why don't you spell English words the English way?",
+        "answer2p-1": "Words like plaess, airm, neest are old Scots words and are no more exclusively English than they are Scots. They entered the lexicon in Old English times, and the descendants of Northumbrian Old English, such as Scots, ended up having and reflecting one pronunciation, while the descendent of Mercian Old English (i.e. English), ended up having another, more influenced by Norman French (for more on the history of Shaetlan, see {here}).",
+       "answer2p-2": "Ultimately plaess, for example, goes back to Latin platea, which is also the origin of Swedish plats 'place' and Norwegian plass 'place'. No localised spelling is more correct than the other, but in the Shetland context the English spelling is the familiar one because English has been the medium of instruction in schools for the last 200 years. However, the English spelling does not reflect the Shaetlan pronunciation, nor the history of the word, which came here with Scots long before English did. In other words, these kinds of words do not “belong” to English any more than they “belong” to Swedish, Norwegian or Scots. They are simply localised spellings that are locally relevant. Once Shaetlan is used as a medium of instruction in schools, the locally relevant spellings will feel as familiar as any other. For more on the principles behind our spelling system, see {here}",
+       "question3": "Shaetlan has so much variation, how can that be represented in one spelling system?",
+       "answer3": "An archipelago like Shetland is expected to have linguistic variation. It would be highly exceptional if it did not (but it is not the most linguistically diverse area of the world, as is sometimes assumed. That is Vanuatu, with 138 mutually unintelligible languages, all with their own internal regional and social variation). The crucial thing about a spelling system is that it is not an exact phonetic transcription of speech, but a pragmatic way of showing commonalities across a speech community. In other words, a spelling system is always a compromise and never reflects the exact speech of any one individual. This means that a reader does not have to know the voice of a writer in order to be able to read the text: the convention allows the text to be understood widely across the community. This is the case with English, which has 77 varieties listed in the electronic {worldAtlasLink} (this does not include the five varieties listed in {micronesia}. For example, the {dialectsArchive} has more than 1,600 voices from 135 countries in it. Yet all those voices get the same spelling for such words as water, light, rain, through, face, etc. For a more in depth discussion on a spelling system for Shaetlan, see {here}.",
+       "question4": "This is a Scots word, you can find it all over the Scots area, why is it in a Shaetlan dictionary?",
+       "answer4": "As mentioned above at the top of this page, this is not a dictionary of words or expressions that are unique or exclusive to Shaetlan, but a representative dictionary of Shaetlan speech, including all the shared words and expressions across the Scots speaking area.",
+       "question5": "Why is ___ not included?",
+       "answer5-p1": "There are two potential reasons why you can't find a particular word or expression in the Spaektionary:",
+       "answer5-p2": "(1) it spelled differently from your first search attempt. A way to check that is to search for the translation into English.",
+       "answer5-p3": "(2) it is not in the dictionary at all.",
+       "answer5-p4": "In that case we strongly encourage you to contribute it! This is what the Spaektionary is about: to keep building it and making it better and more comprehensive.",
+       "question6": "Who is funding this?",
+       "answer6": "We ourselves. We have no external or third party funding. We do this in our spare time. We do not receive any revenues for any of our output, all of which is freely available via {ihd}"
+    },
+    "about": {
+        "message1": "The {spaektionary} was created by {creator} and consists of the existing lexical database in the Shaetlan Project by {ihd}. The aim of this dictionary is to encourage any and all speakers of Shaetlan to participate in enhancing the dictionary with both sound recordings and example sentences. We are also hoping for users to add words and expressions that are not already in the dictionary, so as to make it more complete. We aim to map submissions so that we can create a visual image of where in Shetland which words and pronunciations are most commonly found. This will allow for a more nuanced picture of the rich and colourful Shaetlan language than has been available before.",
+        "message2": "The database that the Spaektionary is built on consists of a corpus of the speech by 20 oral history interviews by the Shetland Museum and Archives done in the 1980s and 1990s, released for research by kind permission from Dr. Brian Smith. This oral history corpus has a total of 37.5 hours of speech (ca 316,000 words). The speakers are from different areas of Shetland, there are 10 male and 10 female speakers and they are all 60 years or above at the time of recording. All interviews were transcribed by Angus Johnson, who kindly released his transcriptions for the use in this project. The database also includes the collected entries found in the following publications:",
+        "message3": "The code behind it all is open source and available on {github}.",
+        "message4": "See our {faq} page for more information about the project.",
+        "message5": "For more about I Hear Dee and who we are, see {here}."
+    },
+    "addWord": {
+        "suggestedLabel": "Suggested word",
+        "suggestedWordDesc": "Enter the new word you wish to add to the dictionary",
+        "englishLabel": "What does it mean in English?",
+        "englishPlaceholder": "English language translation",
+        "exampleSentenceLabel": "Can you provide an example Shetland language sentence?",
+        "wordType": "What type of word is it?",
+        "wordTypePlaceholder": "Select word type",
+        "confirm": "I confirm that I am happy for Spaektionary and I Hear Dee to use this word in this online dictionary, as well as in other media in the future."
+    },
+    "word": {
+        "reportAlert": "Your word report was successful. We will review it as soon as possible.",
+        "exactMatch": "exact match",
+        "usage": "Usage",
+        "comment": "comment | comments",
+        "recording": "recording | recordings",
+        "location": "location | locations",
+        "cite": "cite",
+        "report": "report",
+        "comments": {
+            "add": "Add comment",
+            "loggedIn": "You must be logged in to comment",
+            "continue": "Continue the conversation"
+        },
+        "recordings": {
+            "successAlert": "Recording successfully added! We'll review it and if it's appropriate, we'll approve it!",
+            "pendingAlert": "You have a pending recording(s). We will review it in due course! You can add another one below if you'd like.",
+            "noRecordings": "There are no recordings available for this word yet, be the first to add one",
+            "addYourOwn": "Add a recording of your own",
+            "instruction1": "To add your own recording, just press the Record button to start, and the same button again to stop. You'll be able to listen back to your recording before submitting.",
+            "instruction2": "Your recording will need to be approved before it will be visible on the site.",
+            "signUp": "Sign up to add a recording",
+            "speaker": "Speaker",
+            "type": "Type",
+            "word": "Word",
+            "date": "Date",
+            "start": "Start",
+            "stop": "Stop recording",
+            "tryAgain": "Try again",
+            "yourRecording": "Your recording"
+        },
+        "locations": {
+            "loggedInAlert": "You must be logged in to add locations",
+            "searchLocations": "Search locations",
+            "whereInShetland": "Where in Shetland is this word spoken?",
+            "dataGathering": "We are gathering data and will display a heatmap when we receive enough information to make the data useful!",
+            "previous": "You have previously selected locations for {word}. If you would like to amend your selection, please click {here}.",
+            "editEntries": "Edit your entries",
+            "addEntries": "Add your own below"
+        },
+        "reporting": {
+            "inappropriateWord": "Inappropriate word",
+            "inappropriateDefinition": "Inappropriate language in the definition",
+            "inappropriateExampleSentence": "Inappropriate language in the example sentence",
+            "inappropriateComments": "Inappropriate comment(s)",
+            "inappropriateRecordings": "Inappropriate recording(s)",
+            "other": "Other",
+            "issueNature": "What is the nature of the issue?",
+            "whatIsTheIssue": "What's the issue with {word}",
+            "yourMessage": "Your message"
+        }
+    }
+}

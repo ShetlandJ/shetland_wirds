@@ -6,6 +6,8 @@ import { InertiaProgress } from '@inertiajs/progress';
 import { QuillEditor } from '@vueup/vue-quill'
 import '@vuepic/vue-datepicker/dist/main.css'
 
+import i18n from './i18n';
+
 import Alert from './components/global/Alert.vue';
 import ActionButton from './components/global/ActionButton.vue';
 import Datepicker from '@vuepic/vue-datepicker';
@@ -24,6 +26,7 @@ createInertiaApp({
         return createApp({ render: () => h(app, props) })
             .use(plugin)
             .use(pinia)
+            .use(i18n)
             .mixin({ methods: { route } })
             .mixin({
                 components: {

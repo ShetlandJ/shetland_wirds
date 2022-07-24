@@ -3,6 +3,9 @@ import { useForm } from "@inertiajs/inertia-vue3";
 import Selectable from "../components/Selectable.vue";
 const emit = defineEmits(["hide-form", "success"]);
 
+import { useI18n } from "vue-i18n";
+const { t } = useI18n();
+
 const form = useForm({
     newWord: "",
     translation: "",
@@ -105,9 +108,18 @@ const defaultWordTypes = [
             <div class="form-group mb-6">
                 <label
                     for="wordInput"
-                    class="form-label inline-block mb-2 dark:text-white text-gray-700"
+                    class="
+                        form-label
+                        inline-block
+                        mb-2
+                        dark:text-white
+                        text-gray-700
+                    "
                 >
-                    Suggested word <span class="text-danger">(required)</span>
+                    {{ t("addWord.suggestedLabel") }}
+                    <span class="text-danger"
+                        >({{ t("global.required") }})</span
+                    >
                 </label>
                 <input
                     v-model="form.newWord"
@@ -135,17 +147,28 @@ const defaultWordTypes = [
                     id="wordInput"
                     aria-describedby="wordHelp"
                 />
-                <small id="wordHelp" class="block mt-1 text-xs dark:text-white text-gray-600">
-                    Enter the new word you wish to add to the dictionary
+                <small
+                    id="wordHelp"
+                    class="block mt-1 text-xs dark:text-white text-gray-600"
+                >
+                    {{ t("addWord.suggestedWordDesc") }}
                 </small>
             </div>
             <div class="form-group mb-6">
                 <label
                     for="translationInput"
-                    class="form-label inline-block mb-2 dark:text-white text-gray-700"
+                    class="
+                        form-label
+                        inline-block
+                        mb-2
+                        dark:text-white
+                        text-gray-700
+                    "
                 >
-                    What does it mean in English?
-                    <span class="text-danger">(required)</span>
+                    {{ t("addWord.englishLabel") }}
+                    <span class="text-danger"
+                        >({{ t("global.required") }})</span
+                    >
                 </label>
                 <input
                     v-model="form.translation"
@@ -171,16 +194,21 @@ const defaultWordTypes = [
                         focus:outline-none
                     "
                     id="translationInput"
-                    placeholder="English language translation"
+                    :placeholder="t('addWord.englishPlaceholder')"
                 />
             </div>
             <div class="form-group mb-6">
                 <label
                     for="exampleSentenceInput"
-                    class="form-label inline-block mb-2 dark:text-white text-gray-700"
+                    class="
+                        form-label
+                        inline-block
+                        mb-2
+                        dark:text-white
+                        text-gray-700
+                    "
                 >
-                    Can you provide an example Shetland language sentence?
-                    (Optional)
+                    {{ t("addWord.exampleSentenceLabel") }}
                 </label>
                 <input
                     v-model="form.example_sentence"
@@ -210,7 +238,7 @@ const defaultWordTypes = [
                 />
             </div>
             <div class="form-group form-check mb-6">
-                <p class="dark:text-white">What type of word is it?</p>
+                <p class="dark:text-white">{{ t("addWord.wordType") }}</p>
                 <div>
                     <select
                         v-model="form.word_type"
@@ -232,10 +260,9 @@ const defaultWordTypes = [
                             focus:outline-none
                         "
                     >
-                    <option disabled selected :value="null">
-                        Select word type (optional)
-
-                    </option>
+                        <option disabled selected :value="null">
+                            {{ t("addWord.wordTypePlaceholder") }}
+                        </option>
                         <option
                             v-for="(wordType, index) in defaultWordTypes"
                             :key="index"
@@ -247,7 +274,7 @@ const defaultWordTypes = [
                     </select>
                 </div>
             </div>
-            <!-- Checkbox inside div -->
+
             <div class="form-group form-check mb-6 flex">
                 <input
                     type="checkbox"
@@ -255,9 +282,14 @@ const defaultWordTypes = [
                     id="exampleCheck1"
                     v-model="form.confirm"
                 />
-                <label class="ml-2 form-check-label dark:text-white" for="exampleCheck1">
-                    I confirm that I am happy for Spaektionary and I Hear Dee to use this word in this online
-                    dictionary, as well as in other media in the future. <span class="text-danger">(required)</span>
+                <label
+                    class="ml-2 form-check-label dark:text-white"
+                    for="exampleCheck1"
+                >
+                    {{ t("addWord.confirm") }}
+                    <span class="text-danger"
+                        >({{ t("global.required") }})</span
+                    >
                 </label>
             </div>
             <button
@@ -286,7 +318,7 @@ const defaultWordTypes = [
                     disabled:opacity-50
                 "
             >
-                Submit
+                {{t('global.submit')}}
             </button>
         </form>
     </div>
@@ -298,9 +330,9 @@ const defaultWordTypes = [
 }
 
 select {
-  -moz-appearance: none;
-  -webkit-appearance: none;
-  appearance: none;
-  background-image: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    background-image: none;
 }
 </style>

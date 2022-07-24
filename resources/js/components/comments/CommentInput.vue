@@ -5,6 +5,9 @@ import { onMounted, onUpdated, computed } from "vue";
 import { ref, getCurrentInstance } from "vue";
 const isLoggedIn = usePage().props.value.isLoggedIn;
 
+import { useI18n } from "vue-i18n";
+const { t } = useI18n();
+
 const emit = defineEmits(["editing-complete"]);
 
 const props = defineProps({
@@ -25,7 +28,7 @@ const props = defineProps({
     },
     actionMessage: {
         type: String,
-        default: "Add comment",
+        default: "",
     },
     editMode: {
         type: Boolean,
@@ -106,12 +109,12 @@ onMounted(() => {
             <div class="flex justify-end mt-2">
                 <div class="mt-1 mr-2">
                     <small v-if="!isLoggedIn">
-                        You must be logged in to comment.
+                        {{t('word.comments.loggedIn')}}
                     </small>
                 </div>
 
                 <ActionButton
-                    :message="actionMessage"
+                    :message="actionMessage ? actionMessage : t('word.comments.add')"
                     :disabled="!isLoggedIn"
                 />
             </div>
@@ -129,7 +132,7 @@ onMounted(() => {
             <div class="flex justify-end mt-2">
                 <div class="mt-1 mr-2">
                     <small v-if="!isLoggedIn">
-                        You must be logged in to comment.
+                        {{t('word.comments.loggedIn')}}
                     </small>
                 </div>
 

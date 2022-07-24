@@ -1,6 +1,8 @@
 <script setup>
 import { useForm } from "@inertiajs/inertia-vue3";
 
+import { useI18n } from "vue-i18n";
+const { t } = useI18n();
 
 const props = defineProps({
     word: {
@@ -9,7 +11,7 @@ const props = defineProps({
     },
 });
 
-const emit = defineEmits(['success']);
+const emit = defineEmits(["success"]);
 
 const reportForm = useForm({
     reason_type: null,
@@ -17,18 +19,27 @@ const reportForm = useForm({
 });
 
 const reasonList = [
-    { text: "Inappropriate word", value: "inappropriate_word_language" },
     {
-        text: "Inappropriate language in the definition",
+        text: t("word.reporting.inappropriateWord"),
+        value: "inappropriate_word_language",
+    },
+    {
+        text: t("word.reporting.inappropriateDefinition"),
         value: "inappropriate_definition_language",
     },
     {
-        text: "Inappropriate language in the example sentence",
+        text: t("word.reporting.inappropriateExampleSentence"),
         value: "inappropriate_example_sentence_language",
     },
-    { text: "Inappropriate comment(s)", value: "inappropriate_comment" },
-    { text: "Inappropriate recording(s)", value: "inappropriate_recording" },
-    { text: "Other", value: "other" },
+    {
+        text: t("word.reporting.inappropriateComments"),
+        value: "inappropriate_comment",
+    },
+    {
+        text: t("word.reporting.inappropriateRecordings"),
+        value: "inappropriate_recording",
+    },
+    { text: t("word.reporting.other"), value: "other" },
 ];
 
 const reportWord = () => {
@@ -36,7 +47,7 @@ const reportWord = () => {
     reportForm.post(route("word.report", { word: props.word.slug }), {
         onFinish: () => {
             reportForm.reset();
-            emit('success');
+            emit("success");
         },
     });
 };
@@ -44,7 +55,7 @@ const reportWord = () => {
 
 <template>
     <form @submit.prevent="reportWord">
-        <p class="dark:text-white">What is the nature of the issue?</p>
+        <p class="dark:text-white">{{ t("word.reporting.issueNature") }}</p>
         <div>
             <select
                 v-model="reportForm.reason_type"
@@ -67,7 +78,7 @@ const reportWord = () => {
                 "
             >
                 <option disabled selected :value="null">
-                    Select word type (optional)
+                    {{ t("global.select") }}
                 </option>
                 <option
                     v-for="(reason, index) in reasonList"
@@ -85,7 +96,11 @@ const reportWord = () => {
                 for="reportForm-reportReason"
                 class="form-label inline-block mb-2 mt-4 text-gray-700"
             >
-                What's the issue with {{ word.word }}?
+                <i18n-t keypath="word.reporting.whatIsTheIssue">
+                    <template #word>
+                        {{ word.word }}?
+                    </template>
+                </i18n-t>
             </label>
             <textarea
                 v-model="reportForm.report_reason"
@@ -111,7 +126,7 @@ const reportWord = () => {
                 "
                 id="reportForm"
                 rows="3"
-                placeholder="Your message"
+                :placeholder="t('word.reporting.yourMessage')"
             />
         </div>
 
@@ -121,7 +136,7 @@ const reportWord = () => {
             type="submit"
             class="mt-4"
         >
-            Report
+            {{t('word.report')}}
         </ActionButton>
     </form>
 </template>

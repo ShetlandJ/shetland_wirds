@@ -1,0 +1,132 @@
+{
+  "about": {
+    "message1": "Le {spaektionary} a été créé par {creator} et se compose de la base de données lexicale existante dans le projet Shaetlan par {ihd}. Le but de ce dictionnaire est d'encourager tous les locuteurs de Shaetlan à participer à l'amélioration du dictionnaire avec des enregistrements sonores et des exemples de phrases. Nous espérons également que les utilisateurs ajouteront des mots et des expressions qui ne sont pas déjà dans le dictionnaire, afin de le rendre plus complet. Notre objectif est de cartographier les soumissions afin de pouvoir créer une image visuelle de l'endroit où, dans les Shetland, les mots et les prononciations sont les plus courants. Cela permettra d'avoir une image plus nuancée de la langue Shaetlan riche et colorée qu'auparavant.",
+    "message2": "La base de données sur laquelle le Spaektionary est construit consiste en un corpus du discours de 20 entretiens d'histoire orale par le Shetland Museum and Archives réalisés dans les années 1980 et 1990, publié pour la recherche avec l'aimable autorisation du Dr Brian Smith. Ce corpus d'histoire orale compte au total 37,5 heures de discours (environ 316 000 mots). Les locuteurs viennent de différentes régions des Shetland, il y a 10 hommes et 10 femmes et ils ont tous 60 ans ou plus au moment de l'enregistrement. Toutes les interviews ont été transcrites par Angus Johnson, qui a aimablement publié ses transcriptions pour les utiliser dans ce projet. La base de données comprend également les entrées collectées trouvées dans les publications suivantes :",
+    "message3": "Le code derrière tout cela est open source et disponible sur {github}.",
+    "message4": "Consultez notre page {faq} pour plus d'informations sur le projet.",
+    "message5": "Pour en savoir plus sur I Hear Dee et qui nous sommes, voir {ici}."
+  },
+  "addWord": {
+    "confirm": "Je confirme que je suis heureux que Spaektionary et I Hear Dee utilisent ce mot dans ce dictionnaire en ligne, ainsi que dans d'autres médias à l'avenir.",
+    "englishLabel": "Qu'est-ce que cela signifie en anglais?",
+    "englishPlaceholder": "Traduction en anglais",
+    "exampleSentenceLabel": "Pouvez-vous fournir un exemple de phrase en langue shetland ?",
+    "suggestedLabel": "Mot suggéré",
+    "suggestedWordDesc": "Entrez le nouveau mot que vous souhaitez ajouter au dictionnaire",
+    "wordType": "De quel type de mot s'agit-il ?",
+    "wordTypePlaceholder": "Sélectionnez le type de mot"
+  },
+  "faq": {
+    "answer1": "Les mots de ce dictionnaire sont ceux qui peuvent être trouvés dans les dictionnaires Shaetlan répertoriés sur notre page {à propos} et dans le discours des 20 Shetlanders dans les entretiens d'histoire orale du Shetland Museum and Archive. Certains mots et leurs orthographes chevaucheront l'anglais, comme lorsque George Gear, Mary Manson, James Ritch, Harriet Sandison, etc. parlent d'une mer, d'un navire, d'une paroisse, d'un piano, d'une jetée, d'une ambulance, etc. Mais ils sont des mots trouvés dans le discours shaetlan qui ont été localisés dans un contexte shaetlan pertinent, et sont donc pertinents pour la langue shaetlan.",
+    "answer2p-1": "Des mots comme plaess, airm, neest sont de vieux mots écossais et ne sont pas plus exclusivement anglais qu'écossais. Ils sont entrés dans le lexique à l'époque du vieil anglais, et les descendants du vieil anglais de Northumbrian, tels que les écossais, ont fini par avoir et refléter une prononciation, tandis que le descendant du vieil anglais mercien (c'est-à-dire l'anglais), a fini par en avoir une autre, plus influencé par le normand. Français (pour en savoir plus sur l'histoire de Shaetlan, voir {ici}).",
+    "answer2p-2": "En fin de compte, plaess, par exemple, remonte au latin platea, qui est également à l'origine des plats suédois \"lieu\" et du norvégien plass \"lieu\". Aucune orthographe localisée n'est plus correcte qu'une autre, mais dans le contexte des Shetland, l'orthographe anglaise est celle qui est familière car l'anglais est la langue d'enseignement dans les écoles depuis 200 ans. Cependant, l'orthographe anglaise ne reflète pas la prononciation shaetlane, ni l'histoire du mot, qui est venu ici avec les écossais bien avant l'anglais. En d'autres termes, ces types de mots « n'appartiennent » pas plus à l'anglais qu'ils « n'appartiennent » au suédois, au norvégien ou à l'écossais. Ce sont simplement des orthographes localisées qui sont pertinentes localement. Une fois que Shaetlan est utilisé comme moyen d'enseignement dans les écoles, les orthographes pertinentes localement se sentiront aussi familières que les autres. Pour en savoir plus sur les principes de notre système d'orthographe, voir {ici}",
+    "answer3": "On s'attend à ce qu'un archipel comme les Shetland ait une variation linguistique. Ce serait très exceptionnel si ce n'était pas le cas (mais ce n'est pas la région du monde la plus diversifiée sur le plan linguistique, comme on le suppose parfois. C'est le Vanuatu, avec 138 langues mutuellement inintelligibles, toutes avec leurs propres variations régionales et sociales internes). La chose cruciale à propos d'un système d'orthographe est qu'il ne s'agit pas d'une transcription phonétique exacte de la parole, mais d'une manière pragmatique de montrer les points communs à travers une communauté de parole. En d'autres termes, un système d'orthographe est toujours un compromis et ne reflète jamais le discours exact d'un individu en particulier. Cela signifie qu'un lecteur n'a pas besoin de connaître la voix d'un écrivain pour pouvoir lire le texte : la convention permet au texte d'être largement compris par la communauté. C'est le cas de l'anglais, qui compte 77 variétés répertoriées dans le {worldAtlasLink} électronique (ceci n'inclut pas les cinq variétés répertoriées dans {micronesia}. Par exemple, le {dialectsArchive} compte plus de 1 600 voix de 135 pays. Pourtant, toutes ces voix obtiennent la même orthographe pour des mots tels que l'eau, la lumière, la pluie, à travers, le visage, etc. Pour une discussion plus approfondie sur un système d'orthographe pour Shaetlan, voir {ici}.",
+    "answer4": "Comme mentionné ci-dessus en haut de cette page, il ne s'agit pas d'un dictionnaire de mots ou d'expressions uniques ou exclusifs au shaetlan, mais d'un dictionnaire représentatif du discours shaetlan, comprenant tous les mots et expressions partagés dans la zone de langue écossaise.",
+    "answer5-p1": "Il y a deux raisons potentielles pour lesquelles vous ne trouvez pas un mot ou une expression particulière dans le Spaektionary :",
+    "answer5-p2": "(1) il s'écrit différemment de votre première tentative de recherche. Une façon de vérifier cela est de rechercher la traduction en anglais.",
+    "answer5-p3": "(2) ce n'est pas du tout dans le dictionnaire.",
+    "answer5-p4": "Dans ce cas, nous vous encourageons fortement à y contribuer ! C'est le but du Spaektionary : continuer à le construire et à le rendre meilleur et plus complet.",
+    "answer6": "Nous nous mêmes. Nous n'avons aucun financement externe ou tiers. Nous faisons cela pendant notre temps libre. Nous ne percevons aucun revenu pour aucune de nos productions, qui sont toutes disponibles gratuitement via {ihd}",
+    "heading": "Questions fréquemment posées",
+    "message1": "Le Spaektionary a été créé par {creator} et se compose de la base de données lexicale existante dans le projet Shaetlan par {ihd}.",
+    "message2": "Il convient de noter qu'il ne s'agit pas d'un dictionnaire de mots exclusifs et uniques à Shaetlan. Très peu de mots le sont. Comme il est normal pour toute langue, Shaetlan partage de nombreux mots et expressions avec d'autres langues, en particulier celles qui sont étroitement liées à Shaetlan, ou celles avec lesquelles Shaetlan a été en contact étroit. En fait, il n'y a pas de langue parlée connue dans le monde qui ne partage pas le vocabulaire avec une autre langue. Cela ne rend en aucun cas une langue donnée moins précieuse. Cela ne signifie pas non plus que ces mots sont moins pertinents pour les langues données.",
+    "message3": "Les ancêtres immédiats de Shaetlan sont les Écossais et les Norns. Norn est éteint, mais descend du vieux norrois occidental. L'écossais est un macro-langage avec un certain nombre de variétés très diverses. Ils descendent du vieil anglais de Northumbrie. L'anglais standard, quant à lui, descend du vieil anglais mercien. Ainsi, l'écossais n'est pas et n'a jamais été un dialecte de l'anglais, pas plus que l'anglais n'est ou n'a été un dialecte de l'écossais. Shaetlan a également été en contact intense avec les langues germaniques des pays bas (bas allemand et néerlandais) et, depuis quelques siècles, avec l'anglais standard. Toutes ces langues sont étroitement liées et présentent de nombreuses similitudes entre elles. Mais ils ne sont pas identiques. Et ils ont tous influencé l'issue de Shaetlan. Pour en savoir plus sur l'histoire de Shaetlan, voir {ici}.",
+    "message4": "Nous recevons régulièrement des questions de ce type :",
+    "question1": "Pourquoi y a-t-il des mots anglais dans le dictionnaire ?",
+    "question2": "Pourquoi n'épelez-vous pas les mots anglais à la manière anglaise ?",
+    "question3": "Shaetlan a tellement de variations, comment cela peut-il être représenté dans un seul système orthographique ?",
+    "question4": "C'est un mot écossais, vous pouvez le trouver partout dans la région écossaise, pourquoi est-il dans un dictionnaire Shaetlan ?",
+    "question5": "Pourquoi ___ n'est-il pas inclus ?",
+    "question6": "Qui finance cela ?"
+  },
+  "global": {
+    "approve": "approuver",
+    "browse": "Parcourir",
+    "cancel": "annuler",
+    "contribute": "contribuer",
+    "delete": "effacer",
+    "edit": "Éditer",
+    "here": "ici",
+    "login": "Connexion",
+    "logout": "Se déconnecter",
+    "random": "Aléatoire",
+    "register": "S'inscrire",
+    "reject": "rejeter",
+    "remove": "retirer",
+    "reply": "Réponse",
+    "required": "obligatoire",
+    "save": "sauvegarder",
+    "select": "Sélectionner",
+    "submit": "Soumettre"
+  },
+  "home": {
+    "featured": "Notre entrée en vedette pour {aujourd'hui} est {featuredWord}",
+    "findOutMore": "Cliquez pour en découvrir davantage!",
+    "welcome1": "Bienvenue dans le dictionnaire par et pour les Shetlanders !",
+    "welcome2": "Aidez-nous à améliorer ce dictionnaire en ajoutant votre voix aux mots et aux expressions. Et aidez-nous en ajoutant les mots et expressions qui manquent !",
+    "welcome3": "Nous cartographierons les mots et les expressions par emplacement pour montrer une image plus complète du discours Shaetlan.",
+    "welcome4": "Pour commencer, vous pouvez rechercher un mot ou une phrase dans la barre de recherche ci-dessus, ou cliquer sur parcourir dans le menu pour parcourir par lettre. Si vous souhaitez contribuer, cliquez {ici} pour vous inscrire !"
+  },
+  "nav": {
+    "about": "À propos de",
+    "add": "Ajouter",
+    "dashboard": "Tableau de bord",
+    "nextPage": "Page suivante",
+    "pagination": "Page {page} sur {totalPages}",
+    "previousPage": "Page précédente",
+    "searchPlaceholder": "Rechercher des mots",
+    "showingPagination": "Affichage de {from} à {to} sur {total} mots"
+  },
+  "word": {
+    "cite": "citer",
+    "comment": "commentaire | commentaires",
+    "comments": {
+      "add": "Ajouter un commentaire",
+      "continue": "Continuer la conversation",
+      "loggedIn": "Vous devez être connecté pour commenter"
+    },
+    "exactMatch": "correspondance exacte",
+    "location": "emplacement | Emplacements",
+    "locations": {
+      "addEntries": "Ajoutez le vôtre ci-dessous",
+      "dataGathering": "Nous recueillons des données et afficherons une carte thermique lorsque nous aurons reçu suffisamment d'informations pour rendre les données utiles !",
+      "editEntries": "Modifiez vos entrées",
+      "loggedInAlert": "Vous devez être connecté pour ajouter des lieux",
+      "previous": "Vous avez déjà sélectionné des emplacements pour {word}. Si vous souhaitez modifier votre sélection, veuillez cliquer {ici}.",
+      "searchLocations": "Emplacements de recherche",
+      "whereInShetland": "Où dans les Shetland ce mot est-il prononcé ?"
+    },
+    "recording": "enregistrement | enregistrements",
+    "recordings": {
+      "addYourOwn": "Ajoutez votre propre enregistrement",
+      "date": "Date",
+      "instruction1": "Pour ajouter votre propre enregistrement, appuyez simplement sur le bouton Enregistrer pour démarrer, et sur le même bouton pour arrêter. Vous pourrez réécouter votre enregistrement avant de le soumettre.",
+      "instruction2": "Votre enregistrement devra être approuvé avant d'être visible sur le site.",
+      "noRecordings": "Il n'y a pas encore d'enregistrements disponibles pour ce mot, soyez le premier à en ajouter un",
+      "pendingAlert": "Vous avez un ou plusieurs enregistrements en attente. Nous l'examinerons en temps voulu ! Vous pouvez en ajouter un autre ci-dessous si vous le souhaitez.",
+      "signUp": "Inscrivez-vous pour ajouter un enregistrement",
+      "speaker": "Conférencier",
+      "start": "Commencer",
+      "stop": "Arrête d'enregistrer",
+      "successAlert": "Enregistrement ajouté avec succès ! Nous l'examinerons et s'il est approprié, nous l'approuverons !",
+      "tryAgain": "Réessayer",
+      "type": "Taper",
+      "word": "Mot",
+      "yourRecording": "Votre enregistrement"
+    },
+    "report": "rapport",
+    "reportAlert": "Votre rapport de mot a été un succès. Nous l'examinerons dès que possible.",
+    "reporting": {
+      "inappropriateComments": "Commentaire(s) inapproprié(s)",
+      "inappropriateDefinition": "Langage inapproprié dans la définition",
+      "inappropriateExampleSentence": "Langage inapproprié dans la phrase d'exemple",
+      "inappropriateRecordings": "Enregistrement(s) inapproprié(s)",
+      "inappropriateWord": "Mot inapproprié",
+      "issueNature": "Quelle est la nature du problème ?",
+      "other": "Autre",
+      "whatIsTheIssue": "Quel est le problème avec {word}",
+      "yourMessage": "Votre message"
+    },
+    "usage": "Usage"
+  }
+}

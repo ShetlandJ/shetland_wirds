@@ -9,6 +9,9 @@ import JetNavLink from "@/Jetstream/NavLink.vue";
 import JetResponsiveNavLink from "@/Jetstream/ResponsiveNavLink.vue";
 import { ref } from "vue";
 
+import { useI18n } from "vue-i18n";
+const { t } = useI18n();
+
 defineProps({
     showingNavigationDropdown: Boolean,
 });
@@ -142,7 +145,7 @@ const alphabetArray = [
                 :href="route('create')"
                 :class="{ 'font-bold': $page.url === '/create' }"
             >
-                + Add
+                + {{t('nav.add')}}
             </Link>
 
             <Link
@@ -159,7 +162,7 @@ const alphabetArray = [
                 :href="route('about')"
                 :class="{ 'font-bold': $page.url === '/about' }"
             >
-                About
+                {{t('nav.about')}}
             </Link>
 
             <Link
@@ -168,11 +171,11 @@ const alphabetArray = [
                 :active="route().current('dashboard')"
                 class="dark:text-white"
             >
-                Dashboard
+                {{t('nav.dashboard')}}
             </Link>
 
             <form v-if="isLoggedIn" @submit.prevent="logout" class="py-2">
-                <button type="submit" class="dark:text-white">Log Out</button>
+                <button type="submit" class="dark:text-white">{{t('global.logout')}}</button>
             </form>
         </div>
 
@@ -183,7 +186,7 @@ const alphabetArray = [
                     class="dark:text-white"
                     :href="route('login')"
                 >
-                    Login
+                    {{t('global.login')}}
                 </Link>
             </div>
             <div class="mb-2">
@@ -192,7 +195,7 @@ const alphabetArray = [
                     class="dark:text-white"
                     :href="route('register')"
                 >
-                    Register
+                    {{t('global.register')}}
                 </Link>
             </div>
         </div>

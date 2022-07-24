@@ -8,6 +8,9 @@ import CommentInput from "../comments/CommentInput.vue";
 import { useStore } from "../../store/commentStore";
 const commentStore = useStore();
 
+import { useI18n } from "vue-i18n";
+const { t } = useI18n();
+
 const isLoggedIn = usePage().props.value.isLoggedIn;
 const userId = usePage().props.value.user?.uuid;
 
@@ -17,7 +20,7 @@ const props = defineProps({
 });
 
 const commentOptions = ref({
-    placeholder: `Continue the conversation...`,
+    placeholder: t('word.comments.continue'),
 });
 
 const editMode = ref(false);
@@ -105,7 +108,7 @@ const toggleEdit = () => {
                         "
                         @click="toggleEdit"
                     >
-                        Edit
+                        {{t('global.edit')}}
                     </p>
 
                     <p
@@ -119,7 +122,7 @@ const toggleEdit = () => {
                         "
                         @click="deleteComment(childComment.id)"
                     >
-                        Delete
+                        {{t('global.delete')}}
                     </p>
                 </template>
                 <template v-else>
@@ -135,7 +138,7 @@ const toggleEdit = () => {
                         "
                         @click="toggleEdit"
                     >
-                        Cancel
+                        {{t('global.cancel')}}
                     </p>
                 </template>
             </div>

@@ -5,7 +5,11 @@ import JetDropdown from "@/Jetstream/Dropdown.vue";
 import JetDropdownLink from "@/Jetstream/DropdownLink.vue";
 import MobileMenu from "./MobileMenu.vue";
 import Hamburger from "./Hamburger.vue";
+import LanguageSelector from './LanguageSelector.vue';
 import { ref } from "vue";
+
+import { useI18n } from "vue-i18n";
+const { t } = useI18n();
 
 const emit = defineEmits(["setSearch", "suggest-word"]);
 
@@ -153,7 +157,7 @@ const logout = () => {
                                         focus:border-blue-600
                                         focus:outline-none
                                     "
-                                    placeholder="Search words"
+                                    :placeholder="t('nav.searchPlaceholder')"
                                     aria-label="Search"
                                     aria-describedby="button-addon2"
                                 />
@@ -257,7 +261,7 @@ const logout = () => {
                                     focus:border-blue-600
                                     focus:outline-none
                                 "
-                                placeholder="Search words"
+                                :placeholder="t('nav.searchPlaceholder')"
                                 aria-label="Search"
                                 aria-describedby="button-addon2"
                             />
@@ -334,7 +338,7 @@ const logout = () => {
                             "
                             :href="route('login')"
                         >
-                            Login
+                            {{t('global.login')}}
                         </Link>
                     </li>
                     <li class="md:ml-4 my-2" v-if="!isLoggedIn">
@@ -352,7 +356,7 @@ const logout = () => {
                             "
                             :href="route('register')"
                         >
-                            Register
+                            {{t('global.register')}}
                         </Link>
                     </li>
                 </template>
@@ -392,7 +396,7 @@ const logout = () => {
                         :href="route('about')"
                         :class="{ 'font-bold': $page.url === '/about' }"
                     >
-                        About
+                        {{t('nav.about')}}
                     </Link>
                 </li>
                 <li class="md:ml-4 my-2">
@@ -413,7 +417,7 @@ const logout = () => {
                             'font-bold': $page.url === '/create',
                         }"
                     >
-                        + Add
+                        + {{t('nav.add')}}
                     </a>
                 </li>
                 <template v-if="isLoggedIn">
@@ -431,7 +435,7 @@ const logout = () => {
                             "
                             :href="route('dashboard')"
                         >
-                            Dashboard
+                            {{t('nav.dashboard')}}
                         </Link>
                     </li>
                     <li class="md:ml-4 my-2">
@@ -448,7 +452,7 @@ const logout = () => {
                             "
                             @click="logout"
                         >
-                            Logout
+                            {{t('global.logout')}}
                         </Link>
                     </li>
                 </template>
@@ -474,7 +478,7 @@ const logout = () => {
                                     cursor-pointer
                                 "
                             >
-                                Browse
+                                {{t('global.browse')}}
 
                                 <svg
                                     class="ml-2 -mr-0.5 h-4 w-4"
@@ -526,10 +530,12 @@ const logout = () => {
                                 })
                             "
                         >
-                            Random?
+                            {{t('global.random')}}?
                         </Link>
                     </template>
                 </JetDropdown>
+
+                <LanguageSelector class="cursor-pointer ml-4" />
             </ul>
         </nav>
     </header>

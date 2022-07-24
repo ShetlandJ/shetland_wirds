@@ -7,6 +7,9 @@ import CommentInput from "../comments/CommentInput.vue";
 import { Inertia } from "@inertiajs/inertia";
 import { storeToRefs } from "pinia";
 
+import { useI18n } from "vue-i18n";
+const { t } = useI18n();
+
 const Filter = require("bad-words");
 const swearFilter = new Filter();
 
@@ -27,7 +30,7 @@ const props = defineProps({
 });
 
 const commentOptions = ref({
-    placeholder: `Continue the conversation...`,
+    placeholder: t('word.comments.continue'),
 });
 
 const deleteComment = (commentId) => {
@@ -140,7 +143,7 @@ const toggleEdit = () => {
                             dark:text-gray-300
                         "
                     >
-                        reply
+                        {{t('global.reply')}}
                     </p>
                 </div>
                 <div
@@ -158,7 +161,7 @@ const toggleEdit = () => {
                         "
                         @click="toggleEdit"
                     >
-                        Edit
+                        {{t('global.edit')}}
                     </p>
                     <p
                         class="
@@ -170,7 +173,7 @@ const toggleEdit = () => {
                         "
                         @click="deleteComment(comment.id)"
                     >
-                        Delete
+                        {{t('global.delete')}}
                     </p>
                 </div>
             </div>

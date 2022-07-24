@@ -244,7 +244,7 @@ class WordService
     public function getAssetPath(WordRecording $recording): string
     {
         if (App::environment('production')) {
-            return $recording->filename;
+            return sprintf('https://%s.amazonaws.com/%s', 'spaektionary-recordings.s3.eu-west-1', $recording->filename);
         }
 
         return asset('storage/' . $recording->filename);

@@ -64,7 +64,7 @@ const languages = [
         </template>
         <template #content>
             <div class="m-2">
-                <p class="mb-4">Select your language:</p>
+                <p class="mb-4 dark:text-white">Select your language:</p>
 
                 <template v-for="(language, index) in languages" :key="index">
                     <a
@@ -76,7 +76,7 @@ const languages = [
                             dark:bg-gray-900
                         "
                     >
-                        <div class="flex items-center">
+                        <div class="flex items-center dark:text-white">
                             <span
                                 v-if="language.value !== 'shet'"
                                 class="text-4xl mr-2"

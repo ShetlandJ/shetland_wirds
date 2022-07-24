@@ -5,6 +5,7 @@ import JetDropdown from "@/Jetstream/Dropdown.vue";
 import JetDropdownLink from "@/Jetstream/DropdownLink.vue";
 import MobileMenu from "./MobileMenu.vue";
 import Hamburger from "./Hamburger.vue";
+import LanguageSelector from './LanguageSelector.vue';
 import { ref } from "vue";
 
 import { useI18n } from "vue-i18n";
@@ -533,6 +534,8 @@ const logout = () => {
                         </Link>
                     </template>
                 </JetDropdown>
+
+                <LanguageSelector class="cursor-pointer ml-4" />
             </ul>
         </nav>
     </header>

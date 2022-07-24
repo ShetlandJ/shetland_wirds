@@ -3,6 +3,9 @@ import { ref } from "vue";
 import { useForm, usePage } from "@inertiajs/inertia-vue3";
 import { convertToBlogUri } from "@/utils/helpers";
 
+import { useI18n } from "vue-i18n";
+const { t } = useI18n();
+
 const word = usePage().props.value.word;
 
 let device = null;
@@ -72,22 +75,22 @@ const submitRecording = () => {
                     :id="[recordingAudio ? 'rec' : 'not-rec']"
                 ></div>
                 <span v-if="!userRecording">{{
-                    recordingAudio ? "Stop recording" : "Record"
+                    recordingAudio ? t('word.recordings.stop') : t('word.recordings.start')
                 }}</span>
                 <span v-else>{{
-                    recordingAudio ? "Stop recording" : "Try again?"
+                    recordingAudio ? t('word.recordings.stop') : t('word.recordings.tryAgain')
                 }}</span>
             </ActionButton>
         </div>
         <hr class="my-4" v-if="userRecording" />
         <div class="flex items-center justify-between" v-if="userRecording">
-            <p>Your recording:</p>
+            <p>{{t('word.recordings.yourRecording')}}:</p>
             <audio controls>
                 <source :src="userRecording" type="audio/wav" />
             </audio>
 
             <div v-if="userRecording" style="height: fit-content">
-                <ActionButton type="submit" @click="submitRecording" message="Save" />
+                <ActionButton type="submit" @click="submitRecording" :message="t('global.save')" />
             </div>
         </div>
     </div>

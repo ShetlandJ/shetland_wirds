@@ -10,6 +10,7 @@ const linkedWordResultsList = ref([]);
 const showSuccessMessage = ref(false);
 const userId = usePage().props.value.user?.uuid;
 const { wordRelationTypes } = usePage().props.value;
+import Recording from '../../components/recordings/Recording.vue';
 
 const searchWords = (firstSearch = true) => {
     axios
@@ -64,6 +65,7 @@ const updateWord = () => {
         newDefinitions: newDefinitions.value,
         removedDefinitions: removedDefinitions.value,
         wordLinks: wordLinks.value,
+        removedRecordings: removedRecordings.value,
     };
 
     axios
@@ -146,6 +148,18 @@ const definitionsWithoutRemovedOnes = computed(() => {
         (definition) => !removedDefinitions.value.includes(definition.id)
     );
 })
+
+const removedRecordings = ref([]);
+
+const removeRecording = (value) => {
+    removedRecordings.value.push(value);
+};
+
+const wordRecordings = computed(() => {
+    return word.value.recordings.filter(
+        (recording) => !removedRecordings.value.includes(recording.id)
+    );
+});
 </script>
 
 <template>
@@ -511,6 +525,18 @@ const definitionsWithoutRemovedOnes = computed(() => {
                 <div v-else-if="word && !wordLinks.length">
                     There are no linked words for {{ word.word }}
                 </div>
+            </div>
+
+            <div
+                v-for="(recording, index) in wordRecordings"
+                :key="recording.id"
+            >
+                <Recording
+                    :recording="recording"
+                    :index="index"
+                    can-remove
+                    @remove="removeRecording(recording.id)"
+                />
             </div>
 
             <ActionButton @click="updateWord" message="Update" />

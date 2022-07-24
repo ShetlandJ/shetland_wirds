@@ -67,7 +67,6 @@ const showingNavigationDropdown = ref(false);
 
 const logout = () => {
     Inertia.post(route("logout"));
-    window.location.reload();
 };
 </script>
 

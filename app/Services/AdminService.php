@@ -179,6 +179,11 @@ class AdminService
             $definitionsChanges[$wordDefinition->uuid]['updated'] = '';
         }
 
+        foreach ($payload['removedRecordings'] as $recordingUuid) {
+            $recording = WordRecording::where('uuid', $recordingUuid)->first();
+            $recording->delete();
+        }
+
         $word->touch();
         $word->save();
 

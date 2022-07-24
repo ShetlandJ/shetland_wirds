@@ -3,12 +3,22 @@ import { formatDate } from "../../utils/formatters";
 import { ref } from "vue";
 const isLoggedIn = ref(() => usePage().props.value.isLoggedIn);
 
-defineProps({
+const emit = defineEmits(['remove']);
+
+const props = defineProps({
     word: Object,
     recording: Object,
     index: Number,
     adminView: Boolean,
+    canRemove: {
+        type: Boolean,
+        default: false,
+    }
 });
+
+const remove = () => {
+    emit('remove', props.recording.id);
+}
 </script>
 
 <template>
@@ -34,6 +44,30 @@ defineProps({
         <audio controls class="w-full">
             <source :src="recording.url" type="audio/mpeg" />
         </audio>
+
+        <div v-if="canRemove">
+            <button
+                class="
+                    bg-red-500
+                    text-white
+                    text-sm
+                    py-2
+                    ml-2
+                    px-4
+                    rounded-md
+                    hover:bg-red-600
+                    hover:text-white
+                    focus:outline-none
+                    focus:shadow-outline
+                    focus:border-red-600
+                    focus:shadow-outline-red-600
+                    transition-colors duration-200
+                "
+                @click="remove"
+            >
+                Remove
+            </button>
+        </div>
 
         <div v-if="adminView">
             <button

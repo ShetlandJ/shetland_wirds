@@ -7,7 +7,7 @@ import no from './langs/no.json';
 import { createI18n } from "vue-i18n";
 
 const i18n = createI18n({
-    locale: 'sv ',
+    locale: 'en',
     fallbackLocale: "en",
     messages: {
         de,

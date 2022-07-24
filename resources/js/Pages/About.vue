@@ -68,8 +68,8 @@ defineProps({
                                 class="underline"
                                 href="https://www.iheardee.com"
                             >
-                                I Hear Dee </a
-                            >.
+                                I Hear Dee
+                            </a>
                         </template>
                     </i18n-t>
                 </p>

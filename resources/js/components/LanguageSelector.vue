@@ -3,6 +3,13 @@ import JetDropdown from "@/Jetstream/Dropdown.vue";
 import ShetlandFlag from "./icons/ShetlandFlag.vue";
 import { computed } from "@vue/runtime-core";
 
+defineProps({
+    showGuide: {
+        type: Boolean,
+        default: false,
+    },
+})
+
 const setLanguage = (language) => {
     if (language === getLocale()) return;
     localStorage.setItem("spaekationary-locale", language);
@@ -43,7 +50,12 @@ const languages = [
     <JetDropdown>
         <template #trigger>
             <template v-if="shetlandSelected">
-                <ShetlandFlag />
+               <div class="flex">
+                    <ShetlandFlag />
+                    <span v-if="showGuide" class="ml-2">
+                        Change language
+                    </span>
+                </div>
             </template>
 
             <template v-else>

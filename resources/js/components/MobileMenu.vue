@@ -7,6 +7,8 @@ import JetDropdown from "@/Jetstream/Dropdown.vue";
 import JetDropdownLink from "@/Jetstream/DropdownLink.vue";
 import JetNavLink from "@/Jetstream/NavLink.vue";
 import JetResponsiveNavLink from "@/Jetstream/ResponsiveNavLink.vue";
+import LanguageSelector from './LanguageSelector.vue';
+
 import { ref } from "vue";
 
 import { useI18n } from "vue-i18n";
@@ -177,6 +179,8 @@ const alphabetArray = [
             <form v-if="isLoggedIn" @submit.prevent="logout" class="py-2">
                 <button type="submit" class="dark:text-white">{{t('global.logout')}}</button>
             </form>
+
+            <LanguageSelector show-guide class="cursor-pointer" />
         </div>
 
         <div class="pt-2 pb-1 border-t border-gray-200">

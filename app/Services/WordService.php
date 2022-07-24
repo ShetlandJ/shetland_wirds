@@ -8,17 +8,18 @@ use Carbon\Carbon;
 use App\Models\Word;
 use App\Models\Comment;
 use App\Models\Location;
+use App\Models\WordReport;
 use App\Models\WordToWord;
 use Illuminate\Support\Str;
 use App\Models\UserWordLike;
 use App\Models\WordOfTheDay;
 use App\Models\WordRecording;
 use App\Models\WordDefinition;
-use App\Models\WordRelationType;
-use App\Models\WordReport;
 use App\Models\WordToLocation;
+use App\Models\WordRelationType;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
@@ -233,11 +234,20 @@ class WordService
     {
         return $word->activeRecordings->map(fn (WordRecording $recording) => [
             'id' => $recording->uuid,
-            'url' => asset($recording->filename),
+            'url' => $this->getAssetPath($recording),
             'speaker_name' => $recording->speaker ? $recording->speaker->name : 'Unregistered',
             'created_at' => $this->formatDate($recording->created_at),
             'type' => $recording->type,
         ]);
+    }
+
+    public function getAssetPath(WordRecording $recording): string
+    {
+        if (App::environment('production')) {
+            return $recording->filename;
+        }
+
+        return asset('storage/' . $recording->filename);
     }
 
     public function formatComment(Comment $comment)

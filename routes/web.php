@@ -1,9 +1,11 @@
 <?php
 
 use App\Models\Role;
+use App\Models\User;
 use App\Models\Word;
 use Inertia\Inertia;
 use App\Models\Comment;
+use App\Models\WordReport;
 use Illuminate\Http\Request;
 use App\Models\WordRecording;
 use App\Services\UserService;
@@ -13,9 +15,8 @@ use App\Models\WordRelationType;
 use App\Services\CommentService;
 use App\Services\RevisionService;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\App;
 use App\Http\Middleware\UserIsAdmin;
-use App\Models\User;
-use App\Models\WordReport;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
@@ -177,7 +178,11 @@ Route::post('/word/{slug}/recordings', function (string $slug) {
 
     $foundWord = app(WordService::class)->findByWord($slug);
 
-    $filePath = sprintf('storage/%s/%s', $slug, basename($file));
+    if (App::environment('production')) {
+        Storage::disk('s3')->put(sprintf('%s/%s', $slug, basename($file)), $file);
+    } else {
+        $filePath = sprintf('%s/%s', $slug, basename($file));
+    }
 
     $fullWord = Word::where('slug', $slug)->first();
 

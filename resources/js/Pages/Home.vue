@@ -5,6 +5,9 @@ import SearchBar from "../components/SearchBar.vue";
 import WordResult from "../components/WordResult.vue";
 import NavBar from "../components/NavBar.vue";
 
+import { useI18n } from "vue-i18n";
+const { t } = useI18n();
+
 let searchString = "";
 
 const newWord = useForm({
@@ -75,7 +78,7 @@ const today = () => {
 </script>
 
 <template>
-    <Head title="Shetland dictionary" />
+    <Head title="Shaetlan dictionary" />
 
     <div
         class="
@@ -102,31 +105,30 @@ const today = () => {
                     <b>Da Spaektionary</b>
                 </p>
                 <p class="dark:text-white text-lg mb-4">
-                    Welcome to the dictionary by and for Shetlanders!
+                    {{ t("home.welcome1") }}
                 </p>
 
                 <p class="dark:text-white text-lg mb-4">
-                    Help us make this dictionary better by adding your voice to
-                    the words and expressions. And help us by adding the words
-                    and expressions that are missing!
+                    {{ t("home.welcome2") }}
                 </p>
 
                 <p class="dark:text-white text-lg mb-4">
-                    We will map the words and expressions by location to show a
-                    fuller picture of Shaetlan speech.
+                    {{ t("home.welcome3") }}
                 </p>
 
-                <div class="dark:text-white text-lg mb-4" style="display: block">
-                    To get started, you can search for a word or phrase in the
-                    search bar above, or click on browse in the menu to browse
-                    by letter. If you want to contribute, click
-                    <Link
-                        class="text-sm text-gray-700 underline"
-                        :href="route('register')"
-                        style="display: inline-flex !important"
-                    >
-                        <h2
-                            className="
+                <div
+                    class="dark:text-white text-lg mb-4"
+                    style="display: block"
+                >
+                    <i18n-t keypath="home.welcome4" tag="span" for="here">
+                        <template #here>
+                            <Link
+                                class="text-sm text-gray-700 underline"
+                                :href="route('register')"
+                                style="display: inline-flex !important"
+                            >
+                                <h2
+                                    className="
                                 font-semibold
                                 text-lg
                                 text-gray-900
@@ -134,20 +136,21 @@ const today = () => {
                                 dark:text-white
                                 dark:border-b
                             "
-                        >
-                            here
-                        </h2>
-                    </Link>
-                    to register!
+                                >
+                                    {{ t("global.here") }}
+                                </h2>
+                            </Link>
+                        </template>
+                    </i18n-t>
                 </div>
 
                 <Alert v-if="featuredWord">
-                    <div
-                        class="dark:text-white flex"
-                        style="display: block"
-                    >
-                        Our featured entry for {{ today() }} is
+                    <div class="dark:text-white flex" style="display: block">
+                        <i18n-t keypath="home.featured" tag="span">
 
+                            <template #today>{{today()}}</template>
+                        <!-- Our featured entry for {{ today() }} is -->
+                        <template #featuredWord>
                         <Link
                             v-if="featuredWord"
                             :href="
@@ -168,10 +171,12 @@ const today = () => {
                             "
                             >
                                 {{ featuredWord.word }}
-                            </h2> </Link
-                        >.
+                            </h2>
+                            </Link>.
+                        </template>
+                        </i18n-t>
 
-                        <span>Click to find out more!</span>
+                        <span>{{t('home.findOutMore')}}</span>
                     </div>
                 </Alert>
             </div>

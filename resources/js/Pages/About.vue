@@ -6,6 +6,9 @@ import HelpUsCard from "../components/HelpUsCard.vue";
 import HelpUsForm from "../components/HelpUsForm.vue";
 import ReloadIcon from "../components/icons/ReloadIcon.vue";
 
+import { useI18n } from "vue-i18n";
+const { t } = useI18n();
+
 defineProps({
     canLogin: {
         type: Boolean,
@@ -42,44 +45,37 @@ defineProps({
         <Container>
             <div class="md:mx-auto mb-8 max-w-md md:max-w-2xl">
                 <p class="flex text-xl justify-center mb-2 dark:text-white">
-                    <b> About </b>
+                    <b> {{ t("nav.about") }} </b>
                 </p>
                 <p class="text-lg mb-4 dark:text-white">
-                    The <b>Spaektionary</b> was created by
-                    <a
-                        class="underline"
-                        href="https://www.twitter.com/JAStewart"
-                        >James Stewart</a
-                    >
-                    and consists of the existing lexical database in the
-                    Shaetlan Project by
-                    <a class="underline" href="https://www.iheardee.com"
-                        >I Hear Dee</a
-                    >. The aim of this dictionary is to encourage any and all
-                    speakers of Shaetlan to participate in enhancing the
-                    dictionary with both sound recordings and example sentences.
-                    We are also hoping for users to add words and expressions
-                    that are not already in the dictionary, so as to make it
-                    more complete. We aim to map submissions so that we can
-                    create a visual image of where in Shetland which words and
-                    pronunciations are most commonly found. This will allow for
-                    a more nuanced picture of the rich and colourful Shaetlan
-                    language than has been available before.
+                    <i18n-t keypath="about.message1" type="span">
+                        <template #spaektionary>
+                            <b>Spaekationary</b>
+                        </template>
+
+                        <template #creator>
+                            <a
+                                class="underline"
+                                href="https://www.twitter.com/JAStewart"
+                            >
+                                James Stewart
+                            </a>
+                        </template>
+
+                        <!-- template ihd -->
+                        <template #ihd>
+                            <a
+                                class="underline"
+                                href="https://www.iheardee.com"
+                            >
+                                I Hear Dee
+                            </a>
+                        </template>
+                    </i18n-t>
                 </p>
 
                 <p class="text-lg dark:text-white mb-2">
-                    The database that the Spaektionary is built on consists of a
-                    corpus of the speech by 20 oral history interviews by the
-                    Shetland Museum and Archives done in the 1980s and 1990s,
-                    released for research by kind permission from Dr. Brian
-                    Smith. This oral history corpus has a total of 37.5 hours of
-                    speech (ca 316,000 words). The speakers are from different
-                    areas of Shetland, there are 10 male and 10 female speakers
-                    and they are all 60 years or above at the time of recording.
-                    All interviews were transcribed by Angus Johnson, who kindly
-                    released his transcriptions for the use in this project. The
-                    database also includes the collected entries found in the
-                    following publications:
+                    {{ t("about.message2") }}
                 </p>
 
                 <p class="dark:text-white mb-2 ml-4">
@@ -107,20 +103,35 @@ defineProps({
                 </p>
 
                 <p class="dark:text-white mb-4">
-                   The code behind it all is open source and available on
-                    <a
-                        class="underline"
-                        href="https://github.com/ShetlandJ/shetland_wirds"
-                        >Github</a
-                    >.
+                    <i18n-t keypath="about.message3" type="span">
+                        <template #github>
+                            <a
+                                class="underline"
+                                href="https://github.com/ShetlandJ/shetland_wirds"
+                                >Github</a
+                            >
+                        </template>
+                    </i18n-t>
                 </p>
 
                 <p class="dark:text-white mb-4">
-                   See our <a class="underline" href="/faq">Frequently Asked Questions</a> page for more information
-                    about the project.
+                    <i18n-t keypath="about.message4" type="span">
+                        <template #github>
+                            <a class="underline" href="/faq"> FAQ </a>
+                        </template>
+                    </i18n-t>
                 </p>
                 <p class="dark:text-white mb-4">
-                   For more about I Hear Dee and who we are, see <a class="underline" href="https://www.iheardee.com">here</a>.
+                    <i18n-t keypath="about.message5" type="span">
+                        <template #github>
+                            <a
+                                class="underline"
+                                href="https://www.iheardee.com"
+                            >
+                                {{ t("global.here") }}
+                            </a>
+                        </template>
+                    </i18n-t>
                 </p>
             </div>
         </Container>

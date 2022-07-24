@@ -16,6 +16,9 @@ import ReportForm from "./words/ReportForm.vue";
 
 import { computed, onMounted, ref } from "vue";
 
+import { useI18n } from "vue-i18n";
+const { t } = useI18n();
+
 import format from "date-fns/format";
 const APA_DATE_FORMAT = "yyyy MMMM d";
 const CHICAGO_DATE_FORMAT = "MMMM d, yyyy";
@@ -113,7 +116,7 @@ const showReportAlert = ref(false);
                     class="mb-4"
                     v-if="showReportAlert"
                     variant="success"
-                    message="Your word report was successful. We will review it as soon as possible"
+                    :message="t('word.report')"
                 />
                 <div className="flex items-center justify-between mb-2">
                     <div
@@ -145,7 +148,7 @@ const showReportAlert = ref(false);
                                 v-if="exactMatch"
                                 class="font-sm ml-2 text-green-500"
                             >
-                                🎯 exact match</span
+                                🎯 {{t('word.exactMatch')}}</span
                             >
                         </Link>
                         <span v-if="word.rejected" class="text-red-500 ml-3">
@@ -228,11 +231,7 @@ const showReportAlert = ref(false);
                     </div>
                     <div v-if="definition.example_sentence">
                         <p className="mt-1 text-gray-700 mb-3 dark:text-white">
-                            {{
-                                definition.example_sentence
-                                    ? `Usage: ${definition.example_sentence}`
-                                    : "No example sentence exists"
-                            }}
+                            {{t('word.usage')}}: {{definition.example_sentence}}
                         </p>
                     </div>
                 </div>
@@ -286,9 +285,12 @@ const showReportAlert = ref(false);
                                 dark:text-white
                             "
                         >
-                            {{ word.comments.length }} comment{{
+                            {{ word.comments.length }}
+                            {{t('word.comment', { count: word.comments.length })}}
+<!--
+                             comment{{
                                 word.comments.length === 1 ? "" : "s"
-                            }}
+                            }} -->
                         </Link>
 
                         <Link
@@ -311,9 +313,8 @@ const showReportAlert = ref(false);
                                     : '',
                             ]"
                         >
-                            {{ word.comments.length }} comment{{
-                                word.comments.length === 1 ? "" : "s"
-                            }}
+                            {{ word.comments.length }}
+                            {{t('word.comment', { count: word.comments.length })}}
                         </Link>
 
                         <Link
@@ -329,9 +330,8 @@ const showReportAlert = ref(false);
                                 })
                             "
                         >
-                            {{ word.recordings.length }} recording{{
-                                word.recordings.length === 1 ? "" : "s"
-                            }}
+                            {{ word.recordings.length }}
+                            {{t('word.recording', { count: word.recordings.length })}}
                         </Link>
 
                         <Link
@@ -358,9 +358,8 @@ const showReportAlert = ref(false);
                                     : '',
                             ]"
                         >
-                            {{ word.recordings.length }} recording{{
-                                word.recordings.length === 1 ? "" : "s"
-                            }}
+                            {{ word.recordings.length }}
+                            {{t('word.recording', { count: word.recordings.length })}}
                         </Link>
 
                         <Link
@@ -376,7 +375,9 @@ const showReportAlert = ref(false);
                                     word: word.slug,
                                 })
                             "
-                            >locations</Link
+                            >
+                                {{t('word.location', 2)}}
+                            </Link
                         >
 
                         <Link
@@ -403,7 +404,7 @@ const showReportAlert = ref(false);
                                     : '',
                             ]"
                         >
-                            locations
+                            {{t('word.location', 2)}}
                         </Link>
                     </div>
                 </div>
@@ -418,9 +419,9 @@ const showReportAlert = ref(false);
                             text-xs
                         "
                     >
-                        <span v-if="isComments">Comments</span>
-                        <span v-else-if="isRecordings">Recordings</span>
-                        <span v-else-if="isLocations">Locations</span>
+                        <span v-if="isComments">{{t('word.comment', 2)}}</span>
+                        <span v-else-if="isRecordings">{{t('word.recording', 2)}}</span>
+                        <span v-else-if="isLocations">{{t('word.location', 2)}}</span>
                     </h4>
 
                     <Comments v-if="isComments" :comments="word.comments" />
@@ -434,14 +435,14 @@ const showReportAlert = ref(false);
                     <span
                         class="cursor-pointer dark:text-white underline"
                         @click="toggleShowCite"
-                        >cite</span
+                        >{{t('word.cite')}}</span
                     >
                     <span class="mx-2">&#8226;</span>
                     <span
                         @click="toggleShowReportForm"
                         class="cursor-pointer dark:text-white underline"
                     >
-                        report
+                        {{t('word.report')}}
                     </span>
                 </div>
 

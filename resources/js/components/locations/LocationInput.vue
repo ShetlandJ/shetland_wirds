@@ -11,6 +11,9 @@ import {
 } from "vue";
 const isLoggedIn = usePage().props.value.isLoggedIn;
 
+import { useI18n } from "vue-i18n";
+const { t } = useI18n();
+
 const props = defineProps({
     locations: Object,
     word: Object,
@@ -68,7 +71,7 @@ const filteredLocations = computed(() => {
             <div class="justify-end mt-2">
                 <Alert
                     v-if="!isLoggedIn"
-                    message="You must be logged in to add locations."
+                    :message="t('word.locations.loggedInAlert')"
                 />
 
                 <template v-else>
@@ -98,7 +101,7 @@ const filteredLocations = computed(() => {
                             mb-4
                         "
                         type="text"
-                        placeholder="Search locations"
+                        :placeholder="t('word.locations.searchLocations')"
                         v-model="searchString"
                     />
 
@@ -132,7 +135,7 @@ const filteredLocations = computed(() => {
                     <ActionButton
                         type="submit"
                         :disabled="!isLoggedIn"
-                        message="Submit"
+                        :message="t('global.submit')"
                     />
                 </template>
             </div>

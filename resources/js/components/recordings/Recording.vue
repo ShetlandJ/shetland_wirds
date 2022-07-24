@@ -3,6 +3,9 @@ import { formatDate } from "../../utils/formatters";
 import { ref } from "vue";
 const isLoggedIn = ref(() => usePage().props.value.isLoggedIn);
 
+import { useI18n } from "vue-i18n";
+const { t } = useI18n();
+
 const emit = defineEmits(['remove']);
 
 const props = defineProps({
@@ -34,11 +37,11 @@ const remove = () => {
         "
     >
         <div class="basis-1/2 hidden md:block">
-            <p><b>Speaker</b>: {{ recording.speaker_name }}</p>
-            <p><b>Type</b>: {{ recording.type }}</p> <span v-if="adminView">
-                Word: {{recording.word.word}}
+            <p><b>{{t('word.recordings.speaker')}}</b>: {{ recording.speaker_name }}</p>
+            <p><b>{{t('word.recordings.type')}}</b>: {{ recording.type }}</p> <span v-if="adminView">
+                {{t('word.recordings.word')}}: {{recording.word.word}}
             </span>
-            <p><b>Date</b>: {{ formatDate(new Date(recording.created_at)) }}</p>
+            <p><b>{{t('word.recordings.date')}}</b>: {{ formatDate(new Date(recording.created_at)) }}</p>
         </div>
 
         <audio controls class="w-full">
@@ -65,7 +68,7 @@ const remove = () => {
                 "
                 @click="remove"
             >
-                Remove
+                {{t('global.remove')}}
             </button>
         </div>
 
@@ -82,7 +85,7 @@ const remove = () => {
                     mr-2
                 "
             >
-                Approve
+                {{t('global.approve')}}
             </button>
             <button
                 class="
@@ -95,7 +98,7 @@ const remove = () => {
                     rounded-md
                 "
             >
-                Reject
+                {{t('global.reject')}}
             </button>
         </div>
     </div>

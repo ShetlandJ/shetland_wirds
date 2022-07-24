@@ -19,19 +19,18 @@ onMounted(() => {
 <template>
     <div v-if="word">
         <p class="mb-2 dark:text-white" v-if="isLoggedIn">
-            Where in Shetland is this word spoken?
+            {{t('word.locations.whereInShetland')}}
         </p>
 
         <p class="mb-2 dark:text-white">
-            We are gathering data and will display a heatmap when we receive
-            enough information to make the data useful!
+            {{t('word.locations.dataGathering')}}
         </p>
 
         <p class="mt-4 dark:text-white" v-if="showAddForm && isLoggedIn">
             {{
                 userSelectedLocations.length > 0
-                    ? "Edit your entries:"
-                    : "Add your own below:"
+                    ? `${t('word.locations.editEntries')}:`
+                    : `${t('word.locations.addEntries')}:`
             }}
         </p>
 
@@ -39,9 +38,15 @@ onMounted(() => {
             v-if="!showAddForm && userSelectedLocations.length > 0"
             class="dark:text-white"
         >
-            You have previously selected locations for <b>{{ word.word }}</b
-            >. If you would like to amend your selection, please click
-            <button class="underline" @click="toggleShowAddForm">here</button>.
+            <i18n-t keypath="word.locations.previous" type="span">
+                <template #word>
+                   <b>{{word.word}}</b>
+                </template>
+
+                <template #here>
+                    <button class="underline" @click="toggleShowAddForm">{{t('global.here')}}</button>.
+                </template>
+            </i18n-t>
         </div>
 
         <LocationInput

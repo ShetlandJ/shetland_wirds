@@ -1,0 +1,132 @@
+{
+  "about": {
+    "message1": "{spaektionary} ble opprettet av {creator} og består av den eksisterende leksikalske databasen i Shaetlan-prosjektet av {ihd}. Målet med denne ordboken er å oppmuntre alle som snakker Shaetlan til å delta i å forbedre ordboken med både lydopptak og eksempelsetninger. Vi håper også at brukerne legger til ord og uttrykk som ikke allerede finnes i ordboken, for å gjøre den mer komplett. Vi tar sikte på å kartlegge innsendinger slik at vi kan lage et visuelt bilde av hvor på Shetland hvilke ord og uttale som er mest vanlig å finne. Dette vil gi et mer nyansert bilde av det rike og fargerike Shaetlan-språket enn det som har vært tilgjengelig tidligere.",
+    "message2": "Databasen som Spaektionary er bygget på består av et korpus av talen av 20 muntlige historieintervjuer av Shetland Museum and Archives gjort på 1980- og 1990-tallet, utgitt for forskning med vennlig tillatelse fra Dr. Brian Smith. Dette muntlige historiekorpuset har totalt 37,5 timer tale (ca. 316 000 ord). Høyttalerne er fra forskjellige områder på Shetland, det er 10 mannlige og 10 kvinnelige foredragsholdere, og de er alle 60 år eller eldre på innspillingstidspunktet. Alle intervjuene ble transkribert av Angus Johnson, som vennlig ga ut sine transkripsjoner for bruk i dette prosjektet. Databasen inkluderer også de innsamlede oppføringene som finnes i følgende publikasjoner:",
+    "message3": "Koden bak det hele er åpen kildekode og tilgjengelig på {github}.",
+    "message4": "Se vår {faq}-side for mer informasjon om prosjektet.",
+    "message5": "For mer om I Hear Dee og hvem vi er, se {her}."
+  },
+  "addWord": {
+    "confirm": "Jeg bekrefter at jeg er glad for at Spaektionary og I Hear Dee bruker dette ordet i denne nettordboken, så vel som i andre medier i fremtiden.",
+    "englishLabel": "Hva betyr det på engelsk?",
+    "englishPlaceholder": "Engelsk oversettelse",
+    "exampleSentenceLabel": "Kan du gi et eksempel på shetlandsk setning?",
+    "suggestedLabel": "Foreslått ord",
+    "suggestedWordDesc": "Skriv inn det nye ordet du vil legge til i ordboken",
+    "wordType": "Hva slags ord er det?",
+    "wordTypePlaceholder": "Velg ordtype"
+  },
+  "faq": {
+    "answer1": "Ordene i denne ordboken er de som finnes i Shaetlan-ordbøkene som er oppført på vår {om}-side og i talen til de 20 shetlendingene i Shetland Museum and Archive muntlige historieintervjuer. Noen ord og deres stavemåter vil overlappe med engelsk, for eksempel når George Gear, Mary Manson, James Ritch, Harriet Sandison, osv. snakker om havet, et skip, en sogn, et piano, en brygge, en ambulanse osv. Men de er ord funnet i Shaetlan-tale som har blitt lokalisert til en relevant Shaetlan-kontekst, og er derfor relevante for Shaetlan-språket.",
+    "answer2p-1": "Ord som plaess, airm, neest er gamle skotske ord og er ikke mer utelukkende engelske enn de er skotske. De kom inn i leksikonet i gammelengelsk tid, og etterkommerne av nordumbrisk gammelengelsk, som skotter, endte opp med å ha og reflektere én uttale, mens etterkommeren av Mercian Old English (dvs. engelsk), endte opp med å ha en annen, mer påvirket av normannisk Fransk (for mer om Shaetlans historie, se {her}).",
+    "answer2p-2": "Til syvende og sist går plaess for eksempel tilbake til latinsk platea, som også er opphavet til svensk plats 'sted' og norsk plass 'sted'. Ingen lokalisert stavemåte er mer korrekt enn den andre, men i Shetlandssammenheng er den engelske stavemåten den kjente fordi engelsk har vært undervisningsmediet på skolene de siste 200 årene. Den engelske skrivemåten gjenspeiler imidlertid ikke Shaetlan-uttalen, og heller ikke historien til ordet, som kom hit med skottene lenge før engelsk gjorde det. Med andre ord, denne typen ord «tilhører» ikke engelsk mer enn de «tilhører» svensk, norsk eller skotsk. De er rett og slett lokaliserte skrivemåter som er lokalt relevante. Når Shaetlan blir brukt som undervisningsmedium på skolene, vil de lokalt relevante stavemåtene føles like kjente som alle andre. For mer om prinsippene bak stavesystemet vårt, se {her}",
+    "answer3": "En øygruppe som Shetland forventes å ha språklig variasjon. Det ville vært høyst eksepsjonelt hvis det ikke gjorde det (men det er ikke det mest språklig mangfoldige området i verden, som noen ganger antas. Det er Vanuatu, med 138 gjensidig uforståelige språk, alle med sin egen interne regionale og sosiale variasjon). Det avgjørende med et stavesystem er at det ikke er en eksakt fonetisk transkripsjon av tale, men en pragmatisk måte å vise fellestrekk på tvers av et talesamfunn. Med andre ord, et stavesystem er alltid et kompromiss og gjenspeiler aldri den eksakte talen til en person. Dette betyr at en leser ikke trenger å kjenne stemmen til en forfatter for å kunne lese teksten: konvensjonen gjør at teksten kan forstås bredt over hele samfunnet. Dette er tilfellet med engelsk, som har 77 varianter oppført i den elektroniske {worldAtlasLink} (dette inkluderer ikke de fem variantene som er oppført i {micronesia}. For eksempel har {dialectsArchive} mer enn 1600 stemmer fra 135 land i seg. Likevel får alle disse stemmene samme stavemåte for slike ord som vann, lys, regn, gjennom, ansikt, osv. For en mer inngående diskusjon om et stavesystem for Shaetlan, se {her}.",
+    "answer4": "Som nevnt ovenfor øverst på denne siden, er dette ikke en ordbok med ord eller uttrykk som er unike eller eksklusive for Shaetlan, men en representativ ordbok for Shaetlan-tale, inkludert alle de delte ordene og uttrykkene i det skotske språkområdet.",
+    "answer5-p1": "Det er to mulige årsaker til at du ikke kan finne et bestemt ord eller uttrykk i Spaektionary:",
+    "answer5-p2": "(1) den staves annerledes enn ditt første søkeforsøk. En måte å sjekke det på er å søke etter oversettelsen til engelsk.",
+    "answer5-p3": "(2) det er ikke i ordboken i det hele tatt.",
+    "answer5-p4": "I så fall oppfordrer vi sterkt til å bidra med det! Dette er hva Spaektionary handler om: å fortsette å bygge den og gjøre den bedre og mer omfattende.",
+    "answer6": "Vi selv. Vi har ingen ekstern eller tredjepartsfinansiering. Dette gjør vi på fritiden. Vi mottar ingen inntekter for noe av produksjonen vår, som alt er fritt tilgjengelig via {ihd}",
+    "heading": "ofte stilte spørsmål",
+    "message1": "Spaektionary ble opprettet av {creator} og består av den eksisterende leksikalske databasen i Shaetlan Project av {ihd}.",
+    "message2": "Det skal bemerkes at dette ikke er en ordbok med ord som er eksklusive og unike for Shaetlan. Svært få ord er. Som det er normalt for alle språk, deler Shaetlan mange ord og uttrykk med andre språk, spesielt de som er nært beslektet med Shaetlan, eller de som Shaetlan har vært i nær kontakt med. Faktisk er det ikke noe kjent talespråk i verden som ikke deler vokabular med et annet språk. Dette gjør ikke på noen måte et gitt språk mindre verdifullt. Det betyr heller ikke at disse ordene er mindre relevante for de gitte språkene.",
+    "message3": "De umiddelbare forfedrene til Shaetlan er skotter og norner. Norn er utdødd, men stammer fra vestlig gammelnorsk. Skotsk er et makrospråk med en rekke svært forskjellige varianter. De stammer fra nordumbrisk gammelengelsk. Standard engelsk, derimot, stammer fra Mercian old English. Så skotsk er ikke og har aldri vært en dialekt av engelsk på samme måte som engelsk er eller har vært en dialekt av skotsk. Shaetlan har også vært i intens kontakt med lavlands-germanske språk (lavtysk og nederlandsk), og i de siste århundrene med standard engelsk. Alle disse språkene er nært beslektet og har mange likheter blant dem. Men de er ikke identiske. Og de har alle påvirket utfallet av Shaetlan. For mer om Shaetlans historie, se {her}.",
+    "message4": "Vi får jevnlig slike spørsmål:",
+    "question1": "Hvorfor er det engelske ord i ordboken?",
+    "question2": "Hvorfor staver du ikke engelske ord på engelsk måte?",
+    "question3": "Shaetlan har så mye variasjon, hvordan kan det representeres i ett stavesystem?",
+    "question4": "Dette er et skotsk ord, du kan finne det over hele det skotske området, hvorfor står det i en Shaetlan-ordbok?",
+    "question5": "Hvorfor er ___ ikke inkludert?",
+    "question6": "Hvem finansierer dette?"
+  },
+  "global": {
+    "approve": "vedta",
+    "browse": "Bla gjennom",
+    "cancel": "Avbryt",
+    "contribute": "bidra",
+    "delete": "slette",
+    "edit": "redigere",
+    "here": "her",
+    "login": "Logg Inn",
+    "logout": "Logg ut",
+    "random": "Tilfeldig",
+    "register": "Registrere",
+    "reject": "avvise",
+    "remove": "fjerne",
+    "reply": "svare",
+    "required": "nødvendig",
+    "save": "Lagre",
+    "select": "Å velge",
+    "submit": "Sende inn"
+  },
+  "home": {
+    "featured": "Vårt fremhevede bidrag for {today} er {featuredWord}",
+    "findOutMore": "Klikk for å finne ut mer!",
+    "welcome1": "Velkommen til ordboken av og for shetlendinger!",
+    "welcome2": "Hjelp oss å gjøre denne ordboken bedre ved å legge stemmen din til ordene og uttrykkene. Og hjelp oss ved å legge til ordene og uttrykkene som mangler!",
+    "welcome3": "Vi vil kartlegge ordene og uttrykkene etter sted for å vise et mer fullstendig bilde av Shaetlan-talen.",
+    "welcome4": "For å komme i gang kan du søke etter et ord eller en setning i søkefeltet ovenfor, eller klikke på bla i menyen for å bla etter bokstav. Hvis du vil bidra, klikk {her} for å registrere deg!"
+  },
+  "nav": {
+    "about": "Om",
+    "add": "Legge til",
+    "dashboard": "Dashbord",
+    "nextPage": "Neste side",
+    "pagination": "Side {page} av {totalPages}",
+    "previousPage": "Forrige side",
+    "searchPlaceholder": "Søkeord",
+    "showingPagination": "Viser {from} til {to} av {total} ord"
+  },
+  "word": {
+    "cite": "sitere",
+    "comment": "kommentar | kommentarer",
+    "comments": {
+      "add": "Legg til en kommentar",
+      "continue": "Fortsett samtalen",
+      "loggedIn": "Du må være logget inn for å kommentere"
+    },
+    "exactMatch": "nøyaktig treff",
+    "location": "plassering | steder",
+    "locations": {
+      "addEntries": "Legg til din egen nedenfor",
+      "dataGathering": "Vi samler inn data og vil vise et varmekart når vi får nok informasjon til å gjøre dataene nyttige!",
+      "editEntries": "Rediger oppføringene dine",
+      "loggedInAlert": "Du må være pålogget for å legge til lokasjoner",
+      "previous": "Du har tidligere valgt plasseringer for {word}. Hvis du ønsker å endre valget ditt, vennligst klikk {her}.",
+      "searchLocations": "Søk etter steder",
+      "whereInShetland": "Hvor på Shetland snakkes dette ordet?"
+    },
+    "recording": "opptak | opptak",
+    "recordings": {
+      "addYourOwn": "Legg til et eget opptak",
+      "date": "Dato",
+      "instruction1": "For å legge til ditt eget opptak, trykk bare på Record-knappen for å starte, og den samme knappen igjen for å stoppe. Du vil kunne lytte tilbake til opptaket ditt før du sender inn.",
+      "instruction2": "Opptaket ditt må godkjennes før det blir synlig på siden.",
+      "noRecordings": "Det er ingen tilgjengelige opptak for dette ordet ennå, vær den første til å legge til et",
+      "pendingAlert": "Du har et(e) ventende opptak. Vi vil vurdere det etter hvert! Du kan legge til en annen nedenfor hvis du vil.",
+      "signUp": "Registrer deg for å legge til et opptak",
+      "speaker": "Høyttaler",
+      "start": "Start",
+      "stop": "Stopp opptaket",
+      "successAlert": "Opptaket ble lagt til! Vi vil vurdere det, og hvis det er passende, godkjenner vi det!",
+      "tryAgain": "Prøv igjen",
+      "type": "Type",
+      "word": "Ord",
+      "yourRecording": "Opptaket ditt"
+    },
+    "report": "rapportere",
+    "reportAlert": "Ordrapporten din var vellykket. Vi vil vurdere det så snart som mulig.",
+    "reporting": {
+      "inappropriateComments": "Upassende kommentar(er)",
+      "inappropriateDefinition": "Upassende språk i definisjonen",
+      "inappropriateExampleSentence": "Upassende språk i eksempelsetningen",
+      "inappropriateRecordings": "Upassende opptak(er)",
+      "inappropriateWord": "Upassende ord",
+      "issueNature": "Hva er sakens natur?",
+      "other": "Annen",
+      "whatIsTheIssue": "Hva er problemet med {word}",
+      "yourMessage": "Din beskjed"
+    },
+    "usage": "Bruk"
+  }
+}

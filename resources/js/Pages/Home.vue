@@ -78,7 +78,7 @@ const today = () => {
 </script>
 
 <template>
-    <Head title="Shetland dictionary" />
+    <Head title="Shaetlan dictionary" />
 
     <div
         class="

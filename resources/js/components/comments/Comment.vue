@@ -30,7 +30,7 @@ const props = defineProps({
 });
 
 const commentOptions = ref({
-    placeholder: `Continue the conversation...`,
+    placeholder: t('word.comments.continue'),
 });
 
 const deleteComment = (commentId) => {

@@ -1,0 +1,132 @@
+{
+  "about": {
+    "message1": "{spaektionary} skapades av {creator} och består av den befintliga lexikaliska databasen i Shaetlan-projektet av {ihd}. Syftet med denna ordbok är att uppmuntra alla som talar Shaetlan att delta i att förbättra ordboken med både ljudinspelningar och exempelmeningar. Vi hoppas också att användare lägger till ord och uttryck som inte redan finns i ordboken för att göra den mer komplett. Vi siktar på att kartlägga inlämningar så att vi kan skapa en visuell bild av var på Shetland vilka ord och uttal som är vanligast förekommande. Detta kommer att möjliggöra en mer nyanserad bild av det rika och färgstarka Shaetlan-språket än vad som varit tillgängligt tidigare.",
+    "message2": "Databasen som Spaektionary bygger på består av en korpus av talet av 20 muntliga historiska intervjuer av Shetland Museum and Archives gjorda på 1980- och 1990-talen, släppta för forskning med vänligt tillstånd från Dr. Brian Smith. Denna muntliga historiekorpus har totalt 37,5 timmars tal (ca 316 000 ord). Högtalarna kommer från olika områden på Shetland, det finns 10 manliga och 10 kvinnliga talare och alla är 60 år eller äldre vid inspelningstillfället. Alla intervjuer transkriberades av Angus Johnson, som vänligen släppte sina transkriptioner för användning i detta projekt. Databasen innehåller också de insamlade poster som finns i följande publikationer:",
+    "message3": "Koden bakom det hela är öppen källkod och tillgänglig på {github}.",
+    "message4": "Se vår {faq}-sida för mer information om projektet.",
+    "message5": "För mer om I Hear Dee och vilka vi är, se {här}."
+  },
+  "addWord": {
+    "confirm": "Jag bekräftar att jag är glad för att Spaektionary och I Hear Dee använder detta ord i denna onlineordbok, såväl som i andra medier i framtiden.",
+    "englishLabel": "Vad betyder det på engelska?",
+    "englishPlaceholder": "Engelsk översättning",
+    "exampleSentenceLabel": "Kan du ge ett exempel på shetländsk mening?",
+    "suggestedLabel": "Föreslaget ord",
+    "suggestedWordDesc": "Ange det nya ord du vill lägga till i ordlistan",
+    "wordType": "Vilken typ av ord är det?",
+    "wordTypePlaceholder": "Välj ordtyp"
+  },
+  "faq": {
+    "answer1": "Orden i den här ordboken är de som finns i Shaetlan-ordböckerna på vår {om}-sida och i de muntliga intervjuerna för de 20 shetlänningarna i Shetlands museum och arkiv. Vissa ord och deras stavningar kommer att överlappa engelska, som när George Gear, Mary Manson, James Ritch, Harriet Sandison, etc. talar om havet, ett skepp, en församling, ett piano, en brygga, en ambulans, etc. Men de är ord som finns i Shaetlan-tal som har lokaliserats till en relevant Shaetlan-kontext och är därför relevanta för Shaetlan-språket.",
+    "answer2p-1": "Ord som plaess, airm, neest är gamla skotska ord och är inte mer exklusivt engelska än de är skotska. De kom in i lexikonet under fornengelsk tid, och ättlingarna till Northumbrian Old English, som skottarna, slutade med att ha och speglade ett uttal, medan ättlingarna till Mercian Old English (dvs engelska) slutade med att ha ett annat, mer influerat av normandiska Franska (för mer om Shaetlans historia, se {här}).",
+    "answer2p-2": "I slutändan går plaess till exempel tillbaka till latinsk platea, som också är ursprunget till svenska plats 'place' och norska plass 'place'. Ingen lokaliserad stavning är mer korrekt än den andra, men i shetlandssammanhang är den engelska stavningen den välbekanta eftersom engelska har varit undervisningsmediet i skolor under de senaste 200 åren. Den engelska stavningen återspeglar dock inte Shaetlan-uttalet, och inte heller historien om ordet, som kom hit med skottarna långt innan engelskan gjorde det. Med andra ord, den här sortens ord \"tillhör\" inte engelskan lika lite som de \"tillhör\" svenska, norska eller skotska. De är helt enkelt lokaliserade stavningar som är lokalt relevanta. När Shaetlan väl används som undervisningsmedium i skolor kommer de lokalt relevanta stavningarna att kännas lika bekanta som alla andra. För mer om principerna bakom vårt stavningssystem, se {här}",
+    "answer3": "En skärgård som Shetland förväntas ha språklig variation. Det skulle vara högst exceptionellt om det inte gjorde det (men det är inte det mest språkligt mångfaldiga området i världen, som man ibland antar. Det är Vanuatu, med 138 ömsesidigt oförståeliga språk, alla med sin egen interna regionala och sociala variation). Det avgörande med ett stavningssystem är att det inte är en exakt fonetisk transkription av tal, utan ett pragmatiskt sätt att visa gemensamma drag över en talgemenskap. Med andra ord är ett stavningssystem alltid en kompromiss och återspeglar aldrig det exakta talet för någon enskild individ. Detta innebär att en läsare inte behöver känna till en författares röst för att kunna läsa texten: konventionen gör att texten kan förstås brett över hela samhället. Detta är fallet med engelska, som har 77 varianter listade i den elektroniska {worldAtlasLink} (detta inkluderar inte de fem varianterna i {micronesia}. Till exempel har {dialectsArchive} mer än 1 600 röster från 135 länder i sig. Ändå får alla dessa röster samma stavning för sådana ord som vatten, ljus, regn, genom, ansikte, etc. För en mer djupgående diskussion om ett stavningssystem för Shaetlan, se {här}.",
+    "answer4": "Som nämnts ovan överst på denna sida är detta inte en ordbok med ord eller uttryck som är unika eller exklusiva för Shaetlan, utan en representativ ordbok över Shaetlans tal, inklusive alla delade ord och uttryck i det skotska språkområdet.",
+    "answer5-p1": "Det finns två potentiella orsaker till att du inte kan hitta ett visst ord eller uttryck i Spaektionary:",
+    "answer5-p2": "(1) det stavas annorlunda än ditt första sökförsök. Ett sätt att kontrollera det är att söka efter översättningen till engelska.",
+    "answer5-p3": "(2) det finns inte alls i ordboken.",
+    "answer5-p4": "I så fall uppmanar vi dig att bidra med det! Det här är vad Spaektionary handlar om: att fortsätta bygga den och göra den bättre och mer omfattande.",
+    "answer6": "Vi själva. Vi har ingen extern eller tredje parts finansiering. Vi gör detta på vår fritid. Vi får inga intäkter för någon av våra produktioner, som allt är fritt tillgängligt via {ihd}",
+    "heading": "Vanliga frågor",
+    "message1": "Spaektionary skapades av {creator} och består av den befintliga lexikaliska databasen i Shaetlan Project av {ihd}.",
+    "message2": "Det bör noteras att detta inte är en ordbok med ord som är exklusiva och unika för Shaetlan. Det är väldigt få ord. Som är normalt för alla språk delar Shaetlan många ord och uttryck med andra språk, särskilt de som är nära besläktade med Shaetlan, eller de som Shaetlan har varit i nära kontakt med. Faktum är att det inte finns något känt talat språk i världen som inte delar ordförråd med något annat språk. Detta gör inte på något sätt ett givet språk mindre värt. Det betyder inte heller att dessa ord är mindre relevanta för de givna språken.",
+    "message3": "Shaetlans omedelbara förfäder är skottar och nornor. Norn är utdöd, men härstammar från västerländskt fornnordiskt. Skotska är ett makrospråk med ett antal mycket olika varianter. De härstammar från Northumbrian old English. Standardengelska, å andra sidan, härstammar från Mercian old English. Så skotska är inte och har aldrig varit en dialekt av engelska lika lite som engelska är eller har varit en dialekt av skotsk. Shaetlan har också varit i intensiv kontakt med de germanska låglandsspråken (lågtyska och nederländska), och under de senaste århundradena med standardengelska. Alla dessa språk är nära besläktade och har många likheter mellan dem. Men de är inte identiska. Och de har alla påverkat resultatet av Shaetlan. För mer om Shaetlans historia, se {här}.",
+    "message4": "Vi får regelbundet frågor av den här typen:",
+    "question1": "Varför finns det engelska ord i ordboken?",
+    "question2": "Varför stavar du inte engelska ord på det engelska sättet?",
+    "question3": "Shaetlan har så mycket variation, hur kan det representeras i ett stavningssystem?",
+    "question4": "Det här är ett skotskt ord, du kan hitta det över hela Skottområdet, varför finns det i en Shaetlan-ordbok?",
+    "question5": "Varför ingår inte ___?",
+    "question6": "Vem finansierar detta?"
+  },
+  "global": {
+    "approve": "godkänna",
+    "browse": "Bläddra",
+    "cancel": "Avbryt",
+    "contribute": "bidra",
+    "delete": "radera",
+    "edit": "redigera",
+    "here": "här",
+    "login": "Logga in",
+    "logout": "Logga ut",
+    "random": "Slumpmässig",
+    "register": "Registrera",
+    "reject": "avvisa",
+    "remove": "ta bort",
+    "reply": "svar",
+    "required": "nödvändig",
+    "save": "Spara",
+    "select": "Välj",
+    "submit": "Skicka in"
+  },
+  "home": {
+    "featured": "Vårt utvalda bidrag för {today} är {featuredWord}",
+    "findOutMore": "Klicka för att ta reda på mer!",
+    "welcome1": "Välkommen till ordlistan av och för shetlänningar!",
+    "welcome2": "Hjälp oss att göra denna ordbok bättre genom att lägga till din röst i orden och uttrycken. Och hjälp oss genom att lägga till de ord och uttryck som saknas!",
+    "welcome3": "Vi kommer att kartlägga orden och uttrycken efter plats för att visa en mer fullständig bild av Shaetlans tal.",
+    "welcome4": "För att komma igång kan du söka efter ett ord eller en fras i sökfältet ovan, eller klicka på bläddra i menyn för att bläddra efter bokstav. Om du vill bidra, klicka {här} för att registrera dig!"
+  },
+  "nav": {
+    "about": "Handla om",
+    "add": "Lägg till",
+    "dashboard": "instrumentbräda",
+    "nextPage": "Nästa sida",
+    "pagination": "Sida {page} av {totalPages}",
+    "previousPage": "Föregående sida",
+    "searchPlaceholder": "Sök ord",
+    "showingPagination": "Visar {from} till {to} av {total} ord"
+  },
+  "word": {
+    "cite": "citera",
+    "comment": "kommentar | kommentarer",
+    "comments": {
+      "add": "Lägg till kommentar",
+      "continue": "Fortsätt konversationen",
+      "loggedIn": "Du måste vara inloggad för att kommentera"
+    },
+    "exactMatch": "exakt matchning",
+    "location": "plats | platser",
+    "locations": {
+      "addEntries": "Lägg till din egen nedan",
+      "dataGathering": "Vi samlar in data och kommer att visa en värmekarta när vi får tillräckligt med information för att göra data användbar!",
+      "editEntries": "Redigera dina poster",
+      "loggedInAlert": "Du måste vara inloggad för att lägga till platser",
+      "previous": "Du har tidigare valt platser för {word}. Om du vill ändra ditt val, klicka {här}.",
+      "searchLocations": "Sök platser",
+      "whereInShetland": "Var på Shetland talas detta ord?"
+    },
+    "recording": "inspelning | inspelningar",
+    "recordings": {
+      "addYourOwn": "Lägg till en egen inspelning",
+      "date": "Datum",
+      "instruction1": "För att lägga till din egen inspelning, tryck bara på inspelningsknappen för att starta och samma knapp igen för att stoppa. Du kommer att kunna lyssna tillbaka på din inspelning innan du skickar in.",
+      "instruction2": "Din inspelning måste godkännas innan den kommer att synas på sajten.",
+      "noRecordings": "Det finns inga inspelningar tillgängliga för detta ord än, var först med att lägga till en",
+      "pendingAlert": "Du har en väntande inspelning. Vi kommer att granska det i sinom tid! Du kan lägga till ytterligare en nedan om du vill.",
+      "signUp": "Registrera dig för att lägga till en inspelning",
+      "speaker": "Högtalare",
+      "start": "Start",
+      "stop": "Sluta spela in",
+      "successAlert": "Inspelningen har lagts till! Vi granskar det och om det är lämpligt så godkänner vi det!",
+      "tryAgain": "Försök igen",
+      "type": "Typ",
+      "word": "Ord",
+      "yourRecording": "Din inspelning"
+    },
+    "report": "Rapportera",
+    "reportAlert": "Din ordrapport var framgångsrik. Vi kommer att granska det så snart som möjligt.",
+    "reporting": {
+      "inappropriateComments": "Olämpliga kommentarer",
+      "inappropriateDefinition": "Olämpligt språk i definitionen",
+      "inappropriateExampleSentence": "Olämpligt språk i exempelmeningen",
+      "inappropriateRecordings": "Olämpliga inspelningar",
+      "inappropriateWord": "Olämpligt ord",
+      "issueNature": "Vad är frågans natur?",
+      "other": "Övrig",
+      "whatIsTheIssue": "Vad är problemet med {word}",
+      "yourMessage": "Ditt meddelande"
+    },
+    "usage": "Användande"
+  }
+}

@@ -7,6 +7,9 @@ import NavBar from "../components/NavBar.vue";
 import Pagination from "../components/Pagination.vue";
 import MobileMenu from "../components/MobileMenu.vue";
 
+import { useI18n } from "vue-i18n";
+const { t } = useI18n();
+
 let searchString = "";
 
 const newWord = useForm({
@@ -99,9 +102,17 @@ const currentPageEndsAt = computed(() => {
                 v-if="pagination && pagination.pages > 1"
             >
                 <span v-if="pagination.pages > 1">
-                    Showing <b>{{ currentPageStartsAt }}</b> to
-                    <b>{{ currentPageEndsAt }}</b> out of
-                    <b>{{ pagination.total }}</b> words
+                    <i18n-t keypath="nav.showingPagination" type="span">
+                        <template #from>
+                            <b>{{ currentPageStartsAt }}</b>
+                        </template>
+                        <template #to>
+                            <b>{{ currentPageEndsAt }}</b>
+                        </template>
+                        <template #total>
+                            <b>{{ pagination.total }}</b>
+                        </template>
+                    </i18n-t>
                 </span>
             </div>
 

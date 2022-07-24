@@ -15,13 +15,19 @@
         "remove": "remove",
         "approve": "approve",
         "reject": "reject",
-        "save": "Save"
+        "save": "Save",
+        "cancel": "cancel",
+        "select": "Select"
     },
     "nav": {
         "searchPlaceholder": "Search words",
         "about": "About",
         "add": "Add",
-        "dashboard": "Dashboard"
+        "dashboard": "Dashboard",
+        "previousPage": "Previous page",
+        "nextPage": "Next page",
+        "pagination": "Page {page} of {totalPages}",
+        "showingPagination": "Showing {from} to {to} of {total} words"
     },
     "home": {
         "welcome1": "Welcome to the dictionary by and for Shetlanders!",
@@ -82,7 +88,8 @@
         "report": "report",
         "comments": {
             "add": "Add comment",
-            "loggedIn": "You must be logged in to comment"
+            "loggedIn": "You must be logged in to comment",
+            "continue": "Continue the conversation"
         },
         "recordings": {
             "successAlert": "Recording successfully added! We'll review it and if it's appropriate, we'll approve it!",
@@ -109,6 +116,17 @@
             "previous": "You have previously selected locations for {word}. If you would like to amend your selection, please click {here}.",
             "editEntries": "Edit your entries",
             "addEntries": "Add your own below"
+        },
+        "reporting": {
+            "inappropriateWord": "Inappropriate word",
+            "inappropriateDefinition": "Inappropriate language in the definition",
+            "inappropriateExampleSentence": "Inappropriate language in the example sentence",
+            "inappropriateComments": "Inappropriate comment(s)",
+            "inappropriateRecordings": "Inappropriate recording(s)",
+            "other": "Other",
+            "issueNature": "What is the nature of the issue?",
+            "whatIsTheIssue": "What's the issue with {word}",
+            "yourMessage": "Your message"
         }
     }
 }

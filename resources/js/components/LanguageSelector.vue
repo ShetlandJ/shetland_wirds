@@ -52,7 +52,7 @@ const languages = [
             <template v-if="shetlandSelected">
                <div class="flex">
                     <ShetlandFlag />
-                    <span v-if="showGuide" class="ml-2">
+                    <span v-if="showGuide" class="ml-2 dark:text-white">
                         Change language
                     </span>
                 </div>

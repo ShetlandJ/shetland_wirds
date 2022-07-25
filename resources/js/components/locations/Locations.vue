@@ -5,6 +5,9 @@ import LocationInput from "./LocationInput.vue";
 const { isLoggedIn, userSelectedLocations, locations, word } =
     usePage().props.value;
 
+import { useI18n } from "vue-i18n";
+const { t } = useI18n();
+
 let showAddForm = ref(true);
 
 const toggleShowAddForm = () => (showAddForm.value = !showAddForm.value);

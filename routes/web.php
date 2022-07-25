@@ -180,7 +180,7 @@ Route::post('/word/{slug}/recordings', function (string $slug) {
 
     $filePath = sprintf('%s/%s', $slug, basename($file));
     if (App::environment('production')) {
-        Storage::disk('s3')->put($filePath, request('userRecording'));
+        Storage::disk('s3')->put($slug . '/', request('userRecording'));
     } else {
         $filePath = sprintf('%s/%s', $slug, basename($file));
     }

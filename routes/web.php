@@ -37,9 +37,6 @@ use Illuminate\Support\Facades\Redirect;
 */
 
 Route::get('/', function () {
-    $total = app(WordService::class)->findBy()->count();
-    $pageTotal = request('perPage') ?? 20;
-
     $randomWord = DB::table('words')->inRandomOrder()->first()->slug;
 
     return Inertia::render('Home', [
@@ -307,6 +304,9 @@ Route::get('/word/id/{uuid}', function (string $wordUuid) {
     if (!$word) {
         return redirect()->back();
     }
+
+    app(LogService::class)->create(request(), $word->id);
+
     return redirect()->route('word.comments', $word->slug);
 });
 

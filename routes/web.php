@@ -17,6 +17,7 @@ use App\Services\RevisionService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\App;
 use App\Http\Middleware\UserIsAdmin;
+use App\Services\LogService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
@@ -37,7 +38,7 @@ use Illuminate\Support\Facades\Redirect;
 
 Route::get('/', function () {
     $total = app(WordService::class)->findBy()->count();
-    $pageTotal = request('perPage') ?? 10;
+    $pageTotal = request('perPage') ?? 20;
 
     $randomWord = DB::table('words')->inRandomOrder()->first()->slug;
 
@@ -54,7 +55,7 @@ Route::get('/', function () {
 
 Route::get('/words', function () {
     $total = app(WordService::class)->findBy()->count();
-    $pageTotal = request('perPage') ?? 10;
+    $pageTotal = request('perPage') ?? 20;
     $pagination = [
         'page' => request('page') ?? 1,
         'perPage' => request('perPage') ?? 20,
@@ -146,6 +147,7 @@ Route::get('/word/{word}/recordings', function (string $word) {
     }
 
     $fullWord = Word::where('uuid', $foundWord['id'])->first();
+    app(LogService::class)->create(request(), $fullWord->id);
 
     return Inertia::render('WordRecordings', [
         'canLogin' => Route::has('login'),
@@ -171,10 +173,12 @@ Route::post('/word/{slug}/recordings', function (string $slug) {
         Storage::disk('local')->makeDirectory($path);
     }
 
-    $file = Storage::disk('local')->put(
-        $path,
-        request('userRecording'),
-    );
+    if (App::environment('local')) {
+        $file = Storage::disk('local')->put(
+            $path,
+            request('userRecording'),
+        );
+    }
 
     $foundWord = app(WordService::class)->findByWord($slug);
 
@@ -213,6 +217,7 @@ Route::get('/word/{word}/locations', function (string $word) {
     }
 
     $fullWord = Word::where('uuid', $foundWord['id'])->first();
+    app(LogService::class)->create(request(), $fullWord->id);
 
     return Inertia::render('WordLocations', [
         'canLogin' => Route::has('login'),
@@ -291,6 +296,9 @@ Route::get('/word/{word}', function (string $word) {
     if (!$foundWord) {
         return redirect()->back();
     }
+
+    app(LogService::class)->create(request());
+
     $fullWord = Word::where('uuid', $foundWord['id'])->first();
 
     return redirect()->route('word.comments', $fullWord->slug);
@@ -311,6 +319,7 @@ Route::get('/word/{word}/comments', function (string $word) {
     }
 
     $fullWord = Word::where('uuid', $foundWord['id'])->first();
+    app(LogService::class)->create(request(), $fullWord->id);
 
     return Inertia::render('WordComments', [
         'canLogin' => Route::has('login'),
@@ -367,6 +376,7 @@ Route::patch('/word/{word}/comments', function (string $word) {
     $foundWord = Word::where('word', $word)->first();
     $comment = Comment::where('uuid', $commentId)->first();
 
+
     if ($comment->author->id !== Auth::id()) {
         return redirect()->back();
     }
@@ -376,6 +386,7 @@ Route::patch('/word/{word}/comments', function (string $word) {
     app(CommentService::class)->update($comment, $text);
 
     $fullWord = app(WordService::class)->findByWord($foundWord->slug);
+     app(LogService::class)->create(request(), $fullWord->id);
 
     return Inertia::render('WordComments', [
         'canLogin' => Route::has('login'),

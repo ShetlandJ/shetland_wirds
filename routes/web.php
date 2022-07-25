@@ -292,7 +292,9 @@ Route::get('/word/{word}', function (string $word) {
         return redirect()->back();
     }
 
-    app(LogService::class)->create(request());
+    $fullWord = Word::where('uuid', $foundWord['id'])->first();
+
+    app(LogService::class)->create(request(), $fullWord->id);
 
     $fullWord = Word::where('uuid', $foundWord['id'])->first();
 

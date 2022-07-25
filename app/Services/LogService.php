@@ -28,6 +28,15 @@ class LogService
 {
     public function create(Request $request, ?int $wordId): ?UserLog
     {
+        $veryRecentLog = UserLog::where('word_id', $wordId)
+            ->where('session_id', $request->session()->getId())
+            ->where('created_at', '>', Carbon::now()->subMinutes(2))
+            ->first();
+
+        if ($veryRecentLog) {
+            return null;
+        }
+
         try {
             $sessionId = $request->session()->getId();
 

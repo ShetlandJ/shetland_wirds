@@ -72,14 +72,15 @@ const toggleEdit = () => {
                 py-2
                 sm:px-6 sm:py-4
                 leading-relaxed
-                dark:text-gray-200
+                dark:text-gray-500
+                dark:text-white
             "
         >
-            <strong>{{ childComment.author }}</strong>
-            <span class="text-xs text-gray-400 ml-2">
+            <strong class="dark:text-white">{{ childComment.author }}</strong>
+            <span class="text-xs text-gray-400 ml-2 dark:text-white">
                 {{ formatDateTime(childComment.created_at) }}
             </span>
-            <p class="text-sm mt-2" v-if="!editMode">
+            <p class="text-sm mt-2 dark:text-white" v-if="!editMode">
                 <SanitisedHtml :html-string="childComment.message" />
             </p>
             <CommentInput
@@ -103,7 +104,7 @@ const toggleEdit = () => {
                             font-semibold
                             hover:underline
                             cursor-pointer
-                            dark:text-gray-400
+                            dark:text-gray-300
                             mr-2
                         "
                         @click="toggleEdit"
@@ -118,7 +119,7 @@ const toggleEdit = () => {
                             font-semibold
                             hover:underline
                             cursor-pointer
-                            dark:text-gray-400
+                            dark:text-gray-300
                         "
                         @click="deleteComment(childComment.id)"
                     >

@@ -94,7 +94,7 @@ const reportWord = () => {
         <div class="mt-3" v-if="reportForm.reason_type === 'other'">
             <label
                 for="reportForm-reportReason"
-                class="form-label inline-block mb-2 mt-4 text-gray-700"
+                class="form-label inline-block mb-2 mt-4 text-gray-700 dark:text-white"
             >
                 <i18n-t keypath="word.reporting.whatIsTheIssue">
                     <template #word>

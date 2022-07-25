@@ -75,6 +75,13 @@ const today = () => {
     const options = { year: "numeric", month: "long", day: "numeric" };
     return new Date().toLocaleDateString(undefined, options);
 };
+
+const convertMonthToI18n = (dateString) => {
+    const monthName = dateString.split(' ')[1];
+    const i18nMonth = t(`months.${monthName.toLowerCase()}`);
+
+    return dateString.replace(monthName, i18nMonth);
+}
 </script>
 
 <template>
@@ -147,9 +154,7 @@ const today = () => {
                 <Alert v-if="featuredWord">
                     <div class="dark:text-white flex" style="display: block">
                         <i18n-t keypath="home.featured" tag="span">
-
-                            <template #today>{{today()}}</template>
-                        <!-- Our featured entry for {{ today() }} is -->
+                            <template #today>{{convertMonthToI18n(today())}}</template>
                         <template #featuredWord>
                         <Link
                             v-if="featuredWord"

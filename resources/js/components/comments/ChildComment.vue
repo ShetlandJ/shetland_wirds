@@ -42,26 +42,6 @@ const toggleEdit = () => {
 
 <template>
     <div class="flex" v-if="childComment && childComment.id">
-        <!-- <div class="flex-shrink-0 mr-3">
-            <div
-                style="background: #2663eb"
-                class="
-                    rounded-full
-                    flex
-                    items-center
-                    justify-center
-                    mt-2
-                    w-8
-                    h-8
-                    sm:w-10
-                    bg-blue-500
-                    sm:h-10
-                    text-white text-xl
-                "
-            >
-                {{ childComment.author_initials }}
-            </div>
-        </div> -->
         <div
             class="
                 flex-1

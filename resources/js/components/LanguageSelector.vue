@@ -59,7 +59,7 @@ const languages = [
             </template>
 
             <template v-else>
-                <div class="flex">
+                <div class="flex items-center">
                     <span style="font-size: 1.7rem">{{ flagEmoji }}</span>
                     <span v-if="showGuide" class="ml-2 dark:text-white">
                         Change language

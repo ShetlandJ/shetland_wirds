@@ -23,25 +23,29 @@ class SyncWordList extends Command
         $path = storage_path() . "/wordUpdates.csv"; // ie: /var/www/laravel/app/storage/json/filename.json
 
         $words = [];
-
-        $counter = 0;
-        if (($open = fopen($path, "r")) !== false) {
-            while (($data = fgetcsv($open, 1000, ",")) !== false) {
-                if ($counter < 1) {
+        try {
+            $counter = 0;
+            if (($open = fopen($path, "r")) !== false) {
+                while (($data = fgetcsv($open, 1000, ",")) !== false) {
+                    if ($counter < 1) {
+                        ++$counter;
+                        continue;
+                    }
+                    [$word, $version, $definitions, $type] = $data;
+                    $words[] = [
+                        'word' => $word,
+                        'version' => $version,
+                        'definitions' => $definitions,
+                        'type' => $type,
+                    ];
                     ++$counter;
-                    continue;
                 }
-                [$word, $version, $definitions, $type] = $data;
-                $words[] = [
-                    'word' => $word,
-                    'version' => $version,
-                    'definitions' => $definitions,
-                    'type' => $type,
-                ];
-                ++$counter;
-            }
 
-            fclose($open);
+                fclose($open);
+            }
+        } catch (\Exception $e) {
+            logger($e->getMessage());
+            return false;
         }
 
         DB::beginTransaction();

@@ -173,12 +173,10 @@ Route::post('/word/{slug}/recordings', function (string $slug) {
         Storage::disk('local')->makeDirectory($path);
     }
 
-    if (App::environment('local')) {
-        $file = Storage::disk('local')->put(
-            $path,
-            request('userRecording'),
-        );
-    }
+    $file = Storage::disk('local')->put(
+        $path,
+        request('userRecording'),
+    );
 
     $foundWord = app(WordService::class)->findByWord($slug);
 

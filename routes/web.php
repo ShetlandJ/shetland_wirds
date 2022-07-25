@@ -384,7 +384,6 @@ Route::patch('/word/{word}/comments', function (string $word) {
     app(CommentService::class)->update($comment, $text);
 
     $fullWord = app(WordService::class)->findByWord($foundWord->slug);
-     app(LogService::class)->create(request(), $fullWord->id);
 
     return Inertia::render('WordComments', [
         'canLogin' => Route::has('login'),

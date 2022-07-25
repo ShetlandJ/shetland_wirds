@@ -3,6 +3,9 @@ import JetDropdown from "@/Jetstream/Dropdown.vue";
 import ShetlandFlag from "./icons/ShetlandFlag.vue";
 import { computed } from "@vue/runtime-core";
 
+import { useI18n } from "vue-i18n";
+const { t } = useI18n();
+
 defineProps({
     showGuide: {
         type: Boolean,
@@ -40,7 +43,7 @@ const languages = [
         flag: "🏴󠁧󠁢󠁳󠁣󠁴󠁿",
     },
     {
-        name: "Shetland",
+        name: "Shaetlan",
         value: "shet",
     },
 ];
@@ -53,7 +56,7 @@ const languages = [
                <div class="flex">
                     <ShetlandFlag />
                     <span v-if="showGuide" class="ml-2 dark:text-white">
-                        Change language
+                        {{t('language.change')}}
                     </span>
                 </div>
             </template>
@@ -62,14 +65,14 @@ const languages = [
                 <div class="flex items-center">
                     <span style="font-size: 1.7rem">{{ flagEmoji }}</span>
                     <span v-if="showGuide" class="ml-2 dark:text-white">
-                        Change language
+                        {{t('language.change')}}
                     </span>
                 </div>
             </template>
         </template>
         <template #content>
             <div class="m-2">
-                <p class="mb-4 dark:text-white">Select your language:</p>
+                <p class="mb-4 dark:text-white">{{(t('language.select'))}}:</p>
 
                 <template v-for="(language, index) in languages" :key="index">
                     <a

@@ -128,5 +128,9 @@
             "whatIsTheIssue": "What's the issue with {word}",
             "yourMessage": "Your message"
         }
+    },
+    "language": {
+        "change": "Change language",
+        "select": "Select language"
     }
 }

@@ -274,7 +274,7 @@ const showReportAlert = ref(false);
                 <div
                     className="flex items-center mr-2 text-gray-700 text-sm mr-3 mt-2"
                 >
-                    <div :class="[fullView ? 'border-b border-gray-200' : '']">
+                    <div>
                         <Link
                             v-if="!fullView"
                             :href="route('word.comments', { word: word.slug })"
@@ -287,10 +287,6 @@ const showReportAlert = ref(false);
                         >
                             {{ word.comments.length }}
                             {{t('word.comment', { count: word.comments.length })}}
-<!--
-                             comment{{
-                                word.comments.length === 1 ? "" : "s"
-                            }} -->
                         </Link>
 
                         <Link
@@ -300,6 +296,7 @@ const showReportAlert = ref(false);
                                 inline-block
                                 text-blue-600
                                 rounded-t-lg
+                                rounded-b-lg
                                 py-4
                                 px-4
                                 text-sm
@@ -345,6 +342,7 @@ const showReportAlert = ref(false);
                                 inline-block
                                 text-blue-600
                                 rounded-t-lg
+                                rounded-b-lg
                                 py-4
                                 px-4
                                 text-sm
@@ -391,6 +389,7 @@ const showReportAlert = ref(false);
                                 inline-block
                                 text-blue-600
                                 rounded-t-lg
+                                rounded-b-lg
                                 py-4
                                 px-4
                                 text-sm

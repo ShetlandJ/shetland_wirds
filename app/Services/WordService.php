@@ -75,7 +75,10 @@ class WordService
 
     public function findExactWordBySearch(string $searchString): ?array
     {
-        $foundWord = Word::where('word', $searchString)->first();
+        $foundWord = Word::where('word', $searchString)
+            ->where('words.pending', false)
+            ->where('words.rejected', false)
+            ->first();
 
         if (!$foundWord) {
             return null;

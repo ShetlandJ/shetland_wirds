@@ -9,6 +9,7 @@ use App\Models\Word;
 use App\Models\Comment;
 use App\Models\UserLog;
 use App\Models\Location;
+use App\Models\SearchLog;
 use App\Models\WordToWord;
 use Illuminate\Support\Str;
 use App\Models\UserWordLike;
@@ -26,7 +27,7 @@ use Symfony\Component\Routing\Loader\Configurator\CollectionConfigurator;
 
 class LogService
 {
-    public function create(Request $request, ?int $wordId): ?UserLog
+    public function createUserLog(Request $request, ?int $wordId): ?UserLog
     {
         $veryRecentLog = UserLog::where('word_id', $wordId)
             ->where('session_id', $request->session()->getId())
@@ -46,6 +47,31 @@ class LogService
             $log->user_id = Auth::id() ?? null;
             $log->session_id = $sessionId;
             $log->word_id = $wordId ?? null;
+            $log->ip_address = $request->ip();
+            $log->save();
+
+            return $log;
+        } catch (Exception $e) {
+            // fail gracefully
+            logger($e->getMessage());
+            return null;
+        }
+    }
+
+    public function createSearchLog(Request $request, ?string $searchString): ?SearchLog
+    {
+        if (!$searchString) {
+            return null;
+        }
+
+        try {
+            $sessionId = $request->session()->getId();
+
+            $log = new SearchLog();
+            $log->uuid = (string) Str::uuid();
+            $log->user_id = Auth::id() ?? null;
+            $log->session_id = $sessionId;
+            $log->search_string = $searchString;
             $log->ip_address = $request->ip();
             $log->save();
 

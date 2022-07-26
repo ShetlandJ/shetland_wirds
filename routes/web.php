@@ -90,6 +90,7 @@ Route::get('/search', function () {
     ];
 
     $exactMatch = app(WordService::class)->findExactWordBySearch($searchTerm, true);
+    app(LogService::class)->createSearchLog(request(), $searchTerm);
 
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
@@ -124,6 +125,7 @@ Route::post('/search', function () {
 
     $words = app(WordService::class)->findAllWordsWithPagination($searchTerm, $pagination);
     $exactMatch = app(WordService::class)->findExactWordBySearch($searchTerm, true);
+    app(LogService::class)->createSearchLog(request(), $searchTerm);
 
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
@@ -144,7 +146,7 @@ Route::get('/word/{word}/recordings', function (string $word) {
     }
 
     $fullWord = Word::where('uuid', $foundWord['id'])->first();
-    app(LogService::class)->create(request(), $fullWord->id);
+    app(LogService::class)->createUserLog(request(), $fullWord->id);
 
     return Inertia::render('WordRecordings', [
         'canLogin' => Route::has('login'),
@@ -212,7 +214,7 @@ Route::get('/word/{word}/locations', function (string $word) {
     }
 
     $fullWord = Word::where('uuid', $foundWord['id'])->first();
-    app(LogService::class)->create(request(), $fullWord->id);
+    app(LogService::class)->createUserLog(request(), $fullWord->id);
 
     return Inertia::render('WordLocations', [
         'canLogin' => Route::has('login'),
@@ -294,7 +296,7 @@ Route::get('/word/{word}', function (string $word) {
 
     $fullWord = Word::where('uuid', $foundWord['id'])->first();
 
-    app(LogService::class)->create(request(), $fullWord->id);
+    app(LogService::class)->createUserLog(request(), $fullWord->id);
 
     $fullWord = Word::where('uuid', $foundWord['id'])->first();
 
@@ -307,7 +309,7 @@ Route::get('/word/id/{uuid}', function (string $wordUuid) {
         return redirect()->back();
     }
 
-    app(LogService::class)->create(request(), $word->id);
+    app(LogService::class)->createUserLog(request(), $word->id);
 
     return redirect()->route('word.comments', $word->slug);
 });
@@ -319,7 +321,7 @@ Route::get('/word/{word}/comments', function (string $word) {
     }
 
     $fullWord = Word::where('uuid', $foundWord['id'])->first();
-    app(LogService::class)->create(request(), $fullWord->id);
+    app(LogService::class)->createUserLog(request(), $fullWord->id);
 
     return Inertia::render('WordComments', [
         'canLogin' => Route::has('login'),

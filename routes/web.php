@@ -80,7 +80,7 @@ Route::get('/search', function () {
     }
 
     $total = app(WordService::class)->findBy($searchTerm)->count();
-    $pageTotal = request('perPage') ?? 10;
+    $pageTotal = request('perPage') ?? 20;
 
     $pagination = [
         'page' => request('page') ?? 1,
@@ -114,7 +114,7 @@ Route::post('/search', function () {
     }
 
     $total = app(WordService::class)->findBy($searchTerm)->count();
-    $pageTotal = request('perPage') ?? 10;
+    $pageTotal = request('perPage') ?? 20;
     $pagination = [
         'page' => request('page') ?? 1,
         'perPage' => request('perPage') ?? 20,
@@ -251,7 +251,7 @@ Route::post('/word/{slug}/locations', function (string $slug) {
 
 Route::get('/words/{letter}/', function (string $letter) {
     $total = app(WordService::class)->findBy('', [], $letter)->count();
-    $pageTotal = request('perPage') ?? 10;
+    $pageTotal = request('perPage') ?? 20;
 
     $page = request('page') ?? 1;
 

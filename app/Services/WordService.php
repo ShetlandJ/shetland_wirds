@@ -40,7 +40,7 @@ class WordService
         }
 
         if (isset($pagination['page'])) {
-            $pageSize = 10;
+            $pageSize = 20;
             $query
                 ->take($pageSize)
                 ->skip(($pagination['page'] - 1) * $pageSize);

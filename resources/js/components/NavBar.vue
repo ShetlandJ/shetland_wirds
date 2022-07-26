@@ -160,6 +160,7 @@ const logout = () => {
                                     :placeholder="t('nav.searchPlaceholder')"
                                     aria-label="Search"
                                     aria-describedby="button-addon2"
+                                    @change="form.searchString = $event"
                                 />
                                 <button
                                     :disabled="form.searchString.length === 0"

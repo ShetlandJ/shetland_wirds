@@ -92,14 +92,20 @@ Route::get('/search', function () {
     ];
 
     $exactMatch = app(WordService::class)->findExactWordBySearch($searchTerm, true);
+    $words = app(WordService::class)->findAllWordsWithPagination($searchTerm, $pagination);
+
     app(LogService::class)->createSearchLog(request(), $searchTerm);
+
+    if ($exactMatch && count($words) === 0) {
+        return redirect()->route('word.comments', ['word' => $exactMatch['slug']]);
+    }
 
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'isLoggedIn' => Auth::check(),
         'exactMatch' => $exactMatch,
-        'words' => app(WordService::class)->findAllWordsWithPagination($searchTerm, $pagination),
+        'words' => $words,
         'pagination' => $pagination,
         'searchString' => $searchTerm,
         'randomWord' => DB::table('words')->inRandomOrder()->first()->slug,
@@ -128,6 +134,10 @@ Route::post('/search', function () {
     $words = app(WordService::class)->findAllWordsWithPagination($searchTerm, $pagination);
     $exactMatch = app(WordService::class)->findExactWordBySearch($searchTerm, true);
     app(LogService::class)->createSearchLog(request(), $searchTerm);
+
+    if ($exactMatch && count($words) === 0) {
+        return redirect()->route('word.comments', ['word' => $exactMatch['slug']]);
+    }
 
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
@@ -303,7 +313,7 @@ Route::get('/word/{word}', function (string $word) {
     $fullWord = Word::where('uuid', $foundWord['id'])->first();
 
     return redirect()->route('word.comments', $fullWord->slug);
-});
+})->name('word.base');
 
 Route::get('/word/id/{uuid}', function (string $wordUuid) {
     $word = Word::where('uuid', $wordUuid)->first();

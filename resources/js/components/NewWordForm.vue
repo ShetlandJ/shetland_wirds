@@ -1,5 +1,5 @@
 <script setup>
-import { useForm } from "@inertiajs/inertia-vue3";
+import { useForm, usePage } from "@inertiajs/inertia-vue3";
 import Selectable from "../components/Selectable.vue";
 const emit = defineEmits(["hide-form", "success"]);
 

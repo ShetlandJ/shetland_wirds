@@ -304,13 +304,6 @@ class WordService
 
     public function validateNewWordSubmission(array $payload): bool
     {
-        if (isset($payload['newWord'])) {
-            $wordExists = Word::where('word', $payload['newWord'])->exists();
-            if ($wordExists) {
-                return false;
-            }
-        }
-
         if (!isset($payload['translation'])) {
             return false;
         }
@@ -404,7 +397,7 @@ class WordService
             return null;
         }
 
-        $word->pending = true;
+        $word->pending = false;
         $word->rejected = true;
         $word->reason = $rejectReason;
         $word->save();

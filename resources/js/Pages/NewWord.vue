@@ -3,8 +3,12 @@ import WordResult from "../components/WordResult.vue";
 import NavBar from "../components/NavBar.vue";
 import { Head, usePage } from "@inertiajs/inertia-vue3";
 import NewWordForm from "../components/NewWordForm.vue";
+import { computed, ref } from "@vue/runtime-core";
 
 let urlPrev = usePage().props.value.urlPrev;
+const errorBags = computed(() => {
+    return usePage().props.value?.errorBags?.default
+});
 
 const props = defineProps({
     canLogin: Boolean,
@@ -34,6 +38,12 @@ const goBack = () => window.history.back();
             :can-register="canRegister"
             :is-logged-in="isLoggedIn"
             @set-search="searchString = $event"
+        />
+
+        <Alert
+            v-if="errorBags && errorBags.newWord"
+            :message="errorBags.newWord[0]"
+            variant="warning"
         />
 
         <NewWordForm

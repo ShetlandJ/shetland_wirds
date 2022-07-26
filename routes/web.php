@@ -5,7 +5,9 @@ use App\Models\User;
 use App\Models\Word;
 use Inertia\Inertia;
 use App\Models\Comment;
+use App\Rules\WordExists;
 use App\Models\WordReport;
+use App\Services\LogService;
 use Illuminate\Http\Request;
 use App\Models\WordRecording;
 use App\Services\UserService;
@@ -17,13 +19,13 @@ use App\Services\RevisionService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\App;
 use App\Http\Middleware\UserIsAdmin;
-use App\Services\LogService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 
 /*
 |--------------------------------------------------------------------------
@@ -431,8 +433,18 @@ Route::get('/create', function (Request $request) {
 })->name('create');
 
 Route::post('/create', function (Request $request) {
-    // get the post payload
     $payload = $request->all();
+
+    // validator check if the word is already in the database
+    $validator = Validator::make($payload, [
+        'newWord' => ['required', new WordExists()],
+    ]);
+
+    if ($validator->fails()) {
+        return redirect()->back()
+            ->withErrors($validator)
+            ->withInput();
+    }
 
     $valid = app(WordService::class)->validateNewWordSubmission($payload);
 

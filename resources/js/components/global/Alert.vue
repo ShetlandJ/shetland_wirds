@@ -25,6 +25,7 @@ defineProps({
         :class="[
             variant === 'info' ? 'bg-blue-100 text-blue-700 dark:bg-blue-800 dark:text-blue-200' : '',
             variant === 'success' ? 'bg-green-100 text-green-700 dark:bg-green-800 dark:text-green-200' : '',
+            variant === 'warning' ? 'bg-red-100 text-red-700 dark:bg-red-800 dark:text-red-200' : '',
         ]"
         role="alert"
     >
@@ -34,3 +35,9 @@ defineProps({
         <slot v-else />
     </div>
 </template>
+
+<style scoped>
+.bg-red-100 {
+    background-color: #fff5f5;
+}
+</style>

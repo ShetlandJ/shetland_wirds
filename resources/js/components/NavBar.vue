@@ -22,6 +22,10 @@ const suggestWord = () => {
 };
 
 const search = () => {
+    if (form.searchString.length === 0) {
+        return;
+    }
+
     emit("set-search", form.searchString);
     form.transform((data) => ({
         ...data,
@@ -160,10 +164,8 @@ const logout = () => {
                                     :placeholder="t('nav.searchPlaceholder')"
                                     aria-label="Search"
                                     aria-describedby="button-addon2"
-                                    @change="form.searchString = $event"
                                 />
                                 <button
-                                    :disabled="form.searchString.length === 0"
                                     class="
                                         btn
                                         inline-block

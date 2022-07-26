@@ -3,6 +3,7 @@ import { reactive, ref } from "@vue/runtime-core";
 import format from "date-fns/format";
 import UpdateWordOfTheDayForm from "./UpdateWordOfTheDayForm.vue";
 import CreateNewQueuedWord from "./CreateNewQueuedWord.vue";
+import { Link } from "@inertiajs/inertia-vue3";
 
 const DATE_FORMAT = "d MMM yy";
 
@@ -98,7 +99,20 @@ const showCreateNewWordForm = ref(false);
                                         text-sm
                                     "
                                 >
-                                    {{ queuedWord.word }}
+                                    <Link
+                                        :href="
+                                            route('word.comments', {
+                                                word: queuedWord.slug,
+                                            })
+                                        "
+                                        class="
+                                            text-gray-700
+                                            dark:text-white
+                                            underline
+                                        "
+                                    >
+                                        {{ queuedWord.word }}
+                                    </Link>
                                 </td>
                                 <td
                                     class="

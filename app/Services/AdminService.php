@@ -67,6 +67,7 @@ class AdminService
             $newItem = [];
             $newItem['id'] = $item->uuid;
             $newItem['word'] = $item->word->word;
+            $newItem['slug'] = $item->word->slug;
             $newItem['scheduled_for'] = Carbon::parse($item->scheduled_for)->toDateTimeString();
             $newItem['creator'] = $item->creator ? $item->creator->name : 'System generated';
             $formattedList[] = $newItem;

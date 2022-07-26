@@ -76,6 +76,8 @@ const showingNavigationDropdown = ref(false);
 const logout = () => {
     Inertia.post(route("logout"));
 };
+
+const userIsTrusted = usePage().props.value.user?.is_trusted;
 </script>
 
 <template>
@@ -424,7 +426,7 @@ const logout = () => {
                     </a>
                 </li>
                 <template v-if="isLoggedIn">
-                    <li class="md:ml-4 my-2">
+                    <li class="md:ml-4 my-2" v-if="userIsTrusted">
                         <Link
                             class="
                                 border-t

@@ -177,7 +177,7 @@ const wordRecordings = computed(() => {
 
         <div class="flex mb-4">
             <input type="search" v-model="searchString" />
-            <ActionButton @click="searchWords(true)">Search</ActionButton>
+            <ActionButton class="ml-2" @click="searchWords(true)">Search</ActionButton>
         </div>
 
         <div

@@ -109,10 +109,10 @@ const comparisonExists = (text1, text2) => {
                                         px-5
                                         py-3
                                         border-b-2 border-gray-200
-                                        bg-gray-100
+                                        bg-blue-200
                                         text-left text-xs
                                         font-semibold
-                                        text-gray-600
+                                        text-gray-800
                                         uppercase
                                         tracking-wider
                                     "

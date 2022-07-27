@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Da Spaektionary is Shetland's online dictionary for the Shaetlan language, where users can add words, comments and recordings!">
 
         <title inertia>{{ config('app.name', 'Spaektionary') }}</title>
 

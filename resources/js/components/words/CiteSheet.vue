@@ -1,4 +1,5 @@
 <script setup>
+import { computed } from "@vue/runtime-core";
 import format from "date-fns/format";
 const APA_DATE_FORMAT = "yyyy MMMM d";
 const CHICAGO_DATE_FORMAT = "MMMM d, yyyy";
@@ -12,6 +13,12 @@ defineProps({
         required: true,
     },
 });
+
+const URL = window.location.href;
+
+const citeURL = computed(
+    () => `${window.location.origin}/word/id/${props.word.id}`
+);
 </script>
 
 <template>

@@ -156,5 +156,26 @@
         "friday": "Frydee",
         "saturday": "Setterdy",
         "sunday": "Sundy"
+    },
+    "login": {
+        "login": "Login",
+        "email": "Email",
+        "password": "Passwird",
+        "rememberMe": "Mind me",
+        "forgottenPassword": "Firyatten yir passwird"
+    },
+    "register": {
+        "register": "Reigister",
+        "desc": "Reigisterin wi Da Spaektionary alloos you tae add comments, recoardeens an plaesses til wirds idda dictionary",
+        "name": "Naem",
+        "email": "Email",
+        "password": "Passwird",
+        "confirmPassword": "Confirm passwird",
+        "alreadyRegistered": "Already reigistered"
+    },
+    "forgot": {
+        "desc": "Firyatten yir passwird? Nae budder. Jüst lat wis ken yir email address and we'll email you a passwird reset link at'll alloo you tae pick a new een.",
+        "email": "Email",
+        "action": "Email passwird reset link"
     }
 }

@@ -156,5 +156,26 @@
         "friday": "Friday",
         "saturday": "Saturday",
         "sunday": "Sunday"
+    },
+    "login": {
+        "login": "Login",
+        "email": "Email",
+        "password": "Password",
+        "rememberMe": "Remember me",
+        "forgottenPassword": "Forgotten your password"
+    },
+    "register": {
+        "register": "Register",
+        "desc": "Registering with Spaektionary allows you to add comments, recordings and locations to words in the dictionary",
+        "name": "Name",
+        "email": "Email",
+        "password": "Password",
+        "confirmPassword": "Confirm password",
+        "alreadyRegistered": "Already registered"
+    },
+    "forgot": {
+        "desc": "Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.",
+        "email": "Email",
+        "action": "Email password reset link"
     }
 }

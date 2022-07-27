@@ -8,6 +8,9 @@ import JetCheckbox from "@/Jetstream/Checkbox.vue";
 import JetLabel from "@/Jetstream/Label.vue";
 import JetValidationErrors from "@/Jetstream/ValidationErrors.vue";
 
+import { useI18n } from "vue-i18n";
+const { t } = useI18n();
+
 const form = useForm({
     name: "",
     email: "",
@@ -27,7 +30,6 @@ const submit = () => {
     <Head title="Register" />
 
     <JetAuthenticationCard>
-        <!-- <template #logo> -->
         <div class="text-center">
             <h1 class="leading-none text-2xl text-grey-darkest mb-3">
                 <p
@@ -44,17 +46,15 @@ const submit = () => {
             </h1>
 
             <p>
-                Registering with Spaektionary allows you to add comments,
-                recordings and locations to words in the dictionary
+                {{t('register.desc')}}
             </p>
         </div>
-        <!-- </template> -->
 
         <JetValidationErrors class="mb-4" />
 
         <form @submit.prevent="submit">
             <div>
-                <JetLabel for="name" value="Name" />
+                <JetLabel for="name" :value="t('register.name')" />
                 <JetInput
                     id="name"
                     v-model="form.name"
@@ -67,7 +67,7 @@ const submit = () => {
             </div>
 
             <div class="mt-4">
-                <JetLabel for="email" value="Email" />
+                <JetLabel for="email" :value="t('register.email')" />
                 <JetInput
                     id="email"
                     v-model="form.email"
@@ -78,7 +78,7 @@ const submit = () => {
             </div>
 
             <div class="mt-4">
-                <JetLabel for="password" value="Password" />
+                <JetLabel for="password" :value="t('register.password')" />
                 <JetInput
                     id="password"
                     v-model="form.password"
@@ -92,7 +92,7 @@ const submit = () => {
             <div class="mt-4">
                 <JetLabel
                     for="password_confirmation"
-                    value="Confirm Password"
+                    :value="t('register.confirmPassword')"
                 />
                 <JetInput
                     id="password_confirmation"
@@ -104,52 +104,12 @@ const submit = () => {
                 />
             </div>
 
-            <div
-                v-if="$page.props.jetstream.hasTermsAndPrivacyPolicyFeature"
-                class="mt-4"
-            >
-                <JetLabel for="terms">
-                    <div class="flex items-center">
-                        <JetCheckbox
-                            id="terms"
-                            v-model:checked="form.terms"
-                            name="terms"
-                        />
-
-                        <div class="ml-2">
-                            I agree to the
-                            <a
-                                target="_blank"
-                                :href="route('terms.show')"
-                                class="
-                                    underline
-                                    text-sm text-gray-600
-                                    hover:text-gray-900
-                                "
-                                >Terms of Service</a
-                            >
-                            and
-                            <a
-                                target="_blank"
-                                :href="route('policy.show')"
-                                class="
-                                    underline
-                                    text-sm text-gray-600
-                                    hover:text-gray-900
-                                "
-                                >Privacy Policy</a
-                            >
-                        </div>
-                    </div>
-                </JetLabel>
-            </div>
-
             <div class="flex items-center justify-end mt-4">
                 <Link
                     :href="route('login')"
                     class="underline text-sm text-gray-600 hover:text-gray-900"
                 >
-                    Already registered?
+                    {{t('register.alreadyRegistered')}}?
                 </Link>
 
                 <JetButton
@@ -157,7 +117,7 @@ const submit = () => {
                     :class="{ 'opacity-25': form.processing }"
                     :disabled="form.processing"
                 >
-                    Register
+                    {{t('register.register')}}
                 </JetButton>
             </div>
         </form>

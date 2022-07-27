@@ -7,6 +7,9 @@ import JetInput from '@/Jetstream/Input.vue';
 import JetLabel from '@/Jetstream/Label.vue';
 import JetValidationErrors from '@/Jetstream/ValidationErrors.vue';
 
+import { useI18n } from "vue-i18n";
+const { t } = useI18n();
+
 defineProps({
     status: String,
 });
@@ -29,7 +32,7 @@ const submit = () => {
         </template>
 
         <div class="mb-4 text-sm text-gray-600">
-            Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.
+           {{t('forgot.desc')}}
         </div>
 
         <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
@@ -40,7 +43,7 @@ const submit = () => {
 
         <form @submit.prevent="submit">
             <div>
-                <JetLabel for="email" value="Email" />
+                <JetLabel for="email" :value="t('forgot.email')" />
                 <JetInput
                     id="email"
                     v-model="form.email"
@@ -53,7 +56,7 @@ const submit = () => {
 
             <div class="flex items-center justify-end mt-4">
                 <JetButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Email Password Reset Link
+                    {{t('forgot.action')}}
                 </JetButton>
             </div>
         </form>

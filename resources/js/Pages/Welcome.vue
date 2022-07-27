@@ -139,8 +139,7 @@ const currentPageEndsAt = computed(() => {
 
             <Alert
                 v-else-if="props.searchString && !words.length"
-                message="Sorry, we couldn't find any words that match your search
-                    term"
+                :message="t('word.noResults')"
             />
 
             <div class="flex justify-center">

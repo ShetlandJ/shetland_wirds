@@ -79,6 +79,7 @@
     },
     "word": {
         "reportAlert": "Yir wird repoart wis successfil. We'll tak a skoit at it as shün as we can.",
+        "noResults": "Sorry, we couldna fin ony wirds at matches whit yir saerched fir",
         "exactMatch": "exact match",
         "usage": "Øsage",
         "comment": "comment | comments",

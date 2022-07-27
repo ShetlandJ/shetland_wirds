@@ -3,6 +3,7 @@ import en from './langs/en.json';
 import es from './langs/es.json';
 import fr from './langs/fr.json';
 import no from './langs/no.json';
+import shet from './Lang's/shet.json'
 
 import { createI18n } from "vue-i18n";
 
@@ -15,6 +16,7 @@ const i18n = createI18n({
         es,
         fr,
         no,
+        shet
     },
 });
 

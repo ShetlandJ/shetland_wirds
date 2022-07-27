@@ -323,7 +323,7 @@ class WordService
             'uuid' => (string) Str::uuid(),
             'word' => $payload['newWord'],
             'creator_id' => Auth::id() ?? null,
-            'pending' => true,
+            'pending' => $pending,
             'slug' => Str::slug($payload['newWord'])
         ]);
 
@@ -332,7 +332,7 @@ class WordService
             'word_id' => $newWord->id,
             'definition' => $payload['translation'],
             'example_sentence' => $payload['example_sentence'],
-            'pending' => true,
+            'pending' => $pending,
             'type' => $payload['word_type'],
         ]);
 

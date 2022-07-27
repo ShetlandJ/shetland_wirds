@@ -7,7 +7,7 @@ const BIBTEX_YEAR = "yyyy";
 const BIBTEX_DATE = "d-MMMM-yyyy";
 const HOUR_MINUTE_FORMAT = "h:mm a";
 
-defineProps({
+const props = defineProps({
     word: {
         type: Object,
         required: true,

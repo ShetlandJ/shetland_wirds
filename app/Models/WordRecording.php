@@ -24,7 +24,6 @@ class WordRecording extends Model
     {
         $dir = sprintf('storage/%s', $this->word->word);
         $files = array_diff(scandir($dir), array('..', '.'));
-        // dd($files);
 
         return array_values($files);
     }

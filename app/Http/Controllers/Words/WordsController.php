@@ -31,8 +31,8 @@ class WordsController extends DictionaryController
             'canRegister' => Route::has('register'),
             'isLoggedIn' => Auth::check(),
             'letter' => $letter,
-            'words' => $this->wordService->findAllWordsWithPagination($letter, $this->pagination(), $letter),
-            'pagination' => $this->pagination(),
+            'words' => $this->wordService->findAllWordsWithPagination($letter, $this->pagination('', $letter), $letter),
+            'pagination' => $this->pagination('', $letter),
             'randomWord' => $this->randomWord(),
         ]);
     }

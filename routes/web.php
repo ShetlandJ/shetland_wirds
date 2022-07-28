@@ -1,9 +1,5 @@
 <?php
 
-use App\Http\Controllers\Home\HomeController;
-use App\Http\Controllers\Search\SearchController;
-use App\Http\Controllers\Word\WordController;
-use App\Http\Controllers\Words\WordsController;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Word;
@@ -30,6 +26,10 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\Home\HomeController;
+use App\Http\Controllers\Word\WordController;
+use App\Http\Controllers\Words\WordsController;
+use App\Http\Controllers\Search\SearchController;
 
 /*
 |--------------------------------------------------------------------------

@@ -33,9 +33,9 @@ class DictionaryController extends Controller
         return $this->wordService->getRandomWordSlug();
     }
 
-    public function pagination(): array
+    public function pagination(string $searchTerm = '', string $letter = ''): array
     {
-        $total = $this->wordService->findBy()->count();
+        $total = $this->wordService->findBy($searchTerm, [], $letter)->count();
         $pageTotal = request('perPage') ?? 20;
 
         return [

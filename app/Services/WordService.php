@@ -716,6 +716,7 @@ class WordService
     public function createWordOfTheDay(Word $word): WordOfTheDay
     {
         $wordsOfTheDay = WordOfTheDay::select('scheduled_for')
+            ->where('scheduled_for', '>=', Carbon::now()->startOfDay())
             ->orderBy('scheduled_for', 'asc')
             ->get();
 
@@ -723,6 +724,10 @@ class WordService
 
         foreach ($wordsOfTheDay as $key => $wordOfTheDay) {
             if (isset($wordsOfTheDay[$key+1])) {
+                if (!$wordOfTheDay->scheduled_for->isToday() && $key === 0) {
+                    break;
+                }
+
                 $diff = $wordsOfTheDay[$key+1]->scheduled_for->diffInDays($wordOfTheDay->scheduled_for);
 
                 if ($diff > 1) {
@@ -805,5 +810,14 @@ class WordService
             'reason_type' => $report->reason_type,
             'created_at' => $report->created_at->format('Y-m-d H:i:s'),
         ];
+    }
+
+    public function getRandomWordSlug()
+    {
+        $word = Word::inRandomOrder()
+            ->whereNotIn('word', Word::WORDS_TO_EXCLUDE)
+            ->first();
+
+        return $word->slug;
     }
 }

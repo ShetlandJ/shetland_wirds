@@ -23,22 +23,12 @@ class PopulateWordOfTheDay extends Command
         $this->wordService = app(WordService::class);
     }
 
-    public const WORDS_TO_EXCLUDE = [
-        'sex',
-        'pilli',
-        'transgender',
-        'pintel',
-        'paap',
-        'bisexual',
-        'shite',
-    ];
-
     public function handle()
     {
         $recentWordIds = $this->wordService->getRecentWordOfTheDayIds();
 
         $newWordOfTheDay = Word::whereNotIn('id', $recentWordIds)
-            ->whereNotIn('word', self::WORDS_TO_EXCLUDE)
+            ->whereNotIn('word', Word::WORDS_TO_EXCLUDE)
             ->inRandomOrder()
             ->first();
 

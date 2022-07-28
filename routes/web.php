@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Home\HomeController;
+use App\Http\Controllers\Search\SearchController;
+use App\Http\Controllers\Words\WordsController;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Word;
@@ -38,118 +41,24 @@ use Illuminate\Support\Facades\Validator;
 |
 */
 
-Route::get('/', function () {
-    $randomWord = DB::table('words')->inRandomOrder()->first()->slug;
+Route::get('/', [HomeController::class, 'index'])
+    ->name('home');
 
-    return Inertia::render('Home', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'isLoggedIn' => Auth::check(),
-        'phpVersion' => PHP_VERSION,
-        'randomWord' => $randomWord,
-        'featuredWord' => app(WordService::class)->getFeaturedWord(),
-    ]);
-})->name('home');
+Route::get('/words', [WordsController::class, 'index'])
+    ->name('words');
 
-Route::get('/words', function () {
-    $total = app(WordService::class)->findBy()->count();
-    $pageTotal = request('perPage') ?? 20;
-    $pagination = [
-        'page' => request('page') ?? 1,
-        'perPage' => request('perPage') ?? 20,
-        'total' => $total,
-        'pages' => ceil($total / $pageTotal),
-    ];
+Route::get('/words/{letter}', [WordsController::class, 'letter'])
+    ->where('letter', '.*')
+    ->name('letter');
 
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'isLoggedIn' => Auth::check(),
-        'phpVersion' => PHP_VERSION,
-        'words' => app(WordService::class)->findAllWordsWithPagination('', $pagination),
-        'randomWord' => DB::table('words')->inRandomOrder()->first()->slug,
-        'pagination' => $pagination,
-    ]);
-})->name('words');
+Route::get('/search', [SearchController::class, 'index'])
+    ->name('search');
 
-Route::get('/search', function () {
-    $searchTerm = '';
+Route::post('/search', [SearchController::class, 'search'])
+    ->name('search');
 
-    if (request('searchTerm')) {
-        $searchTerm = request('searchTerm');
-    }
 
-    $total = app(WordService::class)->findBy($searchTerm)->count();
-    $pageTotal = request('perPage') ?? 20;
 
-    $pagination = [
-        'page' => request('page') ?? 1,
-        'perPage' => request('perPage') ?? 20,
-        'total' => $total,
-        'pages' => ceil($total / $pageTotal),
-    ];
-
-    $exactMatch = app(WordService::class)->findExactWordBySearch($searchTerm, true);
-    $words = app(WordService::class)->findAllWordsWithPagination($searchTerm, $pagination);
-
-    app(LogService::class)->createSearchLog(request(), $searchTerm);
-
-    if ($exactMatch && count($words) === 0) {
-        return redirect()->route('word.comments', ['word' => $exactMatch['slug']]);
-    }
-
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'isLoggedIn' => Auth::check(),
-        'exactMatch' => $exactMatch,
-        'words' => $words,
-        'pagination' => $pagination,
-        'searchString' => $searchTerm,
-        'randomWord' => DB::table('words')->inRandomOrder()->first()->slug,
-    ]);
-})->name('search');
-
-Route::post('/search', function () {
-    $searchTerm = '';
-
-    if (request('searchTerm')) {
-        $searchTerm = request('searchTerm');
-    }
-    if (request('wordToLike')) {
-        app(WordService::class)->handleLike(request('wordToLike'));
-    }
-
-    $total = app(WordService::class)->findBy($searchTerm)->count();
-    $pageTotal = request('perPage') ?? 20;
-    $pagination = [
-        'page' => request('page') ?? 1,
-        'perPage' => request('perPage') ?? 20,
-        'total' => $total,
-        'pages' => ceil($total / $pageTotal),
-    ];
-
-    $words = app(WordService::class)->findAllWordsWithPagination($searchTerm, $pagination);
-    $exactMatch = app(WordService::class)->findExactWordBySearch($searchTerm, true);
-    app(LogService::class)->createSearchLog(request(), $searchTerm);
-
-    if ($exactMatch && count($words) === 0) {
-        return redirect()->route('word.comments', ['word' => $exactMatch['slug']]);
-    }
-
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'isLoggedIn' => Auth::check(),
-        'words' => $words,
-        'exactMatch' => $exactMatch,
-        'pagination' => $pagination,
-        'searchString' => $searchTerm,
-        'randomWord' => DB::table('words')->inRandomOrder()->first()->slug,
-    ]);
-})->name('search');
 
 Route::get('/word/{word}/recordings', function (string $word) {
     $foundWord = app(WordService::class)->findByWord($word);
@@ -262,31 +171,6 @@ Route::post('/word/{slug}/locations', function (string $slug) {
         'userSelectedLocations' => app(WordService::class)->getUserLocationsForWordUuids($foundWord),
     ]);
 })->where('word', '.*')->name('word.locations.new');
-
-Route::get('/words/{letter}/', function (string $letter) {
-    $total = app(WordService::class)->findBy('', [], $letter)->count();
-    $pageTotal = request('perPage') ?? 20;
-
-    $page = request('page') ?? 1;
-
-    $pagination = [
-        'page' => (int) $page,
-        'perPage' => request('perPage') ?? 20,
-        'total' => $total,
-        'pages' => ceil($total / $pageTotal),
-    ];
-    $words = app(WordService::class)->findAllWordsWithPagination($letter, $pagination, $letter);
-
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'isLoggedIn' => Auth::check(),
-        'letter' => $letter,
-        'words' => $words,
-        'pagination' => $pagination,
-        'randomWord' => DB::table('words')->inRandomOrder()->first()->slug,
-    ]);
-})->where('letter', '.*')->name('letter');
 
 Route::post('/word/{word}/like', function (string $word) {
     if (!Auth::check()) {
@@ -421,7 +305,6 @@ Route::delete('/word/{word}/comments/{commentId}', function (string $word, strin
         return redirect()->back();
     }
 
-    $foundWord = Word::where('word', $word)->first();
     $comment = Comment::where('uuid', $commentId)->first();
 
     if ($comment->author->id !== Auth::id()) {

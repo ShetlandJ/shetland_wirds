@@ -77,11 +77,11 @@ const today = () => {
 };
 
 const convertMonthToI18n = (dateString) => {
-    const monthName = dateString.split(' ')[1];
+    const monthName = dateString.split(" ")[1];
     const i18nMonth = t(`months.${monthName.toLowerCase()}`);
 
     return dateString.replace(monthName, i18nMonth);
-}
+};
 </script>
 
 <template>
@@ -154,36 +154,49 @@ const convertMonthToI18n = (dateString) => {
                 <Alert v-if="featuredWord">
                     <div class="dark:text-white flex" style="display: block">
                         <i18n-t keypath="home.featured" tag="span">
-                            <template #today>{{convertMonthToI18n(today())}}</template>
-                        <template #featuredWord>
-                        <Link
-                            v-if="featuredWord"
-                            :href="
-                                route('word.comments', {
-                                    slug: featuredWord.slug,
-                                })
-                            "
-                            class="text-sm text-blue-700 underline"
-                            style="display: inline-flex !important"
-                        >
-                            <h2
-                                className="
+                            <template #today>{{
+                                convertMonthToI18n(today())
+                            }}</template>
+                            <template #featuredWord>
+                                <Link
+                                    v-if="featuredWord"
+                                    :href="
+                                        route('word.comments', {
+                                            slug: featuredWord.slug,
+                                        })
+                                    "
+                                    class="text-sm text-blue-700 underline"
+                                    style="display: inline-flex !important"
+                                >
+                                    <h2
+                                        className="
                                 font-semibold
                                 text-lg
                                 -mt-1
                                 dark:text-white
                                 dark:border-b
                             "
-                            >
-                                {{ featuredWord.word }}
-                            </h2>
-                            </Link>.
-                        </template>
+                                    >
+                                        {{ featuredWord.word }}
+                                    </h2> </Link
+                                >.
+                            </template>
                         </i18n-t>
 
-                        <span>{{t('home.findOutMore')}}</span>
+                        <span>{{ t("home.findOutMore") }}</span>
                     </div>
                 </Alert>
+            </div>
+        </Container>
+
+        <Container>
+            <div class="flex justify-center">
+                <iframe
+                    width="546"
+                    height="409"
+                    src="https://www.youtube.com/watch?v=Is7EIylRMvM"
+                >
+                </iframe>
             </div>
         </Container>
     </div>

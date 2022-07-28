@@ -8,7 +8,7 @@ import shet from './langs/shet.json'
 import { createI18n } from "vue-i18n";
 
 const i18n = createI18n({
-    locale: localStorage.getItem("spaekationary-locale") || "en",
+    locale: localStorage.getItem("spaekationary-locale") || "shet",
     fallbackLocale: "en",
     messages: {
         de,

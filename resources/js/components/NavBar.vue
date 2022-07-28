@@ -531,7 +531,7 @@ const userIsTrusted = usePage().props.value.user?.is_trusted;
                             class="p-0 flex justify-center m-0 font-bold random"
                             :href="
                                 route('word.comments', {
-                                    word: randomWordSlug,
+                                    slug: randomWordSlug,
                                 })
                             "
                         >

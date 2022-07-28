@@ -128,7 +128,7 @@ const showReportAlert = ref(false);
                         ]"
                     >
                         <Link
-                            :href="route('word.comments', { word: word.slug })"
+                            :href="route('word.comments', { slug: word.slug })"
                             class="text-sm text-gray-700 flex"
                         >
                             <h2
@@ -250,7 +250,7 @@ const showReportAlert = ref(false);
                                 <Link
                                     :href="
                                         route('word.comments', {
-                                            word: linkedWord.slug,
+                                            slug: linkedWord.slug,
                                         })
                                     "
                                     class="
@@ -277,7 +277,7 @@ const showReportAlert = ref(false);
                     <div>
                         <Link
                             v-if="!fullView"
-                            :href="route('word.comments', { word: word.slug })"
+                            :href="route('word.comments', { slug: word.slug })"
                             class="
                                 text-sm text-gray-700
                                 hover:underline
@@ -290,7 +290,7 @@ const showReportAlert = ref(false);
                         </Link>
 
                         <Link
-                            :href="route('word.comments', { word: word.slug })"
+                            :href="route('word.comments', { slug: word.slug })"
                             v-else
                             class="
                                 inline-block

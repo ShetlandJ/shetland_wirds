@@ -60,163 +60,35 @@ Route::post('/search', [SearchController::class, 'search'])
 
 
 Route::group(['prefix' => 'word'], function () {
+    Route::get('/id/{uuid}', [WordController::class, 'show'])
+        ->name('word.show');
+
+    Route::get('/{slug}', [WordController::class, 'base'])
+        ->name('word.base');
+
     Route::post('/{slug}/like', [WordController::class, 'like'])
-        ->where('word', '.*')->name('word.like');
+        ->name('word.like');
+
+    Route::get('/{slug}/comments', [WordController::class, 'commentsIndex'])
+        ->name('word.comments');
+    Route::post('/{slug}/comments', [WordController::class, 'commentsStore'])
+        ->name('word.comments.new');
+    Route::patch('/{slug}/comments', [WordController::class, 'commentsEdit'])
+        ->name('word.comments.update');
+    Route::delete('/{slug}/comments/{commentId}', [WordController::class, 'commentsDelete'])
+        ->name('word.comments.delete');
 
     Route::get('/{slug}/recordings', [WordController::class, 'recordingsIndex'])
-        ->where('word', '.*')->name('word.recordings');
+        ->name('word.recordings');
     Route::post('/{slug}/recordings', [WordController::class, 'recordingsStore'])
-        ->where('word', '.*')->name('word.recordings.create');
+        ->name('word.recordings.create');
 
     Route::get('/{slug}/locations', [WordController::class, 'locationsIndex'])
-        ->where('word', '.*')->name('word.locations');
+        ->name('word.locations');
     Route::post('/{slug}/locations', [WordController::class, 'locationsStore'])
-        ->where('word', '.*')->name('word.locations.new');
+        ->name('word.locations.new');
 });
 
-// Route::post('/word/{word}/like', function (string $word) {
-//     if (!Auth::check()) {
-//         return redirect()->back();
-//     }
-
-//     if (request('wordToLike')) {
-//         app(WordService::class)->handleLike(request('wordToLike'));
-//     }
-
-//     return redirect()->back();
-// })->where('word', '.*')->name('wordLike');
-
-Route::get('/word/{word}', function (string $word) {
-    $foundWord = app(WordService::class)->findBySlug($word);
-    if (!$foundWord) {
-        return redirect()->back();
-    }
-
-    $fullWord = Word::where('uuid', $foundWord['id'])->first();
-
-    app(LogService::class)->createUserLog(request(), $fullWord->id);
-
-    $fullWord = Word::where('uuid', $foundWord['id'])->first();
-
-    return redirect()->route('word.comments', $fullWord->slug);
-})->name('word.base');
-
-Route::get('/word/id/{uuid}', function (string $wordUuid) {
-    $word = Word::where('uuid', $wordUuid)->first();
-    if (!$word) {
-        return redirect()->back();
-    }
-
-    app(LogService::class)->createUserLog(request(), $word->id);
-
-    return redirect()->route('word.comments', $word->slug);
-});
-
-Route::get('/word/{word}/comments', function (string $word) {
-    $foundWord = app(WordService::class)->findBySlug($word);
-    if (!$foundWord) {
-        return redirect()->back();
-    }
-
-    $fullWord = Word::where('uuid', $foundWord['id'])->first();
-    app(LogService::class)->createUserLog(request(), $fullWord->id);
-
-    return Inertia::render('WordComments', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'isLoggedIn' => Auth::check(),
-        'word' => $foundWord,
-        'randomWord' => DB::table('words')->inRandomOrder()->first()->slug,
-        'locations' => app(WordService::class)->getAllLocations(),
-        'userSelectedLocations' => app(WordService::class)->getUserLocationsForWordUuids($fullWord),
-    ]);
-})->where('word', '.*')->name('word.comments');
-
-Route::post('/word/{slug}/comments', function (string $slug) {
-    if (!Auth::check()) {
-        return redirect()->back();
-    }
-
-    // $foundWord
-    $foundWord = Word::where('slug', $slug)->first();
-
-    if (request('text')) {
-        $comment = null;
-
-        if (request('comment_id')) {
-            $comment = Comment::where('uuid', request('comment_id'))->first();
-        }
-
-        app(WordService::class)->createComment(request('text'), $foundWord, $comment);
-    }
-    $fullWord = app(WordService::class)->findBySlug($foundWord->slug);
-
-    return Inertia::render('WordComments', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'isLoggedIn' => Auth::check(),
-        'word' => $fullWord,
-        'randomWord' => DB::table('words')->inRandomOrder()->first()->slug,
-        'locations' => [],
-        'userSelectedLocations' => []
-    ]);
-})->where('word', '.*')->name('word.comments.new');
-
-Route::patch('/word/{word}/comments', function (string $word) {
-    if (!Auth::check()) {
-        return redirect()->back();
-    }
-
-    $commentId = request('childCommentId');
-
-    if (!$commentId) {
-        return redirect()->back();
-    }
-
-    $foundWord = Word::where('word', $word)->first();
-    $comment = Comment::where('uuid', $commentId)->first();
-
-
-    if ($comment->author->id !== Auth::id()) {
-        return redirect()->back();
-    }
-
-    $text = request('text');
-
-    app(CommentService::class)->update($comment, $text);
-
-    $fullWord = app(WordService::class)->findBySlug($foundWord->slug);
-
-    return Inertia::render('WordComments', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'isLoggedIn' => Auth::check(),
-        'word' => $fullWord,
-        'randomWord' => DB::table('words')->inRandomOrder()->first()->slug,
-        'locations' => [],
-        'userSelectedLocations' => []
-    ]);
-})->where('word', '.*')->name('word.comments.update');
-
-Route::delete('/word/{word}/comments/{commentId}', function (string $word, string $commentId) {
-    if (!Auth::check()) {
-        return redirect()->back();
-    }
-
-    if (!$commentId) {
-        return redirect()->back();
-    }
-
-    $comment = Comment::where('uuid', $commentId)->first();
-
-    if ($comment->author->id !== Auth::id()) {
-        return redirect()->back();
-    }
-
-    app(CommentService::class)->delete($comment);
-
-    return redirect()->back();
-})->where('word', '.*')->name('word.comments.delete');
 
 Route::get('/create', function (Request $request) {
     return Inertia::render('NewWord', [

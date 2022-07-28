@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Word;
+use App\Services\CommentService;
 use App\Services\LogService;
 use App\Services\WordService;
 use Illuminate\Database\Eloquent\Collection;
@@ -15,13 +16,16 @@ class DictionaryController extends Controller
 {
     public WordService $wordService;
     public LogService $logService;
+    public CommentService $commentService;
 
     public function __construct(
         WordService $wordService,
-        LogService $logService
+        LogService $logService,
+        CommentService $commentService
     ) {
         $this->wordService = $wordService;
         $this->logService = $logService;
+        $this->commentService = $commentService;
     }
 
     public function randomWord(): string

@@ -62,7 +62,7 @@ const updateComment = () => {
     updateForm.childCommentId = props.commentId;
     updateForm.patch(
         route("word.comments.update", {
-            word: props.word.word,
+            slug: props.word.word,
         }),
         {
             text: updateForm.text,

@@ -43,8 +43,7 @@ const { t } = useI18n();
         </p>
 
         <p class="dark:text-white mb-4 text-lg font-bold">
-            Shaetlan has so much variation, how can that be represented in one
-            spelling system?
+            {{ t("faq.question3") }}
         </p>
         <p class="dark:text-white mb-4">
             <i18n-t keypath="faq.answer3" type="span">

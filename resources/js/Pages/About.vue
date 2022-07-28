@@ -123,7 +123,7 @@ defineProps({
                 </p>
                 <p class="dark:text-white mb-4">
                     <i18n-t keypath="about.message5" type="span">
-                        <template #github>
+                        <template #here>
                             <a
                                 class="underline"
                                 href="https://www.iheardee.com"

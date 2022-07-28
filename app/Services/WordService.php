@@ -98,7 +98,7 @@ class WordService
         return $foundWord;
     }
 
-    public function findByWord(string $word): ?array
+    public function findBySlug(string $word): ?array
     {
         $foundWord = Word::where('slug', $word)->first();
 
@@ -284,9 +284,9 @@ class WordService
             ->map(fn (Comment $comment) => $this->formatComment($comment));
     }
 
-    public function handleLike(string $word): void
+    public function handleLike(string $slug): void
     {
-        $word = Word::where('word', $word)->first();
+        $word = Word::where('slug', $slug)->first();
 
         if (!$word) {
             return;

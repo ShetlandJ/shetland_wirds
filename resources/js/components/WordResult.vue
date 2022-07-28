@@ -50,7 +50,7 @@ const likeWord = (word, searchString) => {
     form.wordToLike = word;
     form.searchString = searchString;
 
-    form.post(route("wordLike", { word: props.word.word }), {
+    form.post(route("word.like", { slug: props.word.slug }), {
         searchString: searchString,
         wordToLike: form.wordToLike,
     });
@@ -323,7 +323,7 @@ const showReportAlert = ref(false);
                             "
                             :href="
                                 route('word.recordings', {
-                                    word: word.slug,
+                                    slug: word.slug,
                                 })
                             "
                         >
@@ -334,7 +334,7 @@ const showReportAlert = ref(false);
                         <Link
                             :href="
                                 route('word.recordings', {
-                                    word: word.slug,
+                                    slug: word.slug,
                                 })
                             "
                             v-else
@@ -370,7 +370,7 @@ const showReportAlert = ref(false);
                             "
                             :href="
                                 route('word.locations', {
-                                    word: word.slug,
+                                    slug: word.slug,
                                 })
                             "
                             >
@@ -381,7 +381,7 @@ const showReportAlert = ref(false);
                         <Link
                             :href="
                                 route('word.locations', {
-                                    word: word.slug,
+                                    slug: word.slug,
                                 })
                             "
                             v-else

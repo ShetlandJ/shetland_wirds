@@ -173,7 +173,6 @@ class AdminService
         }
 
         foreach ($payload['removedDefinitions'] as $definition) {
-            // dd($definition);
             $wordDefinition = WordDefinition::where('uuid', $definition)->first();
             $definitionsChanges[$wordDefinition->uuid]['original'] = $wordDefinition->definition;
             $wordDefinition->delete();

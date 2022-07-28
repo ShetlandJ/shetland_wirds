@@ -27,7 +27,7 @@ const editMode = ref(false);
 
 const deleteComment = (commentId) => {
     Inertia.delete(
-        route("word.comments.delete", { word: props.word.word, commentId }),
+        route("word.comments.delete", { slug: props.word.slug, commentId }),
         {
             commentId,
         }

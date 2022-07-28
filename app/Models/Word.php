@@ -35,6 +35,16 @@ class Word extends Model
         'slug',
     ];
 
+    public const WORDS_TO_EXCLUDE = [
+        'sex',
+        'pilli',
+        'transgender',
+        'pintel',
+        'paap',
+        'bisexual',
+        'shite',
+    ];
+
     public function likes()
     {
         return $this->hasMany(UserWordLike::class);

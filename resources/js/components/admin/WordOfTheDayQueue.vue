@@ -102,7 +102,7 @@ const showCreateNewWordForm = ref(false);
                                     <Link
                                         :href="
                                             route('word.comments', {
-                                                word: queuedWord.slug,
+                                                slug: queuedWord.slug,
                                             })
                                         "
                                         class="

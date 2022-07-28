@@ -160,7 +160,7 @@ const convertMonthToI18n = (dateString) => {
                             v-if="featuredWord"
                             :href="
                                 route('word.comments', {
-                                    word: featuredWord.slug,
+                                    slug: featuredWord.slug,
                                 })
                             "
                             class="text-sm text-blue-700 underline"

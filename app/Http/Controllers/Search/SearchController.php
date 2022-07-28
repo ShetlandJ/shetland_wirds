@@ -35,7 +35,7 @@ class SearchController extends DictionaryController
             'isLoggedIn' => Auth::check(),
             'exactMatch' => $exactMatch,
             'words' => $words,
-            'pagination' => $this->pagination(),
+            'pagination' => count($words) === 0 ? null : $this->pagination(),
             'searchString' => $searchTerm,
             'randomWord' => $this->randomWord(),
         ]);
@@ -66,7 +66,7 @@ class SearchController extends DictionaryController
             'isLoggedIn' => Auth::check(),
             'words' => $words,
             'exactMatch' => $exactMatch,
-            'pagination' => $this->pagination(),
+            'pagination' => count($words) === 0 ? null : $this->pagination(),
             'searchString' => $searchTerm,
             'randomWord' => $this->randomWord(),
         ]);

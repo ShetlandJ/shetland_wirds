@@ -17,6 +17,7 @@ let userRecording = ref(null);
 let blobToUpload = ref(null);
 
 const recordAudio = async () => {
+    chunks = [];
     recordingAudio.value = true;
     userRecording.value = null;
     device = navigator.mediaDevices.getUserMedia({ audio: true });

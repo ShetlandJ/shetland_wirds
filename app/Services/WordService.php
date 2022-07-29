@@ -7,7 +7,9 @@ use Exception;
 use Carbon\Carbon;
 use App\Models\Word;
 use App\Models\Comment;
+use App\Models\UserLog;
 use App\Models\Location;
+use App\Models\SearchLog;
 use App\Models\WordReport;
 use App\Models\WordToWord;
 use Illuminate\Support\Str;
@@ -430,11 +432,68 @@ class WordService
         ];
 
         return [
+            "topViewedPages" => $this->getTopViewedPages(),
+            "topSearches" => $this->getTopSearches(),
             "headline" => $headlineMetrics,
             "recent" => $recentMetrics,
             "allTime" => $allTimeMetrics,
         ];
     }
+
+    public function getTopViewedPages(): array
+    {
+        $userLogs = UserLog::where('created_at', '>=', now()->subDays(30))->get()->groupBy('session_id');
+
+        $uniqueViews = [];
+
+        foreach ($userLogs as $logs) {
+            foreach ($logs as $log) {
+                if (!isset($uniqueViews[$log->word_id])) {
+                    $uniqueViews[$log->word_id]['count'] = 0;
+                    $uniqueViews[$log->word_id]['word'] = $log->word->word;
+                    $uniqueViews[$log->word_id]['slug'] = $log->word->slug;
+                }
+                $uniqueViews[$log->word_id]['count']++;
+            }
+        }
+
+        uasort($uniqueViews, function ($a, $b) {
+            return $b['count'] <=> $a['count'];
+        });
+
+        $topViewedPages = array_slice($uniqueViews, 0, 10);
+
+        return $topViewedPages;
+    }
+
+    public function getTopSearches(): array
+    {
+        $searches = SearchLog::where('created_at', '>=', now()->subDays(30))->get();
+
+        $uniqueSearches = [];
+
+        foreach ($searches as $search) {
+            if (!isset($uniqueSearches[$search->search_string])) {
+                $uniqueSearches[$search->search_string]['count'] = 0;
+                $uniqueSearches[$search->search_string]['term'] = $search->search_string;
+            }
+            $uniqueSearches[$search->search_string]['count']++;
+        }
+
+        uasort($uniqueSearches, function ($a, $b) {
+            return $b['count'] <=> $a['count'];
+        });
+
+        $topSearches = array_slice($uniqueSearches, 0, 10);
+
+        return array_values(array_map(function ($search) {
+            return [
+                'term' => $search['term'],
+                'count' => $search['count']
+            ];
+        }, $topSearches));
+    }
+
 
     public function createComment(string $commentText, Word $word, ?Comment $comment = null): Comment
     {

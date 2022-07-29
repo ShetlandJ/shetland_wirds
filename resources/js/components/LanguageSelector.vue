@@ -1,5 +1,6 @@
 <script setup>
 import JetDropdown from "@/Jetstream/Dropdown.vue";
+import ScotlandFlag from "./icons/ScotlandFlag.vue";
 import ShetlandFlag from "./icons/ShetlandFlag.vue";
 import { computed } from "@vue/runtime-core";
 
@@ -11,7 +12,7 @@ defineProps({
         type: Boolean,
         default: false,
     },
-})
+});
 
 const setLanguage = (language) => {
     if (language === getLocale()) return;
@@ -40,7 +41,6 @@ const languages = [
     {
         name: "English",
         value: "en",
-        flag: "🏴󠁧󠁢󠁳󠁣󠁴󠁿",
     },
     {
         name: "Shaetlan",
@@ -52,27 +52,18 @@ const languages = [
 <template>
     <JetDropdown>
         <template #trigger>
-            <template v-if="shetlandSelected">
-               <div class="flex">
-                    <ShetlandFlag />
-                    <span v-if="showGuide" class="ml-2 dark:text-white">
-                        {{t('language.change')}}
-                    </span>
-                </div>
-            </template>
-
-            <template v-else>
-                <div class="flex items-center">
-                    <span style="font-size: 1.7rem">{{ flagEmoji }}</span>
-                    <span v-if="showGuide" class="ml-2 dark:text-white">
-                        {{t('language.change')}}
-                    </span>
-                </div>
-            </template>
+            <div class="flex">
+                <ShetlandFlag v-if="shetlandSelected" />
+                <ScotlandFlag style="height: 22px; width: 33px" v-else />
+                <span v-if="showGuide" class="ml-2 dark:text-white">
+                    {{ t("language.change") }}
+                </span>
+            </div>
         </template>
+
         <template #content>
             <div class="m-2">
-                <p class="mb-4 dark:text-white">{{(t('language.select'))}}:</p>
+                <p class="mb-4 dark:text-white">{{ t("language.select") }}:</p>
 
                 <template v-for="(language, index) in languages" :key="index">
                     <a
@@ -82,17 +73,21 @@ const languages = [
                             items-center
                             hover:bg-gray-100
                             dark:bg-gray-900
+                            my-2
                         "
                     >
                         <div class="flex items-center dark:text-white">
                             <span
                                 v-if="language.value !== 'shet'"
                                 class="text-4xl mr-2"
-                                >{{language.flag}}</span
                             >
-                            <span v-if="language.value === 'shet'" class="mr-2"
-                                ><ShetlandFlag
-                            /></span>
+                                <ScotlandFlag
+                                    style="height: 22px; width: 33px"
+                                />
+                            </span>
+                            <span v-if="language.value === 'shet'" class="mr-2">
+                                <ShetlandFlag />
+                            </span>
                             {{ language.name }}
                         </div>
                     </a>

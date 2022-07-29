@@ -57,7 +57,7 @@ class SearchController extends DictionaryController
         $this->logService->createSearchLog(request(), $searchTerm);
 
         if ($exactMatch && count($words) === 0) {
-            return redirect()->route('word.comments', ['word' => $exactMatch['slug']]);
+            return redirect()->route('word.comments', ['slug' => $exactMatch['slug']]);
         }
 
         return Inertia::render('Welcome', [

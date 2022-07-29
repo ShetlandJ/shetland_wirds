@@ -14,8 +14,14 @@ const props = defineProps({
     },
 });
 
+const getLocale = () => {
+    return localStorage.getItem("spaekationary-locale") || "shet";
+};
+
 const commentOptions = ref({
-    placeholder: `Any thoughts on ${word.word}?`,
+    placeholder: getLocale() === 'shet'
+    ? `Whit's yir tochts aboot ${word.word}`
+    : `Any thoughts on ${word.word}?`,
 });
 </script>
 

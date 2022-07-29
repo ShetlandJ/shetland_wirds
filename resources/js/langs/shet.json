@@ -177,7 +177,8 @@
         "email": "Email",
         "password": "Passwird",
         "confirmPassword": "Confirm passwird",
-        "alreadyRegistered": "Already reigistered"
+        "alreadyRegistered": "Already reigistered",
+        "canContact": "A'm blyde tae be tellt aboot ony new Spaektionary features"
     },
     "forgot": {
         "desc": "Firyatten yir passwird? Nae budder. Jüst lat wis ken yir email address and we'll email you a passwird reset link at'll alloo you tae pick a new een.",

@@ -42,9 +42,10 @@ const goBack = () => window.history.back();
 
         <Alert
             v-if="errorBags && errorBags.newWord"
-            :message="errorBags.newWord[0]"
             variant="warning"
-        />
+        >
+            <SanitisedHtml :html-string="errorBags.newWord[0]" />
+        </Alert>
 
         <NewWordForm
             v-if="!success"

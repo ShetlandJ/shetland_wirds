@@ -34,20 +34,22 @@ class WordExists implements Rule
      */
     public function message()
     {
-        $str = 'This word already exists in our database. ';
+        $wordString = sprintf('<b>%s</b>', $this->word->word);
+
+        $str = $wordString . ' already exists in our database.';
 
         if (!$this->word->pending && !$this->word->rejected) {
-            return $str;
+            return sprintf('%s Click <a class="underline" href="/word/%s">here</a> to view it', $str, $this->word->slug);
         }
 
         if ($this->word->pending) {
-            return 'This word has already been suggested and is currently awaiting review!';
+            return $wordString . ' has already been suggested and is currently awaiting review!';
         }
 
         if ($this->word->rejected) {
-            return 'This word has already been suggested and has been rejected. Please try another!';
+            return $wordString . ' has already been suggested and has been rejected. Please try another!';
         }
 
-        return $str;
+        return sprintf('%s Click <a href="/word/%s">here</a> to view it', $str, $this->word->slug);
     }
 }

@@ -59,16 +59,8 @@ const languages = [
                     {{ t("language.change") }}
                 </span>
             </div>
-
-            <!-- <template v-else>
-                <div class="flex items-center">
-                    <span style="font-size: 1.7rem">{{ flagEmoji }}</span>
-                    <span v-if="showGuide" class="ml-2 dark:text-white">
-                        {{t('language.change')}}
-                    </span>
-                </div>
-            </template> -->
         </template>
+
         <template #content>
             <div class="m-2">
                 <p class="mb-4 dark:text-white">{{ t("language.select") }}:</p>
@@ -89,7 +81,9 @@ const languages = [
                                 v-if="language.value !== 'shet'"
                                 class="text-4xl mr-2"
                             >
-                                <ScotlandFlag style="height: 22px; width: 33px" />
+                                <ScotlandFlag
+                                    style="height: 22px; width: 33px"
+                                />
                             </span>
                             <span v-if="language.value === 'shet'" class="mr-2">
                                 <ShetlandFlag />

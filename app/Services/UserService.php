@@ -80,8 +80,10 @@ class UserService
         // if ($user->roles)
     }
 
-    public function completelyDeleteUser(int $userId): void
+    public function completelyDeleteUser(User $user): void
     {
+        $userId = $user->id;
+
         $user = User::where('id', $userId)->first();
 
         if ($user->email === 'james@jastewart.co.uk') {

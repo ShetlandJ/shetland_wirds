@@ -21,7 +21,7 @@ const setLanguage = (language) => {
 };
 
 const getLocale = () => {
-    return localStorage.getItem("spaekationary-locale") || "en";
+    return localStorage.getItem("spaekationary-locale") || "shet";
 };
 
 const shetlandSelected = computed(() => {

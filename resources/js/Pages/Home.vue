@@ -203,9 +203,11 @@ const convertMonthToI18n = (dateString) => {
             </div>
 
             <div class="flex justify-center mt-4">
-            <p class="text-lg">
-                <a class="underline" href="/tutorial"> {{t('home.tutorial')}} </a>
-            </p>
+                <p class="text-lg">
+                    <a class="underline" href="/tutorial">
+                        {{ t("home.tutorial") }}
+                    </a>
+                </p>
             </div>
         </Container>
     </div>

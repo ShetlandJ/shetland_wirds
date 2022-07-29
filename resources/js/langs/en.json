@@ -76,7 +76,8 @@
         "exampleSentenceLabel": "Can you provide an example Shetland language sentence?",
         "wordType": "What type of word is it?",
         "wordTypePlaceholder": "Select word type",
-        "confirm": "I confirm that I am happy for Spaektionary and I Hear Dee to use this word in this online dictionary, as well as in other media in the future."
+        "confirm": "I confirm that I am happy for Spaektionary and I Hear Dee to use this word in this online dictionary, as well as in other media in the future.",
+        "thanks": "Thanks! We'll review your submission over the next few days"
     },
     "word": {
         "reportAlert": "Your word report was successful. We will review it as soon as possible.",
@@ -91,7 +92,10 @@
         "comments": {
             "add": "Add comment",
             "loggedIn": "You must be logged in to comment",
-            "continue": "Continue the conversation"
+            "continue": "Continue the conversation",
+            "noComments": "There are no comments available for this word yet, be the first to add one!",
+            "login": "Log in to add a comment",
+            "update": "Update comment"
         },
         "recordings": {
             "successAlert": "Recording successfully added! We'll review it and if it's appropriate, we'll approve it!",

@@ -52,7 +52,7 @@ const goBack = () => window.history.back();
 
         <Alert
             v-else
-            message="Thanks! We'll review your submission over the next few days."
+            :message="t('addWord.thanks')"
         />
     </div>
 </template>

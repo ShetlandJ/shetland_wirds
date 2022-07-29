@@ -4,6 +4,9 @@ import Comment from "./Comment.vue";
 import CommentInput from "./CommentInput.vue";
 import { ref, reactive } from "vue";
 
+import { useI18n } from "vue-i18n";
+const { t } = useI18n();
+
 const { isLoggedIn } = usePage().props.value;
 const word = reactive(usePage().props.value.word);
 
@@ -32,8 +35,8 @@ const commentOptions = ref({
             v-if="!comments.length"
             :message="
                 isLoggedIn
-                    ? 'There are no comments available for this word yet, be the first to add one!'
-                    : 'Log in to add a comment'
+                    ? t('word.comments.noComments')
+                    : t('word.comments.login')
             "
         />
 

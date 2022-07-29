@@ -78,7 +78,7 @@ const toggleEdit = () => {
                 class="mt-4"
                 :word="word"
                 :comment-id="comment.id"
-                action-message="Update comment"
+                :action-message="t('word.comments.update')"
                 :edit-mode="editMode"
                 @editing-complete="editMode = false"
             />

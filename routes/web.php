@@ -31,6 +31,7 @@ use App\Http\Controllers\Word\WordController;
 use App\Http\Controllers\Words\WordsController;
 use App\Http\Controllers\Search\SearchController;
 use App\Http\Controllers\Word\CommentController;
+use App\Http\Controllers\Word\CreateController;
 
 /*
 |--------------------------------------------------------------------------
@@ -98,52 +99,60 @@ Route::get('/tutorial', function (Request $request) {
     ]);
 });
 
-Route::get('/create', function (Request $request) {
-    return Inertia::render('NewWord', [
-        'randomWord' => DB::table('words')->inRandomOrder()->first()->slug,
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'isLoggedIn' => Auth::check(),
-    ]);
-})->name('create');
+// Route::get('/create', function (Request $request) {
+    // return Inertia::render('NewWord', [
+    //     'randomWord' => DB::table('words')->inRandomOrder()->first()->slug,
+    //     'canLogin' => Route::has('login'),
+    //     'canRegister' => Route::has('register'),
+    //     'isLoggedIn' => Auth::check(),
+    // ]);
+// })->name('create');
 
-Route::post('/create', function (Request $request) {
-    $payload = $request->all();
+Route::group(['prefix' => 'create'], function () {
+    Route::get('/', [CreateController::class, 'index'])
+        ->name('create');
 
-    // validator check if the word is already in the database
-    $validator = Validator::make($payload, [
-        'newWord' => ['required', new WordExists()],
-    ]);
+    Route::post('/', [CreateController::class, 'store'])
+        ->name('create');
+});
 
-    if ($validator->fails()) {
-        return redirect()->back()
-            ->withErrors($validator)
-            ->withInput();
-    }
+// Route::post('/create', function (Request $request) {
+//     $payload = $request->all();
 
-    $valid = app(WordService::class)->validateNewWordSubmission($payload);
+//     // validator check if the word is already in the database
+//     $validator = Validator::make($payload, [
+//         'newWord' => ['required', new WordExists()],
+//     ]);
 
-    $userIsTrusted = false;
+//     if ($validator->fails()) {
+//         return redirect()->back()
+//             ->withErrors($validator)
+//             ->withInput();
+//     }
 
-    if (Auth::user() && Auth::user()->isTrusted) {
-        $userIsTrusted = true;
-    }
+//     $valid = app(WordService::class)->validateNewWordSubmission($payload);
 
-    if ($valid) {
-        $newWord = app(WordService::class)->createWord($payload, !$userIsTrusted);
-    }
+//     $userIsTrusted = false;
 
-    if ($userIsTrusted) {
-        return redirect()->route('word.comments', $newWord->slug);
-    }
+//     if (Auth::user() && Auth::user()->isTrusted) {
+//         $userIsTrusted = true;
+//     }
 
-    return Inertia::render('NewWord', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'isLoggedIn' => Auth::check(),
-        'success' => true,
-    ]);
-})->name('create');
+//     if ($valid) {
+//         $newWord = app(WordService::class)->createWord($payload, !$userIsTrusted);
+//     }
+
+//     if ($userIsTrusted) {
+//         return redirect()->route('word.comments', $newWord->slug);
+//     }
+
+//     return Inertia::render('NewWord', [
+//         'canLogin' => Route::has('login'),
+//         'canRegister' => Route::has('register'),
+//         'isLoggedIn' => Auth::check(),
+//         'success' => true,
+//     ]);
+// })->name('create');
 
 Route::middleware([
     'auth:sanctum',

@@ -138,7 +138,7 @@ const currentPageEndsAt = computed(() => {
             </template>
 
             <Alert
-                v-else-if="props.searchString && !words.length"
+                v-else-if="(props.searchString && !words.length) || (props.letter && !words.length)"
                 :message="t('word.noResults')"
             />
 

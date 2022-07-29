@@ -26,13 +26,15 @@ class WordsController extends DictionaryController
 
     public function letter(Request $request, string $letter)
     {
+        $words = $this->wordService->findAllWordsWithPagination($letter, $this->pagination('', $letter), $letter);
+
         return Inertia::render('Welcome', [
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),
             'isLoggedIn' => Auth::check(),
             'letter' => $letter,
-            'words' => $this->wordService->findAllWordsWithPagination($letter, $this->pagination('', $letter), $letter),
-            'pagination' => $this->pagination('', $letter),
+            'words' => $words,
+            'pagination' => count($words) < 20 ? null : $this->pagination('', $letter),
             'randomWord' => $this->randomWord(),
         ]);
     }

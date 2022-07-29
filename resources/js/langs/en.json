@@ -178,7 +178,8 @@
         "password": "Password",
         "confirmPassword": "Confirm password",
         "alreadyRegistered": "Already registered",
-        "canContact": "I am happy to be kept up to date with new Spaektionary features"
+        "canContact": "I am happy to be kept up to date with new Spaektionary features",
+        "badLanguage": "Your name contains inappropriate language"
     },
     "forgot": {
         "desc": "Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.",

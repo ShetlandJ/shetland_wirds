@@ -7,6 +7,10 @@ import JetInput from "@/Jetstream/Input.vue";
 import JetCheckbox from "@/Jetstream/Checkbox.vue";
 import JetLabel from "@/Jetstream/Label.vue";
 import JetValidationErrors from "@/Jetstream/ValidationErrors.vue";
+import { ref } from "vue";
+
+const Filter = require("bad-words");
+const swearFilter = new Filter();
 
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();
@@ -20,7 +24,15 @@ const form = useForm({
     can_contact: false,
 });
 
+const inappropriateName = ref(false);
+
 const submit = () => {
+    // check if bad words are in the name
+    if (swearFilter.isProfane(form.name)) {
+        inappropriateName.value = true;
+        return;
+    }
+
     form.post(route("register"), {
         onFinish: () => form.reset("password", "password_confirmation"),
     });
@@ -51,7 +63,12 @@ const submit = () => {
             </p>
         </div>
 
-        <JetValidationErrors class="mb-4" />
+        <Alert
+            v-if="inappropriateName"
+            variant="warning"
+            class="my-4"
+            :message="t('register.badLanguage')"
+        />
 
         <form @submit.prevent="submit">
             <div>

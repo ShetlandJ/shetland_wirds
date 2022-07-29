@@ -99,15 +99,6 @@ Route::get('/tutorial', function (Request $request) {
     ]);
 });
 
-// Route::get('/create', function (Request $request) {
-    // return Inertia::render('NewWord', [
-    //     'randomWord' => DB::table('words')->inRandomOrder()->first()->slug,
-    //     'canLogin' => Route::has('login'),
-    //     'canRegister' => Route::has('register'),
-    //     'isLoggedIn' => Auth::check(),
-    // ]);
-// })->name('create');
-
 Route::group(['prefix' => 'create'], function () {
     Route::get('/', [CreateController::class, 'index'])
         ->name('create');
@@ -115,44 +106,6 @@ Route::group(['prefix' => 'create'], function () {
     Route::post('/', [CreateController::class, 'store'])
         ->name('create');
 });
-
-// Route::post('/create', function (Request $request) {
-//     $payload = $request->all();
-
-//     // validator check if the word is already in the database
-//     $validator = Validator::make($payload, [
-//         'newWord' => ['required', new WordExists()],
-//     ]);
-
-//     if ($validator->fails()) {
-//         return redirect()->back()
-//             ->withErrors($validator)
-//             ->withInput();
-//     }
-
-//     $valid = app(WordService::class)->validateNewWordSubmission($payload);
-
-//     $userIsTrusted = false;
-
-//     if (Auth::user() && Auth::user()->isTrusted) {
-//         $userIsTrusted = true;
-//     }
-
-//     if ($valid) {
-//         $newWord = app(WordService::class)->createWord($payload, !$userIsTrusted);
-//     }
-
-//     if ($userIsTrusted) {
-//         return redirect()->route('word.comments', $newWord->slug);
-//     }
-
-//     return Inertia::render('NewWord', [
-//         'canLogin' => Route::has('login'),
-//         'canRegister' => Route::has('register'),
-//         'isLoggedIn' => Auth::check(),
-//         'success' => true,
-//     ]);
-// })->name('create');
 
 Route::middleware([
     'auth:sanctum',

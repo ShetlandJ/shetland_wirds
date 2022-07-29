@@ -450,6 +450,9 @@ class WordService
 
         foreach ($userLogs as $logs) {
             foreach ($logs as $log) {
+                if (!$log instanceof UserLog) {
+                    continue;
+                }
                 if (!isset($uniqueViews[$log->word_id])) {
                     $uniqueViews[$log->word_id]['count'] = 0;
                     $uniqueViews[$log->word_id]['word'] = $log->word->word;

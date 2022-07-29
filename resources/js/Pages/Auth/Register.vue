@@ -17,6 +17,7 @@ const form = useForm({
     password: "",
     password_confirmation: "",
     terms: false,
+    can_contact: false,
 });
 
 const submit = () => {
@@ -46,7 +47,7 @@ const submit = () => {
             </h1>
 
             <p>
-                {{t('register.desc')}}
+                {{ t("register.desc") }}
             </p>
         </div>
 
@@ -104,12 +105,27 @@ const submit = () => {
                 />
             </div>
 
+            <div class="mt-4 flex">
+                <input
+                    type="checkbox"
+                    class="form-check-input mt-2"
+                    id="can_contact"
+                    v-model="form.can_contact"
+                />
+                <label
+                    class="ml-2 form-check-label dark:text-white"
+                    for="can_contact"
+                >
+                    {{ t("register.canContact") }}
+                </label>
+            </div>
+
             <div class="flex items-center justify-end mt-4">
                 <Link
                     :href="route('login')"
                     class="underline text-sm text-gray-600 hover:text-gray-900"
                 >
-                    {{t('register.alreadyRegistered')}}?
+                    {{ t("register.alreadyRegistered") }}?
                 </Link>
 
                 <JetButton
@@ -117,7 +133,7 @@ const submit = () => {
                     :class="{ 'opacity-25': form.processing }"
                     :disabled="form.processing"
                 >
-                    {{t('register.register')}}
+                    {{ t("register.register") }}
                 </JetButton>
             </div>
         </form>

@@ -7,6 +7,8 @@ import {
 } from "vue";
 const isLoggedIn = usePage().props.value.isLoggedIn;
 
+const emit = defineEmits(['success']);
+
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();
 
@@ -31,6 +33,7 @@ const createLocationLink = () => {
         locations: form.locations,
         onSuccess: ({ props }) => {
             form.locations = props.userSelectedLocations;
+            emit('success');
         },
     });
 };

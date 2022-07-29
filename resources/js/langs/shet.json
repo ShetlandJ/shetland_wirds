@@ -117,7 +117,8 @@
             "dataGathering": "W'ir gadderin data an'll shaa a heatmap whin we git enoff information tae mak da data øsfil!",
             "previous": "You ir pickit plaesses fir {word} afore. If you wid laek tae amend yir selection, please click {here}.",
             "editEntries": "Cheinge yir entries",
-            "addEntries": "Add yir ain below"
+            "addEntries": "Add yir ain below",
+            "successAlert": "Tanks! Dis'll gie wis a haand finnin oot whar dis wird is seid idda isles"
         },
         "reporting": {
             "inappropriateWord": "Inappropriate wird",

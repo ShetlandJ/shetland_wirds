@@ -17,10 +17,19 @@ onMounted(() => {
         showAddForm.value = false;
     }
 });
+
+const success = ref(false);
 </script>
 
 <template>
     <div v-if="word">
+        <Alert
+            v-if="success"
+            class="mb-4"
+            variant="success"
+            :message="t('word.locations.successAlert')"
+        />
+
         <p class="mb-2 dark:text-white" v-if="isLoggedIn">
             {{t('word.locations.whereInShetland')}}
         </p>
@@ -57,6 +66,7 @@ onMounted(() => {
             :user-selected-locations="userSelectedLocations"
             :locations="locations"
             :word="word"
+            @success="success = true"
         />
     </div>
 </template>

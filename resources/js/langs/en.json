@@ -117,7 +117,8 @@
             "dataGathering": "We are gathering data and will display a heatmap when we receive enough information to make the data useful!",
             "previous": "You have previously selected locations for {word}. If you would like to amend your selection, please click {here}.",
             "editEntries": "Edit your entries",
-            "addEntries": "Add your own below"
+            "addEntries": "Add your own below",
+            "successAlert": "Thanks! Your contribution will help us get a better picture of where this word is heard in Shetland"
         },
         "reporting": {
             "inappropriateWord": "Inappropriate word",

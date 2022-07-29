@@ -1,7 +1,5 @@
 <script setup>
 const emit = defineEmits(["toggle"]);
-import { ref } from 'vue';
-
 defineProps({
     showingNavigationDropdown: Boolean
 })

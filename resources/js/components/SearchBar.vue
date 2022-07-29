@@ -1,5 +1,5 @@
 <script setup>
-import { useForm, InertiaApp } from '@inertiajs/inertia-vue3';
+import { useForm } from '@inertiajs/inertia-vue3';
 const emit = defineEmits(['setSearch'])
 
 const form = useForm({

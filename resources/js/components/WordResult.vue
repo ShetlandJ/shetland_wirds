@@ -14,7 +14,7 @@ import Locations from "./locations/Locations.vue";
 import CiteSheet from "./words/CiteSheet.vue";
 import ReportForm from "./words/ReportForm.vue";
 
-import { computed, onMounted, ref } from "vue";
+import { computed, ref } from "vue";
 
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();

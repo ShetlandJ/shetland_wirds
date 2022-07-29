@@ -28,15 +28,6 @@ const shetlandSelected = computed(() => {
     return getLocale() === "shet";
 });
 
-const flagEmoji = computed(() => {
-    switch (getLocale()) {
-        case "en":
-            return "🏴󠁧󠁢󠁳󠁣󠁴󠁿";
-        default:
-            return "🏴󠁧󠁢󠁳󠁣󠁴󠁿";
-    }
-});
-
 const languages = [
     {
         name: "English",

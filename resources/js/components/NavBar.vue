@@ -1,6 +1,6 @@
 <script setup>
 import { Inertia } from "@inertiajs/inertia";
-import { Link, useForm, usePage, InertiaApp } from "@inertiajs/inertia-vue3";
+import { Link, useForm, usePage } from "@inertiajs/inertia-vue3";
 import JetDropdown from "@/Jetstream/Dropdown.vue";
 import JetDropdownLink from "@/Jetstream/DropdownLink.vue";
 import MobileMenu from "./MobileMenu.vue";

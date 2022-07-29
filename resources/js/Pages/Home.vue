@@ -1,7 +1,6 @@
 <script setup>
 import { ref, computed } from "vue";
 import { Head, useForm, Link } from "@inertiajs/inertia-vue3";
-import SearchBar from "../components/SearchBar.vue";
 import WordResult from "../components/WordResult.vue";
 import NavBar from "../components/NavBar.vue";
 

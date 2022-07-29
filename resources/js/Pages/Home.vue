@@ -77,7 +77,7 @@ const today = () => {
 };
 
 const convertMonthToI18n = (dateString) => {
-    const monthName = dateString.split(" ")[1];
+    const monthName = dateString.replace(/[0-9]/g, '').replace(' ,', '').trim();
     const i18nMonth = t(`months.${monthName.toLowerCase()}`);
 
     return dateString.replace(monthName, i18nMonth);

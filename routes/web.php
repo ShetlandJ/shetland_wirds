@@ -30,6 +30,7 @@ use App\Http\Controllers\Home\HomeController;
 use App\Http\Controllers\Word\WordController;
 use App\Http\Controllers\Words\WordsController;
 use App\Http\Controllers\Search\SearchController;
+use App\Http\Controllers\Word\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -68,13 +69,13 @@ Route::group(['prefix' => 'word'], function () {
     Route::post('/{slug}/like', [WordController::class, 'like'])
         ->name('word.like');
 
-    Route::get('/{slug}/comments', [WordController::class, 'commentsIndex'])
+    Route::get('/{slug}/comments', [CommentController::class, 'index'])
         ->name('word.comments');
-    Route::post('/{slug}/comments', [WordController::class, 'commentsStore'])
+    Route::post('/{slug}/comments', [CommentController::class, 'store'])
         ->name('word.comments.new');
-    Route::patch('/{slug}/comments', [WordController::class, 'commentsEdit'])
+    Route::patch('/{slug}/comments', [CommentController::class, 'update'])
         ->name('word.comments.update');
-    Route::delete('/{slug}/comments/{commentId}', [WordController::class, 'commentsDelete'])
+    Route::delete('/{slug}/comments/{commentId}', [CommentController::class, 'delete'])
         ->name('word.comments.delete');
 
     Route::get('/{slug}/recordings', [WordController::class, 'recordingsIndex'])

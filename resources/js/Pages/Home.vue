@@ -77,7 +77,7 @@ const today = () => {
 };
 
 const convertMonthToI18n = (dateString) => {
-    const monthName = dateString.replace(/[0-9]/g, '').replace(' ,', '').trim();
+    const monthName = dateString.replace(/[0-9]/g, "").replace(" ,", "").trim();
     const i18nMonth = t(`months.${monthName.toLowerCase()}`);
 
     return dateString.replace(monthName, i18nMonth);
@@ -200,6 +200,12 @@ const convertMonthToI18n = (dateString) => {
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowfullscreen
                 />
+            </div>
+
+            <div class="flex justify-center mt-4">
+            <p class="text-lg">
+                <a class="underline" href="/tutorial"> Check the tutorial </a>
+            </p>
             </div>
         </Container>
     </div>

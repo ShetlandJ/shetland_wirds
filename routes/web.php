@@ -58,7 +58,6 @@ Route::get('/search', [SearchController::class, 'index'])
 Route::post('/search', [SearchController::class, 'search'])
     ->name('search');
 
-
 Route::group(['prefix' => 'word'], function () {
     Route::get('/id/{uuid}', [WordController::class, 'show'])
         ->name('word.show');
@@ -89,6 +88,14 @@ Route::group(['prefix' => 'word'], function () {
         ->name('word.locations.new');
 });
 
+Route::get('/tutorial', function (Request $request) {
+    return Inertia::render('Tutorial', [
+        'isLoggedIn' => Auth::check(),
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'randomWord' => DB::table('words')->inRandomOrder()->first()->slug,
+    ]);
+});
 
 Route::get('/create', function (Request $request) {
     return Inertia::render('NewWord', [

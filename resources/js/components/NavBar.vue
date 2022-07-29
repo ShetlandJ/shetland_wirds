@@ -78,6 +78,13 @@ const logout = () => {
 };
 
 const userIsTrusted = usePage().props.value.user?.is_trusted;
+
+const inputInFocus = ref(false);
+
+const addToSearchString = (letter) => {
+    form.searchString += letter;
+    inputInFocus.value = true;
+}
 </script>
 
 <template>
@@ -136,6 +143,7 @@ const userIsTrusted = usePage().props.value.user?.is_trusted;
                         >
                             <div class="flex">
                                 <input
+                                    @focus="inputInFocus = true"
                                     v-model="form.searchString"
                                     size="300"
                                     type="search"
@@ -214,6 +222,11 @@ const userIsTrusted = usePage().props.value.user?.is_trusted;
                                     </svg>
                                 </button>
                             </div>
+                        </div>
+
+                        <div v-if="inputInFocus" class="flex items-center">
+                            <a @click="addToSearchString('ø')" class="underline cursor-pointer ml-3 text-lg">ø</a>
+                            <a @click="addToSearchString('ü')" class="underline cursor-pointer ml-3 text-lg">ü</a>
                         </div>
                     </div>
                 </form>

@@ -2,12 +2,8 @@
 import { useForm, usePage } from "@inertiajs/inertia-vue3";
 import {
     onMounted,
-    onBeforeMount,
-    onUpdated,
     computed,
     ref,
-    getCurrentInstance,
-    reactive,
 } from "vue";
 const isLoggedIn = usePage().props.value.isLoggedIn;
 
@@ -28,8 +24,6 @@ const form = useForm({
 onMounted(() => {
     form.locations = props.userSelectedLocations;
 });
-
-const locationKey = reactive(JSON.stringify(props.userSelectedLocations));
 
 const createLocationLink = () => {
     form.post(route("word.locations.new", { slug: props.word.slug }), {

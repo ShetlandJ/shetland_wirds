@@ -449,18 +449,13 @@ class WordService
 
         $uniqueViews = [];
 
-        foreach ($userLogs as $logs) {
-            foreach ($logs as $log) {
-                if (!$log instanceof UserLog) {
-                    dd($logs, $log);
-                }
-                if (!isset($uniqueViews[$log->word_id])) {
-                    $uniqueViews[$log->word_id]['count'] = 0;
-                    $uniqueViews[$log->word_id]['word'] = $log->word->word;
-                    $uniqueViews[$log->word_id]['slug'] = $log->word->slug;
-                }
-                $uniqueViews[$log->word_id]['count']++;
+        foreach ($userLogs as $log) {
+            if (!isset($uniqueViews[$log->word_id])) {
+                $uniqueViews[$log->word_id]['count'] = 0;
+                $uniqueViews[$log->word_id]['word'] = $log->word->word;
+                $uniqueViews[$log->word_id]['slug'] = $log->word->slug;
             }
+            $uniqueViews[$log->word_id]['count']++;
         }
 
         uasort($uniqueViews, function ($a, $b) {

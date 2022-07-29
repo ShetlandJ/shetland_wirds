@@ -20,7 +20,7 @@ const getLocale = () => {
 
 const commentOptions = ref({
     placeholder: getLocale() === 'shet'
-    ? `Whit's yir tochts aboot ${word.word}`
+    ? `Whit's yir tochts aboot ${word.word}?`
     : `Any thoughts on ${word.word}?`,
 });
 </script>

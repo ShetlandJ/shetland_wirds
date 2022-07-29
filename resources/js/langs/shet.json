@@ -35,7 +35,8 @@
         "welcome3": "W'ir mappin da wirds and expressions bi whaar d'ir spokken tae shaa a mair veeve pictir o Shaetlan speech.",
         "welcome4": "Tae start you aff, you can saerch fir a wird or phrase inna da saerch bar abün, or click on browse atidda menu to browse bi letter. If y'ir wantin tae help oot, click {here} tae register!",
         "featured": "Wir featured entry fir {today} is {featuredWord}",
-        "findOutMore": "Click tae fin oot mair!"
+        "findOutMore": "Click tae fin oot mair!",
+        "tutorial": "Needin mair detail? Tak a skoit at wir tutorial"
     },
     "faq": {
         "heading": "Aft Aksed Questions",

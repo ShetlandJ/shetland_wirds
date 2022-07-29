@@ -442,7 +442,8 @@ class WordService
 
     public function getTopViewedPages(): array
     {
-        $userLogs = UserLog::where('user_logs.created_at', '>=', now()->subDays(30))
+        $userLogs = UserLog::select('user_logs.*')
+            ->where('user_logs.created_at', '>=', now()->subDays(30))
             ->join('words', 'words.id', '=', 'user_logs.word_id')
             ->get();
 
@@ -451,7 +452,7 @@ class WordService
         foreach ($userLogs as $logs) {
             foreach ($logs as $log) {
                 if (!$log instanceof UserLog) {
-                    continue;
+                    dd($logs, $log);
                 }
                 if (!isset($uniqueViews[$log->word_id])) {
                     $uniqueViews[$log->word_id]['count'] = 0;

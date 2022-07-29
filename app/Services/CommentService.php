@@ -14,7 +14,7 @@ class CommentService
 
     public function delete(Comment $comment): bool
     {
-        if ($comment->parent) {
+        if ($comment->childComments) {
             foreach ($comment->childComments as $childComment) {
                 $childComment->delete();
             }

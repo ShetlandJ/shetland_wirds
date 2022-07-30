@@ -49,7 +49,7 @@ const cellClass = "px-1 py-1 border-b border-gray-200 bg-white text-md";
                                         slug: word.slug,
                                     })
                                 "
-                                class="text-gray-700 dark:text-white underline"
+                                class="text-gray-700 underline"
                             >
                                 {{ word.word }}
                             </Link>

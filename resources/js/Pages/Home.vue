@@ -33,44 +33,6 @@ const form = useForm({
     searchString: "",
 });
 
-const letterForm = useForm({
-    page: 1,
-    letter: "",
-});
-
-const handlePageChange = (pageNumber) => {
-    if (props.letter) {
-        letterForm.letter = props.letter;
-        letterForm.page = pageNumber;
-        letterForm.get(route("letter", props.letter), {
-            letter: letterForm.letter,
-            page: letterForm.page,
-        });
-    } else {
-        form.page = pageNumber;
-        form.searchString = props.searchString;
-        form.post(route("search", { searchTerm: form.searchString }), {
-            searchString: form.searchString,
-            page: pageNumber,
-        });
-    }
-};
-
-const currentPageStartsAt = computed(() => {
-    return (
-        props.pagination.page * props.pagination.perPage -
-        props.pagination.perPage +
-        1
-    );
-});
-
-const currentPageEndsAt = computed(() => {
-    return Math.min(
-        props.pagination.page * props.pagination.perPage,
-        props.pagination.total
-    );
-});
-
 const today = () => {
     const options = { year: "numeric", month: "long", day: "numeric" };
     return new Date().toLocaleDateString(undefined, options);
@@ -82,6 +44,19 @@ const convertMonthToI18n = (dateString) => {
 
     return dateString.replace(monthName, i18nMonth);
 };
+
+const latestContentFeature = ref(props.latestContent[0]);
+
+setInterval(() => {
+    const latestContentWithoutFeature = props.latestContent.filter(
+        (content) => content.id !== latestContentFeature.value.id
+    );
+
+    const randomIndex = Math.floor(
+        Math.random() * latestContentWithoutFeature.length
+    );
+    latestContentFeature.value = latestContentWithoutFeature[randomIndex];
+}, 3000);
 </script>
 
 <template>
@@ -221,58 +196,26 @@ const convertMonthToI18n = (dateString) => {
                 <b>Latest additions</b>
             </p>
 
-            <div class="block slide">
-                <div
-                    class="
-                        carousel-indicators
-                        flex
-                        bg-yellow-100
-                        h-24
-                        w-full
-                        justify-center
-                        items-center
-                    "
-                >
-                    <ol class="z-50 flex w-4/12 justify-center">
-                        <li
-                            v-for="(img, i) in 3"
-                            :key="i"
-                            class="
-                                md:w-4 md:h-4
-                                bg-gray-300
-                                rounded-full
-                                cursor-pointer
-                                mx-2
-                            "
-                        />
-                    </ol>
+            <Transition name="fade">
+                <div v-if="latestContentFeature">
+                    {{ latestContentFeature }}
                 </div>
-                <div class="carousel-inner relative overflow-hidden w-full">
-                    <div
-                        v-for="(img, i) in 3"
-                        :id="`slide-${i}`"
-                        :key="i"
-                        :class="`${active === i ? 'active' : ''}`"
-                        class="
-                            carousel-item
-                            inset-0
-                            relative
-                            w-full
-                            transform
-                            transition-all
-                            duration-500
-                            ease-in-out
-                        "
-                    >
-                        {{img}}!
-                    </div>
-                </div>
-            </div>
+            </Transition>
         </Container>
     </div>
 </template>
 
 <style>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
 .bg-gray-100 {
     background-color: #f7fafc;
     background-color: rgba(247, 250, 252, var(--tw-bg-opacity));
@@ -318,22 +261,5 @@ const convertMonthToI18n = (dateString) => {
         color: #fff;
         color: rgba(255, 255, 255, var(--tw-text-opacity));
     }
-}
-
-.left-full {
-    left: -100%;
-}
-
-.carousel-item {
-    float: left;
-    position: relative;
-    display: block;
-    width: 100%;
-    margin-right: -100%;
-    backface-visibility: hidden;
-}
-
-.carousel-item.active {
-    left: 0;
 }
 </style>

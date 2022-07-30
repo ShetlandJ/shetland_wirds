@@ -911,9 +911,13 @@ class WordService
                 $sorted[] = $arrItem;
             } elseif ($item instanceof Comment) {
                 $arrItem['content_type'] = 'comment';
+                $arrItem['word'] = $item->word->word;
+                $arrItem['slug'] = $item->word->slug;
                 $sorted[] = $arrItem;
             } elseif ($item instanceof WordRecording) {
                 $arrItem['content_type'] = 'recording';
+                $arrItem['word'] = $item->word->word;
+                $arrItem['slug'] = $item->word->word;
                 $sorted[] = $arrItem;
             }
         }

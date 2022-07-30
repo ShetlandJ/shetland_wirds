@@ -5,7 +5,7 @@ import JetDropdown from "@/Jetstream/Dropdown.vue";
 import JetDropdownLink from "@/Jetstream/DropdownLink.vue";
 import MobileMenu from "./MobileMenu.vue";
 import Hamburger from "./Hamburger.vue";
-import LanguageSelector from './LanguageSelector.vue';
+import LanguageSelector from "./LanguageSelector.vue";
 import { ref } from "vue";
 
 import { useI18n } from "vue-i18n";
@@ -84,7 +84,7 @@ const inputInFocus = ref(false);
 const addToSearchString = (letter) => {
     form.searchString += letter;
     inputInFocus.value = true;
-}
+};
 </script>
 
 <template>
@@ -119,8 +119,7 @@ const addToSearchString = (letter) => {
 
                 <form
                     class="
-                        md:grow
-                        md:flex
+                        md:grow md:flex
                         mb-4
                         ml-4
                         w-full
@@ -147,7 +146,7 @@ const addToSearchString = (letter) => {
                                     v-model="form.searchString"
                                     size="300"
                                     type="search"
-                                    style="max-width: 300px;"
+                                    style="max-width: 300px"
                                     class="
                                         form-control
                                         relative
@@ -225,8 +224,16 @@ const addToSearchString = (letter) => {
                         </div>
 
                         <div v-if="inputInFocus" class="flex items-center">
-                            <a @click="addToSearchString('ø')" class="underline cursor-pointer ml-3 text-lg">ø</a>
-                            <a @click="addToSearchString('ü')" class="underline cursor-pointer ml-3 text-lg">ü</a>
+                            <a
+                                @click="addToSearchString('ø')"
+                                class="underline cursor-pointer ml-3 text-lg dark:text-white"
+                                >ø</a
+                            >
+                            <a
+                                @click="addToSearchString('ü')"
+                                class="underline cursor-pointer ml-3 text-lg dark:text-white"
+                                >ü</a
+                            >
                         </div>
                     </div>
                 </form>
@@ -334,10 +341,18 @@ const addToSearchString = (letter) => {
                         </div>
                     </div>
                 </div>
-                                        <div v-if="inputInFocus" class="flex items-center">
-                            <a @click="addToSearchString('ø')" class="underline cursor-pointer ml-3 text-lg">ø</a>
-                            <a @click="addToSearchString('ü')" class="underline cursor-pointer ml-3 text-lg">ü</a>
-                        </div>
+                <div v-if="inputInFocus" class="flex items-center">
+                    <a
+                        @click="addToSearchString('ø')"
+                        class="underline cursor-pointer ml-3 text-lg dark:text-white"
+                        >ø</a
+                    >
+                    <a
+                        @click="addToSearchString('ü')"
+                        class="underline cursor-pointer ml-3 text-lg dark:text-white"
+                        >ü</a
+                    >
+                </div>
             </div>
         </form>
 
@@ -361,7 +376,7 @@ const addToSearchString = (letter) => {
                             "
                             :href="route('login')"
                         >
-                            {{t('global.login')}}
+                            {{ t("global.login") }}
                         </Link>
                     </li>
                     <li class="md:ml-4 my-2" v-if="!isLoggedIn">
@@ -379,7 +394,7 @@ const addToSearchString = (letter) => {
                             "
                             :href="route('register')"
                         >
-                            {{t('global.register')}}
+                            {{ t("global.register") }}
                         </Link>
                     </li>
                 </template>
@@ -419,7 +434,7 @@ const addToSearchString = (letter) => {
                         :href="route('about')"
                         :class="{ 'font-bold': $page.url === '/about' }"
                     >
-                        {{t('nav.about')}}
+                        {{ t("nav.about") }}
                     </Link>
                 </li>
                 <li class="md:ml-4 my-2">
@@ -440,7 +455,7 @@ const addToSearchString = (letter) => {
                             'font-bold': $page.url === '/create',
                         }"
                     >
-                        + {{t('nav.add')}}
+                        + {{ t("nav.add") }}
                     </a>
                 </li>
                 <template v-if="isLoggedIn">
@@ -458,7 +473,7 @@ const addToSearchString = (letter) => {
                             "
                             :href="route('dashboard')"
                         >
-                            {{t('nav.dashboard')}}
+                            {{ t("nav.dashboard") }}
                         </Link>
                     </li>
                     <li class="md:ml-4 my-2">
@@ -475,7 +490,7 @@ const addToSearchString = (letter) => {
                             "
                             @click="logout"
                         >
-                            {{t('global.logout')}}
+                            {{ t("global.logout") }}
                         </Link>
                     </li>
                 </template>
@@ -501,7 +516,7 @@ const addToSearchString = (letter) => {
                                     cursor-pointer
                                 "
                             >
-                                {{t('global.browse')}}
+                                {{ t("global.browse") }}
 
                                 <svg
                                     class="ml-2 -mr-0.5 h-4 w-4"
@@ -553,7 +568,7 @@ const addToSearchString = (letter) => {
                                 })
                             "
                         >
-                            {{t('global.random')}}?
+                            {{ t("global.random") }}?
                         </Link>
                     </template>
                 </JetDropdown>

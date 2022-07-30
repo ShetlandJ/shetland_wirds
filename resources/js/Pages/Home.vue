@@ -25,6 +25,7 @@ const props = defineProps({
     letter: String,
     randomWord: String,
     featuredWord: Object,
+    latestContent: Array,
 });
 
 const form = useForm({
@@ -105,36 +106,37 @@ const convertMonthToI18n = (dateString) => {
             @suggest-word="toggleSuggestWordForm(true)"
         />
 
-        <Container>
-            <div class="text-center">
-                <p class="flex text-xl justify-center mb-2 dark:text-white">
-                    <b>Da Spaektionary</b>
-                </p>
-                <p class="dark:text-white text-lg mb-4">
-                    {{ t("home.welcome1") }}
-                </p>
+        <div class="flex">
+            <Container>
+                <div class="text-center">
+                    <p class="flex text-xl justify-center mb-2 dark:text-white">
+                        <b>Da Spaektionary</b>
+                    </p>
+                    <p class="dark:text-white text-lg mb-4">
+                        {{ t("home.welcome1") }}
+                    </p>
 
-                <p class="dark:text-white text-lg mb-4">
-                    {{ t("home.welcome2") }}
-                </p>
+                    <p class="dark:text-white text-lg mb-4">
+                        {{ t("home.welcome2") }}
+                    </p>
 
-                <p class="dark:text-white text-lg mb-4">
-                    {{ t("home.welcome3") }}
-                </p>
+                    <p class="dark:text-white text-lg mb-4">
+                        {{ t("home.welcome3") }}
+                    </p>
 
-                <div
-                    class="dark:text-white text-lg mb-4"
-                    style="display: block"
-                >
-                    <i18n-t keypath="home.welcome4" tag="span" for="here">
-                        <template #here>
-                            <Link
-                                class="text-sm text-gray-700 underline"
-                                :href="route('register')"
-                                style="display: inline-flex !important"
-                            >
-                                <h2
-                                    className="
+                    <div
+                        class="dark:text-white text-lg mb-4"
+                        style="display: block"
+                    >
+                        <i18n-t keypath="home.welcome4" tag="span" for="here">
+                            <template #here>
+                                <Link
+                                    class="text-sm text-gray-700 underline"
+                                    :href="route('register')"
+                                    style="display: inline-flex !important"
+                                >
+                                    <h2
+                                        className="
                                 font-semibold
                                 text-lg
                                 text-gray-900
@@ -142,71 +144,129 @@ const convertMonthToI18n = (dateString) => {
                                 dark:text-white
                                 dark:border-b
                             "
-                                >
-                                    {{ t("global.here") }}
-                                </h2>
-                            </Link>
-                        </template>
-                    </i18n-t>
-                </div>
+                                    >
+                                        {{ t("global.here") }}
+                                    </h2>
+                                </Link>
+                            </template>
+                        </i18n-t>
+                    </div>
 
-                <Alert v-if="featuredWord">
-                    <div class="dark:text-white flex" style="display: block">
-                        <i18n-t keypath="home.featured" tag="span">
-                            <template #today>{{
-                                convertMonthToI18n(today())
-                            }}</template>
-                            <template #featuredWord>
-                                <Link
-                                    v-if="featuredWord"
-                                    :href="
-                                        route('word.comments', {
-                                            slug: featuredWord.slug,
-                                        })
-                                    "
-                                    class="text-sm text-blue-700 underline"
-                                    style="display: inline-flex !important"
-                                >
-                                    <h2
-                                        className="
+                    <Alert v-if="featuredWord">
+                        <div
+                            class="dark:text-white flex"
+                            style="display: block"
+                        >
+                            <i18n-t keypath="home.featured" tag="span">
+                                <template #today>{{
+                                    convertMonthToI18n(today())
+                                }}</template>
+                                <template #featuredWord>
+                                    <Link
+                                        v-if="featuredWord"
+                                        :href="
+                                            route('word.comments', {
+                                                slug: featuredWord.slug,
+                                            })
+                                        "
+                                        class="text-sm text-blue-700 underline"
+                                        style="display: inline-flex !important"
+                                    >
+                                        <h2
+                                            className="
                                 font-semibold
                                 text-lg
                                 -mt-1
                                 dark:text-white
                                 dark:border-b
                             "
-                                    >
-                                        {{ featuredWord.word }}
-                                    </h2> </Link
-                                >.
-                            </template>
-                        </i18n-t>
+                                        >
+                                            {{ featuredWord.word }}
+                                        </h2> </Link
+                                    >.
+                                </template>
+                            </i18n-t>
 
-                        <span>{{ t("home.findOutMore") }}</span>
-                    </div>
-                </Alert>
-            </div>
-        </Container>
+                            <span>{{ t("home.findOutMore") }}</span>
+                        </div>
+                    </Alert>
+                </div>
+            </Container>
+
+            <Container>
+                <div class="flex justify-center">
+                    <iframe
+                        width="560"
+                        height="315"
+                        src="https://www.youtube.com/embed/Is7EIylRMvM"
+                        title="YouTube video player"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen
+                    />
+                </div>
+
+                <div class="flex justify-center mt-4">
+                    <p class="text-lg">
+                        <a class="underline" href="/tutorial">
+                            {{ t("home.tutorial") }}
+                        </a>
+                    </p>
+                </div>
+            </Container>
+        </div>
 
         <Container>
-            <div class="flex justify-center">
-                <iframe
-                    width="560"
-                    height="315"
-                    src="https://www.youtube.com/embed/Is7EIylRMvM"
-                    title="YouTube video player"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen
-                />
-            </div>
+            <p class="flex text-xl justify-center mb-2 dark:text-white">
+                <b>Latest additions</b>
+            </p>
 
-            <div class="flex justify-center mt-4">
-                <p class="text-lg">
-                    <a class="underline" href="/tutorial">
-                        {{ t("home.tutorial") }}
-                    </a>
-                </p>
+            <div class="block slide">
+                <div
+                    class="
+                        carousel-indicators
+                        flex
+                        bg-yellow-100
+                        h-24
+                        w-full
+                        justify-center
+                        items-center
+                    "
+                >
+                    <ol class="z-50 flex w-4/12 justify-center">
+                        <li
+                            v-for="(img, i) in 3"
+                            :key="i"
+                            class="
+                                md:w-4 md:h-4
+                                bg-gray-300
+                                rounded-full
+                                cursor-pointer
+                                mx-2
+                            "
+                        />
+                    </ol>
+                </div>
+                <div class="carousel-inner relative overflow-hidden w-full">
+                    <div
+                        v-for="(img, i) in 3"
+                        :id="`slide-${i}`"
+                        :key="i"
+                        :class="`${active === i ? 'active' : ''}`"
+                        class="
+                            carousel-item
+                            inset-0
+                            relative
+                            w-full
+                            transform
+                            transition-all
+                            duration-500
+                            ease-in-out
+                        "
+                    >
+                        {{img}}!
+                    </div>
+                </div>
             </div>
         </Container>
     </div>
@@ -258,5 +318,22 @@ const convertMonthToI18n = (dateString) => {
         color: #fff;
         color: rgba(255, 255, 255, var(--tw-text-opacity));
     }
+}
+
+.left-full {
+    left: -100%;
+}
+
+.carousel-item {
+    float: left;
+    position: relative;
+    display: block;
+    width: 100%;
+    margin-right: -100%;
+    backface-visibility: hidden;
+}
+
+.carousel-item.active {
+    left: 0;
 }
 </style>

@@ -107,7 +107,6 @@ const showCreateNewWordForm = ref(false);
                                         "
                                         class="
                                             text-gray-700
-                                            dark:text-white
                                             underline
                                         "
                                     >

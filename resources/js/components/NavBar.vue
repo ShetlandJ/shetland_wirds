@@ -225,8 +225,8 @@ const addToSearchString = (letter) => {
                         </div>
 
                         <div v-if="inputInFocus" class="flex items-center">
-                            <a @click="addToSearchString('ø')" class="underline cursor-pointer ml-3 text-lg">ø</a>
-                            <a @click="addToSearchString('ü')" class="underline cursor-pointer ml-3 text-lg">ü</a>
+                            <a @click="addToSearchString('ø')" class="underline cursor-pointer ml-3 text-lg dark:text-white">ø</a>
+                            <a @click="addToSearchString('ü')" class="underline cursor-pointer ml-3 text-lg dark:text-white">ü</a>
                         </div>
                     </div>
                 </form>
@@ -335,8 +335,8 @@ const addToSearchString = (letter) => {
                     </div>
                 </div>
                                         <div v-if="inputInFocus" class="flex items-center">
-                            <a @click="addToSearchString('ø')" class="underline cursor-pointer ml-3 text-lg">ø</a>
-                            <a @click="addToSearchString('ü')" class="underline cursor-pointer ml-3 text-lg">ü</a>
+                            <a @click="addToSearchString('ø')" class="underline cursor-pointer ml-3 text-lg dark:text-white">ø</a>
+                            <a @click="addToSearchString('ü')" class="underline cursor-pointer ml-3 text-lg dark:text-white">ü</a>
                         </div>
             </div>
         </form>

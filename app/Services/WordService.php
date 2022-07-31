@@ -883,6 +883,50 @@ class WordService
         return $word->slug;
     }
 
+    public function getLatestAdditions()
+    {
+        // get the 10 most recent Words
+        $words = Word::where('pending', false)
+            ->where('rejected', false)
+            ->orderBy('created_at', 'desc')
+            ->take(10)
+            ->get();
+
+        // get the 10 most recent comments
+        $comments = Comment::orderBy('created_at', 'desc')
+            ->take(10)
+            ->get();
+
+        $recordings = WordRecording::orderBy('created_at', 'desc')
+            ->take(10)
+            ->get();
+
+
+        $combined = $words->merge($comments)->merge($recordings)->sortByDesc('created_at')->take(10);
+
+        // Loop through and sort by type/model
+        $sorted = [];
+        foreach ($combined as $item) {
+            $arrItem = $item->toArray();
+            if ($item instanceof Word) {
+                $arrItem['content_type'] = 'word';
+                $sorted[] = $arrItem;
+            } elseif ($item instanceof Comment) {
+                $arrItem['content_type'] = 'comment';
+                $arrItem['word'] = $item->word->word;
+                $arrItem['slug'] = $item->word->slug;
+                $sorted[] = $arrItem;
+            } elseif ($item instanceof WordRecording) {
+                $arrItem['content_type'] = 'recording';
+                $arrItem['word'] = $item->word->word;
+                $arrItem['slug'] = $item->word->word;
+                $sorted[] = $arrItem;
+            }
+        }
+
+        return array_values($sorted);
+    }
+
     public function saveAsMp3(WordRecording $recording): void
     {
         $assetPath = 'public';

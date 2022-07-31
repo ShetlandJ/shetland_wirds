@@ -19,6 +19,7 @@ class HomeController extends DictionaryController
             'isLoggedIn' => Auth::check(),
             'randomWord' => $this->randomWord(),
             'featuredWord' => $this->wordService->getFeaturedWord(),
+            'latestContent' => $this->wordService->getLatestAdditions()
         ]);
     }
 }

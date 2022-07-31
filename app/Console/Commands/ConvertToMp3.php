@@ -40,14 +40,19 @@ class ConvertToMp3 extends Command
                 $baseName = str_replace('.webm', '', $filename);
                 $newFileName = $baseName . '.mp3';
 
-                logger([$this->getAssetPath()]);
-                FFMpeg::fromDisk($this->getAssetPath())
-                ->open($filename)
-                ->export()
-                ->toDisk($this->getAssetPath())
-                ->inFormat(new Mp3)
-                ->save($newFileName);
-
+                logger("1");
+                $ff = FFMpeg::fromDisk($this->getAssetPath());
+                logger("2");
+                $ff->open($filename);
+                logger("3");
+                $ff->export();
+                logger("4");
+                $ff->toDisk($this->getAssetPath());
+                logger("5");
+                $ff->inFormat(new Mp3);
+                logger("6");
+                $ff->save($newFileName);
+                logger("7");
                 // log success
                 $this->info('Converted ' . $filename . ' to ' . $newFileName);
             } catch (\Exception $e) {

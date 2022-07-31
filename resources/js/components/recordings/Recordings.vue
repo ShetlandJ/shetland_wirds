@@ -29,6 +29,7 @@ const { word, isLoggedIn, success, userHasPendingRecordings, user } = usePage().
             </Alert>
 
             <Alert
+                v-if="word.recordings.length"
                 class="mb-4"
             >
                 We are aware there are problems playing these files in

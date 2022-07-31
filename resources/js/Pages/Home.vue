@@ -194,11 +194,16 @@ setInterval(() => {
                                 :href="`/word/${latestContentFeature.slug}`"
                                 >{{ latestContentFeature.word }}</a
                             >
-                            ({{
-                                humanReadable(
-                                    new Date(latestContentFeature.created_at)
-                                )
-                            }})
+                            <span class="text-sm ml-1"
+                                >({{
+                                    humanReadable(
+                                        new Date(
+                                            latestContentFeature.created_at
+                                        )
+                                    )
+                                }}
+                                ago)</span
+                            >
                         </span>
                         <span
                             v-if="
@@ -213,11 +218,16 @@ setInterval(() => {
                                 :href="`/word/${latestContentFeature.slug}`"
                                 >{{ latestContentFeature.word }}</a
                             >
-                            ({{
-                                humanReadable(
-                                    new Date(latestContentFeature.created_at)
-                                )
-                            }})
+                            <span class="text-sm ml-1"
+                                >({{
+                                    humanReadable(
+                                        new Date(
+                                            latestContentFeature.created_at
+                                        )
+                                    )
+                                }}
+                                ago)</span
+                            >
                         </span>
                         <span
                             v-if="
@@ -231,15 +241,20 @@ setInterval(() => {
                                 :href="`/word/${latestContentFeature.slug}`"
                                 >{{ latestContentFeature.word }}</a
                             >
-                            ({{
-                                humanReadable(
-                                    new Date(latestContentFeature.created_at)
-                                )
-                            }})
+                            <span class="text-sm ml-1"
+                                >({{
+                                    humanReadable(
+                                        new Date(
+                                            latestContentFeature.created_at
+                                        )
+                                    )
+                                }}
+                                ago)</span
+                            >
                         </span>
                     </div>
                     <progress
-                        style="height: 5px"
+                        style="height: 5px; width: 100%"
                         id="progress-bar"
                         max="70"
                         :value="progress"

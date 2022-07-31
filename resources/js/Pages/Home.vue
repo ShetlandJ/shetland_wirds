@@ -184,7 +184,7 @@ setInterval(() => {
 
                 <Alert variant="success">
                     <div class="text-lg justify-center dark:text-white flex">
-                        Recently added {{ latestContentFeature.content_type }}
+                        {{t('home.newlyAdded')}} {{ latestContentFeature.content_type }}
                         <span
                             v-if="latestContentFeature.content_type === 'word'"
                             class="ml-1"
@@ -212,7 +212,7 @@ setInterval(() => {
                             "
                             class="ml-1"
                         >
-                            for the word
+                            {{t('home.forTheWord')}}
                             <a
                                 class="underline"
                                 :href="`/word/${latestContentFeature.slug}`"
@@ -235,7 +235,7 @@ setInterval(() => {
                             "
                             class="ml-1"
                         >
-                            for the word
+                            {{t('home.forTheWord')}}
                             <a
                                 class="underline"
                                 :href="`/word/${latestContentFeature.slug}`"

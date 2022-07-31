@@ -36,7 +36,9 @@
         "welcome4": "To get started, you can search for a word or phrase in the search bar above, or click on browse in the menu to browse by letter. If you want to contribute, click {here} to register!",
         "featured": "Our featured entry for {today} is {featuredWord}",
         "findOutMore": "Click to find out more!",
-        "tutorial": "Need more detail? Check our tutorial"
+        "tutorial": "Need more detail? Check our tutorial",
+        "newlyAdded": "Newly added",
+        "forTheWord": "for the word"
     },
     "faq": {
         "heading": "Frequently Asked Questions",

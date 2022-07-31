@@ -55,7 +55,19 @@ const convertMonthToI18n = (dateString) => {
 
 const latestContentFeature = ref(props.latestContent[0]);
 
+const progress = ref(0);
+
+// when progress is zero, increase it to 100 over 7 seconds
+const progressInterval = setInterval(() => {
+    if (progress.value < 100) {
+        progress.value += 1;
+    } else {
+        clearInterval(progressInterval);
+    }
+}, 100);
+
 setInterval(() => {
+    progress.value = 0;
     const latestContentWithoutFeature = props.latestContent.filter(
         (content) => content.id !== latestContentFeature.value.id
     );
@@ -226,6 +238,12 @@ setInterval(() => {
                             }})
                         </span>
                     </div>
+                    <progress
+                        style="height: 5px"
+                        id="progress-bar"
+                        max="70"
+                        :value="progress"
+                    />
                 </Alert>
             </div>
         </Container>
@@ -267,16 +285,6 @@ setInterval(() => {
 </template>
 
 <style>
-.fade-enter-active,
-.fade-leave-active {
-    transition: opacity 0.5s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-    opacity: 0;
-}
-
 .bg-gray-100 {
     background-color: #f7fafc;
     background-color: rgba(247, 250, 252, var(--tw-bg-opacity));

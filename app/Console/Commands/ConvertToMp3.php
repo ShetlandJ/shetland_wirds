@@ -41,15 +41,10 @@ class ConvertToMp3 extends Command
                 $newFileName = $baseName . '.mp3';
 
                 logger("1");
-                $ff = FFMpeg::fromDisk($this->getAssetPath());
-                logger("2");
-                $ff->open($filename);
-                logger("3");
-                logger($filename);
-                $ff->export();
-                logger("4");
-                $ff->toDisk($this->getAssetPath());
-                logger("5");
+                $ff = FFMpeg::fromDisk($this->getAssetPath())
+                    ->open($filename)
+                    ->export()
+                    ->toDisk($this->getAssetPath());
                 $ff->inFormat(new Mp3);
                 logger("6");
                 $ff->save($newFileName);

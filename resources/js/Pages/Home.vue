@@ -4,6 +4,14 @@ import { Head, useForm, Link } from "@inertiajs/inertia-vue3";
 import WordResult from "../components/WordResult.vue";
 import NavBar from "../components/NavBar.vue";
 
+import formatDistanceToNow from "date-fns/formatDistanceToNow";
+import format from "date-fns/format";
+const DATE_FORMAT = "d MMM yy";
+
+const humanReadable = (d) => {
+    return formatDistanceToNow(d);
+};
+
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();
 
@@ -25,49 +33,12 @@ const props = defineProps({
     letter: String,
     randomWord: String,
     featuredWord: Object,
+    latestContent: Array,
 });
 
 const form = useForm({
     page: 1,
     searchString: "",
-});
-
-const letterForm = useForm({
-    page: 1,
-    letter: "",
-});
-
-const handlePageChange = (pageNumber) => {
-    if (props.letter) {
-        letterForm.letter = props.letter;
-        letterForm.page = pageNumber;
-        letterForm.get(route("letter", props.letter), {
-            letter: letterForm.letter,
-            page: letterForm.page,
-        });
-    } else {
-        form.page = pageNumber;
-        form.searchString = props.searchString;
-        form.post(route("search", { searchTerm: form.searchString }), {
-            searchString: form.searchString,
-            page: pageNumber,
-        });
-    }
-};
-
-const currentPageStartsAt = computed(() => {
-    return (
-        props.pagination.page * props.pagination.perPage -
-        props.pagination.perPage +
-        1
-    );
-});
-
-const currentPageEndsAt = computed(() => {
-    return Math.min(
-        props.pagination.page * props.pagination.perPage,
-        props.pagination.total
-    );
 });
 
 const today = () => {
@@ -81,6 +52,31 @@ const convertMonthToI18n = (dateString) => {
 
     return dateString.replace(monthName, i18nMonth);
 };
+
+const latestContentFeature = ref(props.latestContent[0]);
+
+const progress = ref(0);
+
+// when progress is zero, increase it to 100 over 7 seconds
+const progressInterval = setInterval(() => {
+    if (progress.value < 100) {
+        progress.value += 1;
+    } else {
+        clearInterval(progressInterval);
+    }
+}, 100);
+
+setInterval(() => {
+    progress.value = 0;
+    const latestContentWithoutFeature = props.latestContent.filter(
+        (content) => content.id !== latestContentFeature.value.id
+    );
+
+    const randomIndex = Math.floor(
+        Math.random() * latestContentWithoutFeature.length
+    );
+    latestContentFeature.value = latestContentWithoutFeature[randomIndex];
+}, 7000);
 </script>
 
 <template>
@@ -150,7 +146,7 @@ const convertMonthToI18n = (dateString) => {
                     </i18n-t>
                 </div>
 
-                <Alert v-if="featuredWord">
+                <Alert v-if="featuredWord" class="mb-4">
                     <div class="dark:text-white flex" style="display: block">
                         <i18n-t keypath="home.featured" tag="span">
                             <template #today>{{
@@ -185,6 +181,70 @@ const convertMonthToI18n = (dateString) => {
                         <span>{{ t("home.findOutMore") }}</span>
                     </div>
                 </Alert>
+
+                <Alert variant="success">
+                    <div class="text-lg justify-center dark:text-white flex">
+                        Recently added {{ latestContentFeature.content_type }}
+                        <span
+                            v-if="latestContentFeature.content_type === 'word'"
+                            class="ml-1"
+                        >
+                            <a
+                                class="underline"
+                                :href="`/word/${latestContentFeature.slug}`"
+                                >{{ latestContentFeature.word }}</a
+                            >
+                            ({{
+                                humanReadable(
+                                    new Date(latestContentFeature.created_at)
+                                )
+                            }})
+                        </span>
+                        <span
+                            v-if="
+                                latestContentFeature.content_type ===
+                                'recording'
+                            "
+                            class="ml-1"
+                        >
+                            for the word
+                            <a
+                                class="underline"
+                                :href="`/word/${latestContentFeature.slug}`"
+                                >{{ latestContentFeature.word }}</a
+                            >
+                            ({{
+                                humanReadable(
+                                    new Date(latestContentFeature.created_at)
+                                )
+                            }})
+                        </span>
+                        <span
+                            v-if="
+                                latestContentFeature.content_type === 'comment'
+                            "
+                            class="ml-1"
+                        >
+                            for the word
+                            <a
+                                class="underline"
+                                :href="`/word/${latestContentFeature.slug}`"
+                                >{{ latestContentFeature.word }}</a
+                            >
+                            ({{
+                                humanReadable(
+                                    new Date(latestContentFeature.created_at)
+                                )
+                            }})
+                        </span>
+                    </div>
+                    <progress
+                        style="height: 5px"
+                        id="progress-bar"
+                        max="70"
+                        :value="progress"
+                    />
+                </Alert>
             </div>
         </Container>
 
@@ -209,6 +269,18 @@ const convertMonthToI18n = (dateString) => {
                 </p>
             </div>
         </Container>
+        <!--
+        <Container>
+            <p class="flex text-xl justify-center mb-2 dark:text-white">
+                <b>Latest additions</b>
+            </p>
+
+            <Transition name="fade">
+                <div v-if="latestContentFeature">
+                    {{ latestContentFeature }}
+                </div>
+            </Transition>
+        </Container> -->
     </div>
 </template>
 

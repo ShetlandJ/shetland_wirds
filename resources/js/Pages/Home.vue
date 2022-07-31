@@ -105,6 +105,12 @@ const convertMonthToI18n = (dateString) => {
             @suggest-word="toggleSuggestWordForm(true)"
         />
 
+        <Alert class="mb-4">
+            The site will be receiving an infrastructure upgrade between 19:20
+            and 20:00 on Sunday 31 July, so you may experience some issues
+            during this time.
+        </Alert>
+
         <Container>
             <div class="text-center">
                 <p class="flex text-xl justify-center mb-2 dark:text-white">

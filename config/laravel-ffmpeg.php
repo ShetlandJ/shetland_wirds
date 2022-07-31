@@ -10,8 +10,8 @@ return [
     // 'ffprobe' => [
     //     'binaries' => env('FFPROBE_BINARIES', 'ffprobe'),
     // ],
-    'ffmpeg.binaries' => '/storge/ffmpeg',
-    'ffprobe.binaries' => '/storge/ffprobe',
+    'ffmpeg.binaries' => '/storage/ffmpeg',
+    'ffprobe.binaries' => '/storage/ffprobe',
 
     'timeout' => 3600,
 

@@ -52,7 +52,7 @@ class ConvertToMp3 extends Command
             } catch (\Exception $e) {
                 // log failure
                 $this->error('Failed to convert ' . $filename . ' to ' . $newFileName);
-                $this->error($e->getMessage());
+                $this->error($e);
                 continue;
             }
         }

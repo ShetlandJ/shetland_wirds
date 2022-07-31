@@ -45,6 +45,7 @@ class ConvertToMp3 extends Command
                 logger("2");
                 $ff->open($filename);
                 logger("3");
+                logger($filename);
                 $ff->export();
                 logger("4");
                 $ff->toDisk($this->getAssetPath());

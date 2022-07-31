@@ -222,6 +222,8 @@ class WordController extends DictionaryController
 
         $recording = $this->wordService->saveRecording($fullWord, $filePath, !$userIsTrusted);
 
+        $this->wordService->saveAsMp3($recording);
+
         return Inertia::render('WordRecordings', [
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),

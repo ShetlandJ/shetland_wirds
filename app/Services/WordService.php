@@ -15,6 +15,7 @@ use App\Models\WordToWord;
 use Illuminate\Support\Str;
 use App\Models\UserWordLike;
 use App\Models\WordOfTheDay;
+use FFMpeg\Format\Audio\Mp3;
 use App\Models\WordRecording;
 use App\Models\WordDefinition;
 use App\Models\WordToLocation;
@@ -25,6 +26,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+use ProtoneMedia\LaravelFFMpeg\Support\FFMpeg;
 use Symfony\Component\Routing\Loader\Configurator\CollectionConfigurator;
 
 class WordService
@@ -879,5 +881,35 @@ class WordService
             ->first();
 
         return $word->slug;
+    }
+
+    public function saveAsMp3(WordRecording $recording): void
+    {
+        $assetPath = 'public';
+        if (App::environment('production')) {
+            $assetPath = 's3';
+        }
+
+        $filename = str_replace('storage/', '', $recording->filename);
+        $baseName = str_replace('.webm', '', $filename);
+        $newFileName = $baseName . '.mp3';
+
+        FFMpeg::fromDisk($assetPath)
+            ->open($filename)
+            ->export()
+            ->toDisk($assetPath)
+            ->inFormat(new Mp3)
+            ->save($newFileName);
+
+        $this->convertFromWebm($recording);
+    }
+
+    public function convertFromWebm(WordRecording $recording): void
+    {
+        if (strpos($recording->filename, '.webm') !== false) {
+            // replace $recording->filename's .webm with .mp3
+            $recording->filename = str_replace('.webm', '.mp3', $recording->filename);
+            $recording->save();
+        }
     }
 }

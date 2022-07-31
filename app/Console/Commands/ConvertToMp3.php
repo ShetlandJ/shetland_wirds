@@ -36,22 +36,8 @@ class ConvertToMp3 extends Command
 
         foreach ($recordings as $recording) {
             try {
-                $filename = str_replace('storage/', '', $recording->filename);
-                $baseName = str_replace('.webm', '', $filename);
-                $newFileName = $baseName . '.mp3';
-
-                logger("1");
-                FFMpeg::fromDisk($this->getAssetPath())
-                    ->open($filename)
-                    ->export()
-                    ->toDisk($this->getAssetPath())
-                    ->inFormat(new Mp3)
-                    ->save($newFileName);
-                // log success
-                $this->info('Converted ' . $filename . ' to ' . $newFileName);
+                app(WordService::class)->saveAsMp3($recording);
             } catch (\Exception $e) {
-                // log failure
-                $this->error('Failed to convert ' . $filename . ' to ' . $newFileName);
                 $this->error($e);
                 continue;
             }

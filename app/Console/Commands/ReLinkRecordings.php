@@ -17,7 +17,7 @@ use App\Models\WordDefinition;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 
-class PurgeUser extends Command
+class ReLinkRecordings extends Command
 {
     protected $signature = 'recordings:reconnect';
     protected $description = 'Link any broken recordings';

@@ -6,7 +6,7 @@ const isLoggedIn = ref(() => usePage().props.value.isLoggedIn);
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();
 
-const emit = defineEmits(['remove']);
+const emit = defineEmits(["remove"]);
 
 const props = defineProps({
     word: Object,
@@ -16,12 +16,12 @@ const props = defineProps({
     canRemove: {
         type: Boolean,
         default: false,
-    }
+    },
 });
 
 const remove = () => {
-    emit('remove', props.recording.id);
-}
+    emit("remove", props.recording.id);
+};
 </script>
 
 <template>
@@ -36,12 +36,24 @@ const remove = () => {
             mb-4
         "
     >
+
+
         <div class="basis-1/2 hidden md:block">
-            <p><b>{{t('word.recordings.speaker')}}</b>: {{ recording.speaker_name }}</p>
-            <p><b>{{t('word.recordings.type')}}</b>: {{ recording.type }}</p> <span v-if="adminView">
-                {{t('word.recordings.word')}}: {{recording.word.word}}
+            <p>
+                <b>{{ t("word.recordings.speaker") }}</b
+                >: {{ recording.speaker_name }}
+            </p>
+            <p>
+                <b>{{ t("word.recordings.type") }}</b
+                >: {{ recording.type }}
+            </p>
+            <span v-if="adminView">
+                {{ t("word.recordings.word") }}: {{ recording.word.word }}
             </span>
-            <p><b>{{t('word.recordings.date')}}</b>: {{ formatDate(new Date(recording.created_at)) }}</p>
+            <p>
+                <b>{{ t("word.recordings.date") }}</b
+                >: {{ formatDate(new Date(recording.created_at)) }}
+            </p>
         </div>
 
         <audio controls class="w-full">
@@ -52,23 +64,22 @@ const remove = () => {
             <button
                 class="
                     bg-red-500
-                    text-white
-                    text-sm
+                    text-white text-sm
                     py-2
                     ml-2
                     px-4
                     rounded-md
-                    hover:bg-red-600
-                    hover:text-white
+                    hover:bg-red-600 hover:text-white
                     focus:outline-none
                     focus:shadow-outline
                     focus:border-red-600
                     focus:shadow-outline-red-600
-                    transition-colors duration-200
+                    transition-colors
+                    duration-200
                 "
                 @click="remove"
             >
-                {{t('global.remove')}}
+                {{ t("global.remove") }}
             </button>
         </div>
 
@@ -85,7 +96,7 @@ const remove = () => {
                     mr-2
                 "
             >
-                {{t('global.approve')}}
+                {{ t("global.approve") }}
             </button>
             <button
                 class="
@@ -98,7 +109,7 @@ const remove = () => {
                     rounded-md
                 "
             >
-                {{t('global.reject')}}
+                {{ t("global.reject") }}
             </button>
         </div>
     </div>

@@ -263,7 +263,7 @@ setInterval(() => {
 
             <div class="flex justify-center mt-4">
                 <p class="text-lg">
-                    <a class="underline" href="/tutorial">
+                    <a class="underline dark:text-white" href="/tutorial">
                         {{ t("home.tutorial") }}
                     </a>
                 </p>

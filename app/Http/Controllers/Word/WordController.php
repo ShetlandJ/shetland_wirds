@@ -5,10 +5,6 @@ namespace App\Http\Controllers\Word;
 use App\Models\Word;
 use Inertia\Inertia;
 use App\Models\Comment;
-use Illuminate\Http\Request;
-use App\Services\WordService;
-use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -224,7 +220,9 @@ class WordController extends DictionaryController
             $userIsTrusted = true;
         }
 
-        $this->wordService->saveRecording($fullWord, $filePath, !$userIsTrusted);
+        $recording = $this->wordService->saveRecording($fullWord, $filePath, !$userIsTrusted);
+
+        $this->wordService->saveAsMp3($recording);
 
         return Inertia::render('WordRecordings', [
             'canLogin' => Route::has('login'),

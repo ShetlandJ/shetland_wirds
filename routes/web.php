@@ -249,8 +249,8 @@ Route::get('/dashboard/users', function () {
 })->name('users');
 
 Route::patch('/dashboard/users', function () {
-    if (request('userUuid') && request('roleUuid')) {
-        app(UserService::class)->updateRole(request('userUuid'), request('roleUuid'));
+    if (request('id') && request('roleUuid')) {
+        app(UserService::class)->updateRole(request('id'), request('roleUuid'));
     }
 
     return redirect()->back();

@@ -185,6 +185,85 @@ const convertMonthToI18n = (dateString) => {
                         <span>{{ t("home.findOutMore") }}</span>
                     </div>
                 </Alert>
+
+                <Alert variant="success">
+                    <div class="text-lg justify-center dark:text-white flex">
+                        Recently added {{ latestContentFeature.content_type }}
+                        <span
+                            v-if="latestContentFeature.content_type === 'word'"
+                            class="ml-1"
+                        >
+                            <a
+                                class="underline"
+                                :href="`/word/${latestContentFeature.slug}`"
+                                >{{ latestContentFeature.word }}</a
+                            >
+                            <span class="text-sm ml-1"
+                                >({{
+                                    humanReadable(
+                                        new Date(
+                                            latestContentFeature.created_at
+                                        )
+                                    )
+                                }}
+                                ago)</span
+                            >
+                        </span>
+                        <span
+                            v-if="
+                                latestContentFeature.content_type ===
+                                'recording'
+                            "
+                            class="ml-1"
+                        >
+                            for the word
+                            <a
+                                class="underline"
+                                :href="`/word/${latestContentFeature.slug}`"
+                                >{{ latestContentFeature.word }}</a
+                            >
+                            <span class="text-sm ml-1"
+                                >({{
+                                    humanReadable(
+                                        new Date(
+                                            latestContentFeature.created_at
+                                        )
+                                    )
+                                }}
+                                ago)</span
+                            >
+                        </span>
+                        <span
+                            v-if="
+                                latestContentFeature.content_type === 'comment'
+                            "
+                            class="ml-1"
+                        >
+                            for the word
+                            <a
+                                class="underline"
+                                :href="`/word/${latestContentFeature.slug}`"
+                                >{{ latestContentFeature.word }}</a
+                            >
+                            <span class="text-sm ml-1"
+                                >({{
+                                    humanReadable(
+                                        new Date(
+                                            latestContentFeature.created_at
+                                        )
+                                    )
+                                }}
+                                ago)</span
+                            >
+                        </span>
+                    </div>
+                    <progress
+                        style="height: 5px; width: 100%"
+                        id="progress-bar"
+                        max="70"
+                        :value="progress"
+                    />
+                </Alert>
             </div>
         </Container>
 

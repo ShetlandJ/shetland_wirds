@@ -62,7 +62,7 @@ class ConvertToMp3 extends Command
     public function getAssetPath(): string
     {
         if (App::environment('production')) {
-            return sprintf('https://%s.amazonaws.com/', 'spaektionary-recordings.s3.eu-west-1/');
+            return sprintf('https://%s.amazonaws.com/', 'spaektionary-recordings.s3.eu-west-1');
         }
 
         return 'public';

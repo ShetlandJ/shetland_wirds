@@ -4,6 +4,14 @@ import { Head, useForm, Link } from "@inertiajs/inertia-vue3";
 import WordResult from "../components/WordResult.vue";
 import NavBar from "../components/NavBar.vue";
 
+import formatDistanceToNow from "date-fns/formatDistanceToNow";
+import format from "date-fns/format";
+const DATE_FORMAT = "d MMM yy";
+
+const humanReadable = (d) => {
+    return formatDistanceToNow(d);
+};
+
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();
 
@@ -56,7 +64,7 @@ setInterval(() => {
         Math.random() * latestContentWithoutFeature.length
     );
     latestContentFeature.value = latestContentWithoutFeature[randomIndex];
-}, 3000);
+}, 7000);
 </script>
 
 <template>
@@ -81,37 +89,36 @@ setInterval(() => {
             @suggest-word="toggleSuggestWordForm(true)"
         />
 
-        <div class="flex">
-            <Container>
-                <div class="text-center">
-                    <p class="flex text-xl justify-center mb-2 dark:text-white">
-                        <b>Da Spaektionary</b>
-                    </p>
-                    <p class="dark:text-white text-lg mb-4">
-                        {{ t("home.welcome1") }}
-                    </p>
+        <Container>
+            <div class="text-center">
+                <p class="flex text-xl justify-center mb-2 dark:text-white">
+                    <b>Da Spaektionary</b>
+                </p>
+                <p class="dark:text-white text-lg mb-4">
+                    {{ t("home.welcome1") }}
+                </p>
 
-                    <p class="dark:text-white text-lg mb-4">
-                        {{ t("home.welcome2") }}
-                    </p>
+                <p class="dark:text-white text-lg mb-4">
+                    {{ t("home.welcome2") }}
+                </p>
 
-                    <p class="dark:text-white text-lg mb-4">
-                        {{ t("home.welcome3") }}
-                    </p>
+                <p class="dark:text-white text-lg mb-4">
+                    {{ t("home.welcome3") }}
+                </p>
 
-                    <div
-                        class="dark:text-white text-lg mb-4"
-                        style="display: block"
-                    >
-                        <i18n-t keypath="home.welcome4" tag="span" for="here">
-                            <template #here>
-                                <Link
-                                    class="text-sm text-gray-700 underline"
-                                    :href="route('register')"
-                                    style="display: inline-flex !important"
-                                >
-                                    <h2
-                                        className="
+                <div
+                    class="dark:text-white text-lg mb-4"
+                    style="display: block"
+                >
+                    <i18n-t keypath="home.welcome4" tag="span" for="here">
+                        <template #here>
+                            <Link
+                                class="text-sm text-gray-700 underline"
+                                :href="route('register')"
+                                style="display: inline-flex !important"
+                            >
+                                <h2
+                                    className="
                                 font-semibold
                                 text-lg
                                 text-gray-900
@@ -119,78 +126,132 @@ setInterval(() => {
                                 dark:text-white
                                 dark:border-b
                             "
-                                    >
-                                        {{ t("global.here") }}
-                                    </h2>
-                                </Link>
-                            </template>
-                        </i18n-t>
-                    </div>
+                                >
+                                    {{ t("global.here") }}
+                                </h2>
+                            </Link>
+                        </template>
+                    </i18n-t>
+                </div>
 
-                    <Alert v-if="featuredWord">
-                        <div
-                            class="dark:text-white flex"
-                            style="display: block"
-                        >
-                            <i18n-t keypath="home.featured" tag="span">
-                                <template #today>{{
-                                    convertMonthToI18n(today())
-                                }}</template>
-                                <template #featuredWord>
-                                    <Link
-                                        v-if="featuredWord"
-                                        :href="
-                                            route('word.comments', {
-                                                slug: featuredWord.slug,
-                                            })
-                                        "
-                                        class="text-sm text-blue-700 underline"
-                                        style="display: inline-flex !important"
-                                    >
-                                        <h2
-                                            className="
+                <Alert v-if="featuredWord" class="mb-4">
+                    <div class="dark:text-white flex" style="display: block">
+                        <i18n-t keypath="home.featured" tag="span">
+                            <template #today>{{
+                                convertMonthToI18n(today())
+                            }}</template>
+                            <template #featuredWord>
+                                <Link
+                                    v-if="featuredWord"
+                                    :href="
+                                        route('word.comments', {
+                                            slug: featuredWord.slug,
+                                        })
+                                    "
+                                    class="text-sm text-blue-700 underline"
+                                    style="display: inline-flex !important"
+                                >
+                                    <h2
+                                        className="
                                 font-semibold
                                 text-lg
                                 -mt-1
                                 dark:text-white
                                 dark:border-b
                             "
-                                        >
-                                            {{ featuredWord.word }}
-                                        </h2> </Link
-                                    >.
-                                </template>
-                            </i18n-t>
+                                    >
+                                        {{ featuredWord.word }}
+                                    </h2> </Link
+                                >.
+                            </template>
+                        </i18n-t>
 
-                            <span>{{ t("home.findOutMore") }}</span>
-                        </div>
-                    </Alert>
-                </div>
-            </Container>
+                        <span>{{ t("home.findOutMore") }}</span>
+                    </div>
+                </Alert>
 
-            <Container>
-                <div class="flex justify-center">
-                    <iframe
-                        width="560"
-                        height="315"
-                        src="https://www.youtube.com/embed/Is7EIylRMvM"
-                        title="YouTube video player"
-                        frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen
-                    />
-                </div>
+                <Alert variant="success">
+                    <div class="text-lg justify-center dark:text-white flex">
+                        Recently added {{ latestContentFeature.content_type }}
+                        <span
+                            v-if="latestContentFeature.content_type === 'word'"
+                            class="ml-1"
+                        >
+                            <a
+                                class="underline"
+                                :href="`/word/${latestContentFeature.slug}`"
+                                >{{ latestContentFeature.word }}</a
+                            >
+                            ({{
+                                humanReadable(
+                                    new Date(latestContentFeature.created_at)
+                                )
+                            }})
+                        </span>
+                        <span
+                            v-if="
+                                latestContentFeature.content_type ===
+                                'recording'
+                            "
+                            class="ml-1"
+                        >
+                            for the word
+                            <a
+                                class="underline"
+                                :href="`/word/${latestContentFeature.slug}`"
+                                >{{ latestContentFeature.word }}</a
+                            >
+                            ({{
+                                humanReadable(
+                                    new Date(latestContentFeature.created_at)
+                                )
+                            }})
+                        </span>
+                        <span
+                            v-if="
+                                latestContentFeature.content_type === 'comment'
+                            "
+                            class="ml-1"
+                        >
+                            for the word
+                            <a
+                                class="underline"
+                                :href="`/word/${latestContentFeature.slug}`"
+                                >{{ latestContentFeature.word }}</a
+                            >
+                            ({{
+                                humanReadable(
+                                    new Date(latestContentFeature.created_at)
+                                )
+                            }})
+                        </span>
+                    </div>
+                </Alert>
+            </div>
+        </Container>
 
-                <div class="flex justify-center mt-4">
-                    <p class="text-lg">
-                        <a class="underline" href="/tutorial">
-                            {{ t("home.tutorial") }}
-                        </a>
-                    </p>
-                </div>
-            </Container>
-        </div>
+        <Container>
+            <div class="flex justify-center">
+                <iframe
+                    width="560"
+                    height="315"
+                    src="https://www.youtube.com/embed/Is7EIylRMvM"
+                    title="YouTube video player"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen
+                />
+            </div>
 
+            <div class="flex justify-center mt-4">
+                <p class="text-lg">
+                    <a class="underline" href="/tutorial">
+                        {{ t("home.tutorial") }}
+                    </a>
+                </p>
+            </div>
+        </Container>
+        <!--
         <Container>
             <p class="flex text-xl justify-center mb-2 dark:text-white">
                 <b>Latest additions</b>
@@ -201,19 +262,19 @@ setInterval(() => {
                     {{ latestContentFeature }}
                 </div>
             </Transition>
-        </Container>
+        </Container> -->
     </div>
 </template>
 
 <style>
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.5s ease;
+    transition: opacity 0.5s ease;
 }
 
 .fade-enter-from,
 .fade-leave-to {
-  opacity: 0;
+    opacity: 0;
 }
 
 .bg-gray-100 {

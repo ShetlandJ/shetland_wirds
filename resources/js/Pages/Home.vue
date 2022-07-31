@@ -76,7 +76,7 @@ setInterval(() => {
         Math.random() * latestContentWithoutFeature.length
     );
     latestContentFeature.value = latestContentWithoutFeature[randomIndex];
-}, 7000);
+}, 10000);
 </script>
 
 <template>
@@ -254,7 +254,7 @@ setInterval(() => {
                         </span>
                     </div>
                     <progress
-                        style="height: 5px; width: 100%"
+                        style="height: 3px; width: 100%"
                         id="progress-bar"
                         max="70"
                         :value="progress"

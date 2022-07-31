@@ -14,7 +14,7 @@ defineProps({
 <template>
     <div>
         <div>
-            <h1 class="px-4 pt-4 m-4 mb-0 text-4xl">Most viewed (last 30 days)</h1>
+            <h1 class="px-4 pt-4 m-4 mb-0 text-4xl">Most viewed (last 7 days)</h1>
             <div class="grid gap-6 mb-2">
                 <div class="p-4 flex items-center">
                     <MostViewed :most-viewed="metrics.topViewedPages" />

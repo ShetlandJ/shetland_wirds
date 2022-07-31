@@ -443,7 +443,7 @@ class WordService
     public function getTopViewedPages(): array
     {
         $userLogs = UserLog::select('user_logs.*')
-            ->where('user_logs.created_at', '>=', now()->subDays(30))
+            ->where('user_logs.created_at', '>=', now()->subDays(7))
             ->join('words', 'words.id', '=', 'user_logs.word_id')
             ->get();
 

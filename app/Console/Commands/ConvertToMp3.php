@@ -47,7 +47,13 @@ class ConvertToMp3 extends Command
                 ->toDisk($this->getAssetPath())
                 ->inFormat(new Mp3)
                 ->save($newFileName);
+
+                // log success
+                $this->info('Converted ' . $filename . ' to ' . $newFileName);
             } catch (\Exception $e) {
+                // log failure
+                $this->error('Failed to convert ' . $filename . ' to ' . $newFileName);
+                $this->error($e->getMessage());
                 continue;
             }
         }

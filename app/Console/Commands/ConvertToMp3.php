@@ -37,8 +37,7 @@ class ConvertToMp3 extends Command
         foreach ($recordings as $recording) {
             try {
                 $filename = str_replace('storage/', '', $recording->filename);
-                $baseName = str_replace('storage/', '', $filename);
-                $baseName = str_replace('.webm', '', $baseName);
+                $baseName = str_replace('.webm', '', $filename);
                 $newFileName = $baseName . '.mp3';
 
                 FFMpeg::fromDisk($this->getAssetPath())
@@ -53,7 +52,7 @@ class ConvertToMp3 extends Command
             } catch (\Exception $e) {
                 // log failure
                 $this->error('Failed to convert ' . $filename . ' to ' . $newFileName);
-                $this->error($e);
+                $this->error($e->getMessage());
                 continue;
             }
         }
@@ -62,7 +61,8 @@ class ConvertToMp3 extends Command
     public function getAssetPath(): string
     {
         if (App::environment('production')) {
-            return sprintf('https://%s.amazonaws.com/', 'spaektionary-recordings.s3.eu-west-1');
+            // return sprintf('https://%s.amazonaws.com/', 'spaektionary-recordings.s3.eu-west-1');
+            return 's3';
         }
 
         return 'public';

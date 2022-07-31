@@ -40,6 +40,7 @@ class ConvertToMp3 extends Command
                 $baseName = str_replace('.webm', '', $filename);
                 $newFileName = $baseName . '.mp3';
 
+                logger([$this->getAssetPath()]);
                 FFMpeg::fromDisk($this->getAssetPath())
                 ->open($filename)
                 ->export()

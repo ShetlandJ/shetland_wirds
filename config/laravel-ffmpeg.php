@@ -2,13 +2,13 @@
 
 return [
     'ffmpeg' => [
-        'binaries' => env('FFMPEG_BINARIES', storage_path() . '/ffmpeg/ffmpeg'),
+        'binaries' => env('FFMPEG_BINARIES', storage_path() . '/ffmpeg'),
 
         'threads' => 12,   // set to false to disable the default 'threads' filter
     ],
 
     'ffprobe' => [
-        'binaries' => env('FFPROBE_BINARIES', storage_path() . '/ffmpeg/ffprobe'),
+        'binaries' => env('FFPROBE_BINARIES', storage_path() . '/ffprobe'),
     ],
 
     'timeout' => 3600,

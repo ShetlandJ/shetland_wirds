@@ -41,7 +41,7 @@ class UserService
         }
 
         return [
-            'id' => $user->uuid,
+            'id' => $user->id,
             'name' => $user->name,
             'email' => $user->email,
             'roles' => $roles,
@@ -50,9 +50,9 @@ class UserService
         ];
     }
 
-    public function updateRole(string $userId, string $roleId): void
+    public function updateRole(int $userId, string $roleId): void
     {
-        $user = User::where('uuid', $userId)->first();
+        $user = User::where('id', $userId)->first();
         $role = Role::where('uuid', $roleId)->first();
 
         if (!$user || !$role) {

@@ -256,7 +256,7 @@ setInterval(() => {
                     <progress
                         style="height: 3px; width: 100%"
                         id="progress-bar"
-                        max="70"
+                        max="100"
                         :value="progress"
                     />
                 </Alert>
@@ -300,6 +300,14 @@ setInterval(() => {
 </template>
 
 <style>
+progress::-webkit-progress-bar {
+    background-color: white;
+}
+
+progress::-webkit-progress-value {
+  transition: width 0.1s;
+}
+
 .bg-gray-100 {
     background-color: #f7fafc;
     background-color: rgba(247, 250, 252, var(--tw-bg-opacity));

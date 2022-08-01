@@ -284,18 +284,6 @@ setInterval(() => {
                 </p>
             </div>
         </Container>
-        <!--
-        <Container>
-            <p class="flex text-xl justify-center mb-2 dark:text-white">
-                <b>Latest additions</b>
-            </p>
-
-            <Transition name="fade">
-                <div v-if="latestContentFeature">
-                    {{ latestContentFeature }}
-                </div>
-            </Transition>
-        </Container> -->
     </div>
 </template>
 

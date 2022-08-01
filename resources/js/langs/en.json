@@ -17,7 +17,8 @@
         "reject": "reject",
         "save": "Save",
         "cancel": "cancel",
-        "select": "Select"
+        "select": "Select",
+        "about": "about"
     },
     "nav": {
         "searchPlaceholder": "Search words",
@@ -164,6 +165,15 @@
         "friday": "Friday",
         "saturday": "Saturday",
         "sunday": "Sunday"
+    },
+    "time": {
+        "seconds": "second | seconds",
+        "minutes": "minute | minutes",
+        "hours": "hour | hours",
+        "days": "day | days",
+        "weeks": "week | weeks",
+        "months": "month | months",
+        "year": "year | years"
     },
     "login": {
         "login": "Login",

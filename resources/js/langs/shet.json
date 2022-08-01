@@ -17,7 +17,8 @@
         "reject": "reject",
         "save": "Save",
         "cancel": "cancel",
-        "select": "Pick"
+        "select": "Pick",
+        "about": "aboot"
     },
     "nav": {
         "searchPlaceholder": "Fin wirds",
@@ -164,6 +165,15 @@
         "friday": "Frydee",
         "saturday": "Setterdy",
         "sunday": "Sundy"
+    },
+    "time": {
+        "seconds": "siccind | siccinds",
+        "minutes": "meenit | meenits",
+        "hours": "ooer | ooers",
+        "days": "day | days",
+        "weeks": "week | weeks",
+        "months": "mont",
+        "year": "year"
     },
     "login": {
         "login": "Login",

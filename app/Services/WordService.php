@@ -797,6 +797,8 @@ class WordService
                 } else {
                     $scheduledFor = $wordsOfTheDay[$key+1]->scheduled_for->addDay();
                 }
+            } else {
+                $scheduledFor = $wordOfTheDay->scheduled_for->addDay();
             }
         }
 

@@ -11,7 +11,7 @@ defineProps({
     type: {
         type: String,
         default: null
-    }
+    },
 });
 </script>
 

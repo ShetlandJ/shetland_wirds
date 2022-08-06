@@ -29,16 +29,16 @@ const fields = computed(() => {
     return [...fieldList, ""];
 });
 
-// const approveForm = useForm({
-//     wordToApprove: null,
-// });
+const approveForm = useForm({
+    wordToApprove: null,
+});
 
-// const approveWord = (wordId) => {
-//     approveForm.wordToApprove = wordId;
-//     approveForm.post(route("approve"), {
-//         wordToApprove: approveForm.wordToApprove,
-//     });
-// };
+const approveWord = (wordId) => {
+    approveForm.wordToApprove = wordId;
+    approveForm.post(route("approve"), {
+        wordToApprove: approveForm.wordToApprove,
+    });
+};
 
 let showRejectForm = ref(false);
 let showApproveForm = ref(false);
@@ -54,17 +54,17 @@ const peerForm = useForm({
     approved: false,
 });
 
-// const rejectWord = (wordId) => {
-//     rejectForm.wordUuid = wordId;
-//     rejectForm.post(route("peer.reject"), {
-//         wordToApprove: rejectForm.wordToApprove,
-//         rejectReason: rejectForm.rejectReason,
-//         onFinish: () => {
-//             showRejectForm.value = false;
-//             form.reset("rejectForm");
-//         },
-//     });
-// };
+const rejectWord = (wordId) => {
+    rejectForm.wordUuid = wordId;
+    rejectForm.post(route("peer.reject"), {
+        wordToApprove: rejectForm.wordToApprove,
+        rejectReason: rejectForm.rejectReason,
+        onFinish: () => {
+            showRejectForm.value = false;
+            form.reset("rejectForm");
+        },
+    });
+};
 
 const peerVote = (wordId, approved) => {
     peerForm.wordUuid = wordId;
@@ -198,44 +198,50 @@ const cellClass = "px-5 py-5 border-b border-gray-200 bg-white text-sm";
                         </td>
                         <td v-if="!hideControls" :class="cellClass">
                             <div>
-                                <button
-                                    class="
-                                        px-4
-                                        py-2
-                                        bg-green-500
-                                        hover:bg-green-600
-                                        text-white text-sm
-                                        font-medium
-                                        rounded-md
-                                        mr-2
-                                    "
-                                    @click="toggleApproveWord(pendingWord.id)"
-                                >
-                                    {{
-                                        showApproveForm
-                                            ? "Cancel"
-                                            : "Vote to approve"
-                                    }}
-                                </button>
-                                <button
-                                    v-if="!pendingWord.rejected"
-                                    class="
-                                        px-4
-                                        py-2
-                                        bg-yellow-500
-                                        hover:bg-yellow-600
-                                        text-white text-sm
-                                        font-medium
-                                        rounded-md
-                                    "
-                                    @click="toggleRejectWord(pendingWord.id)"
-                                >
-                                    {{
-                                        showRejectForm
-                                            ? "Cancel"
-                                            : "Vote to reject"
-                                    }}
-                                </button>
+                                <div>
+                                    <button
+                                        class="
+                                            px-4
+                                            py-2
+                                            bg-green-500
+                                            hover:bg-green-600
+                                            text-white text-sm
+                                            font-medium
+                                            rounded-md
+                                            mr-2
+                                        "
+                                        @click="
+                                            toggleApproveWord(pendingWord.id)
+                                        "
+                                    >
+                                        {{
+                                            showApproveForm
+                                                ? "Cancel"
+                                                : "Vote to approve"
+                                        }}
+                                    </button>
+                                    <button
+                                        v-if="!pendingWord.rejected"
+                                        class="
+                                            px-4
+                                            py-2
+                                            bg-yellow-500
+                                            hover:bg-yellow-600
+                                            text-white text-sm
+                                            font-medium
+                                            rounded-md
+                                        "
+                                        @click="
+                                            toggleRejectWord(pendingWord.id)
+                                        "
+                                    >
+                                        {{
+                                            showRejectForm
+                                                ? "Cancel"
+                                                : "Vote to reject"
+                                        }}
+                                    </button>
+                                </div>
                             </div>
 
                             <div v-if="showApproveFormForWord(pendingWord.id)">
@@ -278,6 +284,23 @@ const cellClass = "px-5 py-5 border-b border-gray-200 bg-white text-sm";
                                     placeholder="Your message"
                                 />
                                 <div class="flex justify-end">
+                                    <button
+                                        class="
+                                            mt-2
+                                            px-4
+                                            py-2
+                                            mr-2
+                                            bg-green-800
+                                            hover:bg-green-700
+                                            text-white text-sm
+                                            font-medium
+                                            rounded-md
+                                        "
+                                        @click="approveWord(pendingWord.id, true)"
+                                    >
+                                        Add
+                                    </button>
+
                                     <button
                                         class="
                                             mt-2
@@ -334,6 +357,23 @@ const cellClass = "px-5 py-5 border-b border-gray-200 bg-white text-sm";
                                     placeholder="Your message"
                                 />
                                 <div class="flex justify-end">
+                                    <button
+                                        class="
+                                            mt-2
+                                            px-4
+                                            py-2
+                                            mr-2
+                                            bg-red-800
+                                            hover:bg-red-700
+                                            text-white text-sm
+                                            font-medium
+                                            rounded-md
+                                        "
+                                        @click="rejectWord(pendingWord.id, true)"
+                                    >
+                                        Reject
+                                    </button>
+
                                     <button
                                         class="
                                             mt-2

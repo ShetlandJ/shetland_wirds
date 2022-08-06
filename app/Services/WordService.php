@@ -958,4 +958,44 @@ class WordService
             $recording->save();
         }
     }
+
+    public function getLatestWords(): Collection
+    {
+        $words = Word::where('pending', false)
+            ->where('rejected', false)
+            ->where('pending', false)
+            ->orderBy('created_at', 'desc')
+            ->take(10)
+            ->get();
+
+        return $words->map(fn (Word $word) => $this->formatWord($word));
+    }
+
+    public function getLatestComments(): Collection
+    {
+        $comments = Comment::orderBy('created_at', 'desc')
+            ->take(10)
+            ->get();
+
+        return $comments->map(function (Comment $comment) {
+            return [
+                'id' => $comment->uuid,
+                'word_id' => $comment->word->uuid,
+                'word' => $comment->word->word,
+                'word_slug' => $comment->word->slug,
+                'message' => $comment->comment,
+                'user' => $comment->author ? $comment->author->name : 'Unregistered',
+                'created_at' => $comment->created_at->format('Y-m-d H:i:s'),
+            ];
+        });
+    }
+
+    public function getLatestRecordings(): Collection
+    {
+        $recordings = WordRecording::orderBy('created_at', 'desc')
+            ->take(10)
+            ->get();
+
+        return $recordings->map(fn (WordRecording $recording) => $this->formatRecording($recording));
+    }
 }

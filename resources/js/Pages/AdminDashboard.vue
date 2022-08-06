@@ -11,6 +11,7 @@ import PendingWordsTable from '../components/admin/PendingWordsTable.vue';
 import PendingRecordingsTable from '../components/admin/PendingRecordingsTable.vue';
 import UsersTable from '../components/admin/UsersTable.vue';
 import ReportedWordsTable from '../components/admin/ReportedWordsTable.vue';
+import LatestCommentsTable from '../components/admin/LatestCommentsTable.vue';
 
 import { computed } from "vue";
 
@@ -55,6 +56,18 @@ defineProps({
         type: Array,
         default: () => [],
     },
+    latestWords: {
+        type: Array,
+        default: () => [],
+    },
+    latestRecordings: {
+        type: Array,
+        default: () => [],
+    },
+    latestComments: {
+        type: Array,
+        default: () => [],
+    }
 });
 
 const heading = computed(() => {
@@ -65,6 +78,9 @@ const heading = computed(() => {
     if (route().current("recordings")) return "Pending recordings";
     if (route().current("users")) return "User management";
     if (route().current("reports")) return "Reported words";
+    if (route().current("latest.words")) return "Latest words";
+    if (route().current("latest.recordings")) return "Latest recordings";
+    if (route().current("latest.comments")) return "Latest comments";
     return "Admin dashboard";
 });
 </script>
@@ -78,11 +94,19 @@ const heading = computed(() => {
         </template>
 
         <div v-if="route().current('approval')">
-            <PendingWordsTable :pending-words="pendingWords" />
+            <PendingWordsTable :words="pendingWords" />
         </div>
 
         <div v-if="route().current('word-admin')">
             <EditWord />
+        </div>
+
+        <div v-if="route().current('latest.words')">
+            <PendingWordsTable :words="latestWords" hide-controls />
+        </div>
+
+        <div v-if="route().current('latest.comments')">
+            <LatestCommentsTable :comments="latestComments" />
         </div>
 
         <div v-if="revisions">

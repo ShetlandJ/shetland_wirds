@@ -143,6 +143,74 @@ const { reports } = usePage().props.value;
                                     </template>
                                 </JetDropdown>
 
+                                <JetDropdown align="right" width="48">
+                                    <template #trigger>
+                                        <button
+                                            type="button"
+                                            class="
+                                                inline-flex
+                                                items-center
+                                                border border-transparent
+                                                text-sm
+                                                mt-3
+                                                leading-4
+                                                font-medium
+                                                rounded-md
+                                                text-gray-500
+                                                bg-white
+                                                hover:text-gray-700
+                                                focus:outline-none
+                                                transition
+                                            "
+                                        >
+                                            Latest
+
+                                            <svg
+                                                class="ml-2 -mr-0.5 h-4 w-4"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 20 20"
+                                                fill="currentColor"
+                                            >
+                                                <path
+                                                    fill-rule="evenodd"
+                                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                    clip-rule="evenodd"
+                                                />
+                                            </svg>
+                                        </button>
+                                    </template>
+
+                                    <template #content>
+                                        <JetNavLink
+                                            :href="route('latest.words')"
+                                            :active="
+                                                route().current('latest.words')
+                                            "
+                                        >
+                                            Words
+                                        </JetNavLink>
+                                        <JetNavLink
+                                            :href="route('latest.recordings')"
+                                            :active="
+                                                route().current('latest.recordings')
+                                            "
+                                        >
+                                            Recordings
+                                        </JetNavLink>
+                                        <JetNavLink
+                                            :href="route('latest.comments')"
+                                            :active="
+                                                route().current(
+                                                    'latest.comments'
+                                                )
+                                            "
+                                        >
+                                            Comments
+                                        </JetNavLink>
+                                    </template>
+                                </JetDropdown>
+
+
                                 <JetNavLink
                                     :href="route('wotd')"
                                     :active="route().current('wotd')"

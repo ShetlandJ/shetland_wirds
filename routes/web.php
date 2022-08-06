@@ -363,3 +363,28 @@ Route::post('/report/{word}', function (string $word) {
 
     return redirect()->back();
 })->where('word', '.*')->name('word.report');
+
+// Latest
+Route::get('/dashboard/latest/words', function () {
+    return Inertia::render('AdminDashboard', [
+        'latestWords' => app(WordService::class)->getLatestWords(),
+        'isLoggedIn' => Auth::check(),
+        'reports' => app(WordService::class)->getReports(),
+    ]);
+})->name('latest.words');
+
+Route::get('/dashboard/latest/comments', function () {
+    return Inertia::render('AdminDashboard', [
+        'latestComments' => app(WordService::class)->getLatestComments(),
+        'isLoggedIn' => Auth::check(),
+        'reports' => app(WordService::class)->getReports(),
+    ]);
+})->name('latest.comments');
+
+Route::get('/dashboard/latest/recordings', function () {
+    return Inertia::render('AdminDashboard', [
+        'latestRecordings' => app(WordService::class)->getLatestRecordings(),
+        'isLoggedIn' => Auth::check(),
+        'reports' => app(WordService::class)->getReports(),
+    ]);
+})->name('latest.recordings');

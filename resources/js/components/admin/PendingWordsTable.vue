@@ -2,14 +2,24 @@
 import { useForm } from "@inertiajs/inertia-vue3";
 import { computed, ref } from "vue";
 
-defineProps({
-    pendingWords: {
+const props = defineProps({
+    words: {
         type: Array,
         default: () => [],
     },
+    hideControls: {
+        type: Boolean,
+        default: false,
+    },
 });
 
-const fields = ["Word", "Definition", "Example sentence", "Type", 'Creator', ""];
+const fields = computed(() => {
+    let fieldList = ["Word", "Definition", "Example sentence", "Type", 'Creator'];
+
+    if (props.hideControls) return fieldList;
+
+    return [...fieldList, ""];
+});
 
 const approveForm = useForm({
     wordToApprove: null,
@@ -87,7 +97,7 @@ const cellClass = 'px-5 py-5 border-b border-gray-200 bg-white text-sm';
                 </thead>
                 <tbody>
                     <tr
-                        v-for="pendingWord in pendingWords"
+                        v-for="pendingWord in words"
                         :key="pendingWord.id"
                     >
                         <td
@@ -131,11 +141,12 @@ const cellClass = 'px-5 py-5 border-b border-gray-200 bg-white text-sm';
                         >
                             {{ pendingWord.creator_name }}
                             <span v-if="pendingWord.creator_word_count > 0">
-                                ({{ pendingWord.creator_word_count }} words)
+                                ({{ pendingWord.creator_word_count }} word{{pendingWord.creator_word_count > 1 ? 's' : ''}})
                             </span>
                             <span v-else>(first words)</span>
                         </td>
                         <td
+                            v-if="!hideControls"
                             :class="cellClass"
                         >
                             <div>

@@ -20,6 +20,7 @@ use App\Models\WordRecording;
 use App\Models\WordDefinition;
 use App\Models\WordToLocation;
 use App\Models\WordRelationType;
+use App\Models\WordReviewVote;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\App;
@@ -144,6 +145,15 @@ class WordService
 
     public function formatWord(Word $word): array
     {
+        $votes = [];
+
+        if ($word->pending) {
+            $allPeerVotesForThisWord = WordReviewVote::where('word_id', $word->id)->get();
+
+            $votes['approved'] = $allPeerVotesForThisWord->filter(fn (WordReviewVote $vote) => $vote->approved)->count();
+            $votes['rejected'] = $allPeerVotesForThisWord->filter(fn (WordReviewVote $vote) => !$vote->approved)->count();
+        }
+
         return [
             'id' => $word->uuid,
             'word' => $word->word,
@@ -159,6 +169,7 @@ class WordService
             'comments'=> $this->getComments($word)->values()->all(),
             'recordings' => $this->getRecordings($word),
             'linked_words' => $this->getLinkedWords($word),
+            'votes' => $votes,
             'updated_at' => $word->updated_at->format('Y-m-d H:i:s'),
             'created_at' => $word->created_at->format('Y-m-d H:i:s'),
         ];
@@ -998,5 +1009,40 @@ class WordService
             ->get();
 
         return $recordings->map(fn (WordRecording $recording) => $this->formatRecording($recording));
+    }
+
+    public function peerWordVote(string $wordUuid, string $reason, bool $approval): ?WordReviewVote
+    {
+        $word = Word::where('uuid', $wordUuid)->first();
+
+        if (!$word) {
+            return null;
+        }
+
+        $voteExists = WordReviewVote::where('word_id', $word->id)
+            ->where('user_id', Auth::id())
+            ->first();
+
+        if ($voteExists && $voteExists->approved === $approval) {
+            return null;
+        } else if ($voteExists) {
+            $voteExists->approved = $approval;
+            $voteExists->save();
+
+            return $voteExists;
+        } else {
+            $peerReviewVote = new WordReviewVote();
+
+            $peerReviewVote->uuid = (string) Str::uuid();
+            $peerReviewVote->word_id = $word->id;
+            $peerReviewVote->user_id = Auth::id();
+            $peerReviewVote->comment = $reason;
+            $peerReviewVote->approved = $approval;
+            $peerReviewVote->save();
+
+            return $peerReviewVote;
+        }
+
+        return null;
     }
 }

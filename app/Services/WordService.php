@@ -624,7 +624,7 @@ class WordService
     {
         return [
             'id' => $recording->uuid,
-            'url' => asset($recording->filename),
+            'url' => $this->getAssetPath($recording),
             'type' => $recording->type,
             'created_at' => $recording->created_at->toIso8601String(),
             'user' => $recording->user ? $recording->user->name : 'Unregistered',

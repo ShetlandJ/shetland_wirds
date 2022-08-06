@@ -153,6 +153,17 @@ Route::post('/dashboard/approve', function () {
     ]);
 })->name('approve');
 
+Route::post('/dashboard/peer-vote', function () {
+    if (request('wordUuid')) {
+        $wordUuid = request('wordUuid');
+        $reason = request('reason');
+        $approved = (bool) request('approved');
+        app(WordService::class)->peerWordVote($wordUuid, $reason, $approved);
+    }
+
+    return redirect()->back();
+})->name('word.peer.review');
+
 Route::get('/dashboard/new-definitions', function () {
     return Inertia::render('AdminDashboard', [
         'definitions' => app(WordService::class)->findAllPendingDefinitions(),

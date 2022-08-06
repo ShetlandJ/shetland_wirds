@@ -1,15 +1,27 @@
 <script setup>
 import { useForm } from "@inertiajs/inertia-vue3";
 import { formatDate } from "../../utils/formatters";
+import { computed } from "vue";
+import { Link } from "@inertiajs/inertia-vue3";
 
-defineProps({
-    pendingRecordings: {
+const props = defineProps({
+    recordings: {
         type: Array,
         default: () => [],
     },
+    hideControls: {
+        type: Boolean,
+        default: false,
+    },
 });
 
-const fields = ["Word", "Speaker", "Recording", "Date", ""];
+const fields = computed(() => {
+    if (props.hideControls) {
+        return ["Word", "Text", "User", "Date"];
+    }
+
+    return ["Word", "Text", "User", "Date", ""];
+})
 
 const cellClass = "px-5 py-5 border-b border-gray-200 bg-white text-sm";
 
@@ -69,31 +81,40 @@ const approveRecording = (recordingUuid) => {
                 </thead>
                 <tbody>
                     <tr
-                        v-for="pendingRecording in pendingRecordings"
-                        :key="pendingRecording.id"
+                        v-for="recording in recordings"
+                        :key="recording.id"
                     >
                         <td :class="cellClass">
-                            {{ pendingRecording.word.word }}
+                                                        <Link
+                                :href="
+                                    route('word.comments', {
+                                        slug: recording.word.slug,
+                                    })
+                                "
+                                class="text-gray-700 underline"
+                            >
+                                {{ recording.word.word }}
+                            </Link>
                         </td>
 
                         <td :class="cellClass">
-                            {{ pendingRecording.speaker_name }}
+                            {{ recording.speaker_name }}
                         </td>
 
                         <td :class="cellClass">
                             <audio controls>
-                                <source :src="pendingRecording.url" type="audio/mpeg" />
+                                <source :src="recording.url" type="audio/mpeg" />
                             </audio>
                         </td>
 
                         <td :class="cellClass">
-                            {{ formatDate(new Date(pendingRecording.created_at)) }}
+                            {{ formatDate(new Date(recording.created_at)) }}
                         </td>
 
-                        <td :class="cellClass">
+                        <td :class="cellClass" v-if="!hideControls">
                             <div>
                                 <button
-                                    @click="approveRecording(pendingRecording.id)"
+                                    @click="approveRecording(recording.id)"
                                     class="
                                         px-4
                                         py-2
@@ -108,7 +129,7 @@ const approveRecording = (recordingUuid) => {
                                     Approve
                                 </button>
                                 <button
-                                    @click="deleteRecording(pendingRecording.id)"
+                                    @click="deleteRecording(recording.id)"
                                     class="
                                         px-4
                                         py-2

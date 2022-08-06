@@ -187,7 +187,7 @@ const { reports } = usePage().props.value;
                                                 route().current('latest.words')
                                             "
                                         >
-                                            Words
+                                            Latest Words
                                         </JetNavLink>
                                         <JetNavLink
                                             :href="route('latest.recordings')"
@@ -195,7 +195,7 @@ const { reports } = usePage().props.value;
                                                 route().current('latest.recordings')
                                             "
                                         >
-                                            Recordings
+                                            Latest Recordings
                                         </JetNavLink>
                                         <JetNavLink
                                             :href="route('latest.comments')"
@@ -205,7 +205,7 @@ const { reports } = usePage().props.value;
                                                 )
                                             "
                                         >
-                                            Comments
+                                            Latest Comments
                                         </JetNavLink>
                                     </template>
                                 </JetDropdown>
@@ -440,6 +440,34 @@ const { reports } = usePage().props.value;
                         >
                             Pending recordings
                         </JetResponsiveNavLink>
+
+                        <JetResponsiveNavLink
+                            :href="route('latest.words')"
+                            :active="
+                                route().current('latest.words')
+                            "
+                        >
+                            Latest Words
+                        </JetResponsiveNavLink>
+                        <JetResponsiveNavLink
+                            :href="route('latest.recordings')"
+                            :active="
+                                route().current('latest.recordings')
+                            "
+                        >
+                            Latest Recordings
+                        </JetResponsiveNavLink>
+                        <JetResponsiveNavLink
+                            :href="route('latest.comments')"
+                            :active="
+                                route().current(
+                                    'latest.comments'
+                                )
+                            "
+                        >
+                            Latest Comments
+                        </JetResponsiveNavLink>
+
                         <JetResponsiveNavLink
                             :href="route('new-definitions')"
                             :active="route().current('new-definitions')"

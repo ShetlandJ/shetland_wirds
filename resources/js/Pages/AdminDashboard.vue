@@ -109,6 +109,10 @@ const heading = computed(() => {
             <LatestCommentsTable :comments="latestComments" />
         </div>
 
+        <div v-if="route().current('latest.recordings')">
+            <PendingRecordingsTable :recordings="latestRecordings" hide-controls />
+        </div>
+
         <div v-if="revisions">
             <RevisionsList :revisions="revisions" />
         </div>

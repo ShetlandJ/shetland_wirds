@@ -28,14 +28,6 @@ const { word, isLoggedIn, success, userHasPendingRecordings, user } = usePage().
                 {{t('word.recordings.pendingAlert')}}
             </Alert>
 
-            <Alert
-                v-if="word.recordings.length"
-                class="mb-4"
-            >
-                We are aware there are problems playing these files in
-                on iPhones. We're working on a solution!
-            </Alert>
-
             <Recording
                 v-for="(recording, index) in word.recordings"
                 :recording="recording"

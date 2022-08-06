@@ -1,7 +1,7 @@
 <script setup>
 import { usePage } from "@inertiajs/inertia-vue3";
 import { formatDateTime } from "../../utils/formatters";
-import { computed, reactive, ref } from "vue";
+import { computed, onMounted, reactive, ref } from "vue";
 import ChildComment from "./ChildComment.vue";
 import CommentInput from "../comments/CommentInput.vue";
 import { Inertia } from "@inertiajs/inertia";
@@ -17,6 +17,7 @@ const isLoggedIn = usePage().props.value.isLoggedIn;
 const userId = usePage().props.value.user?.uuid;
 
 const showChildReplies = ref(false);
+
 const editMode = ref(false);
 
 import { useStore } from "../../store/commentStore";
@@ -28,6 +29,14 @@ const props = defineProps({
     word: Object,
     comment: Object,
 });
+
+
+onMounted(() => {
+    const childComments = props.comment.child_comments;
+    if (childComments?.length) {
+        showChildReplies.value = childComments.length > 0 && childComments.length < 5;
+    }
+})
 
 const commentOptions = ref({
     placeholder: t('word.comments.continue'),

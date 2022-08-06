@@ -83,6 +83,7 @@
         "thanks": "Thanks! We'll review your submission over the next few days"
     },
     "word": {
+        "word": "word | words",
         "reportAlert": "Your word report was successful. We will review it as soon as possible.",
         "noResults": "Sorry, we couldn't find any words that match your search term",
         "exactMatch": "exact match",

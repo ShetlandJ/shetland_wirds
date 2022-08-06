@@ -430,7 +430,7 @@ class WordService
 
         $allTimeMetrics = [
             ['name' => 'Total words', 'value' => $allWords->count(), 'type' => 'total'],
-            ['name' => 'Most liked word', 'value' => $allWords->sortByDesc('likes_count')->first()->word, 'type' => 'likes'],
+            ['name' => 'Most liked word', 'value' => $allWords->sortByDesc('likes')->first()->word, 'type' => 'likes'],
         ];
 
         return [

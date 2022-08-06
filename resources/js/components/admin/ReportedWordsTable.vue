@@ -40,11 +40,6 @@ const form = useForm({
 
 const resolve = (report) => {
     form.reportId = report.id;
-    console.log(
-        route("reports.resolve", {
-            reportId: report.id,
-        })
-    );
     form.post(
         route("reports.resolve", {
             reportId: report.id,

@@ -12,7 +12,6 @@ export const formatDate = date => {
 export const formatTime = date => format(date, TIME_FORMAT);
 
 export const formatDateTime = date => {
-    // console.log(date);
     return format(new Date(date), DATE_TIME_FORMAT)
 };
 

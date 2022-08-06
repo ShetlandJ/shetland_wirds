@@ -41,7 +41,6 @@ const getWord = (uuid) => {
             },
         })
         .then(({ data }) => {
-            console.log(data);
             word.value = data;
         })
         .then(() => {

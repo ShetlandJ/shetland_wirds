@@ -39,7 +39,7 @@ class DictionaryController extends Controller
         $pageTotal = request('perPage') ?? 20;
 
         return [
-            'page' => request('page') ?? 1,
+            'page' => (int) request('page') ?? 1,
             'perPage' => request('perPage') ?? 20,
             'total' => $total,
             'pages' => ceil($total / $pageTotal),

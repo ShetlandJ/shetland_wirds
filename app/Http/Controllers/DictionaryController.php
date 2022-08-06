@@ -38,8 +38,9 @@ class DictionaryController extends Controller
         $total = $this->wordService->findBy($searchTerm, [], $letter)->count();
         $pageTotal = request('perPage') ?? 20;
 
+        $page = (int) request('page') === 0 ? 1 : (int) request('page');
         return [
-            'page' => (int) request('page') ?? 1,
+            'page' => $page,
             'perPage' => request('perPage') ?? 20,
             'total' => $total,
             'pages' => ceil($total / $pageTotal),

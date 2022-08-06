@@ -10,6 +10,10 @@ class WordReviewVote extends Model
 {
     protected $table = 'word_peer_reviews';
 
+    protected $casts = [
+        'approved' => 'boolean',
+    ];
+
     protected $fillable = [
         'uuid',
         'user_id',

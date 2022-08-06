@@ -1011,23 +1011,38 @@ class WordService
         return $recordings->map(fn (WordRecording $recording) => $this->formatRecording($recording));
     }
 
-    public function peerWordVote(string $wordUuid, string $reason, bool $approval): WordReviewVote
+    public function peerWordVote(string $wordUuid, string $reason, bool $approval): ?WordReviewVote
     {
         $word = Word::where('uuid', $wordUuid)->first();
 
         if (!$word) {
-            throw new \Exception('Word not found');
+            return null;
         }
 
-        $peerReviewVote = new WordReviewVote();
+        $voteExists = WordReviewVote::where('word_id', $word->id)
+            ->where('user_id', Auth::id())
+            ->first();
 
-        $peerReviewVote->uuid = (string) Str::uuid();
-        $peerReviewVote->word_id = $word->id;
-        $peerReviewVote->user_id = Auth::id();
-        $peerReviewVote->comment = $reason;
-        $peerReviewVote->approved = $approval;
-        $peerReviewVote->save();
+        if ($voteExists && $voteExists->approved === $approval) {
+            return null;
+        } else if ($voteExists) {
+            $voteExists->approved = $approval;
+            $voteExists->save();
 
-        return $peerReviewVote;
+            return $voteExists;
+        } else {
+            $peerReviewVote = new WordReviewVote();
+
+            $peerReviewVote->uuid = (string) Str::uuid();
+            $peerReviewVote->word_id = $word->id;
+            $peerReviewVote->user_id = Auth::id();
+            $peerReviewVote->comment = $reason;
+            $peerReviewVote->approved = $approval;
+            $peerReviewVote->save();
+
+            return $peerReviewVote;
+        }
+
+        return null;
     }
 }

@@ -37,6 +37,9 @@ const approveWord = (wordId) => {
     approveForm.wordToApprove = wordId;
     approveForm.post(route("approve"), {
         wordToApprove: approveForm.wordToApprove,
+        onFinish: () => {
+            approveForm.reset();
+        }
     });
 };
 
@@ -56,12 +59,12 @@ const peerForm = useForm({
 
 const rejectWord = (wordId) => {
     rejectForm.wordUuid = wordId;
-    rejectForm.post(route("peer.reject"), {
+    rejectForm.post(route("reject"), {
         wordToApprove: rejectForm.wordToApprove,
         rejectReason: rejectForm.rejectReason,
         onFinish: () => {
             showRejectForm.value = false;
-            form.reset("rejectForm");
+            rejectForm.reset();
         },
     });
 };
@@ -76,7 +79,8 @@ const peerVote = (wordId, approved) => {
         onFinish: () => {
             showRejectForm.value = false;
             showApproveForm.value = false;
-            form.reset("peerForm");
+            peerForm.reason = null;
+            peerForm.reset();
         },
     });
 };
@@ -87,7 +91,7 @@ const toggleRejectWord = (wordId) => {
         showRejectForm.value = !showRejectForm.value;
     } else {
         showRejectForm.value = true;
-        rejectForm.wordUuid = wordId;
+        peerForm.wordUuid = wordId;
     }
 };
 

@@ -191,7 +191,11 @@ Route::get('/dashboard/rejected', function () {
 
 Route::post('/dashboard/reject', function () {
     if (request('wordToReject')) {
-        app(WordService::class)->rejectWord(request('wordToReject'), request('rejectReason'));
+        try {
+            app(WordService::class)->rejectWord(request('wordToReject'), request('rejectReason'));
+        } catch (\Exception $e) {
+            return redirect()->back();
+        }
     }
 
     return redirect()->back();

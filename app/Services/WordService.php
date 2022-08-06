@@ -160,6 +160,7 @@ class WordService
             'recordings' => $this->getRecordings($word),
             'linked_words' => $this->getLinkedWords($word),
             'updated_at' => $word->updated_at->format('Y-m-d H:i:s'),
+            'created_at' => $word->created_at->format('Y-m-d H:i:s'),
         ];
     }
 

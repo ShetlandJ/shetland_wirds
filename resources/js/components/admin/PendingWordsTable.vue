@@ -1,6 +1,7 @@
 <script setup>
 import { useForm } from "@inertiajs/inertia-vue3";
 import { computed, ref } from "vue";
+import { formatDate } from "../../utils/formatters";
 
 const props = defineProps({
     words: {
@@ -14,7 +15,7 @@ const props = defineProps({
 });
 
 const fields = computed(() => {
-    let fieldList = ["Word", "Definition", "Example sentence", "Type", 'Creator'];
+    let fieldList = ["Word", "Definition", "Example sentence", "Type", 'Creator', "Date"];
 
     if (props.hideControls) return fieldList;
 
@@ -144,6 +145,12 @@ const cellClass = 'px-5 py-5 border-b border-gray-200 bg-white text-sm';
                                 ({{ pendingWord.creator_word_count }} word{{pendingWord.creator_word_count > 1 ? 's' : ''}})
                             </span>
                             <span v-else>(first words)</span>
+                        </td>
+
+                        <td
+                            :class="cellClass"
+                        >
+                            {{ formatDate(new Date(pendingWord.created_at)) }}
                         </td>
                         <td
                             v-if="!hideControls"

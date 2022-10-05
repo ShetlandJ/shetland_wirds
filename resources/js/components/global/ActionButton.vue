@@ -1,5 +1,7 @@
 <script setup>
-defineProps({
+import { computed } from "@vue/runtime-core";
+
+const props = defineProps({
     message: {
         type: String,
         default: null,
@@ -10,8 +12,21 @@ defineProps({
     },
     type: {
         type: String,
-        default: null
+        default: null,
     },
+    colour: {
+        type: String,
+        default: "blue",
+    },
+});
+
+const colourClasses = computed(() => {
+    return `
+        bg-${props.colour}-600
+        hover:bg-${props.colour}-700 hover:shadow-lg
+        focus:bg-${props.colour}-700 focus:shadow-lg focus:outline-none focus:ring-0
+        active:bg-${props.colour}-800 active:shadow-lg
+    `;
 });
 </script>
 
@@ -24,7 +39,6 @@ defineProps({
             inline-block
             px-6
             py-2.5
-            bg-blue-600
             text-white
             font-medium
             text-xs
@@ -32,9 +46,6 @@ defineProps({
             uppercase
             rounded
             shadow-md
-            hover:bg-blue-700 hover:shadow-lg
-            focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0
-            active:bg-blue-800 active:shadow-lg
             transition
             duration-150
             ease-in-out
@@ -42,6 +53,7 @@ defineProps({
             items-center
             disabled:opacity-50
         "
+        :class="colourClasses"
     >
         <template v-if="message">{{ message }}</template>
         <slot v-else />

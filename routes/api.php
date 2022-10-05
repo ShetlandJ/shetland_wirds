@@ -104,6 +104,14 @@ Route::middleware([config('jetstream.auth_session')])->group(function () {
         return ["data" => null];
     });
 
+    Route::delete('/word/{slug}', function (Request $request) {
+        $slug = $request->route('slug');
+
+        app(WordService::class)->delete($slug);
+
+        return ["data" => null];
+    });
+
     Route::get('/locations', function (Request $request) {
         return ["data" => app(WordService::class)->getAllLocations()];
     });

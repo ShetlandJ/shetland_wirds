@@ -57,6 +57,7 @@ class WordService
 
         $query->where('words.pending', false);
         $query->where('words.rejected', false);
+        $query->whereNull('words.deleted_at');
 
         $query->groupBy('words.id');
 
@@ -1044,5 +1045,19 @@ class WordService
         }
 
         return null;
+    }
+
+    public function delete(string $slug): ?Word
+    {
+        $word = Word::where('slug', $slug)->first();
+
+        if (!$word) {
+            return null;
+        }
+
+        $word->deleted_at = now();
+        $word->save();
+
+        return $word;
     }
 }

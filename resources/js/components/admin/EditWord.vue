@@ -8,9 +8,10 @@ const wordResultsList = ref([]);
 const linkedWordResultsList = ref([]);
 
 const showSuccessMessage = ref(false);
+const showDeleteSuccess = ref(false);
 const userId = usePage().props.value.user?.uuid;
 const { wordRelationTypes } = usePage().props.value;
-import Recording from '../../components/recordings/Recording.vue';
+import Recording from "../../components/recordings/Recording.vue";
 
 const searchWords = (firstSearch = true) => {
     axios
@@ -146,7 +147,7 @@ const definitionsWithoutRemovedOnes = computed(() => {
     return word.value.definitions.filter(
         (definition) => !removedDefinitions.value.includes(definition.id)
     );
-})
+});
 
 const removedRecordings = ref([]);
 
@@ -159,6 +160,22 @@ const wordRecordings = computed(() => {
         (recording) => !removedRecordings.value.includes(recording.id)
     );
 });
+
+const deleteWord = () => {
+     axios
+        .delete(`/api/word/${word.value.slug}`)
+        .then(({ data }) => {
+            word.value = null;
+            searchString.value = "";
+            wordResultsList.value = [];
+            newDefinitions.value = [];
+            removedDefinitions.value = [];
+            showDeleteSuccess.value = true;
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+}
 </script>
 
 <template>
@@ -169,14 +186,20 @@ const wordRecordings = computed(() => {
             variant="success"
             message="Word successfully updated"
         />
+        <Alert
+            class="mb-4"
+            v-if="showDeleteSuccess"
+            variant="success"
+            message="The word was moved to a hidden status, so it can be recovered in the future if necessary."
+        />
 
-        <p class="mb-2">
-            1. Search for the word you want to edit.
-        </p>
+        <p class="mb-2">1. Search for the word you want to edit.</p>
 
         <div class="flex mb-4">
             <input type="search" v-model="searchString" />
-            <ActionButton class="ml-2" @click="searchWords(true)">Search</ActionButton>
+            <ActionButton class="ml-2" @click="searchWords(true)"
+                >Search</ActionButton
+            >
         </div>
 
         <div
@@ -538,7 +561,15 @@ const wordRecordings = computed(() => {
                 />
             </div>
 
-            <ActionButton @click="updateWord" message="Update" />
+            <div class="flex">
+                <ActionButton @click="updateWord" message="Update" />
+                <ActionButton
+                    @click="deleteWord"
+                    message="Delete"
+                    colour="red"
+                    class="ml-2"
+                />
+            </div>
         </div>
     </Container>
 </template>

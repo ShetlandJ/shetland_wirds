@@ -1011,7 +1011,7 @@ class WordService
         return $recordings->map(fn (WordRecording $recording) => $this->formatRecording($recording));
     }
 
-    public function peerWordVote(string $wordUuid, string $reason, bool $approval): ?WordReviewVote
+    public function peerWordVote(string $wordUuid, ?string $reason, bool $approval): ?WordReviewVote
     {
         $word = Word::where('uuid', $wordUuid)->first();
 

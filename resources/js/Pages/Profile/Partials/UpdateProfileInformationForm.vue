@@ -18,7 +18,7 @@ const form = useForm({
     _method: "PUT",
     name: props.user.name,
     email: props.user.email,
-    location: props.user.location.uuid,
+    location: props.user.location?.uuid || null,
     photo: null,
 });
 

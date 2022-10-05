@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Role;
 use App\Models\Word;
+use App\Models\Location;
 use App\Models\UserToRole;
 use Laravel\Sanctum\HasApiTokens;
 use Laravel\Jetstream\HasProfilePhoto;
@@ -15,6 +16,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class User extends Authenticatable
 {
@@ -34,6 +36,7 @@ class User extends Authenticatable
         'email',
         'password',
         'can_contact',
+        'location_id'
     ];
 
     /**
@@ -65,6 +68,7 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
         'is_trusted',
+        'location_uuid'
     ];
 
     public function words(): HasMany
@@ -82,6 +86,16 @@ class User extends Authenticatable
             'id',
             'role_id'
         );
+    }
+
+    public function location(): HasOne
+    {
+        return $this->hasOne(Location::class, 'id', 'location_id');
+    }
+
+    public function getLocationUuidAttribute(): ?string
+    {
+        return $this->location && $this->location->uuid;
     }
 
     public function getIsTrustedAttribute(): bool

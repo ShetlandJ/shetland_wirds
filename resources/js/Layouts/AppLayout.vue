@@ -240,7 +240,7 @@ const { reports } = usePage().props.value;
                                     :active="route().current('reports')"
                                 >
                                     Reports
-                                    <span v-if="reports.length > 0">
+                                    <span v-if="reports?.length > 0">
                                         <span class="text-red-500 ml-1">
                                             ({{ reports.length }})
                                         </span>
@@ -503,7 +503,7 @@ const { reports } = usePage().props.value;
                             :active="route().current('reports')"
                         >
                             Reports
-                            <span v-if="reports.length > 0">
+                            <span v-if="reports && reports.length > 0">
                                 <span class="text-red-500 ml-1">
                                     ({{ reports.length }})
                                 </span>

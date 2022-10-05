@@ -1,23 +1,24 @@
 <script setup>
-import { ref } from 'vue';
-import { Inertia } from '@inertiajs/inertia';
-import { Link, useForm } from '@inertiajs/inertia-vue3';
-import JetButton from '@/Jetstream/Button.vue';
-import JetFormSection from '@/Jetstream/FormSection.vue';
-import JetInput from '@/Jetstream/Input.vue';
-import JetInputError from '@/Jetstream/InputError.vue';
-import JetLabel from '@/Jetstream/Label.vue';
-import JetActionMessage from '@/Jetstream/ActionMessage.vue';
-import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue';
+import { ref } from "vue";
+import { Inertia } from "@inertiajs/inertia";
+import { Link, useForm, usePage } from "@inertiajs/inertia-vue3";
+import JetButton from "@/Jetstream/Button.vue";
+import JetFormSection from "@/Jetstream/FormSection.vue";
+import JetInput from "@/Jetstream/Input.vue";
+import JetInputError from "@/Jetstream/InputError.vue";
+import JetLabel from "@/Jetstream/Label.vue";
+import JetActionMessage from "@/Jetstream/ActionMessage.vue";
+import JetSecondaryButton from "@/Jetstream/SecondaryButton.vue";
 
 const props = defineProps({
     user: Object,
 });
 
 const form = useForm({
-    _method: 'PUT',
+    _method: "PUT",
     name: props.user.name,
     email: props.user.email,
+    location: props.user.location.uuid,
     photo: null,
 });
 
@@ -30,8 +31,8 @@ const updateProfileInformation = () => {
         form.photo = photoInput.value.files[0];
     }
 
-    form.post(route('user-profile-information.update'), {
-        errorBag: 'updateProfileInformation',
+    form.post(route("user-profile-information.update"), {
+        errorBag: "updateProfileInformation",
         preserveScroll: true,
         onSuccess: () => clearPhotoFileInput(),
     });
@@ -48,7 +49,7 @@ const selectNewPhoto = () => {
 const updatePhotoPreview = () => {
     const photo = photoInput.value.files[0];
 
-    if (! photo) return;
+    if (!photo) return;
 
     const reader = new FileReader();
 
@@ -60,7 +61,7 @@ const updatePhotoPreview = () => {
 };
 
 const deletePhoto = () => {
-    Inertia.delete(route('current-user-photo.destroy'), {
+    Inertia.delete(route("current-user-photo.destroy"), {
         preserveScroll: true,
         onSuccess: () => {
             photoPreview.value = null;
@@ -74,13 +75,26 @@ const clearPhotoFileInput = () => {
         photoInput.value.value = null;
     }
 };
+
+const locations = ref(null);
+
+const getLocations = () => {
+    axios
+        .get("/api/locations")
+        .then((data) => {
+            locations.value = data.data.data;
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+};
+
+getLocations();
 </script>
 
 <template>
     <JetFormSection @submitted="updateProfileInformation">
-        <template #title>
-            Profile Information
-        </template>
+        <template #title> Profile Information </template>
 
         <template #description>
             Update your account's profile information and email address.
@@ -88,31 +102,50 @@ const clearPhotoFileInput = () => {
 
         <template #form>
             <!-- Profile Photo -->
-            <div v-if="$page.props.jetstream.managesProfilePhotos" class="col-span-6 sm:col-span-4">
+            <div
+                v-if="$page.props.jetstream.managesProfilePhotos"
+                class="col-span-6 sm:col-span-4"
+            >
                 <!-- Profile Photo File Input -->
                 <input
                     ref="photoInput"
                     type="file"
                     class="hidden"
                     @change="updatePhotoPreview"
-                >
+                />
 
                 <JetLabel for="photo" value="Photo" />
 
                 <!-- Current Profile Photo -->
-                <div v-show="! photoPreview" class="mt-2">
-                    <img :src="user.profile_photo_url" :alt="user.name" class="rounded-full h-20 w-20 object-cover">
+                <div v-show="!photoPreview" class="mt-2">
+                    <img
+                        :src="user.profile_photo_url"
+                        :alt="user.name"
+                        class="rounded-full h-20 w-20 object-cover"
+                    />
                 </div>
 
                 <!-- New Profile Photo Preview -->
                 <div v-show="photoPreview" class="mt-2">
                     <span
-                        class="block rounded-full w-20 h-20 bg-cover bg-no-repeat bg-center"
-                        :style="'background-image: url(\'' + photoPreview + '\');'"
+                        class="
+                            block
+                            rounded-full
+                            w-20
+                            h-20
+                            bg-cover bg-no-repeat bg-center
+                        "
+                        :style="
+                            'background-image: url(\'' + photoPreview + '\');'
+                        "
                     />
                 </div>
 
-                <JetSecondaryButton class="mt-2 mr-2" type="button" @click.prevent="selectNewPhoto">
+                <JetSecondaryButton
+                    class="mt-2 mr-2"
+                    type="button"
+                    @click.prevent="selectNewPhoto"
+                >
                     Select A New Photo
                 </JetSecondaryButton>
 
@@ -152,7 +185,12 @@ const clearPhotoFileInput = () => {
                 />
                 <JetInputError :message="form.errors.email" class="mt-2" />
 
-                <div v-if="$page.props.jetstream.hasEmailVerification && user.email_verified_at === null">
+                <div
+                    v-if="
+                        $page.props.jetstream.hasEmailVerification &&
+                        user.email_verified_at === null
+                    "
+                >
                     <p class="text-sm mt-2">
                         Your email address is unverified.
 
@@ -167,9 +205,54 @@ const clearPhotoFileInput = () => {
                         </Link>
                     </p>
 
-                    <div v-show="verificationLinkSent" class="mt-2 font-medium text-sm text-green-600">
-                        A new verification link has been sent to your email address.
+                    <div
+                        v-show="verificationLinkSent"
+                        class="mt-2 font-medium text-sm text-green-600"
+                    >
+                        A new verification link has been sent to your email
+                        address.
                     </div>
+                </div>
+            </div>
+
+            <div class="col-span-6 sm:col-span-4">
+                <p class="mb-2">
+                    Select where you consider yourself to be from in Shetland.
+                </p>
+                <div class="flex">
+                    <select
+                        v-model="form.location"
+                        class="
+                            w-full
+                            px-3
+                            py-1.5
+                            font-normal
+                            text-gray-700
+                            bg-white bg-clip-padding
+                            border border-solid border-gray-300
+                            rounded
+                            transition
+                            ease-in-out
+                            m-0
+                            focus:text-gray-700
+                            focus:bg-white
+                            focus:border-blue-600
+                            focus:outline-none
+                        "
+                    >
+                        <option disabled selected :value="null">
+                            Select location (optional)
+                        </option>
+
+                        <option
+                            v-for="(location, index) in locations"
+                            :key="index"
+                            class="h1"
+                            :value="location.id"
+                        >
+                            {{ location.name }}
+                        </option>
+                    </select>
                 </div>
             </div>
         </template>
@@ -179,7 +262,10 @@ const clearPhotoFileInput = () => {
                 Saved.
             </JetActionMessage>
 
-            <JetButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+            <JetButton
+                :class="{ 'opacity-25': form.processing }"
+                :disabled="form.processing"
+            >
                 Save
             </JetButton>
         </template>

@@ -112,6 +112,26 @@ const remove = () => {
                 </button>
             </div>
         </div>
+
+             <div class="sm:hidden block mt-4">
+                <p>
+                    <b>{{ t("word.recordings.speaker") }}</b
+                    >: {{ recording.speaker_name }}
+                </p>
+                <p>
+                    <b>{{ t("word.recordings.type") }}</b
+                    >: {{ recording.type }}
+                </p>
+                <span v-if="adminView">
+                    {{ t("word.recordings.word") }}: {{ recording.word.word }}
+                </span>
+                <p>
+                    <b>{{ t("word.recordings.date") }}</b
+                    >: {{ formatDate(new Date(recording.created_at)) }}
+                </p>
+            </div>
+
+
         <p class="mt-2" v-if="user.location">
             Speaker has marked their accent as being from <b>{{user.location.name}}</b>
         </p>

@@ -13,16 +13,15 @@ use App\Http\Controllers\DictionaryController;
 
 class WordController extends DictionaryController
 {
-    public function like()
+    public function like(?string $slug)
     {
         if (!Auth::check()) {
             return redirect()->back();
         }
 
-        if (request('wordToLike')) {
-            $this->wordService->handleLike(request('wordToLike'));
+        if ($slug) {
+            $this->wordService->handleLike($slug);
         }
-
         return redirect()->back();
     }
 

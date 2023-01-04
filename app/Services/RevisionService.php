@@ -62,20 +62,26 @@ class RevisionService
     public function formatPayload(array $payload): array
     {
         $difference = [];
-        // check if originalWord and updatedWord are different
-        if ($payload['originalWord'] !== $payload['updatedWord']) {
-            $difference['word'] = [];
-            $difference['word']['word_original'] = $payload['originalWord'];
-            $difference['word']['word_updated'] = $payload['updatedWord'];
-        }
 
-        // loop through definitionChanges and keep any differences
-        $difference['definitions'] = [];
-        foreach ($payload['definitionChanges'] as $key => $value) {
-            if ($value['original'] !== $value['updated']) {
-                $difference['definitions'][$key] = [];
-                $difference['definitions'][$key]['definition_original'] = $value['original'];
-                $difference['definitions'][$key]['definition_updated'] = $value['updated'];
+        if (isset($payload['newWord']) && $payload['newWord']) {
+            $difference['originalWord'] = '';
+            $difference['updatedWord'] = $payload['newWord'];
+        } else {
+            // check if originalWord and updatedWord are different
+            if ($payload['originalWord'] !== $payload['updatedWord']) {
+                $difference['word'] = [];
+                $difference['word']['word_original'] = $payload['originalWord'];
+                $difference['word']['word_updated'] = $payload['updatedWord'];
+            }
+
+            // loop through definitionChanges and keep any differences
+            $difference['definitions'] = [];
+            foreach ($payload['definitionChanges'] as $key => $value) {
+                if ($value['original'] !== $value['updated']) {
+                    $difference['definitions'][$key] = [];
+                    $difference['definitions'][$key]['definition_original'] = $value['original'];
+                    $difference['definitions'][$key]['definition_updated'] = $value['updated'];
+                }
             }
         }
 

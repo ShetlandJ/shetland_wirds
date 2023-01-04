@@ -83,8 +83,11 @@ class WordDefinition extends Model
 
     public function getConvertedTypeAttribute(): ?string
     {
-        // if word isn't valid, return empty string
-        if (!in_array($this->type, $this->validWordTypes)) {
+        if (isset(self::WORD_TYPE_ABBR_MAP[$this->type])) {
+            return self::WORD_TYPE_ABBR_MAP[$this->type];
+        } else if (!in_array($this->type, $this->validWordTypes)
+            || isset(self::WORD_TYPE_ABBR_MAP[$this->type])
+        ) {
             return null;
         }
 

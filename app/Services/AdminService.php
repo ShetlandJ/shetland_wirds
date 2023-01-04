@@ -157,6 +157,7 @@ class AdminService
             $definitionsChanges[$wordDefinition->uuid]['original'] = $wordDefinition->definition;
             if ($wordDefinition) {
                 $wordDefinition->definition = $definition['definition'];
+                $wordDefinition->type = $definition['type'];
                 $wordDefinition->save();
                 $definitionsChanges[$wordDefinition->uuid]['updated'] = $wordDefinition->definition;
             }

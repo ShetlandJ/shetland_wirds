@@ -102,7 +102,7 @@ const defaultWordTypes = [
         name: "Proper noun",
         value: "proper_noun",
     },
-];{}
+];
 </script>
 
 <template>

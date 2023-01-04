@@ -71,6 +71,7 @@ const updateWord = () => {
             word.value.definitions?.map((definition) => ({
                 id: definition.id,
                 definition: definition.definition,
+                type: definition.type,
             })) || [],
         newDefinitions: newDefinitions.value,
         removedDefinitions: removedDefinitions.value,
@@ -186,6 +187,33 @@ const deleteWord = () => {
             console.log(error);
         });
 }
+
+const defaultWordTypes = [
+    { value: "v", name: "verb" },
+    { value: "n", name: "noun" },
+    { value: "adv", name: "adverb" },
+    { value: "prep", name: "preposition" },
+    { value: "indf", name: "indefinite_article" },
+    { value: "num", name: "numeral" },
+    { value: "det", name: "determiner" },
+    { value: "pro-form", name: "pro-form" },
+    { value: "interj", name: "interjection" },
+    { value: "conj", name: "conjunction" },
+    { value: "coordconn", name: "coordinating_conjunction" },
+    { value: "pn", name: "pronoun" },
+    { value: "aux", name: "auxiliary_verb" },
+    { value: "dem", name: "demonstrative_pronoun" },
+    { value: "prt", name: "particle" },
+    { value: "pers", name: "personal_pronoun" },
+    { value: "poss", name: "possessive_pronoun" },
+    { value: "cardnum", name: "cardinal_number" },
+    { value: "ord_num", name: "ordinal_number" },
+    { value: "interrog", name: "interrogative_pronoun" },
+    { value: "refl", name: "reflexive_pronoun" },
+    { value: "quant", name: "quantifier" },
+    { value: "mod", name: "modal_verb" },
+    { value: "verbprt", name: "verb_particle" },
+];
 </script>
 
 <template>
@@ -353,6 +381,44 @@ const deleteWord = () => {
                         X
                     </button>
                 </div>
+
+                <div>
+                    <select
+                        v-model="definition.type"
+                        :key="definition.type + index"
+                        class="
+                            mt-3
+                            w-full
+                            px-3
+                            py-1.5
+                            font-normal
+                            text-gray-700
+                            bg-white bg-clip-padding
+                            border border-solid border-gray-300
+                            rounded
+                            transition
+                            ease-in-out
+                            m-0
+                            focus:text-gray-700
+                            focus:bg-white
+                            focus:border-blue-600
+                            focus:outline-none
+                        "
+                    >
+                    <option disabled selected :value="null">
+                        Select word type (optional)
+                    </option>
+                        <option
+                            v-for="(wordType, index) in defaultWordTypes"
+                            :key="index"
+                            class="h1"
+                            :value="wordType.value"
+                        >
+                            {{ wordType.name }}
+                        </option>
+                    </select>
+                </div>
+
             </div>
 
             <div v-if="newDefinitions">

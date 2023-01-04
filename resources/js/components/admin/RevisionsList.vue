@@ -149,6 +149,16 @@ const comparisonExists = (text1, text2) => {
                                             "
                                         />
                                     </span>
+                                    <span
+                                        v-else-if="
+                                            revision.revisions.word.original === ''
+                                            && revision.revisions.word.updated === ''
+                                            && !revision.revisions.definitions
+                                        "
+                                        class="highlight"
+                                    >
+                                        {{ revision.word }}
+                                    </span>
                                     <span v-else>{{ revision.word }}</span>
                                 </td>
                                 <td

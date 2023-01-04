@@ -104,7 +104,9 @@ class RevisionService
 
         $revision->revisions = json_encode($this->formatPayload($payload));
 
-        $revision->user_id = $userUuid ? User::where('uuid', $userUuid)->first()->id : null;
+        $revision->user_id = $userUuid
+            ? User::where('uuid', (int) $userUuid)->first()->id
+            : null;
 
         $revision->save();
 

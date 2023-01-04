@@ -9,6 +9,7 @@ use App\Models\Word;
 use App\Models\Comment;
 use App\Models\UserLog;
 use App\Models\Location;
+use App\Models\Revision;
 use App\Models\SearchLog;
 use App\Models\WordReport;
 use App\Models\WordToWord;
@@ -29,13 +30,6 @@ use ProtoneMedia\LaravelFFMpeg\Support\FFMpeg;
 
 class WordService
 {
-    protected RevisionService $revisionService;
-
-    public function __construct(RevisionService $revisionService)
-    {
-        $this->revisionService = $revisionService;
-    }
-
     public function findBy(?string $searchString = '', array $pagination = [], ?string $letter = null): Collection
     {
         $query = Word::query();
@@ -364,12 +358,19 @@ class WordService
             $definitionsChanges[$definition->uuid]['updated'] = $definition->definition;
         }
 
-        $this->revisionService->create($newWord->word, [
+        $userUuid = null;
+
+        if (Auth::check()) {
+            $userUuid = Auth::user()->uuid;
+            ;
+        }
+
+        app(RevisionService::class)->create($newWord->word, [
             'originalWord' => null,
             'updatedWord' => null,
             'newWord' => $newWord,
             'definitionChanges' => $definitionsChanges,
-        ], Auth::id() ?? null);
+        ], $userUuid);
 
         return $newWord;
     }

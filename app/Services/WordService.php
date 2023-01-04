@@ -9,6 +9,7 @@ use App\Models\Word;
 use App\Models\Comment;
 use App\Models\UserLog;
 use App\Models\Location;
+use App\Models\Revision;
 use App\Models\SearchLog;
 use App\Models\WordReport;
 use App\Models\WordToWord;
@@ -18,17 +19,14 @@ use App\Models\WordOfTheDay;
 use FFMpeg\Format\Audio\Mp3;
 use App\Models\WordRecording;
 use App\Models\WordDefinition;
-use App\Models\WordToLocation;
-use App\Models\WordRelationType;
 use App\Models\WordReviewVote;
+use App\Models\WordToLocation;
+use App\Services\RevisionService;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
 use ProtoneMedia\LaravelFFMpeg\Support\FFMpeg;
-use Symfony\Component\Routing\Loader\Configurator\CollectionConfigurator;
 
 class WordService
 {
@@ -353,6 +351,26 @@ class WordService
             'pending' => $pending,
             'type' => $payload['word_type'],
         ]);
+
+        $definitionsChanges = [];
+        foreach ($newWord->definitions as $definition) {
+            $definitionsChanges[$definition->uuid]['original'] = '';
+            $definitionsChanges[$definition->uuid]['updated'] = $definition->definition;
+        }
+
+        $userUuid = null;
+
+        if (Auth::check()) {
+            $userUuid = Auth::user()->uuid;
+            ;
+        }
+
+        app(RevisionService::class)->create($newWord->word, [
+            'originalWord' => null,
+            'updatedWord' => null,
+            'newWord' => $newWord,
+            'definitionChanges' => $definitionsChanges,
+        ], $userUuid);
 
         return $newWord;
     }

@@ -23,8 +23,18 @@ const searchWords = (firstSearch = true) => {
             },
         })
         .then(({ data }) => {
-            if (firstSearch) wordResultsList.value = data;
-            else linkedWordResultsList.value = data;
+            if (firstSearch) {
+                wordResultsList.value = data;
+
+                if (wordResultsList.value.length === 1) {
+                    getWord(wordResultsList.value[0].id);
+                } else {
+                    word.value = null;
+                }
+
+            } else {
+                linkedWordResultsList.value = data;
+            }
         })
         .catch((error) => {
             console.log(error);
@@ -204,7 +214,7 @@ const deleteWord = () => {
 
         <div
             :key="wordResultsList.length"
-            v-if="wordResultsList.length > 0"
+            v-if="wordResultsList.length > 1"
             class="mb-4"
         >
             <p class="mb-2">2. Select a word from the list</p>
@@ -228,6 +238,7 @@ const deleteWord = () => {
                         focus:border-blue-600
                         focus:outline-none
                     "
+                    id="wordSelector"
                     @input="(event) => getWord(event.target.value)"
                 >
                     <option disabled selected :value="null">

@@ -155,10 +155,11 @@ const comparisonExists = (text1, text2) => {
                                             && revision.revisions.word.updated === ''
                                             && !revision.revisions.definitions
                                         "
-                                        class="highlight"
                                     >
-                                        {{ revision.word }}
-                                    </span>
+                                        <span class="highlight">{{revision.word}}</span>
+                                        (New word)
+                                     </span>
+
                                     <span v-else>{{ revision.word }}</span>
                                 </td>
                                 <td

@@ -21,8 +21,7 @@ class SearchController extends DictionaryController
         }
 
         $exactMatch = $this->wordService->findExactWordBySearch($searchTerm, true);
-        $words = $this->wordService->findAllWordsWithPagination($searchTerm, $this->pagination());
-
+        $words = $this->wordService->findAllWordsWithPagination($searchTerm, $this->pagination($searchTerm));
         $this->logService->createSearchLog(request(), $searchTerm);
 
         if ($exactMatch && count($words) === 0) {
@@ -48,11 +47,12 @@ class SearchController extends DictionaryController
         if (request('searchTerm')) {
             $searchTerm = request('searchTerm');
         }
+
         if (request('wordToLike')) {
             $this->wordService->handleLike(request('wordToLike'));
         }
 
-        $words = $this->wordService->findAllWordsWithPagination($searchTerm, $this->pagination());
+        $words = $this->wordService->findAllWordsWithPagination($searchTerm, $this->pagination($searchTerm));
         $exactMatch = $this->wordService->findExactWordBySearch($searchTerm, true);
         $this->logService->createSearchLog(request(), $searchTerm);
 

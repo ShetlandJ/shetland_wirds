@@ -108,7 +108,7 @@ class WordService
     {
         $foundWord = Word::where('slug', $word)->first();
 
-        if (!$foundWord) {
+        if (! $foundWord) {
             return null;
         }
 
@@ -131,6 +131,7 @@ class WordService
         $words = $this->findBy($searchString, $pagination, $letter);
 
         $output = [];
+
         foreach ($words as $word) {
             $formattedWord = $this->formatWord($word);
             $formattedWord['see_also'] = $word->relatedWords->filter(function ($relatedWord) {
@@ -190,21 +191,45 @@ class WordService
         $payload = [];
 
         if ($parents->count() > 0) {
-        foreach ($parents as $parent) {
-            if ($parent->word->id !== $word->id) {
-                $payload[$parent->word->id]['id'] = $parent->word->uuid;
-                $payload[$parent->word->id]['word'] = $parent->word->word;
-                $payload[$parent->word->id]['slug'] = $parent->word->slug;
-                $payload[$parent->word->id]['type_id'] = $parent->type_uuid ?? null;
-                $payload[$parent->word->id]['type'] = $parent->type_title ?? null;
-            }
+            foreach ($parents as $parent) {
+                if ($parent->word->id !== $word->id) {
+                    $payload[$parent->word->id]['id'] = $parent->word->uuid;
+                    $payload[$parent->word->id]['word'] = $parent->word->word;
+                    $payload[$parent->word->id]['slug'] = $parent->word->slug;
+                    $payload[$parent->word->id]['type_id'] = $parent->type_uuid ?? null;
+                    $payload[$parent->word->id]['type'] = $parent->type_title ?? null;
+                }
 
+                $children = WordToWord::select(
+                    'words_to_words.*',
+                    'word_relation_types.uuid as type_uuid',
+                    'word_relation_types.title as type_title'
+                )
+                    ->where('word_id', $parent->word_id)
+                    ->join('word_relation_types', 'word_relation_types.id', '=', 'words_to_words.type_id')
+                    ->get();
+
+                foreach ($children as $child) {
+                    if ($child->linkedWord->id === $word->id) {
+                        continue;
+                    }
+
+                    $payload[$child->linked_word_id] = [
+                        'id' => $child->linkedWord->uuid,
+                        'word' => $child->linkedWord->word,
+                        'slug' => $child->linkedWord->slug,
+                        'type_id' => $child->type_uuid ?? null,
+                        'type' => $child->type_title ?? null,
+                    ];
+                }
+            }
+        } else {
             $children = WordToWord::select(
                 'words_to_words.*',
                 'word_relation_types.uuid as type_uuid',
                 'word_relation_types.title as type_title'
             )
-                ->where('word_id', $parent->word_id)
+                ->where('word_id', $word->id)
                 ->join('word_relation_types', 'word_relation_types.id', '=', 'words_to_words.type_id')
                 ->get();
 
@@ -222,30 +247,6 @@ class WordService
                 ];
             }
         }
-    } else {
-        $children = WordToWord::select(
-            'words_to_words.*',
-            'word_relation_types.uuid as type_uuid',
-            'word_relation_types.title as type_title'
-        )
-            ->where('word_id', $word->id)
-            ->join('word_relation_types', 'word_relation_types.id', '=', 'words_to_words.type_id')
-            ->get();
-
-        foreach ($children as $child) {
-            if ($child->linkedWord->id === $word->id) {
-                continue;
-            }
-
-            $payload[$child->linked_word_id] = [
-                'id' => $child->linkedWord->uuid,
-                'word' => $child->linkedWord->word,
-                'slug' => $child->linkedWord->slug,
-                'type_id' => $child->type_uuid ?? null,
-                'type' => $child->type_title ?? null,
-            ];
-        }
-    }
 
         return array_values($payload);
     }
@@ -957,7 +958,7 @@ class WordService
             ->open($filename)
             ->export()
             ->toDisk($assetPath)
-            ->inFormat(new Mp3)
+            ->inFormat(new Mp3())
             ->save($newFileName);
 
         $this->convertFromWebm($recording);
@@ -1026,7 +1027,7 @@ class WordService
 
         if ($voteExists && $voteExists->approved === $approval) {
             return null;
-        } else if ($voteExists) {
+        } elseif ($voteExists) {
             $voteExists->approved = $approval;
             $voteExists->save();
 

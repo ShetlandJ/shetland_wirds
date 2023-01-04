@@ -29,7 +29,9 @@ use ProtoneMedia\LaravelFFMpeg\Support\FFMpeg;
 
 class WordService
 {
-    public function __construct(protected RevisionService $revisionService)
+    protected RevisionService $revisionService;
+
+    public function __construct(RevisionService $revisionService)
     {
         $this->revisionService = $revisionService;
     }
